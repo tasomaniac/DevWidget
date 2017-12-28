@@ -1,0 +1,74 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'com.novoda.android-command'
+apply plugin: 'com.novoda.build-properties'
+apply plugin: 'com.github.triplet.play'
+apply plugin: 'io.fabric'
+apply plugin: 'net.ltgt.errorprone'
+
+def gitSha = 'git rev-parse --short HEAD'.execute([], project.rootDir).text.trim()
+
+android {
+  compileSdkVersion versions.compileSdk
+
+  defaultConfig {
+    applicationId 'com.tasomaniac.devdrawer'
+    minSdkVersion versions.minSdk
+    targetSdkVersion versions.compileSdk
+    versionCode versions.versionCode
+    versionName versions.versionName
+    buildConfigField 'String', 'GIT_SHA', "\"${gitSha}\""
+
+    resConfigs 'en'
+
+    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+  }
+
+  buildTypes {
+    debug {
+      ext.enableCrashlytics = false
+      applicationIdSuffix '.debug'
+      versionNameSuffix '-debug'
+    }
+
+    release {
+      minifyEnabled true
+      shrinkResources true
+      proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+    }
+  }
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+}
+
+dependencies {
+  implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$versions.kotlin"
+
+  implementation "com.android.support:support-fragment:$versions.supportLib"
+  implementation "com.android.support:appcompat-v7:$versions.supportLib"
+  implementation "com.android.support:cardview-v7:$versions.supportLib"
+  implementation "com.android.support:recyclerview-v7:$versions.supportLib"
+  implementation "com.android.support:design:$versions.supportLib"
+
+  implementation "android.arch.persistence.room:runtime:$versions.room"
+  kapt "android.arch.persistence.room:compiler:$versions.room"
+
+  implementation 'com.jakewharton.timber:timber:4.6.0'
+  implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+  implementation 'io.reactivex.rxjava2:rxjava:2.1.8'
+
+  implementation "com.google.dagger:dagger-android-support:$versions.dagger"
+  kapt "com.google.dagger:dagger-compiler:$versions.dagger"
+  kapt "com.google.dagger:dagger-android-processor:$versions.dagger"
+
+  testImplementation 'junit:junit:4.12'
+  androidTestImplementation 'com.android.support.test:runner:1.0.1'
+  androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+  androidTestImplementation "android.arch.persistence.room:testing:$versions.room"
+
+}

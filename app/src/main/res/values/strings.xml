@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">DevDrawer</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="configure">Configure</string>
+    <string name="add_widget">Add widget</string>
+
+
+    <string name="pref_key_night_mode" translatable="false">pref_night_mode</string>
+    <string name="pref_value_night_mode_off" translatable="false">off</string>
+    <string name="pref_value_night_mode_on" translatable="false">on</string>
+    <string name="pref_title_night_mode">Night Mode</string>
+    <string name="pref_entry_night_mode_off">Off</string>
+    <string name="pref_entry_night_mode_on">On</string>
+</resources>

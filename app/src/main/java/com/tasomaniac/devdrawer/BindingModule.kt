@@ -1,0 +1,16 @@
+package com.tasomaniac.devdrawer
+
+import com.tasomaniac.devdrawer.widget.AppWidgetConfigureActivity
+import com.tasomaniac.devdrawer.widget.WidgetViewsService
+import dagger.Module
+import dagger.android.ContributesAndroidInjector
+
+@Module
+interface BindingModule {
+
+  @ContributesAndroidInjector
+  fun widgetViewsService(): WidgetViewsService
+
+  @ContributesAndroidInjector
+  fun appWidgetConfigureActivity(): AppWidgetConfigureActivity
+}
