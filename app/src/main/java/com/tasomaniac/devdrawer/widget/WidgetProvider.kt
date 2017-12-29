@@ -5,10 +5,10 @@ import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.os.Bundle
 import android.widget.RemoteViews
 import com.tasomaniac.devdrawer.R
 import com.tasomaniac.devdrawer.data.AppDao
+import com.tasomaniac.devdrawer.data.Widget
 import com.tasomaniac.devdrawer.data.deleteWidgets
 import com.tasomaniac.devdrawer.rx.SchedulingStrategy
 import dagger.android.AndroidInjection
@@ -31,7 +31,8 @@ class WidgetProvider : AppWidgetProvider() {
   }
 
   override fun onDeleted(context: Context, appWidgetIds: IntArray) {
-    appDao.deleteWidgets(*appWidgetIds)
+    val widgets = appWidgetIds.map { Widget(it) }
+    appDao.deleteWidgets(*widgets.toTypedArray())
         .compose(scheduling.forCompletable())
         .subscribe()
   }

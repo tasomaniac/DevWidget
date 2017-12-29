@@ -2,10 +2,13 @@ package com.tasomaniac.devdrawer.data
 
 import io.reactivex.Completable
 
-fun AppDao.insert(app: App): Completable = Completable.fromAction {
-  insertSync(app)
+fun AppDao.insert(appWidgetId: Int, vararg packageNames: String): Completable = Completable.fromAction {
+  insertWidgetSync(Widget(appWidgetId))
+  packageNames.forEach {
+    insertSync(App(it, appWidgetId))
+  }
 }
 
-fun AppDao.deleteWidgets(vararg appWidgetIds: Int): Completable = Completable.fromAction {
-  deleteWidgetsSync(*appWidgetIds)
+fun AppDao.deleteWidgets(vararg widgets: Widget): Completable = Completable.fromAction {
+  deleteWidgetsSync(*widgets)
 }
