@@ -3,8 +3,7 @@ package com.tasomaniac.devdrawer.widget
 import android.appwidget.AppWidgetManager
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
+import android.graphics.Bitmap
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import com.tasomaniac.devdrawer.BuildConfig
@@ -45,7 +44,7 @@ class WidgetViewsService : RemoteViewsService() {
           WidgetData(
               label = applicationInfo.loadLabel(packageManager).toString(),
               packageName = applicationInfo.packageName,
-              icon = applicationInfo.loadIcon(packageManager)
+              icon = applicationInfo.loadIcon(packageManager).toBitmap()
           )
         } catch (e: PackageManager.NameNotFoundException) {
           Timber.e(e)
@@ -60,7 +59,7 @@ class WidgetViewsService : RemoteViewsService() {
       return RemoteViews(BuildConfig.APPLICATION_ID, R.layout.app_widget_list_item).apply {
         setTextViewText(R.id.appWidgetPackageName, app.packageName)
         setTextViewText(R.id.appWidgetLabel, app.label)
-        setImageViewBitmap(R.id.appWidgetIcon, (app.icon as BitmapDrawable).bitmap)
+        setImageViewBitmap(R.id.appWidgetIcon, app.icon)
       }
     }
 
@@ -80,5 +79,5 @@ class WidgetViewsService : RemoteViewsService() {
       get() = getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID)
   }
 
-  data class WidgetData(val label: String, val packageName: String, val icon: Drawable)
+  data class WidgetData(val label: String, val packageName: String, val icon: Bitmap)
 }
