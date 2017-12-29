@@ -5,17 +5,35 @@ import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Bundle
 import android.widget.RemoteViews
 import com.tasomaniac.devdrawer.R
+import com.tasomaniac.devdrawer.data.AppDao
+import com.tasomaniac.devdrawer.data.deleteWidgets
+import com.tasomaniac.devdrawer.rx.SchedulingStrategy
+import dagger.android.AndroidInjection
+import javax.inject.Inject
 
 class WidgetProvider : AppWidgetProvider() {
 
+  @Inject lateinit var appDao: AppDao
+  @Inject lateinit var scheduling: SchedulingStrategy
+
+  override fun onReceive(context: Context, intent: Intent) {
+    AndroidInjection.inject(this, context)
+    super.onReceive(context, intent)
+  }
+
   override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
-    appWidgetIds.forEach { id -> updateAppWidget(context, appWidgetManager, id) }
+    appWidgetIds.forEach { id ->
+      updateAppWidget(context, appWidgetManager, id)
+    }
   }
 
   override fun onDeleted(context: Context, appWidgetIds: IntArray) {
-    TODO("Delete associated persisted data")
+    appDao.deleteWidgets(*appWidgetIds)
+        .compose(scheduling.forCompletable())
+        .subscribe()
   }
 
   companion object {

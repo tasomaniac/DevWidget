@@ -7,10 +7,7 @@
       android:id="@+id/widgetTitle"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="@string/appwidget_text"
-      android:textSize="24sp"
-      android:textStyle="bold|italic"
-      android:layout_margin="8dp" />
+      android:textSize="24sp"/>
 
   <ListView
       android:id="@+id/widgetAppList"

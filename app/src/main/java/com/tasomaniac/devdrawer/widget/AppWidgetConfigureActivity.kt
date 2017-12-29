@@ -8,9 +8,10 @@ import android.view.View
 import com.tasomaniac.devdrawer.R
 import com.tasomaniac.devdrawer.data.App
 import com.tasomaniac.devdrawer.data.AppDao
+import com.tasomaniac.devdrawer.data.insert
 import com.tasomaniac.devdrawer.rx.SchedulingStrategy
 import dagger.android.support.DaggerAppCompatActivity
-import io.reactivex.Completable
+import io.reactivex.disposables.Disposables
 import kotlinx.android.synthetic.main.new_app_widget_configure.*
 import javax.inject.Inject
 
@@ -19,18 +20,18 @@ class AppWidgetConfigureActivity : DaggerAppCompatActivity() {
   @Inject lateinit var appDao: AppDao
   @Inject lateinit var scheduling: SchedulingStrategy
 
-  private var mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID
-  private var mOnClickListener: View.OnClickListener = View.OnClickListener {
-    Completable
-        .fromAction {
-          appDao.insert(App(appwidget_text.text.toString(), mAppWidgetId))
-        }
+  private var disposable = Disposables.empty()
+  private var appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID
+  private var onClickListener = View.OnClickListener {
+    disposable.dispose()
+    val packageName = configurePackageName.text.toString()
+    disposable = appDao.insert(App(packageName, appWidgetId))
         .compose(scheduling.forCompletable())
         .subscribe {
           updateWidget()
 
           val resultValue = Intent()
-          resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId)
+          resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
           setResult(Activity.RESULT_OK, resultValue)
           finish()
         }
@@ -38,7 +39,7 @@ class AppWidgetConfigureActivity : DaggerAppCompatActivity() {
 
   private fun updateWidget() {
     val appWidgetManager = AppWidgetManager.getInstance(this)
-    WidgetProvider.updateAppWidget(this, appWidgetManager, mAppWidgetId)
+    WidgetProvider.updateAppWidget(this, appWidgetManager, appWidgetId)
   }
 
   public override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,14 +47,19 @@ class AppWidgetConfigureActivity : DaggerAppCompatActivity() {
     setResult(Activity.RESULT_CANCELED)
 
     setContentView(R.layout.new_app_widget_configure)
-    findViewById<View>(R.id.add_button).setOnClickListener(mOnClickListener)
+    configureAdd.setOnClickListener(onClickListener)
 
-    mAppWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID)
+    appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID)
 
-    if (mAppWidgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
+    if (appWidgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
       finish()
       return
     }
+  }
+
+  override fun onDestroy() {
+    super.onDestroy()
+    disposable.dispose()
   }
 }
 
