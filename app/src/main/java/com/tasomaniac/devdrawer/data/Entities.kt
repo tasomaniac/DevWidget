@@ -21,4 +21,7 @@ data class App(
 )
 
 @Entity
-data class Widget(@PrimaryKey val appWidgetId: Int)
+data class Widget(
+    @PrimaryKey val appWidgetId: Int,
+    val name: String = "Widget #$appWidgetId"
+)

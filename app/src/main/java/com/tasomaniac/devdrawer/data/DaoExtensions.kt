@@ -2,10 +2,10 @@ package com.tasomaniac.devdrawer.data
 
 import io.reactivex.Completable
 
-fun Dao.insert(appWidgetId: Int, vararg packageNames: String): Completable = Completable.fromAction {
-  insertWidgetSync(Widget(appWidgetId))
+fun Dao.insert(widget: Widget, vararg packageNames: String): Completable = Completable.fromAction {
+  insertWidgetSync(widget)
   packageNames.forEach {
-    insertSync(App(it, appWidgetId))
+    insertSync(App(it, widget.appWidgetId))
   }
 }
 

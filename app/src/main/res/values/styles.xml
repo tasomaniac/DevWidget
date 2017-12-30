@@ -6,8 +6,4 @@
     <item name="colorAccent">@color/colorAccent</item>
   </style>
 
-  <style name="ThemeOverlay.DevDrawer.AppBar" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-  <style name="ThemeOverlay.DevDrawer.Popup" parent="ThemeOverlay.AppCompat.Light" />
-
 </resources>

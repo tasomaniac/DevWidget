@@ -1,31 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:paddingStart="@dimen/keyline_1"
-    android:paddingEnd="@dimen/keyline_1"
-    android:paddingTop="@dimen/default_gap"
-    android:paddingBottom="@dimen/default_gap">
+    android:layout_height="match_parent"
+    tools:context=".widget.configure.AppWidgetConfigureActivity">
 
-  <TextView
+  <android.support.design.widget.AppBarLayout
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:text="@string/configure"
-      android:layout_marginBottom="8dp" />
+      android:layout_height="@dimen/appbar_height"
+      android:fitsSystemWindows="true"
+      android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-  <EditText
-      android:id="@+id/configurePackageName"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:inputType="text"
-      android:text="de.is24.android.debug"/>
+    <android.support.design.widget.CollapsingToolbarLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        app:expandedTitleMarginStart="@dimen/keyline_1"
+        app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-  <Button
-      android:id="@+id/configureAdd"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="@string/add_widget"
-      android:layout_marginTop="8dp" />
+      <android.support.v7.widget.Toolbar
+          android:id="@+id/toolbar"
+          android:layout_width="match_parent"
+          android:layout_height="?attr/actionBarSize"
+          app:layout_collapseMode="pin"
+          app:navigationIcon="@drawable/ic_action_done"
+          app:navigationContentDescription="@string/add_widget"
+          app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+    </android.support.design.widget.CollapsingToolbarLayout>
+  </android.support.design.widget.AppBarLayout>
 
-</LinearLayout>
+  <include layout="@layout/add_widget_content" />
+
+</android.support.design.widget.CoordinatorLayout>
+

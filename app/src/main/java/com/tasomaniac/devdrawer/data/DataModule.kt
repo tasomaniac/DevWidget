@@ -12,11 +12,11 @@ object DataModule {
   @Singleton
   @Provides
   @JvmStatic
-  fun room(app: Application): AppDatabase =
-      Room.databaseBuilder(app, AppDatabase::class.java, "devdrawer").build()
+  fun room(app: Application): Database =
+      Room.databaseBuilder(app, Database::class.java, "devdrawer").build()
 
   @Provides
   @JvmStatic
-  fun appDao(appDatabase: AppDatabase) = appDatabase.appDao()
+  fun appDao(database: Database) = database.appDao()
 
 }

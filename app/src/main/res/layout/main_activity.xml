@@ -7,17 +7,27 @@
     tools:context=".main.MainActivity">
 
   <android.support.design.widget.AppBarLayout
-      android:layout_height="wrap_content"
       android:layout_width="match_parent"
-      android:theme="@style/ThemeOverlay.DevDrawer.AppBar">
+      android:layout_height="@dimen/appbar_height"
+      android:fitsSystemWindows="true"
+      android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+    <android.support.design.widget.CollapsingToolbarLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        app:popupTheme="@style/ThemeOverlay.DevDrawer.Popup" />
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        app:expandedTitleMarginStart="@dimen/keyline_1"
+        app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
+      <android.support.v7.widget.Toolbar
+          android:id="@+id/toolbar"
+          android:layout_width="match_parent"
+          android:layout_height="?attr/actionBarSize"
+          app:layout_collapseMode="pin"
+          app:navigationIcon="@drawable/ic_action_done"
+          app:navigationContentDescription="@string/done"
+          app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+    </android.support.design.widget.CollapsingToolbarLayout>
   </android.support.design.widget.AppBarLayout>
 
   <include layout="@layout/main_content" />

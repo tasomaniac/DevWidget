@@ -2,4 +2,6 @@
   <dimen name="default_gap">16dp</dimen>
   <dimen name="half_gap">8dp</dimen>
   <dimen name="keyline_1">16dp</dimen>
+
+  <dimen name="appbar_height">196dp</dimen>
 </resources>
