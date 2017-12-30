@@ -17,7 +17,7 @@ import com.tasomaniac.devdrawer.data.Widget
 import com.tasomaniac.devdrawer.rx.SchedulingStrategy
 import com.tasomaniac.devdrawer.widget.WidgetProvider
 import dagger.android.support.DaggerAppCompatActivity
-import kotlinx.android.synthetic.main.content_main.*
+import kotlinx.android.synthetic.main.main_content.*
 import kotlinx.android.synthetic.main.main_activity.*
 import javax.inject.Inject
 

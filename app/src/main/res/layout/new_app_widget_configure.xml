@@ -3,7 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:paddingStart="@dimen/keyline_1"
+    android:paddingEnd="@dimen/keyline_1"
+    android:paddingTop="@dimen/default_gap"
+    android:paddingBottom="@dimen/default_gap">
 
   <TextView
       android:layout_width="match_parent"
