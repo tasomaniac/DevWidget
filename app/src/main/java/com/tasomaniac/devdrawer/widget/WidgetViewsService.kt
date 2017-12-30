@@ -8,14 +8,14 @@ import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import com.tasomaniac.devdrawer.BuildConfig
 import com.tasomaniac.devdrawer.R
-import com.tasomaniac.devdrawer.data.AppDao
+import com.tasomaniac.devdrawer.data.Dao
 import dagger.android.AndroidInjection
 import timber.log.Timber
 import javax.inject.Inject
 
 class WidgetViewsService : RemoteViewsService() {
 
-  @Inject lateinit var appDao: AppDao
+  @Inject lateinit var dao: Dao
 
   override fun onCreate() {
     AndroidInjection.inject(this)
@@ -23,11 +23,11 @@ class WidgetViewsService : RemoteViewsService() {
   }
 
   override fun onGetViewFactory(intent: Intent): WidgetViewsFactory {
-    return WidgetViewsFactory(appDao, packageManager, intent.appWidgetId)
+    return WidgetViewsFactory(dao, packageManager, intent.appWidgetId)
   }
 
   class WidgetViewsFactory(
-      private val appDao: AppDao,
+      private val dao: Dao,
       private val packageManager: PackageManager,
       private val appWidgetId: Int
   ) : RemoteViewsService.RemoteViewsFactory {
@@ -35,7 +35,7 @@ class WidgetViewsService : RemoteViewsService() {
     private var apps: List<WidgetData> = emptyList()
 
     override fun onDataSetChanged() {
-      val packageNames = appDao.findAppsByWidgetId(appWidgetId)
+      val packageNames = dao.findAppsByWidgetId(appWidgetId)
 
       apps = packageNames.mapNotNull {
         try {

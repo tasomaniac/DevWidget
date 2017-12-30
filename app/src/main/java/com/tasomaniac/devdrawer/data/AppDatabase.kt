@@ -6,5 +6,5 @@ import android.arch.persistence.room.RoomDatabase
 @Database(entities = [Widget::class, App::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
 
-  abstract fun appDao(): AppDao
+  abstract fun appDao(): Dao
 }

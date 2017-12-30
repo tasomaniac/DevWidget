@@ -12,18 +12,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.tasomaniac.devdrawer.R
-import com.tasomaniac.devdrawer.data.AppDao
+import com.tasomaniac.devdrawer.data.Dao
 import com.tasomaniac.devdrawer.data.Widget
 import com.tasomaniac.devdrawer.rx.SchedulingStrategy
 import com.tasomaniac.devdrawer.widget.WidgetProvider
 import dagger.android.support.DaggerAppCompatActivity
-import kotlinx.android.synthetic.main.main_content.*
 import kotlinx.android.synthetic.main.main_activity.*
+import kotlinx.android.synthetic.main.main_content.*
 import javax.inject.Inject
 
 class MainActivity : DaggerAppCompatActivity() {
 
-  @Inject lateinit var appDao: AppDao
+  @Inject lateinit var dao: Dao
   @Inject lateinit var scheduling: SchedulingStrategy
   @Inject lateinit var appWidgetManager: AppWidgetManager
 
@@ -40,7 +40,7 @@ class MainActivity : DaggerAppCompatActivity() {
     }
 
 
-    appDao.allwidgets()
+    dao.allWidgets()
         .compose(scheduling.forFlowable())
         .subscribe {
           mainWidgetList.adapter = WidgetListAdapter(it)

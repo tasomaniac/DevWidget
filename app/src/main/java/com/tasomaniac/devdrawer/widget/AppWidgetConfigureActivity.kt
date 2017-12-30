@@ -6,7 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.tasomaniac.devdrawer.R
-import com.tasomaniac.devdrawer.data.AppDao
+import com.tasomaniac.devdrawer.data.Dao
 import com.tasomaniac.devdrawer.data.insert
 import com.tasomaniac.devdrawer.rx.SchedulingStrategy
 import dagger.android.support.DaggerAppCompatActivity
@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 class AppWidgetConfigureActivity : DaggerAppCompatActivity() {
 
-  @Inject lateinit var appDao: AppDao
+  @Inject lateinit var dao: Dao
   @Inject lateinit var scheduling: SchedulingStrategy
 
   private var disposable = Disposables.empty()
@@ -24,7 +24,7 @@ class AppWidgetConfigureActivity : DaggerAppCompatActivity() {
   private var onClickListener = View.OnClickListener {
     disposable.dispose()
     val packageName = configurePackageName.text.toString()
-    disposable = appDao.insert(appWidgetId, packageName)
+    disposable = dao.insert(appWidgetId, packageName)
         .compose(scheduling.forCompletable())
         .subscribe {
           updateWidget()

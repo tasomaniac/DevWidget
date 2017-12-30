@@ -7,7 +7,7 @@ import android.content.Intent
 import android.net.Uri
 import android.widget.RemoteViews
 import com.tasomaniac.devdrawer.R
-import com.tasomaniac.devdrawer.data.AppDao
+import com.tasomaniac.devdrawer.data.Dao
 import com.tasomaniac.devdrawer.data.Widget
 import com.tasomaniac.devdrawer.data.deleteWidgets
 import com.tasomaniac.devdrawer.rx.SchedulingStrategy
@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 class WidgetProvider : AppWidgetProvider() {
 
-  @Inject lateinit var appDao: AppDao
+  @Inject lateinit var dao: Dao
   @Inject lateinit var scheduling: SchedulingStrategy
 
   override fun onReceive(context: Context, intent: Intent) {
@@ -32,7 +32,7 @@ class WidgetProvider : AppWidgetProvider() {
 
   override fun onDeleted(context: Context, appWidgetIds: IntArray) {
     val widgets = appWidgetIds.map { Widget(it) }
-    appDao.deleteWidgets(*widgets.toTypedArray())
+    dao.deleteWidgets(*widgets.toTypedArray())
         .compose(scheduling.forCompletable())
         .subscribe()
   }

@@ -5,14 +5,14 @@ import io.reactivex.Flowable;
 
 import java.util.List;
 
-@Dao
-public interface AppDao {
+@android.arch.persistence.room.Dao
+public interface Dao {
 
     @Query("SELECT packageName from app where appWidgetId = :appWidgetId")
     List<String> findAppsByWidgetId(int appWidgetId);
 
     @Query("SELECT * from widget")
-    Flowable<List<Widget>> allwidgets();
+    Flowable<List<Widget>> allWidgets();
 
     @Insert(onConflict = OnConflictStrategy.FAIL)
     void insertWidgetSync(Widget widget);
