@@ -9,7 +9,6 @@ import com.tasomaniac.devdrawer.data.Dao
 import com.tasomaniac.devdrawer.data.Widget
 import com.tasomaniac.devdrawer.data.insert
 import com.tasomaniac.devdrawer.rx.SchedulingStrategy
-import com.tasomaniac.devdrawer.widget.WidgetProvider
 import dagger.android.support.DaggerAppCompatActivity
 import io.reactivex.disposables.Disposables
 import kotlinx.android.synthetic.main.add_widget_content.*
@@ -23,11 +22,6 @@ class AppWidgetConfigureActivity : DaggerAppCompatActivity() {
 
   private var disposable = Disposables.empty()
   private var appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID
-
-  private fun updateWidget() {
-    val appWidgetManager = AppWidgetManager.getInstance(this)
-    WidgetProvider.updateAppWidget(this, appWidgetManager, appWidgetId)
-  }
 
   public override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -53,8 +47,6 @@ class AppWidgetConfigureActivity : DaggerAppCompatActivity() {
     disposable = dao.insert(Widget(appWidgetId, widgetName), packageName)
         .compose(scheduling.forCompletable())
         .subscribe {
-          updateWidget()
-
           val resultValue = Intent()
           resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
           setResult(Activity.RESULT_OK, resultValue)

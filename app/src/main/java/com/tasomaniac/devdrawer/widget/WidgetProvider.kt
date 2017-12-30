@@ -12,12 +12,17 @@ import com.tasomaniac.devdrawer.data.Widget
 import com.tasomaniac.devdrawer.data.deleteWidgets
 import com.tasomaniac.devdrawer.rx.SchedulingStrategy
 import dagger.android.AndroidInjection
+import io.reactivex.disposables.Disposable
+import io.reactivex.disposables.Disposables
 import javax.inject.Inject
 
 class WidgetProvider : AppWidgetProvider() {
 
   @Inject lateinit var dao: Dao
   @Inject lateinit var scheduling: SchedulingStrategy
+  @Inject lateinit var appWidgetManager: AppWidgetManager
+
+  private var disposable: Disposable = Disposables.empty()
 
   override fun onReceive(context: Context, intent: Intent) {
     AndroidInjection.inject(this, context)
@@ -25,9 +30,14 @@ class WidgetProvider : AppWidgetProvider() {
   }
 
   override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
-    appWidgetIds.forEach { id ->
-      updateAppWidget(context, appWidgetManager, id)
-    }
+    if (appWidgetIds.isEmpty()) return
+
+    disposable.dispose()
+    disposable = dao.findWidgetById(*appWidgetIds)
+        .compose(scheduling.forFlowable())
+        .subscribe {
+          it.updateWith(context)
+        }
   }
 
   override fun onDeleted(context: Context, appWidgetIds: IntArray) {
@@ -37,23 +47,19 @@ class WidgetProvider : AppWidgetProvider() {
         .subscribe()
   }
 
-  companion object {
+  private fun Widget.updateWith(context: Context) {
+    val remoteViews = RemoteViews(context.packageName, R.layout.app_widget)
 
-    fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int) {
-      val remoteViews = RemoteViews(context.packageName, R.layout.app_widget)
+    remoteViews.setTextViewText(R.id.widgetTitle, name)
+    remoteViews.setRemoteAdapter(R.id.widgetAppList, remoteAdapter(context, appWidgetId))
 
-      val widgetText = "Some text" // TODO
-      remoteViews.setTextViewText(R.id.widgetTitle, widgetText)
-      remoteViews.setRemoteAdapter(R.id.widgetAppList, remoteAdapter(context, appWidgetId))
+    appWidgetManager.updateAppWidget(appWidgetId, remoteViews)
+  }
 
-      appWidgetManager.updateAppWidget(appWidgetId, remoteViews)
-    }
-
-    private fun remoteAdapter(context: Context, appWidgetId: Int): Intent {
-      return Intent(context, WidgetViewsService::class.java).apply {
-        putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
-        data = Uri.parse(toUri(Intent.URI_INTENT_SCHEME))
-      }
+  private fun remoteAdapter(context: Context, appWidgetId: Int): Intent {
+    return Intent(context, WidgetViewsService::class.java).apply {
+      putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
+      data = Uri.parse(toUri(Intent.URI_INTENT_SCHEME))
     }
   }
 }
