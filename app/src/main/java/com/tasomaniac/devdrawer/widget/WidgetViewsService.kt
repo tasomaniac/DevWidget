@@ -2,20 +2,18 @@ package com.tasomaniac.devdrawer.widget
 
 import android.appwidget.AppWidgetManager
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import com.tasomaniac.devdrawer.BuildConfig
 import com.tasomaniac.devdrawer.R
 import com.tasomaniac.devdrawer.data.Dao
 import dagger.android.AndroidInjection
-import timber.log.Timber
 import javax.inject.Inject
 
 class WidgetViewsService : RemoteViewsService() {
 
   @Inject lateinit var dao: Dao
+  @Inject lateinit var widgetDataResolver : WidgetDataResolver
 
   override fun onCreate() {
     AndroidInjection.inject(this)
@@ -23,12 +21,12 @@ class WidgetViewsService : RemoteViewsService() {
   }
 
   override fun onGetViewFactory(intent: Intent): WidgetViewsFactory {
-    return WidgetViewsFactory(dao, packageManager, intent.appWidgetId)
+    return WidgetViewsFactory(dao, widgetDataResolver, intent.appWidgetId)
   }
 
   class WidgetViewsFactory(
       private val dao: Dao,
-      private val packageManager: PackageManager,
+      private val widgetDataResolver: WidgetDataResolver,
       private val appWidgetId: Int
   ) : RemoteViewsService.RemoteViewsFactory {
 
@@ -38,20 +36,8 @@ class WidgetViewsService : RemoteViewsService() {
       val packageNames = dao.findAppsByWidgetId(appWidgetId)
 
       apps = packageNames.mapNotNull {
-        try {
-          val applicationInfo = packageManager.getPackageInfo(it, PackageManager.GET_ACTIVITIES).applicationInfo
-
-          WidgetData(
-              label = applicationInfo.loadLabel(packageManager).toString(),
-              packageName = applicationInfo.packageName,
-              icon = applicationInfo.loadIcon(packageManager).toBitmap()
-          )
-        } catch (e: PackageManager.NameNotFoundException) {
-          Timber.e(e)
-          null
-        }
+        widgetDataResolver.resolve(it)
       }
-
     }
 
     override fun getViewAt(position: Int): RemoteViews {
@@ -79,5 +65,4 @@ class WidgetViewsService : RemoteViewsService() {
       get() = getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID)
   }
 
-  data class WidgetData(val label: String, val packageName: String, val icon: Bitmap)
 }
