@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:configure="com.tasomaniac.devdrawer.widget.configure.ConfigureActivity"
     android:minHeight="110dp"
     android:minResizeHeight="40dp"
     android:minResizeWidth="180dp"
     android:minWidth="250dp"
     android:previewImage="@drawable/example_appwidget_preview"
-    android:initialLayout="@layout/app_widget"
-    android:configure="com.tasomaniac.devdrawer.widget.configure.ConfigureActivity"
     android:resizeMode="horizontal|vertical"
     android:widgetCategory="home_screen"
-    android:updatePeriodMillis="0"
-    android:initialKeyguardLayout="@layout/app_widget"/>
+    android:updatePeriodMillis="0" />

@@ -6,6 +6,7 @@ import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES.O
 import android.os.Bundle
 import android.support.annotation.RequiresApi
+import android.support.v7.widget.DividerItemDecoration
 import android.view.View
 import com.tasomaniac.devdrawer.R
 import com.tasomaniac.devdrawer.data.Dao
@@ -26,6 +27,7 @@ class MainActivity : DaggerAppCompatActivity() {
   @Inject lateinit var scheduling: SchedulingStrategy
   @Inject lateinit var appWidgetManager: AppWidgetManager
   @Inject lateinit var widgetDataResolver: WidgetDataResolver
+  @Inject lateinit var widgetListAdapter: WidgetListAdapter
 
   private var disposable: Disposable = Disposables.empty()
 
@@ -35,11 +37,11 @@ class MainActivity : DaggerAppCompatActivity() {
     setSupportActionBar(toolbar)
 
     if (SDK_INT >= O) {
-      mainAddNewWidget.visibility = View.VISIBLE
-      mainAddNewWidget.setOnClickListener {
-        requestAddWidget()
-      }
+      setupAddWidgetButton()
     }
+
+    mainWidgetList.adapter = widgetListAdapter
+    mainWidgetList.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
 
     disposable.dispose()
     disposable = dao.allWidgets()
@@ -55,8 +57,16 @@ class MainActivity : DaggerAppCompatActivity() {
         }
         .compose(scheduling.forFlowable())
         .subscribe {
-          mainWidgetList.adapter = WidgetListAdapter(it)
+          widgetListAdapter.data = it
         }
+  }
+
+  @RequiresApi(O)
+  private fun setupAddWidgetButton() {
+    mainAddNewWidget.visibility = View.VISIBLE
+    mainAddNewWidget.setOnClickListener {
+      requestAddWidget()
+    }
   }
 
   @RequiresApi(O)

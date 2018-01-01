@@ -1,6 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="110dp"
+    android:paddingTop="@dimen/half_gap"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
@@ -8,7 +9,7 @@
       android:id="@+id/mainWidgetTitle"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:textSize="24sp"/>
+      android:textSize="18sp"/>
 
   <android.support.v7.widget.RecyclerView
       android:id="@+id/mainWidgetAppList"
