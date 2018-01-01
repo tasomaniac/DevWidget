@@ -12,10 +12,10 @@ import com.tasomaniac.devdrawer.rx.SchedulingStrategy
 import dagger.android.support.DaggerAppCompatActivity
 import io.reactivex.disposables.Disposables
 import kotlinx.android.synthetic.main.add_widget_content.*
-import kotlinx.android.synthetic.main.new_app_widget_configure.*
+import kotlinx.android.synthetic.main.configure_activity.*
 import javax.inject.Inject
 
-class AppWidgetConfigureActivity : DaggerAppCompatActivity() {
+class ConfigureActivity : DaggerAppCompatActivity() {
 
   @Inject lateinit var dao: Dao
   @Inject lateinit var scheduling: SchedulingStrategy
@@ -26,7 +26,7 @@ class AppWidgetConfigureActivity : DaggerAppCompatActivity() {
   public override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setResult(Activity.RESULT_CANCELED)
-    setContentView(R.layout.new_app_widget_configure)
+    setContentView(R.layout.configure_activity)
 
     appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID)
 

@@ -6,7 +6,7 @@
     android:minWidth="250dp"
     android:previewImage="@drawable/example_appwidget_preview"
     android:initialLayout="@layout/app_widget"
-    android:configure="com.tasomaniac.devdrawer.widget.configure.AppWidgetConfigureActivity"
+    android:configure="com.tasomaniac.devdrawer.widget.configure.ConfigureActivity"
     android:resizeMode="horizontal|vertical"
     android:widgetCategory="home_screen"
     android:updatePeriodMillis="0"

@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/new_app_widget_configure"
-    tools:context=".widget.configure.AppWidgetConfigureActivity">
+    tools:showIn="@layout/configure_activity"
+    tools:context=".widget.configure.ConfigureActivity">
 
   <android.support.constraint.Guideline
       android:id="@+id/keyline_start"

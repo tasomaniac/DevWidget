@@ -27,10 +27,10 @@
 
       <meta-data
           android:name="android.appwidget.provider"
-          android:resource="@xml/new_app_widget_info" />
+          android:resource="@xml/app_widget_info" />
     </receiver>
 
-    <activity android:name=".widget.configure.AppWidgetConfigureActivity">
+    <activity android:name=".widget.configure.ConfigureActivity">
       <intent-filter>
         <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
       </intent-filter>
