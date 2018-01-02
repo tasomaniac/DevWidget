@@ -27,18 +27,18 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:inputType="textAutoCorrect"
-      android:hint="@string/widget_name"
+      android:hint="@string/configure_hint_widget_name"
       app:layout_constraintStart_toStartOf="@id/keyline_start"
       app:layout_constraintEnd_toEndOf="@id/keyline_end"/>
 
-  <EditText
+  <AutoCompleteTextView
       android:id="@+id/configurePackageName"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:inputType="textUri"
       android:layout_marginTop="@dimen/half_gap"
+      android:inputType="textUri"
+      android:hint="@string/configure_hint_package_matcher"
       app:layout_constraintStart_toStartOf="@id/keyline_start"
       app:layout_constraintEnd_toEndOf="@id/keyline_end"
-      app:layout_constraintTop_toBottomOf="@id/configureWidgetName"
-      android:text="de.is24.android.debug" />
+      app:layout_constraintTop_toBottomOf="@id/configureWidgetName" />
 </android.support.constraint.ConstraintLayout>
