@@ -20,6 +20,21 @@ data class App(
     val appWidgetId: Int
 )
 
+@Entity(
+    primaryKeys = ["packageName", "appWidgetId"],
+    foreignKeys = [ForeignKey(
+        entity = Widget::class,
+        parentColumns = ["appWidgetId"],
+        childColumns = ["appWidgetId"],
+        onDelete = ForeignKey.CASCADE
+    )],
+    indices = [Index("appWidgetId")]
+)
+data class Filter(
+    val packageFilter: String,
+    val appWidgetId: Int
+)
+
 @Entity
 data class Widget(
     @PrimaryKey val appWidgetId: Int,

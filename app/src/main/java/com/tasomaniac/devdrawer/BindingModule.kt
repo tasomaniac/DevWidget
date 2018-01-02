@@ -1,7 +1,7 @@
 package com.tasomaniac.devdrawer
 
 import com.tasomaniac.devdrawer.main.MainActivity
-import com.tasomaniac.devdrawer.widget.configure.ConfigureActivity
+import com.tasomaniac.devdrawer.configure.ConfigureActivity
 import com.tasomaniac.devdrawer.widget.WidgetProvider
 import com.tasomaniac.devdrawer.widget.WidgetViewsService
 import dagger.Module

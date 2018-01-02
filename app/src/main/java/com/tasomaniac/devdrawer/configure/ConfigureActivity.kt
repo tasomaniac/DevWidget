@@ -1,4 +1,4 @@
-package com.tasomaniac.devdrawer.widget.configure
+package com.tasomaniac.devdrawer.configure
 
 import android.app.Activity
 import android.appwidget.AppWidgetManager
@@ -11,7 +11,7 @@ import com.tasomaniac.devdrawer.data.insert
 import com.tasomaniac.devdrawer.rx.SchedulingStrategy
 import dagger.android.support.DaggerAppCompatActivity
 import io.reactivex.disposables.Disposables
-import kotlinx.android.synthetic.main.add_widget_content.*
+import kotlinx.android.synthetic.main.configure_content.*
 import kotlinx.android.synthetic.main.configure_activity.*
 import javax.inject.Inject
 

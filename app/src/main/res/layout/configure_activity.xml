@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".widget.configure.ConfigureActivity">
+    tools:context=".configure.ConfigureActivity">
 
   <android.support.design.widget.AppBarLayout
       android:layout_width="match_parent"
@@ -30,7 +30,7 @@
     </android.support.design.widget.CollapsingToolbarLayout>
   </android.support.design.widget.AppBarLayout>
 
-  <include layout="@layout/add_widget_content" />
+  <include layout="@layout/configure_content" />
 
 </android.support.design.widget.CoordinatorLayout>
 

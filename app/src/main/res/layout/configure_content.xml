@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/configure_activity"
-    tools:context=".widget.configure.ConfigureActivity">
+    tools:context=".configure.ConfigureActivity">
 
   <android.support.constraint.Guideline
       android:id="@+id/keyline_start"
