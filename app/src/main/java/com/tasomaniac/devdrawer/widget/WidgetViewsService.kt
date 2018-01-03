@@ -33,7 +33,7 @@ class WidgetViewsService : RemoteViewsService() {
     private var apps: List<WidgetData> = emptyList()
 
     override fun onDataSetChanged() {
-      val packageNames = dao.findAppsByWidgetId(appWidgetId)
+      val packageNames = dao.findAppsByWidgetIdSync(appWidgetId)
 
       apps = packageNames.mapNotNull {
         widgetDataResolver.resolve(it)
