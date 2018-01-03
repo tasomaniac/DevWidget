@@ -39,6 +39,10 @@ class ConfigureActivity : DaggerAppCompatActivity(), ConfigureView {
     configurePackageName.setAdapter(adapter)
   }
 
+  override fun setWidgetName(widgetName: String) {
+    configureWidgetName.setText(widgetName)
+  }
+
   override fun setItems(items: Collection<String>) {
     adapter.addAll(items)
   }

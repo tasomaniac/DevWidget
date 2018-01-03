@@ -14,7 +14,13 @@ class ConfigurePresenter @Inject constructor(
     view.setListener(ViewListener(view, useCase, disposables, scheduling))
     disposables.add(
         useCase.findPossiblePackageMatchers()
+            .compose(scheduling.forObservable())
             .subscribe(view::setItems)
+    )
+    disposables.add(
+        useCase.widgetName()
+            .compose(scheduling.forMaybe())
+            .subscribe(view::setWidgetName)
     )
   }
 

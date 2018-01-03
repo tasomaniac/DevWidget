@@ -11,6 +11,7 @@ import com.tasomaniac.devdrawer.data.insertWidget
 import com.tasomaniac.devdrawer.data.updateWidget
 import com.tasomaniac.devdrawer.widget.matchPackage
 import io.reactivex.Completable
+import io.reactivex.Maybe
 import io.reactivex.Observable
 import io.reactivex.annotations.CheckReturnValue
 import javax.inject.Inject
@@ -64,6 +65,10 @@ class ConfigureUseCase @Inject constructor(
         .toSortedSet()
         .toList()
   }
+
+  fun widgetName(): Maybe<String> =
+      dao.findWidgetById(appWidgetId)
+          .map { it.name }
 
   @VisibleForTesting
   fun findPossiblePackageMatchersSync(packageNames: List<String>): Set<String> {

@@ -13,32 +13,58 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:orientation="vertical"
-      app:layout_constraintGuide_begin="@dimen/keyline_1"/>
+      app:layout_constraintGuide_begin="@dimen/keyline_1" />
 
   <android.support.constraint.Guideline
       android:id="@+id/keyline_end"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:orientation="vertical"
-      app:layout_constraintGuide_end="@dimen/keyline_1"/>
+      app:layout_constraintGuide_end="@dimen/keyline_1" />
 
-  <EditText
-      android:id="@+id/configureWidgetName"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:inputType="textAutoCorrect"
-      android:hint="@string/configure_hint_widget_name"
-      app:layout_constraintStart_toStartOf="@id/keyline_start"
-      app:layout_constraintEnd_toEndOf="@id/keyline_end"/>
-
-  <AutoCompleteTextView
-      android:id="@+id/configurePackageName"
-      android:layout_width="match_parent"
+  <android.support.design.widget.TextInputLayout
+      android:id="@+id/privateConfigureWidgetNameTextInput"
+      android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/half_gap"
-      android:inputType="textUri"
-      android:hint="@string/configure_hint_package_matcher"
       app:layout_constraintStart_toStartOf="@id/keyline_start"
       app:layout_constraintEnd_toEndOf="@id/keyline_end"
-      app:layout_constraintTop_toBottomOf="@id/configureWidgetName" />
+      app:layout_constraintTop_toTopOf="parent">
+
+    <android.support.design.widget.TextInputEditText
+        android:id="@+id/configureWidgetName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textAutoCorrect"
+        android:hint="@string/configure_hint_widget_name" />
+  </android.support.design.widget.TextInputLayout>
+
+
+  <android.support.design.widget.TextInputLayout
+      android:id="@+id/privateConfigurePackageNameNameTextInput"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/half_gap"
+      app:layout_constraintStart_toStartOf="@id/keyline_start"
+      app:layout_constraintEnd_toEndOf="@id/keyline_end"
+      app:layout_constraintTop_toBottomOf="@id/privateConfigureWidgetNameTextInput">
+
+    <AutoCompleteTextView
+        android:id="@+id/configurePackageName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/half_gap"
+        android:inputType="textUri"
+        android:hint="@string/configure_hint_package_matcher" />
+  </android.support.design.widget.TextInputLayout>
+
+  <android.support.v7.widget.RecyclerView
+      android:id="@+id/configurePackageMatcherList"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      app:layout_constraintStart_toStartOf="@id/keyline_start"
+      app:layout_constraintEnd_toEndOf="@id/keyline_end"
+      app:layout_constraintTop_toBottomOf="@id/privateConfigurePackageNameNameTextInput"
+      app:layout_constraintBottom_toBottomOf="parent"/>
+
 </android.support.constraint.ConstraintLayout>
