@@ -9,8 +9,8 @@ import java.util.List;
 @android.arch.persistence.room.Dao
 public interface Dao {
 
-    @Query("SELECT packageName FROM app WHERE appWidgetId = :appWidgetId")
-    List<String> findAppsByWidgetId(int appWidgetId);
+    @Query("SELECT * FROM widget")
+    Flowable<List<Widget>> allWidgets();
 
     @Query("SELECT * FROM widget WHERE appWidgetId = :appWidgetId")
     Maybe<Widget> findWidgetById(int appWidgetId);
@@ -18,8 +18,11 @@ public interface Dao {
     @Query("SELECT * from widget where appWidgetId IN (:appWidgetId)")
     Flowable<Widget> findWidgetsById(int... appWidgetId);
 
-    @Query("SELECT * FROM widget")
-    Flowable<List<Widget>> allWidgets();
+    @Query("SELECT packageName FROM app WHERE appWidgetId = :appWidgetId")
+    List<String> findAppsByWidgetId(int appWidgetId);
+
+    @Query("SELECT * FROM filter")
+    Flowable<Filter> allFilters();
 
     @Insert(onConflict = OnConflictStrategy.FAIL)
     void insertWidgetSync(Widget... widget);

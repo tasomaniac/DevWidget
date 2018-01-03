@@ -9,6 +9,7 @@ import com.tasomaniac.devdrawer.data.insertApps
 import com.tasomaniac.devdrawer.data.insertFilters
 import com.tasomaniac.devdrawer.data.insertWidget
 import com.tasomaniac.devdrawer.data.updateWidget
+import com.tasomaniac.devdrawer.widget.matchPackage
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.annotations.CheckReturnValue
@@ -23,7 +24,7 @@ class ConfigureUseCase @Inject constructor(
   @CheckReturnValue
   fun insert(widgetName: String, packageMatchers: List<String>): Completable {
     if (packageMatchers.isEmpty()) throw IllegalArgumentException("Empty packageMatchers")
-    
+
     val widget = Widget(appWidgetId, widgetName)
     return dao.findWidgetById(appWidgetId)
         .isEmpty
@@ -35,6 +36,7 @@ class ConfigureUseCase @Inject constructor(
             Observable.fromIterable(packageMatchers)
                 .flatMapCompletable { packageMatcher ->
                   findMatchingPackages(packageMatcher)
+                      .toList()
                       .flatMapCompletable {
                         dao.insertApps(appWidgetId, it)
                       }
@@ -42,10 +44,9 @@ class ConfigureUseCase @Inject constructor(
         )
   }
 
-  private fun findMatchingPackages(packageMatcher: String): Observable<List<String>> {
-    return Observable.fromCallable {
-      findMatchingPackagesSync(packageMatcher, allLauncherPackages())
-    }
+  private fun findMatchingPackages(packageMatcher: String): Observable<String> {
+    return Observable.fromIterable(allLauncherPackages())
+        .filter(matchPackage(packageMatcher))
   }
 
   @CheckReturnValue
@@ -80,15 +81,4 @@ class ConfigureUseCase @Inject constructor(
         .toSet()
   }
 
-  @VisibleForTesting
-  fun findMatchingPackagesSync(packageMatcher: String, packageNames: List<String>): List<String> {
-    return packageNames
-        .filter {
-          if (packageMatcher.endsWith(".*")) {
-            it.startsWith(packageMatcher.removeSuffix(".*"), ignoreCase = true)
-          } else {
-            it.equals(packageMatcher, ignoreCase = true)
-          }
-        }
-  }
 }

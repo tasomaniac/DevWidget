@@ -17,7 +17,6 @@ import org.mockito.Mockito.mock
 @RunWith(Parameterized::class)
 class ConfigureUseCaseTest(
     private val expectedPackageMatchers: Collection<String>,
-    private val expectedAppsMatched : List<String>,
     private val givenPackages: List<String>
 ) {
 
@@ -68,14 +67,6 @@ class ConfigureUseCaseTest(
     then(dao).should().insertFilterSync(expected)
   }
 
-  @Test
-  fun `should insert matched apps`() {
-    val actual = listOf("com.*", "de.is24.*")
-        .flatMap { useCase.findMatchingPackagesSync(it, givenPackages) }
-
-    assertEquals(expectedAppsMatched, actual)
-  }
-
   companion object {
 
     @JvmStatic
@@ -83,16 +74,11 @@ class ConfigureUseCaseTest(
     fun data() = arrayOf(
         arrayOf(
             setOf("com.*", "com.tasomaniac.*", "com.tasomaniac.devdrawer"),
-            listOf("com.tasomaniac.devdrawer"),
             listOf("com.tasomaniac.devdrawer")),
         arrayOf(
             setOf(
                 "com.*", "com.tasomaniac.*", "com.tasomaniac.devdrawer",
                 "de.*", "de.is24.*", "de.is24.android"
-            ),
-            listOf(
-                "com.tasomaniac.devdrawer",
-                "de.is24.android"
             ),
             listOf("com.tasomaniac.devdrawer", "de.is24.android")),
         arrayOf(
@@ -101,17 +87,9 @@ class ConfigureUseCaseTest(
                 "com.tasomaniac.devdrawer",
                 "com.tasomaniac.openwith"
             ),
-            listOf(
-                "com.tasomaniac.devdrawer",
-                "com.tasomaniac.openwith"
-            ),
-            listOf(
-                "com.tasomaniac.devdrawer",
-                "com.tasomaniac.openwith"
-            )),
+            listOf("com.tasomaniac.devdrawer", "com.tasomaniac.openwith")),
         arrayOf(
             setOf("somePackage.*", "somePackage"),
-            emptyList(),
             listOf("somePackage"))
     )
 
