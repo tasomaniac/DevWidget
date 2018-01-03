@@ -21,7 +21,7 @@ data class App(
 )
 
 @Entity(
-    primaryKeys = ["packageName", "appWidgetId"],
+    primaryKeys = ["packageFilter", "appWidgetId"],
     foreignKeys = [ForeignKey(
         entity = Widget::class,
         parentColumns = ["appWidgetId"],

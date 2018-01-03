@@ -1,7 +1,8 @@
 package com.tasomaniac.devdrawer
 
-import com.tasomaniac.devdrawer.main.MainActivity
 import com.tasomaniac.devdrawer.configure.ConfigureActivity
+import com.tasomaniac.devdrawer.configure.ConfigureModule
+import com.tasomaniac.devdrawer.main.MainActivity
 import com.tasomaniac.devdrawer.widget.WidgetProvider
 import com.tasomaniac.devdrawer.widget.WidgetViewsService
 import dagger.Module
@@ -16,8 +17,8 @@ interface BindingModule {
   @ContributesAndroidInjector
   fun widgetViewsService(): WidgetViewsService
 
-  @ContributesAndroidInjector
-  fun appWidgetConfigureActivity(): ConfigureActivity
+  @ContributesAndroidInjector(modules = [ConfigureModule::class])
+  fun configureActivity(): ConfigureActivity
 
   @ContributesAndroidInjector
   fun mainActivity(): MainActivity

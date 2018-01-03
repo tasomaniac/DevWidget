@@ -33,7 +33,7 @@ class WidgetProvider : AppWidgetProvider() {
     if (appWidgetIds.isEmpty()) return
 
     disposable.dispose()
-    disposable = dao.findWidgetById(*appWidgetIds)
+    disposable = dao.findWidgetsById(*appWidgetIds)
         .compose(scheduling.forFlowable())
         .subscribe {
           it.updateWith(context)
