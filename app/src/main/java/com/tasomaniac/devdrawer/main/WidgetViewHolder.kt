@@ -17,6 +17,7 @@ class WidgetViewHolder(
   fun bind(widget: Widget, widgetData: List<WidgetData>) {
     mainWidgetTitle.text = widgetNameResolver.resolve(widget)
     mainWidgetAppList.adapter = WidgetAppListAdapter(widgetData)
+    mainWidgetAppList.isNestedScrollingEnabled = false
   }
 }
 
