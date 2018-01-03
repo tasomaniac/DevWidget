@@ -20,6 +20,9 @@ fun Dao.insertFilters(appWidgetId: Int, packageMatchers: List<String>): Completa
       insertFilterSync(filters)
     }
 
+fun Dao.insertApps(appWidgetId: Int, vararg packageNames: String) =
+    insertApps(appWidgetId, packageNames.toList())
+
 fun Dao.insertApps(appWidgetId: Int, packageNames: List<String>): Completable =
     Completable.fromAction {
       val apps = packageNames.map {
@@ -30,4 +33,8 @@ fun Dao.insertApps(appWidgetId: Int, packageNames: List<String>): Completable =
 
 fun Dao.deleteWidgets(vararg widgets: Widget): Completable = Completable.fromAction {
   deleteWidgetsSync(*widgets)
+}
+
+fun Dao.deleteApp(packageName: String): Completable = Completable.fromAction {
+  deleteAppSync(packageName)
 }

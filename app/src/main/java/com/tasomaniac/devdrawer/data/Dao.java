@@ -3,6 +3,7 @@ package com.tasomaniac.devdrawer.data;
 import android.arch.persistence.room.*;
 import io.reactivex.Flowable;
 import io.reactivex.Maybe;
+import io.reactivex.Single;
 
 import java.util.List;
 
@@ -10,7 +11,10 @@ import java.util.List;
 public interface Dao {
 
     @Query("SELECT * FROM widget")
-    Flowable<List<Widget>> allWidgets();
+    Flowable<List<Widget>> allWidgetsFlowable();
+
+    @Query("SELECT * FROM widget")
+    Single<List<Widget>> allWidgetsSingle();
 
     @Query("SELECT * FROM widget WHERE appWidgetId = :appWidgetId")
     Maybe<Widget> findWidgetById(int appWidgetId);
@@ -23,6 +27,9 @@ public interface Dao {
 
     @Query("SELECT * FROM filter")
     Flowable<Filter> allFilters();
+
+    @Query("DELETE FROM app WHERE packageName = :packageName")
+    void deleteAppSync(String packageName);
 
     @Insert(onConflict = OnConflictStrategy.FAIL)
     void insertWidgetSync(Widget... widget);

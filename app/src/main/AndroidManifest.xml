@@ -39,6 +39,22 @@
     <service
         android:name=".widget.WidgetViewsService"
         android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+    <receiver android:name=".receivers.PackageAddedReceiver">
+      <intent-filter>
+        <action android:name="android.intent.action.PACKAGE_ADDED" />
+
+        <data android:scheme="package" />
+      </intent-filter>
+    </receiver>
+
+    <receiver android:name=".receivers.PackageRemovedReceiver">
+      <intent-filter>
+        <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+        <data android:scheme="package" />
+      </intent-filter>
+    </receiver>
   </application>
 
 </manifest>

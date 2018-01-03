@@ -44,7 +44,7 @@ class MainActivity : DaggerAppCompatActivity() {
     mainWidgetList.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
 
     disposable.dispose()
-    disposable = dao.allWidgets()
+    disposable = dao.allWidgetsFlowable()
         .flatMapSingle {
           Flowable.fromIterable(it)
               .map { widget ->
