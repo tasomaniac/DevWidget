@@ -38,9 +38,9 @@ public class ForegroundLinearLayout extends LinearLayoutCompat {
 
     private int mForegroundGravity = Gravity.FILL;
 
-    protected boolean mForegroundInPadding = true;
+    private boolean mForegroundInPadding = true;
 
-    boolean mForegroundBoundsChanged = false;
+    private boolean mForegroundBoundsChanged = false;
 
     public ForegroundLinearLayout(Context context) {
         this(context, null);

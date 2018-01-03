@@ -6,10 +6,9 @@ import javax.inject.Inject
 
 class ConfigurePresenter @Inject constructor(
     private val useCase: ConfigureUseCase,
-    private val scheduling: SchedulingStrategy
-) {
+    private val scheduling: SchedulingStrategy) {
 
-  private var disposables = CompositeDisposable()
+  private val disposables = CompositeDisposable()
 
   fun bind(view: ConfigureView) {
     view.setListener(ViewListener(view, useCase, disposables, scheduling))

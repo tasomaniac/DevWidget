@@ -3,7 +3,7 @@ package com.tasomaniac.devdrawer.main
 import android.appwidget.AppWidgetManager
 import android.content.ComponentName
 import android.content.Context
-import android.os.Build
+import android.os.Build.VERSION_CODES.O
 import android.support.annotation.RequiresApi
 import com.tasomaniac.devdrawer.rx.SchedulingStrategy
 import com.tasomaniac.devdrawer.widget.WidgetProvider
@@ -13,10 +13,9 @@ import javax.inject.Inject
 class MainPresenter @Inject constructor(
     private val useCase: MainUseCase,
     private val scheduling: SchedulingStrategy,
-    private val appWidgetManager: AppWidgetManager
-) {
+    private val appWidgetManager: AppWidgetManager) {
 
-  private var disposables = CompositeDisposable()
+  private val disposables = CompositeDisposable()
 
   fun bind(view: MainView) {
     view.setListener(ViewListener(appWidgetManager))
@@ -41,7 +40,7 @@ class MainPresenter @Inject constructor(
 
   class ViewListener(private val appWidgetManager: AppWidgetManager) : MainView.Listener {
 
-    @RequiresApi(Build.VERSION_CODES.O)
+    @RequiresApi(O)
     override fun onAddNewWidgetClicked(context: Context) {
       if (appWidgetManager.isRequestPinAppWidgetSupported) {
         val widgetProvider = ComponentName(context, WidgetProvider::class.java)
