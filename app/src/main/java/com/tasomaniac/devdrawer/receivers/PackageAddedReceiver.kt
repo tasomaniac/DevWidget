@@ -7,6 +7,7 @@ import com.tasomaniac.devdrawer.R
 import com.tasomaniac.devdrawer.data.Dao
 import com.tasomaniac.devdrawer.data.insertApps
 import com.tasomaniac.devdrawer.rx.SchedulingStrategy
+import com.tasomaniac.devdrawer.rx.flatten
 import com.tasomaniac.devdrawer.widget.matchPackage
 import dagger.android.DaggerBroadcastReceiver
 import io.reactivex.Completable
@@ -26,6 +27,7 @@ class PackageAddedReceiver : DaggerBroadcastReceiver() {
     val installedPackage = intent.data.schemeSpecificPart
 
     dao.allFilters()
+        .flatten()
         .filter {
           matchPackage(it.packageFilter).test(installedPackage)
         }

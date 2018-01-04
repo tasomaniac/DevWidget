@@ -9,30 +9,66 @@ import com.tasomaniac.devdrawer.data.insertApps
 import com.tasomaniac.devdrawer.data.insertFilters
 import com.tasomaniac.devdrawer.data.insertWidget
 import com.tasomaniac.devdrawer.data.updateWidget
+import com.tasomaniac.devdrawer.rx.SchedulingStrategy
 import com.tasomaniac.devdrawer.widget.matchPackage
 import io.reactivex.Completable
+import io.reactivex.Flowable
 import io.reactivex.Maybe
 import io.reactivex.Observable
 import io.reactivex.annotations.CheckReturnValue
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.subjects.BehaviorSubject
+import io.reactivex.subjects.PublishSubject
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class ConfigureUseCase @Inject constructor(
     private val packageManager: PackageManager,
     private val dao: Dao,
-    val appWidgetId: Int
+    val appWidgetId: Int,
+    scheduling: SchedulingStrategy
 ) {
 
+  private val disposables = CompositeDisposable()
+  private val widgetNameSubject: BehaviorSubject<String> = BehaviorSubject.create()
+  val widgetPublisher: PublishSubject<Widget> = PublishSubject.create<Widget>()
+
+  init {
+    disposables.add(insertIfNotFound()
+        .andThen(widgetNameSubject
+            .distinctUntilChanged()
+            .debounce(1, TimeUnit.SECONDS)
+            .flatMapCompletable(::updateWidget))
+        .compose(scheduling.forCompletable())
+        .subscribe {
+          // no-op
+        }
+    )
+  }
+
+  private fun insertIfNotFound(): Completable {
+    return dao.findWidgetById(appWidgetId)
+        .isEmpty.filter { it }
+        .flatMapCompletable {
+          dao.insertWidget(Widget(appWidgetId))
+        }
+  }
+
+  private fun updateWidget(widgetName: String): Completable? {
+    val widget = Widget(appWidgetId, widgetName)
+    return dao.updateWidget(widget)
+        .doOnComplete { widgetPublisher.onNext(widget) }
+  }
+
+  fun setWidgetName(widgetName: String) {
+    widgetNameSubject.onNext(widgetName)
+  }
+
   @CheckReturnValue
-  fun insert(widgetName: String, packageMatchers: List<String>): Completable {
+  fun insert(packageMatchers: List<String>): Completable {
     if (packageMatchers.isEmpty()) throw IllegalArgumentException("Empty packageMatchers")
 
-    val widget = Widget(appWidgetId, widgetName)
-    return dao.findWidgetById(appWidgetId)
-        .isEmpty
-        .flatMapCompletable { isEmpty ->
-          if (isEmpty) dao.insertWidget(widget) else dao.updateWidget(widget)
-        }
-        .andThen(dao.insertFilters(appWidgetId, packageMatchers))
+    return dao.insertFilters(appWidgetId, packageMatchers)
         .andThen(
             Observable.fromIterable(packageMatchers)
                 .flatMapCompletable { packageMatcher ->
@@ -66,7 +102,7 @@ class ConfigureUseCase @Inject constructor(
         .toList()
   }
 
-  fun widgetName(): Maybe<String> =
+  fun currentWidgetName(): Maybe<String> =
       dao.findWidgetById(appWidgetId)
           .map { it.name }
 
@@ -85,5 +121,9 @@ class ConfigureUseCase @Inject constructor(
         }
         .toSet()
   }
+
+  fun filters(): Flowable<List<String>> = dao.findFiltersByWidgetId(appWidgetId)
+
+  fun release() = disposables.dispose()
 
 }

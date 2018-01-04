@@ -18,15 +18,28 @@ class ConfigurePresenter @Inject constructor(
             .subscribe(view::setItems)
     )
     disposables.add(
-        useCase.widgetName()
+        useCase.currentWidgetName()
             .compose(scheduling.forMaybe())
             .subscribe(view::setWidgetName)
+    )
+    disposables.add(
+        useCase.filters()
+            .compose(scheduling.forFlowable())
+            .subscribe(view::setFilters)
+    )
+    disposables.add(
+        useCase.widgetPublisher
+            .subscribe(view::updateWidget)
     )
   }
 
   fun unbind(view: ConfigureView) {
     disposables.dispose()
     view.setListener(null)
+  }
+
+  fun release() {
+    useCase.release()
   }
 
   private class ViewListener(
@@ -38,12 +51,16 @@ class ConfigurePresenter @Inject constructor(
 
     override fun onAddWidgetClicked(widgetName: String, filters: List<String>) {
       disposables.add(
-          useCase.insert(widgetName, filters)
+          useCase.insert(filters)
               .compose(scheduling.forCompletable())
               .subscribe {
                 view.finishWith(useCase.appWidgetId)
               }
       )
+    }
+
+    override fun widgetNameChanged(widgetName: String) {
+      useCase.setWidgetName(widgetName)
     }
   }
 }

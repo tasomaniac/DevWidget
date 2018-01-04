@@ -34,7 +34,7 @@ class MainPresenter @Inject constructor(
   }
 
   fun unbind(view: MainView) {
-    disposables.dispose()
+    disposables.clear()
     view.setListener(null)
   }
 

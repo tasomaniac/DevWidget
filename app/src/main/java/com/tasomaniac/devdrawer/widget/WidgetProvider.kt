@@ -4,13 +4,11 @@ import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
-import android.widget.RemoteViews
-import com.tasomaniac.devdrawer.R
 import com.tasomaniac.devdrawer.data.Dao
 import com.tasomaniac.devdrawer.data.Widget
 import com.tasomaniac.devdrawer.data.deleteWidgets
 import com.tasomaniac.devdrawer.rx.SchedulingStrategy
+import com.tasomaniac.devdrawer.rx.flatten
 import dagger.android.AndroidInjection
 import io.reactivex.disposables.Disposable
 import io.reactivex.disposables.Disposables
@@ -34,9 +32,10 @@ class WidgetProvider : AppWidgetProvider() {
 
     disposable.dispose()
     disposable = dao.findWidgetsById(*appWidgetIds)
-        .compose(scheduling.forFlowable())
+        .flatten()
+        .compose(scheduling.forObservable())
         .subscribe {
-          it.updateWith(context)
+          WidgetUpdater.update(context, it)
         }
   }
 
@@ -45,22 +44,6 @@ class WidgetProvider : AppWidgetProvider() {
     dao.deleteWidgets(*widgets.toTypedArray())
         .compose(scheduling.forCompletable())
         .subscribe()
-  }
-
-  private fun Widget.updateWith(context: Context) {
-    val remoteViews = RemoteViews(context.packageName, R.layout.app_widget)
-
-    remoteViews.setTextViewText(R.id.widgetTitle, name)
-    remoteViews.setRemoteAdapter(R.id.widgetAppList, remoteAdapter(context, appWidgetId))
-
-    appWidgetManager.updateAppWidget(appWidgetId, remoteViews)
-  }
-
-  private fun remoteAdapter(context: Context, appWidgetId: Int): Intent {
-    return Intent(context, WidgetViewsService::class.java).apply {
-      putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
-      data = Uri.parse(toUri(Intent.URI_INTENT_SCHEME))
-    }
   }
 }
 

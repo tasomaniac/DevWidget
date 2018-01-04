@@ -28,6 +28,7 @@ class MainActivity : DaggerAppCompatActivity(), MainView {
 
     if (SDK_INT >= O) setupAddWidgetButton()
     setupList()
+    presenter.bind(this)
   }
 
   private fun setupList() {
@@ -52,14 +53,8 @@ class MainActivity : DaggerAppCompatActivity(), MainView {
     this.listener = listener
   }
 
-  override fun onStart() {
-    super.onStart()
-    presenter.bind(this)
-  }
-
-  override fun onStop() {
+  override fun onDestroy() {
     presenter.unbind(this)
-    super.onStop()
+    super.onDestroy()
   }
-
 }

@@ -11,7 +11,7 @@ import java.util.List;
 public interface Dao {
 
     @Query("SELECT * FROM widget")
-    Flowable<Widget> allWidgetsFlowable();
+    Flowable<List<Widget>> allWidgetsFlowable();
 
     @Query("SELECT * FROM widget")
     Single<List<Widget>> allWidgetsSingle();
@@ -20,7 +20,7 @@ public interface Dao {
     Maybe<Widget> findWidgetById(int appWidgetId);
 
     @Query("SELECT * from widget where appWidgetId IN (:appWidgetId)")
-    Flowable<Widget> findWidgetsById(int... appWidgetId);
+    Single<List<Widget>> findWidgetsById(int... appWidgetId);
 
     @Query("SELECT packageName FROM app WHERE appWidgetId = :appWidgetId")
     Flowable<List<String>> findAppsByWidgetId(int appWidgetId);
@@ -29,8 +29,11 @@ public interface Dao {
     List<String> findAppsByWidgetIdSync(int appWidgetId);
 
     @Query("SELECT * FROM filter")
-    Flowable<Filter> allFilters();
+    Single<List<Filter>> allFilters();
 
+    @Query("SELECT packageFilter FROM filter WHERE appWidgetId = :appWidgetId")
+    Flowable<List<String>> findFiltersByWidgetId(int appWidgetId);
+                                
     @Query("DELETE FROM app WHERE packageName = :packageName")
     void deleteAppSync(String packageName);
 

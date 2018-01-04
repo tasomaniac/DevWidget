@@ -32,14 +32,14 @@ class ConfigureUseCaseTest(
 
   @Test(expected = IllegalArgumentException::class)
   fun `given packageMatchers empty, should throw`() {
-    useCase.insert(ANY_WIDGET_NAME, emptyList())
+    useCase.insert(emptyList())
   }
 
   @Test
   fun `given NOT available, should insert widget`() {
     given(dao.findWidgetById(APP_WIDGET_ID)).willReturn(Maybe.empty())
 
-    useCase.insert(ANY_WIDGET_NAME, SOME_PACKAGE_MATCHERS)
+    useCase.insert(SOME_PACKAGE_MATCHERS)
         .test()
 
     then(dao).should().insertWidgetSync(Widget(APP_WIDGET_ID, ANY_WIDGET_NAME))
@@ -49,7 +49,7 @@ class ConfigureUseCaseTest(
   fun `given already available, should update widget`() {
     given(dao.findWidgetById(APP_WIDGET_ID)).willReturn(Maybe.just(ANY_WIDGET))
 
-    useCase.insert(ANY_WIDGET_NAME, SOME_PACKAGE_MATCHERS)
+    useCase.insert(SOME_PACKAGE_MATCHERS)
         .test()
 
     then(dao).should().updateWidgetSync(Widget(APP_WIDGET_ID, ANY_WIDGET_NAME))
@@ -57,7 +57,7 @@ class ConfigureUseCaseTest(
 
   @Test
   fun `should insert packageMatchers`() {
-    useCase.insert(ANY_WIDGET_NAME, listOf("com.*", "de.is24.*"))
+    useCase.insert(listOf("com.*", "de.is24.*"))
         .test()
 
     val expected = listOf(
