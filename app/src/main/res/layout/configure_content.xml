@@ -39,7 +39,6 @@
         android:hint="@string/configure_hint_widget_name" />
   </android.support.design.widget.TextInputLayout>
 
-
   <android.support.design.widget.TextInputLayout
       android:id="@+id/privateConfigurePackageNameNameTextInput"
       android:layout_width="0dp"
@@ -55,7 +54,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/half_gap"
         android:inputType="textUri"
-        android:hint="@string/configure_hint_package_matcher" />
+        android:hint="@string/configure_hint_package_matcher"
+        android:imeOptions="actionDone"
+        android:imeActionLabel="@string/configure_action_add"/>
   </android.support.design.widget.TextInputLayout>
 
   <android.support.v7.widget.RecyclerView

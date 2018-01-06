@@ -44,6 +44,11 @@ class ConfigureActivity : DaggerAppCompatActivity(), ConfigureView {
       listener?.onPackageMatcherAdded(item)
       configurePackageName.text = null
     }
+    configurePackageName.setOnEditorActionListener { _, _, _ ->
+      listener?.onPackageMatcherAdded(configurePackageName.text.toString())
+      configurePackageName.text = null
+      true
+    }
   }
 
   private fun setupPackageMatcherList() {
