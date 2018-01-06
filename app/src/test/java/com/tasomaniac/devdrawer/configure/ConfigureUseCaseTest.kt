@@ -5,8 +5,10 @@ import com.tasomaniac.devdrawer.data.Dao
 import com.tasomaniac.devdrawer.data.Filter
 import com.tasomaniac.devdrawer.data.FilterDao
 import com.tasomaniac.devdrawer.data.Widget
-import com.tasomaniac.devdrawer.testScheduling
+import com.tasomaniac.devdrawer.rx.emptyDebouncer
+import com.tasomaniac.devdrawer.rx.testScheduling
 import com.tasomaniac.devdrawer.widget.WidgetUpdater
+import io.reactivex.Flowable
 import io.reactivex.Maybe
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -33,12 +35,23 @@ class ConfigureUseCaseTest(
       filterDao,
       mock(WidgetUpdater::class.java),
       APP_WIDGET_ID,
+      emptyDebouncer(),
       testScheduling()
   )
 
   @Test
   fun `should find expected packageMatchers`() {
     assertEquals(expectedPackageMatchers, useCase.findPossiblePackageMatchersSync(givenPackages))
+  }
+
+  @Test
+  fun `should emit persisted packageMatchers`() {
+    given(filterDao.findFiltersByWidgetId(APP_WIDGET_ID))
+        .willReturn(Flowable.just(SOME_PACKAGE_MATCHERS))
+
+    useCase.packageMatchers()
+        .test()
+        .assertValue(SOME_PACKAGE_MATCHERS)
   }
 
   @Test
@@ -58,6 +71,15 @@ class ConfigureUseCaseTest(
     useCase.updateWidgetName(ANY_WIDGET_NAME)
 
     then(dao).should().updateWidgetSync(Widget(APP_WIDGET_ID, ANY_WIDGET_NAME))
+  }
+
+  @Test
+  fun `given already available, should emit current widget name`() {
+    given(dao.findWidgetById(APP_WIDGET_ID)).willReturn(Maybe.just(ANY_WIDGET))
+
+    useCase.currentWidgetName()
+        .test()
+        .assertValue(ANY_WIDGET_NAME)
   }
 
   @Test

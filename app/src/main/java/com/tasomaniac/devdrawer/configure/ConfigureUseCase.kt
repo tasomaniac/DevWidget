@@ -10,6 +10,7 @@ import com.tasomaniac.devdrawer.data.insertApps
 import com.tasomaniac.devdrawer.data.insertFilters
 import com.tasomaniac.devdrawer.data.insertWidget
 import com.tasomaniac.devdrawer.data.updateWidget
+import com.tasomaniac.devdrawer.rx.Debouncer
 import com.tasomaniac.devdrawer.rx.SchedulingStrategy
 import com.tasomaniac.devdrawer.rx.flatten
 import com.tasomaniac.devdrawer.widget.WidgetUpdater
@@ -21,7 +22,6 @@ import io.reactivex.Observable
 import io.reactivex.annotations.CheckReturnValue
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.BehaviorSubject
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class ConfigureUseCase @Inject constructor(
@@ -30,6 +30,7 @@ class ConfigureUseCase @Inject constructor(
     private val filterDao: FilterDao,
     private val widgetUpdater: WidgetUpdater,
     val appWidgetId: Int,
+    debouncer: Debouncer<String>,
     scheduling: SchedulingStrategy
 ) {
 
@@ -40,7 +41,7 @@ class ConfigureUseCase @Inject constructor(
     disposables.add(insertIfNotFound()
         .andThen(widgetNameSubject
             .distinctUntilChanged()
-            .debounce(1, TimeUnit.SECONDS)
+            .compose(debouncer)
             .flatMapCompletable(::updateWidget))
         .compose(scheduling.forCompletable())
         .subscribe {
