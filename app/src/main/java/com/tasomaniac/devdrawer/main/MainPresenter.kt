@@ -22,8 +22,7 @@ class MainPresenter @Inject constructor(
     val initialPair = emptyList<WidgetListData>() to WidgetDiffCallbacks.EMPTY
 
     val disposable = useCase.observeWidgets()
-        .scan(initialPair) { (data, _), newItem ->
-          val newData = data.plusOrUpdated(newItem)
+        .scan(initialPair) { (data, _), newData ->
           newData to WidgetDiffCallbacks(data, newData)
         }
         .compose(scheduling.forFlowable())
@@ -46,24 +45,6 @@ class MainPresenter @Inject constructor(
         val widgetProvider = ComponentName(context, WidgetProvider::class.java)
         appWidgetManager.requestPinAppWidget(widgetProvider, null, null)
       }
-    }
-  }
-
-  companion object {
-
-    private fun List<WidgetListData>.plusOrUpdated(newItem: WidgetListData): List<WidgetListData> {
-      if (contains(newItem)) {
-        return this
-      }
-      val index = indexOfFirst { it.widget.appWidgetId == newItem.widget.appWidgetId }
-      val newData = ArrayList(this)
-      if (index == -1) {
-        newData.add(newItem)
-      } else {
-        newData.removeAt(index)
-        newData.add(index, newItem)
-      }
-      return newData
     }
   }
 
