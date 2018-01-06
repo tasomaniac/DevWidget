@@ -5,6 +5,8 @@ import com.tasomaniac.devdrawer.data.Dao
 import com.tasomaniac.devdrawer.data.Filter
 import com.tasomaniac.devdrawer.data.FilterDao
 import com.tasomaniac.devdrawer.data.Widget
+import com.tasomaniac.devdrawer.testScheduling
+import com.tasomaniac.devdrawer.widget.WidgetUpdater
 import io.reactivex.Maybe
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -25,7 +27,14 @@ class ConfigureUseCaseTest(
     given(findWidgetById(APP_WIDGET_ID)).willReturn(Maybe.empty())
   }
   private val filterDao: FilterDao = mock(FilterDao::class.java)
-  private val useCase = ConfigureUseCase(mock(PackageManager::class.java), dao, filterDao, APP_WIDGET_ID)
+  private val useCase = ConfigureUseCase(
+      mock(PackageManager::class.java),
+      dao,
+      filterDao,
+      mock(WidgetUpdater::class.java),
+      APP_WIDGET_ID,
+      testScheduling()
+  )
 
   @Test
   fun `should find expected packageMatchers`() {
@@ -33,34 +42,30 @@ class ConfigureUseCaseTest(
   }
 
   @Test
-  fun `given NOT available, should insert widget`() {
+  fun `given NOT available, should insert and update widget`() {
     given(dao.findWidgetById(APP_WIDGET_ID)).willReturn(Maybe.empty())
 
-    useCase.findAndInsertMatchingApps(SOME_PACKAGE_MATCHERS)
-        .test()
+    useCase.updateWidgetName(ANY_WIDGET_NAME)
 
-    then(dao).should().insertWidgetSync(Widget(APP_WIDGET_ID, ANY_WIDGET_NAME))
+    then(dao).should().insertWidgetSync(Widget(APP_WIDGET_ID))
+    then(dao).should().updateWidgetSync(Widget(APP_WIDGET_ID, ANY_WIDGET_NAME))
   }
 
   @Test
   fun `given already available, should update widget`() {
     given(dao.findWidgetById(APP_WIDGET_ID)).willReturn(Maybe.just(ANY_WIDGET))
 
-    useCase.findAndInsertMatchingApps(SOME_PACKAGE_MATCHERS)
-        .test()
+    useCase.updateWidgetName(ANY_WIDGET_NAME)
 
     then(dao).should().updateWidgetSync(Widget(APP_WIDGET_ID, ANY_WIDGET_NAME))
   }
 
   @Test
   fun `should insert packageMatchers`() {
-    useCase.findAndInsertMatchingApps(listOf("com.*", "de.is24.*"))
+    useCase.insertPackageMatcher("com.tasomaniac.*")
         .test()
 
-    val expected = listOf(
-        Filter("com.*", APP_WIDGET_ID),
-        Filter("de.is24.*", APP_WIDGET_ID)
-    )
+    val expected = listOf(Filter("com.tasomaniac.*", APP_WIDGET_ID))
     then(filterDao).should().insertFilterSync(expected)
   }
 
