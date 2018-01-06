@@ -60,13 +60,17 @@ class ConfigureUseCase @Inject constructor(
         .doOnComplete { widgetPublisher.onNext(widget) }
   }
 
-  fun setWidgetName(widgetName: String) {
+  fun updateWidgetName(widgetName: String) {
     widgetNameSubject.onNext(widgetName)
   }
 
+  fun insertPackageMatcher(packageMatcher: String): Completable {
+    return dao.insertFilters(appWidgetId, listOf(packageMatcher))
+  }
+
   @CheckReturnValue
-  fun insert(packageMatchers: List<String>): Completable {
-    if (packageMatchers.isEmpty()) throw IllegalArgumentException("Empty packageMatchers")
+  fun insert(): Completable {
+    val packageMatchers = emptyList<String>()
 
     return dao.insertFilters(appWidgetId, packageMatchers)
         .andThen(

@@ -49,9 +49,9 @@ class ConfigurePresenter @Inject constructor(
       private val scheduling: SchedulingStrategy
   ) : ConfigureView.Listener {
 
-    override fun onAddWidgetClicked(widgetName: String, filters: List<String>) {
+    override fun onConfirmClicked() {
       disposables.add(
-          useCase.insert(filters)
+          useCase.insert()
               .compose(scheduling.forCompletable())
               .subscribe {
                 view.finishWith(useCase.appWidgetId)
@@ -60,7 +60,14 @@ class ConfigurePresenter @Inject constructor(
     }
 
     override fun widgetNameChanged(widgetName: String) {
-      useCase.setWidgetName(widgetName)
+      useCase.updateWidgetName(widgetName)
+    }
+
+    override fun onPackageMatcherAdded(packageMatcher: String) {
+      val disposable = useCase.insertPackageMatcher(packageMatcher)
+          .compose(scheduling.forCompletable())
+          .subscribe()
+      disposables.add(disposable)
     }
   }
 }

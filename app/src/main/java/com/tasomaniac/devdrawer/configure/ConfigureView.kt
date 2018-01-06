@@ -11,8 +11,9 @@ interface ConfigureView {
   fun finishWith(appWidgetId: Int)
 
   interface Listener {
-    fun onAddWidgetClicked(widgetName: String, filters: List<String>)
+    fun onConfirmClicked()
     fun widgetNameChanged(widgetName: String)
+    fun onPackageMatcherAdded(packageMatcher: String)
   }
 
 }

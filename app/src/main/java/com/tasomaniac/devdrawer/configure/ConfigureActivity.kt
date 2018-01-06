@@ -34,15 +34,18 @@ class ConfigureActivity : DaggerAppCompatActivity(), ConfigureView {
 
   private fun setupToolbar() {
     toolbar.setNavigationOnClickListener {
-      val packageName = configurePackageName.text.toString()
-      val widgetName = configureWidgetName.text.toString()
-      listener?.onAddWidgetClicked(widgetName, listOf(packageName))
+      listener?.onConfirmClicked()
     }
   }
 
   private fun setupNewPackageMatcher() {
     adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, android.R.id.text1)
     configurePackageName.setAdapter(adapter)
+    configurePackageName.setOnItemClickListener { _, _, position, _ ->
+      val item = adapter.getItem(position)
+      listener?.onPackageMatcherAdded(item)
+      configurePackageName.text = null
+    }
   }
 
   private fun setupPackageMatcherList() {

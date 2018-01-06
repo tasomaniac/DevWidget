@@ -1,8 +1,11 @@
 <resources>
   <string name="app_name">DevDrawer</string>
   <string name="add_widget">Add widget</string>
+
+  <string name="configure_title">Configure Widget</string>
   <string name="configure_hint_widget_name">Widget Name (Optional)</string>
   <string name="configure_hint_package_matcher">Package Matcher</string>
+
   <string name="widget_empty_title">Widget #%d</string>
   <string name="done">Done</string>
 
