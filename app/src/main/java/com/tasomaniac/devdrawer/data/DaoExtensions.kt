@@ -12,14 +12,6 @@ fun Dao.updateWidget(widget: Widget): Completable =
       updateWidgetSync(widget)
     }
 
-fun Dao.insertFilters(appWidgetId: Int, packageMatchers: List<String>): Completable =
-    Completable.fromAction {
-      val filters = packageMatchers.map {
-        Filter(it, appWidgetId)
-      }
-      insertFilterSync(filters)
-    }
-
 fun Dao.insertApps(appWidgetId: Int, vararg packageNames: String) =
     insertApps(appWidgetId, packageNames.toList())
 

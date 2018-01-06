@@ -1,13 +1,13 @@
 package com.tasomaniac.devdrawer.receivers
 
-import android.appwidget.AppWidgetManager
 import android.content.Context
 import android.content.Intent
-import com.tasomaniac.devdrawer.R
 import com.tasomaniac.devdrawer.data.Dao
+import com.tasomaniac.devdrawer.data.FilterDao
 import com.tasomaniac.devdrawer.data.insertApps
 import com.tasomaniac.devdrawer.rx.SchedulingStrategy
 import com.tasomaniac.devdrawer.rx.flatten
+import com.tasomaniac.devdrawer.widget.WidgetUpdater
 import com.tasomaniac.devdrawer.widget.matchPackage
 import dagger.android.DaggerBroadcastReceiver
 import io.reactivex.Completable
@@ -15,9 +15,10 @@ import javax.inject.Inject
 
 class PackageAddedReceiver : DaggerBroadcastReceiver() {
 
+  @Inject lateinit var filterDao: FilterDao
   @Inject lateinit var dao: Dao
   @Inject lateinit var scheduling: SchedulingStrategy
-  @Inject lateinit var appWidgetManager: AppWidgetManager
+  @Inject lateinit var widgetUpdater: WidgetUpdater
 
   override fun onReceive(context: Context, intent: Intent) {
     super.onReceive(context, intent)
@@ -26,7 +27,7 @@ class PackageAddedReceiver : DaggerBroadcastReceiver() {
     }
     val installedPackage = intent.data.schemeSpecificPart
 
-    dao.allFilters()
+    filterDao.allFilters()
         .flatten()
         .filter {
           matchPackage(it.packageFilter).test(installedPackage)
@@ -41,7 +42,7 @@ class PackageAddedReceiver : DaggerBroadcastReceiver() {
 
   private fun updateWidget(appWidgetId: Int): Completable {
     return Completable.fromAction {
-      appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widgetAppList)
+      widgetUpdater.notifyWidgetDataChanged(appWidgetId)
     }
   }
 }

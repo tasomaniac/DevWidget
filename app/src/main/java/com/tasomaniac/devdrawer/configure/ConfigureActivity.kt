@@ -8,8 +8,6 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.widget.ArrayAdapter
 import com.tasomaniac.devdrawer.R
-import com.tasomaniac.devdrawer.data.Widget
-import com.tasomaniac.devdrawer.widget.WidgetUpdater
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.configure_activity.*
 import kotlinx.android.synthetic.main.configure_content.*
@@ -63,10 +61,6 @@ class ConfigureActivity : DaggerAppCompatActivity(), ConfigureView {
 
   override fun setItems(items: Collection<String>) {
     adapter.addAll(items)
-  }
-
-  override fun updateWidget(widget: Widget) {
-    WidgetUpdater.update(this, widget)
   }
 
   override fun setListener(listener: ConfigureView.Listener?) {

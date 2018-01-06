@@ -7,4 +7,6 @@ import android.arch.persistence.room.RoomDatabase
 abstract class Database : RoomDatabase() {
 
   abstract fun appDao(): Dao
+
+  abstract fun filterDao(): FilterDao
 }

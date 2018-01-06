@@ -4,12 +4,15 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.support.annotation.VisibleForTesting
 import com.tasomaniac.devdrawer.data.Dao
+import com.tasomaniac.devdrawer.data.FilterDao
 import com.tasomaniac.devdrawer.data.Widget
 import com.tasomaniac.devdrawer.data.insertApps
 import com.tasomaniac.devdrawer.data.insertFilters
 import com.tasomaniac.devdrawer.data.insertWidget
 import com.tasomaniac.devdrawer.data.updateWidget
 import com.tasomaniac.devdrawer.rx.SchedulingStrategy
+import com.tasomaniac.devdrawer.rx.flatten
+import com.tasomaniac.devdrawer.widget.WidgetUpdater
 import com.tasomaniac.devdrawer.widget.matchPackage
 import io.reactivex.Completable
 import io.reactivex.Flowable
@@ -18,20 +21,20 @@ import io.reactivex.Observable
 import io.reactivex.annotations.CheckReturnValue
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.BehaviorSubject
-import io.reactivex.subjects.PublishSubject
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class ConfigureUseCase @Inject constructor(
     private val packageManager: PackageManager,
     private val dao: Dao,
+    private val filterDao: FilterDao,
+    private val widgetUpdater: WidgetUpdater,
     val appWidgetId: Int,
     scheduling: SchedulingStrategy
 ) {
 
   private val disposables = CompositeDisposable()
   private val widgetNameSubject: BehaviorSubject<String> = BehaviorSubject.create()
-  val widgetPublisher: PublishSubject<Widget> = PublishSubject.create<Widget>()
 
   init {
     disposables.add(insertIfNotFound()
@@ -57,7 +60,7 @@ class ConfigureUseCase @Inject constructor(
   private fun updateWidget(widgetName: String): Completable? {
     val widget = Widget(appWidgetId, widgetName)
     return dao.updateWidget(widget)
-        .doOnComplete { widgetPublisher.onNext(widget) }
+        .doOnComplete { widgetUpdater.update(widget) }
   }
 
   fun updateWidgetName(widgetName: String) {
@@ -65,24 +68,20 @@ class ConfigureUseCase @Inject constructor(
   }
 
   fun insertPackageMatcher(packageMatcher: String): Completable {
-    return dao.insertFilters(appWidgetId, listOf(packageMatcher))
+    return filterDao.insertFilters(appWidgetId, listOf(packageMatcher))
   }
 
   @CheckReturnValue
-  fun insert(): Completable {
-    val packageMatchers = emptyList<String>()
-
-    return dao.insertFilters(appWidgetId, packageMatchers)
-        .andThen(
-            Observable.fromIterable(packageMatchers)
-                .flatMapCompletable { packageMatcher ->
-                  findMatchingPackages(packageMatcher)
-                      .toList()
-                      .flatMapCompletable {
-                        dao.insertApps(appWidgetId, it)
-                      }
-                }
-        )
+  fun findAndInsertMatchingApps(): Completable {
+    return filterDao.findFiltersByWidgetIdSingle(appWidgetId)
+        .flatten()
+        .flatMapCompletable { packageMatcher ->
+          findMatchingPackages(packageMatcher)
+              .toList()
+              .flatMapCompletable {
+                dao.insertApps(appWidgetId, it)
+              }
+        }
   }
 
   private fun findMatchingPackages(packageMatcher: String): Observable<String> {
@@ -126,7 +125,7 @@ class ConfigureUseCase @Inject constructor(
         .toSet()
   }
 
-  fun filters(): Flowable<List<String>> = dao.findFiltersByWidgetId(appWidgetId)
+  fun packageMatchers(): Flowable<List<String>> = filterDao.findFiltersByWidgetId(appWidgetId)
 
   fun release() = disposables.dispose()
 

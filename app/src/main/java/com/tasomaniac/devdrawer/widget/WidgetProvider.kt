@@ -18,7 +18,7 @@ class WidgetProvider : AppWidgetProvider() {
 
   @Inject lateinit var dao: Dao
   @Inject lateinit var scheduling: SchedulingStrategy
-  @Inject lateinit var appWidgetManager: AppWidgetManager
+  @Inject lateinit var widgetUpdater: WidgetUpdater
 
   private var disposable: Disposable = Disposables.empty()
 
@@ -34,9 +34,7 @@ class WidgetProvider : AppWidgetProvider() {
     disposable = dao.findWidgetsById(*appWidgetIds)
         .flatten()
         .compose(scheduling.forObservable())
-        .subscribe {
-          WidgetUpdater.update(context, it)
-        }
+        .subscribe(widgetUpdater::update)
   }
 
   override fun onDeleted(context: Context, appWidgetIds: IntArray) {

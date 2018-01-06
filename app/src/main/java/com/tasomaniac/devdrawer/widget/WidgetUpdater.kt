@@ -1,5 +1,6 @@
 package com.tasomaniac.devdrawer.widget
 
+import android.app.Application
 import android.appwidget.AppWidgetManager
 import android.content.Context
 import android.content.Intent
@@ -7,16 +8,24 @@ import android.net.Uri
 import android.widget.RemoteViews
 import com.tasomaniac.devdrawer.R
 import com.tasomaniac.devdrawer.data.Widget
+import javax.inject.Inject
 
-object WidgetUpdater {
+class WidgetUpdater @Inject constructor(
+    private val app: Application,
+    private val appWidgetManager: AppWidgetManager
+) {
 
-  fun update(context: Context, widget: Widget) {
-    val remoteViews = RemoteViews(context.packageName, R.layout.app_widget)
+  fun update(widget: Widget) {
+    val remoteViews = RemoteViews(app.packageName, R.layout.app_widget)
 
     remoteViews.setTextViewText(R.id.widgetTitle, widget.name)
-    remoteViews.setRemoteAdapter(R.id.widgetAppList, remoteAdapter(context, widget.appWidgetId))
+    remoteViews.setRemoteAdapter(R.id.widgetAppList, remoteAdapter(app, widget.appWidgetId))
 
-    AppWidgetManager.getInstance(context).updateAppWidget(widget.appWidgetId, remoteViews)
+    appWidgetManager.updateAppWidget(widget.appWidgetId, remoteViews)
+  }
+
+  fun notifyWidgetDataChanged(appWidgetId: Int) {
+    appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widgetAppList)
   }
 
   private fun remoteAdapter(context: Context, appWidgetId: Int): Intent {

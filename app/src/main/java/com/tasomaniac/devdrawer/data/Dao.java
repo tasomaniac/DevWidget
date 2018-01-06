@@ -26,12 +26,6 @@ public interface Dao {
   @Query("SELECT packageName FROM app WHERE appWidgetId = :appWidgetId")
   List<String> findAppsByWidgetIdSync(int appWidgetId);
 
-  @Query("SELECT * FROM filter")
-  Single<List<Filter>> allFilters();
-
-  @Query("SELECT packageFilter FROM filter WHERE appWidgetId = :appWidgetId")
-  Flowable<List<String>> findFiltersByWidgetId(int appWidgetId);
-
   @Query("DELETE FROM app WHERE packageName = :packageName")
   void deleteAppSync(String packageName);
 
@@ -41,10 +35,7 @@ public interface Dao {
   @Update(onConflict = OnConflictStrategy.IGNORE)
   void updateWidgetSync(Widget widget);
 
-  @Insert(onConflict = OnConflictStrategy.REPLACE)
-  void insertFilterSync(List<Filter> filter);
-
-  @Insert(onConflict = OnConflictStrategy.REPLACE)
+  @Insert(onConflict = OnConflictStrategy.IGNORE)
   void insertAppSync(List<App> app);
 
   @Delete

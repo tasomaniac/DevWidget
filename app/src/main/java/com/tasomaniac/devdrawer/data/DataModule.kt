@@ -19,4 +19,8 @@ object DataModule {
   @JvmStatic
   fun appDao(database: Database) = database.appDao()
 
+  @Provides
+  @JvmStatic
+  fun filterDao(database: Database) = database.filterDao()
+
 }
