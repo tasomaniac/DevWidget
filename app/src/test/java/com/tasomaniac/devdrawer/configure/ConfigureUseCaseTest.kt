@@ -1,13 +1,13 @@
 package com.tasomaniac.devdrawer.configure
 
-import android.content.pm.PackageManager
+import com.nhaarman.mockito_kotlin.doReturn
+import com.nhaarman.mockito_kotlin.mock
 import com.tasomaniac.devdrawer.data.Dao
 import com.tasomaniac.devdrawer.data.Filter
 import com.tasomaniac.devdrawer.data.FilterDao
 import com.tasomaniac.devdrawer.data.Widget
 import com.tasomaniac.devdrawer.rx.emptyDebouncer
 import com.tasomaniac.devdrawer.rx.testScheduling
-import com.tasomaniac.devdrawer.widget.WidgetUpdater
 import io.reactivex.Flowable
 import io.reactivex.Maybe
 import org.junit.Assert.assertEquals
@@ -17,7 +17,6 @@ import org.junit.runners.Parameterized
 import org.junit.runners.Parameterized.Parameters
 import org.mockito.BDDMockito.given
 import org.mockito.BDDMockito.then
-import org.mockito.Mockito.mock
 
 @RunWith(Parameterized::class)
 class ConfigureUseCaseTest(
@@ -25,19 +24,12 @@ class ConfigureUseCaseTest(
     private val givenPackages: List<String>
 ) {
 
-  private val dao: Dao = mock(Dao::class.java).apply {
-    given(findWidgetById(APP_WIDGET_ID)).willReturn(Maybe.empty())
+  private val dao: Dao = mock {
+    on { findWidgetById(APP_WIDGET_ID) } doReturn Maybe.empty()
   }
-  private val filterDao: FilterDao = mock(FilterDao::class.java)
-  private val useCase = ConfigureUseCase(
-      mock(PackageManager::class.java),
-      dao,
-      filterDao,
-      mock(WidgetUpdater::class.java),
-      APP_WIDGET_ID,
-      emptyDebouncer(),
-      testScheduling()
-  )
+  private val filterDao: FilterDao = mock()
+  private val useCase = ConfigureUseCase(mock(), dao, filterDao, mock(), APP_WIDGET_ID,
+      emptyDebouncer(), testScheduling())
 
   @Test
   fun `should find expected packageMatchers`() {
