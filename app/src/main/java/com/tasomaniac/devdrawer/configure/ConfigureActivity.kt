@@ -16,8 +16,8 @@ import javax.inject.Inject
 class ConfigureActivity : DaggerAppCompatActivity(), ConfigureView {
 
   @Inject lateinit var presenter: ConfigurePresenter
-
-  private lateinit var packageMatcherListAdapter: PackageMatcherListAdapter
+  @Inject lateinit var packageMatcherListAdapter: PackageMatcherListAdapter
+  
   private lateinit var adapter: ArrayAdapter<String>
   private var listener: ConfigureView.Listener? = null
 
@@ -52,7 +52,6 @@ class ConfigureActivity : DaggerAppCompatActivity(), ConfigureView {
   }
 
   private fun setupPackageMatcherList() {
-    packageMatcherListAdapter = PackageMatcherListAdapter()
     configurePackageMatcherList.adapter = packageMatcherListAdapter
   }
 

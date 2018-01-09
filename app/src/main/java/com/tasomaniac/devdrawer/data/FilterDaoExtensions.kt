@@ -9,3 +9,8 @@ fun FilterDao.insertFilters(appWidgetId: Int, packageMatchers: List<String>): Co
       }
       insertFilterSync(filters)
     }
+
+fun FilterDao.deleteFilter(packageMatcher: String): Completable =
+    Completable.fromAction {
+      deleteFilterSync(packageMatcher)
+    }

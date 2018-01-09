@@ -1,6 +1,5 @@
 package com.tasomaniac.devdrawer.main
 
-import android.appwidget.AppWidgetManager
 import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES.O
 import android.os.Bundle
@@ -16,7 +15,6 @@ import javax.inject.Inject
 class MainActivity : DaggerAppCompatActivity(), MainView {
 
   @Inject lateinit var presenter: MainPresenter
-  @Inject lateinit var appWidgetManager: AppWidgetManager
   @Inject lateinit var widgetListAdapter: WidgetListAdapter
 
   private var listener: MainView.Listener? = null

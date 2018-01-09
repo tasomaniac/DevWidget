@@ -74,7 +74,8 @@ class ConfigureUseCase @Inject constructor(
 
   @CheckReturnValue
   fun findAndInsertMatchingApps(): Completable {
-    return filterDao.findFiltersByWidgetIdSingle(appWidgetId)
+    return filterDao.findFiltersByWidgetId(appWidgetId)
+        .firstOrError()
         .flatten()
         .flatMapCompletable { packageMatcher ->
           findMatchingPackages(packageMatcher)

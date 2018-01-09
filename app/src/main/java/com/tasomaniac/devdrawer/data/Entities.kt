@@ -22,7 +22,7 @@ data class App(
 )
 
 @Entity(
-    primaryKeys = ["packageFilter", "appWidgetId"],
+    primaryKeys = ["packageMatcher", "appWidgetId"],
     foreignKeys = [ForeignKey(
         entity = Widget::class,
         parentColumns = ["appWidgetId"],
@@ -32,7 +32,7 @@ data class App(
     indices = [Index("appWidgetId")]
 )
 data class Filter(
-    val packageFilter: String,
+    val packageMatcher: String,
     val appWidgetId: Int
 )
 

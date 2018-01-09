@@ -30,7 +30,7 @@ class PackageAddedReceiver : DaggerBroadcastReceiver() {
     filterDao.allFilters()
         .flatten()
         .filter {
-          matchPackage(it.packageFilter).test(installedPackage)
+          matchPackage(it.packageMatcher).test(installedPackage)
         }
         .flatMapCompletable {
           dao.insertApps(it.appWidgetId, installedPackage)
