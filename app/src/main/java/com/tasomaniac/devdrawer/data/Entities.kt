@@ -7,7 +7,7 @@ import android.arch.persistence.room.PrimaryKey
 import android.arch.persistence.room.Relation
 
 @Entity(
-    primaryKeys = ["packageName", "appWidgetId"],
+    primaryKeys = ["packageName", "packageMatcher", "appWidgetId"],
     foreignKeys = [ForeignKey(
         entity = Widget::class,
         parentColumns = ["appWidgetId"],
@@ -18,6 +18,7 @@ import android.arch.persistence.room.Relation
 )
 data class App(
     val packageName: String,
+    val packageMatcher: String,
     val appWidgetId: Int
 )
 
@@ -52,5 +53,7 @@ class WidgetAndPackageNames {
       entityColumn = "appWidgetId",
       projection = ["packageName"]
   )
-  lateinit var packageNames: List<String>
+  lateinit var _packageNames: List<String>
+
+  val packageNames get() = _packageNames.distinct()
 }

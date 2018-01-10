@@ -11,18 +11,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.tasomaniac.devdrawer.R
-import com.tasomaniac.devdrawer.data.Dao
+import com.tasomaniac.devdrawer.data.AppDao
 import com.tasomaniac.devdrawer.data.FilterDao
+import com.tasomaniac.devdrawer.data.deleteAppsByPackageMatcher
 import com.tasomaniac.devdrawer.data.deleteFilter
 import com.tasomaniac.devdrawer.extensions.inflate
 import com.tasomaniac.devdrawer.rx.SchedulingStrategy
-import io.reactivex.Completable
 import io.reactivex.disposables.Disposables
 import javax.inject.Inject
 
 class PackageMatcherViewHolder(
     private val textView: TextView,
-    private val dao: Dao,
+    private val appDao: AppDao,
     private val filterDao: FilterDao,
     private val scheduling: SchedulingStrategy
 ) : RecyclerView.ViewHolder(textView) {
@@ -48,9 +48,7 @@ class PackageMatcherViewHolder(
   private fun delete(packageMatcher: String) {
     disposable.dispose()
     disposable = filterDao.deleteFilter(packageMatcher)
-        .andThen(Completable.fromAction {
-          TODO("delete apps that are not matching any other filter")
-        })
+        .andThen(appDao.deleteAppsByPackageMatcher(packageMatcher))
         .compose(scheduling.forCompletable())
         .subscribe()
   }
@@ -90,10 +88,10 @@ class PackageMatcherViewHolder(
     }
   }
 
-  class Factory @Inject constructor(dao: Dao, filterDao: FilterDao, scheduling: SchedulingStrategy) {
+  class Factory @Inject constructor(appDao: AppDao, filterDao: FilterDao, scheduling: SchedulingStrategy) {
 
     private val creator = { view: TextView ->
-      PackageMatcherViewHolder(view, dao, filterDao, scheduling)
+      PackageMatcherViewHolder(view, appDao, filterDao, scheduling)
     }
 
     fun createWith(parent: ViewGroup) = creator(

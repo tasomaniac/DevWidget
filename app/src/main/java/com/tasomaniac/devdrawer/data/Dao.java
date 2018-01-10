@@ -23,7 +23,7 @@ public interface Dao {
   @Query("SELECT * from widget where appWidgetId IN (:appWidgetId)")
   Single<List<Widget>> findWidgetsById(int... appWidgetId);
 
-  @Query("SELECT packageName FROM app WHERE appWidgetId = :appWidgetId")
+  @Query("SELECT DISTINCT packageName FROM app WHERE appWidgetId = :appWidgetId")
   List<String> findAppsByWidgetIdSync(int appWidgetId);
 
   @Query("DELETE FROM app WHERE packageName = :packageName")

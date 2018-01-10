@@ -81,7 +81,7 @@ class ConfigureUseCase @Inject constructor(
           findMatchingPackages(packageMatcher)
               .toList()
               .flatMapCompletable {
-                dao.insertApps(appWidgetId, it)
+                dao.insertApps(appWidgetId, packageMatcher, it)
               }
         }
   }

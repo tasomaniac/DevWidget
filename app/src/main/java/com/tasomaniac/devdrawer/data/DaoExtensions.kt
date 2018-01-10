@@ -12,13 +12,13 @@ fun Dao.updateWidget(widget: Widget): Completable =
       updateWidgetSync(widget)
     }
 
-fun Dao.insertApps(appWidgetId: Int, vararg packageNames: String) =
-    insertApps(appWidgetId, packageNames.toList())
+fun Dao.insertApp(appWidgetId: Int, packageMatcher: String, packageName: String) =
+    insertApps(appWidgetId, packageMatcher, listOf(packageName))
 
-fun Dao.insertApps(appWidgetId: Int, packageNames: List<String>): Completable =
+fun Dao.insertApps(appWidgetId: Int, packageMatcher: String, packageNames: List<String>): Completable =
     Completable.fromAction {
       val apps = packageNames.map {
-        App(it, appWidgetId)
+        App(it, packageMatcher, appWidgetId)
       }
       insertAppSync(apps)
     }

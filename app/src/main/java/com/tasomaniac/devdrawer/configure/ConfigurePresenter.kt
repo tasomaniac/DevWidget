@@ -32,7 +32,7 @@ class ConfigurePresenter @Inject constructor(
   }
 
   fun unbind(view: ConfigureView) {
-    disposables.dispose()
+    disposables.clear()
     view.setListener(null)
   }
 

@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import com.tasomaniac.devdrawer.data.Dao
 import com.tasomaniac.devdrawer.data.FilterDao
-import com.tasomaniac.devdrawer.data.insertApps
+import com.tasomaniac.devdrawer.data.insertApp
 import com.tasomaniac.devdrawer.rx.SchedulingStrategy
 import com.tasomaniac.devdrawer.rx.flatten
 import com.tasomaniac.devdrawer.widget.WidgetUpdater
@@ -33,7 +33,7 @@ class PackageAddedReceiver : DaggerBroadcastReceiver() {
           matchPackage(it.packageMatcher).test(installedPackage)
         }
         .flatMapCompletable {
-          dao.insertApps(it.appWidgetId, installedPackage)
+          dao.insertApp(it.appWidgetId, it.packageMatcher, installedPackage)
               .andThen(updateWidget(it.appWidgetId))
         }
         .compose(scheduling.forCompletable())
