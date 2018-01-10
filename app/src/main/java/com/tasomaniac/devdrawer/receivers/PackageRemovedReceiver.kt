@@ -4,8 +4,8 @@ import android.appwidget.AppWidgetManager
 import android.content.Context
 import android.content.Intent
 import com.tasomaniac.devdrawer.R
-import com.tasomaniac.devdrawer.data.Dao
-import com.tasomaniac.devdrawer.data.Widget
+import com.tasomaniac.devdrawer.data.AppDao
+import com.tasomaniac.devdrawer.data.WidgetDao
 import com.tasomaniac.devdrawer.data.deleteApp
 import com.tasomaniac.devdrawer.rx.SchedulingStrategy
 import dagger.android.DaggerBroadcastReceiver
@@ -14,7 +14,8 @@ import javax.inject.Inject
 
 class PackageRemovedReceiver : DaggerBroadcastReceiver() {
 
-  @Inject lateinit var dao: Dao
+  @Inject lateinit var widgetDao: WidgetDao
+  @Inject lateinit var appDao: AppDao
   @Inject lateinit var scheduling: SchedulingStrategy
   @Inject lateinit var appWidgetManager: AppWidgetManager
   
@@ -25,18 +26,18 @@ class PackageRemovedReceiver : DaggerBroadcastReceiver() {
     }
     val uninstalledPackage = intent.data.schemeSpecificPart
 
-    dao.deleteApp(uninstalledPackage)
+    appDao.deleteApp(uninstalledPackage)
         .andThen(updateAllWidgets())
         .compose(scheduling.forCompletable())
         .subscribe()
   }
 
   private fun updateAllWidgets(): Completable {
-    return dao.allWidgetsSingle()
+    return widgetDao.allWidgetIds()
+        .map { it.toIntArray() }
         .flatMapCompletable {
           Completable.fromAction {
-            val appWidgetIds = it.map(Widget::appWidgetId).toIntArray()
-            appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widgetAppList)
+            appWidgetManager.notifyAppWidgetViewDataChanged(it, R.id.widgetAppList)
           }
         }
   }

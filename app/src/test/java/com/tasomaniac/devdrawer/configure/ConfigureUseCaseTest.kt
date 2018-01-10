@@ -2,10 +2,10 @@ package com.tasomaniac.devdrawer.configure
 
 import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
-import com.tasomaniac.devdrawer.data.Dao
 import com.tasomaniac.devdrawer.data.Filter
 import com.tasomaniac.devdrawer.data.FilterDao
 import com.tasomaniac.devdrawer.data.Widget
+import com.tasomaniac.devdrawer.data.WidgetDao
 import com.tasomaniac.devdrawer.rx.emptyDebouncer
 import com.tasomaniac.devdrawer.rx.testScheduling
 import io.reactivex.Flowable
@@ -24,11 +24,11 @@ class ConfigureUseCaseTest(
     private val givenPackages: List<String>
 ) {
 
-  private val dao: Dao = mock {
+  private val widgetDao: WidgetDao = mock {
     on { findWidgetById(APP_WIDGET_ID) } doReturn Maybe.empty()
   }
   private val filterDao: FilterDao = mock()
-  private val useCase = ConfigureUseCase(mock(), dao, filterDao, mock(), APP_WIDGET_ID,
+  private val useCase = ConfigureUseCase(mock(), widgetDao, mock(), filterDao, mock(), APP_WIDGET_ID,
       emptyDebouncer(), testScheduling())
 
   @Test
@@ -48,26 +48,26 @@ class ConfigureUseCaseTest(
 
   @Test
   fun `given NOT available, should insert and update widget`() {
-    given(dao.findWidgetById(APP_WIDGET_ID)).willReturn(Maybe.empty())
+    given(widgetDao.findWidgetById(APP_WIDGET_ID)).willReturn(Maybe.empty())
 
     useCase.updateWidgetName(ANY_WIDGET_NAME)
 
-    then(dao).should().insertWidgetSync(Widget(APP_WIDGET_ID))
-    then(dao).should().updateWidgetSync(Widget(APP_WIDGET_ID, ANY_WIDGET_NAME))
+    then(widgetDao).should().insertWidgetSync(Widget(APP_WIDGET_ID))
+    then(widgetDao).should().updateWidgetSync(Widget(APP_WIDGET_ID, ANY_WIDGET_NAME))
   }
 
   @Test
   fun `given already available, should update widget`() {
-    given(dao.findWidgetById(APP_WIDGET_ID)).willReturn(Maybe.just(ANY_WIDGET))
+    given(widgetDao.findWidgetById(APP_WIDGET_ID)).willReturn(Maybe.just(ANY_WIDGET))
 
     useCase.updateWidgetName(ANY_WIDGET_NAME)
 
-    then(dao).should().updateWidgetSync(Widget(APP_WIDGET_ID, ANY_WIDGET_NAME))
+    then(widgetDao).should().updateWidgetSync(Widget(APP_WIDGET_ID, ANY_WIDGET_NAME))
   }
 
   @Test
   fun `given already available, should emit current widget name`() {
-    given(dao.findWidgetById(APP_WIDGET_ID)).willReturn(Maybe.just(ANY_WIDGET))
+    given(widgetDao.findWidgetById(APP_WIDGET_ID)).willReturn(Maybe.just(ANY_WIDGET))
 
     useCase.currentWidgetName()
         .test()

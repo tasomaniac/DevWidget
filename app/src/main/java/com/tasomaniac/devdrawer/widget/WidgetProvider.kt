@@ -4,7 +4,7 @@ import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.content.Intent
-import com.tasomaniac.devdrawer.data.Dao
+import com.tasomaniac.devdrawer.data.WidgetDao
 import com.tasomaniac.devdrawer.data.Widget
 import com.tasomaniac.devdrawer.data.deleteWidgets
 import com.tasomaniac.devdrawer.rx.SchedulingStrategy
@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 class WidgetProvider : AppWidgetProvider() {
 
-  @Inject lateinit var dao: Dao
+  @Inject lateinit var widgetDao: WidgetDao
   @Inject lateinit var scheduling: SchedulingStrategy
   @Inject lateinit var widgetUpdater: WidgetUpdater
 
@@ -31,7 +31,7 @@ class WidgetProvider : AppWidgetProvider() {
     if (appWidgetIds.isEmpty()) return
 
     disposable.dispose()
-    disposable = dao.findWidgetsById(*appWidgetIds)
+    disposable = widgetDao.findWidgetsById(*appWidgetIds)
         .flatten()
         .compose(scheduling.forObservable())
         .subscribe(widgetUpdater::update)
@@ -39,7 +39,7 @@ class WidgetProvider : AppWidgetProvider() {
 
   override fun onDeleted(context: Context, appWidgetIds: IntArray) {
     val widgets = appWidgetIds.map { Widget(it) }
-    dao.deleteWidgets(*widgets.toTypedArray())
+    widgetDao.deleteWidgets(*widgets.toTypedArray())
         .compose(scheduling.forCompletable())
         .subscribe()
   }

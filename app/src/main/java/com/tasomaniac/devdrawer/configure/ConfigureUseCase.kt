@@ -3,9 +3,10 @@ package com.tasomaniac.devdrawer.configure
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.support.annotation.VisibleForTesting
-import com.tasomaniac.devdrawer.data.Dao
+import com.tasomaniac.devdrawer.data.AppDao
 import com.tasomaniac.devdrawer.data.FilterDao
 import com.tasomaniac.devdrawer.data.Widget
+import com.tasomaniac.devdrawer.data.WidgetDao
 import com.tasomaniac.devdrawer.data.insertApps
 import com.tasomaniac.devdrawer.data.insertFilters
 import com.tasomaniac.devdrawer.data.insertWidget
@@ -26,7 +27,8 @@ import javax.inject.Inject
 
 class ConfigureUseCase @Inject constructor(
     private val packageManager: PackageManager,
-    private val dao: Dao,
+    private val widgetDao: WidgetDao,
+    private val appDao: AppDao,
     private val filterDao: FilterDao,
     private val widgetUpdater: WidgetUpdater,
     val appWidgetId: Int,
@@ -51,16 +53,16 @@ class ConfigureUseCase @Inject constructor(
   }
 
   private fun insertIfNotFound(): Completable {
-    return dao.findWidgetById(appWidgetId)
+    return widgetDao.findWidgetById(appWidgetId)
         .isEmpty.filter { it }
         .flatMapCompletable {
-          dao.insertWidget(Widget(appWidgetId))
+          widgetDao.insertWidget(Widget(appWidgetId))
         }
   }
 
   private fun updateWidget(widgetName: String): Completable? {
     val widget = Widget(appWidgetId, widgetName)
-    return dao.updateWidget(widget)
+    return widgetDao.updateWidget(widget)
         .doOnComplete { widgetUpdater.update(widget) }
   }
 
@@ -81,7 +83,7 @@ class ConfigureUseCase @Inject constructor(
           findMatchingPackages(packageMatcher)
               .toList()
               .flatMapCompletable {
-                dao.insertApps(appWidgetId, packageMatcher, it)
+                appDao.insertApps(appWidgetId, packageMatcher, it)
               }
         }
   }
@@ -108,7 +110,7 @@ class ConfigureUseCase @Inject constructor(
   }
 
   fun currentWidgetName(): Maybe<String> =
-      dao.findWidgetById(appWidgetId)
+      widgetDao.findWidgetById(appWidgetId)
           .map { it.name }
 
   @VisibleForTesting

@@ -6,13 +6,13 @@ import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import com.tasomaniac.devdrawer.BuildConfig
 import com.tasomaniac.devdrawer.R
-import com.tasomaniac.devdrawer.data.Dao
+import com.tasomaniac.devdrawer.data.AppDao
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 
 class WidgetViewsService : RemoteViewsService() {
 
-  @Inject lateinit var dao: Dao
+  @Inject lateinit var dao: AppDao
   @Inject lateinit var widgetDataResolver : WidgetDataResolver
 
   override fun onCreate() {
@@ -25,7 +25,7 @@ class WidgetViewsService : RemoteViewsService() {
   }
 
   class WidgetViewsFactory(
-      private val dao: Dao,
+      private val appDao: AppDao,
       private val widgetDataResolver: WidgetDataResolver,
       private val appWidgetId: Int
   ) : RemoteViewsService.RemoteViewsFactory {
@@ -33,7 +33,7 @@ class WidgetViewsService : RemoteViewsService() {
     private var apps: List<WidgetData> = emptyList()
 
     override fun onDataSetChanged() {
-      val packageNames = dao.findAppsByWidgetIdSync(appWidgetId)
+      val packageNames = appDao.findAppsByWidgetIdSync(appWidgetId)
 
       apps = packageNames.mapNotNull {
         widgetDataResolver.resolve(it)
