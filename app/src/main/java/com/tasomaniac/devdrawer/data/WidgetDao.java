@@ -30,5 +30,5 @@ public interface WidgetDao {
   void updateWidgetSync(Widget widget);
 
   @Delete
-  void deleteWidgetsSync(Widget... widgets);
+  void deleteWidgetsSync(List<Widget> widgets);
 }

@@ -2,7 +2,7 @@ package com.tasomaniac.devdrawer.data
 
 import io.reactivex.Completable
 
-fun FilterDao.insertFilters(appWidgetId: Int, packageMatchers: List<String>): Completable =
+fun FilterDao.insertFilters(appWidgetId: Int, packageMatchers: List<String>) =
     Completable.fromAction {
       val filters = packageMatchers.map {
         Filter(it, appWidgetId)
@@ -10,7 +10,7 @@ fun FilterDao.insertFilters(appWidgetId: Int, packageMatchers: List<String>): Co
       insertFilterSync(filters)
     }
 
-fun FilterDao.deleteFilter(packageMatcher: String): Completable =
+fun FilterDao.deleteFilter(packageMatcher: String) =
     Completable.fromAction {
       deleteFilterSync(packageMatcher)
     }

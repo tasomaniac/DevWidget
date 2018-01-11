@@ -4,8 +4,8 @@ import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.content.Intent
-import com.tasomaniac.devdrawer.data.WidgetDao
 import com.tasomaniac.devdrawer.data.Widget
+import com.tasomaniac.devdrawer.data.WidgetDao
 import com.tasomaniac.devdrawer.data.deleteWidgets
 import com.tasomaniac.devdrawer.rx.SchedulingStrategy
 import com.tasomaniac.devdrawer.rx.flatten
@@ -27,7 +27,7 @@ class WidgetProvider : AppWidgetProvider() {
     super.onReceive(context, intent)
   }
 
-  override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
+  override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, vararg appWidgetIds: Int) {
     if (appWidgetIds.isEmpty()) return
 
     disposable.dispose()
@@ -37,9 +37,9 @@ class WidgetProvider : AppWidgetProvider() {
         .subscribe(widgetUpdater::update)
   }
 
-  override fun onDeleted(context: Context, appWidgetIds: IntArray) {
+  override fun onDeleted(context: Context, vararg appWidgetIds: Int) {
     val widgets = appWidgetIds.map { Widget(it) }
-    widgetDao.deleteWidgets(*widgets.toTypedArray())
+    widgetDao.deleteWidgets(widgets)
         .compose(scheduling.forCompletable())
         .subscribe()
   }

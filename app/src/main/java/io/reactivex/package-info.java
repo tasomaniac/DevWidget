@@ -1,0 +1,3 @@
+@javax.annotation.ParametersAreNonnullByDefault
+@ReturnValuesAreNonnullByDefault
+package io.reactivex;
