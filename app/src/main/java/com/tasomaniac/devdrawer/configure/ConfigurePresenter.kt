@@ -26,7 +26,7 @@ class ConfigurePresenter @Inject constructor(
     )
     disposables.add(
         useCase.packageMatchers()
-            .compose(scheduling.forFlowable())
+            .compose(scheduling.forObservable())
             .subscribe(view::setFilters)
     )
   }

@@ -14,7 +14,7 @@ import com.tasomaniac.devdrawer.R
 import com.tasomaniac.devdrawer.data.AppDao
 import com.tasomaniac.devdrawer.data.FilterDao
 import com.tasomaniac.devdrawer.data.deleteAppsByPackageMatcher
-import com.tasomaniac.devdrawer.data.deleteFilter
+import com.tasomaniac.devdrawer.data.deletePackageMatcher
 import com.tasomaniac.devdrawer.extensions.inflate
 import com.tasomaniac.devdrawer.rx.SchedulingStrategy
 import io.reactivex.disposables.Disposables
@@ -47,7 +47,7 @@ class PackageMatcherViewHolder(
 
   private fun delete(packageMatcher: String) {
     disposable.dispose()
-    disposable = filterDao.deleteFilter(packageMatcher)
+    disposable = filterDao.deletePackageMatcher(packageMatcher)
         .andThen(appDao.deleteAppsByPackageMatcher(packageMatcher))
         .compose(scheduling.forCompletable())
         .subscribe()

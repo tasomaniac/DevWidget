@@ -10,7 +10,6 @@ import com.tasomaniac.devdrawer.rx.emptyDebouncer
 import com.tasomaniac.devdrawer.rx.testScheduling
 import io.reactivex.Flowable
 import io.reactivex.Maybe
-import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
@@ -20,20 +19,41 @@ import org.mockito.BDDMockito.then
 
 @RunWith(Parameterized::class)
 class ConfigureUseCaseTest(
-    private val expectedPackageMatchers: Collection<String>,
+    private val expectedPackageMatchers: List<String>,
     private val givenPackages: List<String>
 ) {
 
-  private val widgetDao: WidgetDao = mock {
+  private val packageResolver = mock<PackageResolver> {
+    on { allLauncherPackages() } doReturn givenPackages
+  }
+  private val widgetDao = mock<WidgetDao> {
     on { findWidgetById(APP_WIDGET_ID) } doReturn Maybe.empty()
   }
-  private val filterDao: FilterDao = mock()
-  private val useCase = ConfigureUseCase(mock(), widgetDao, mock(), filterDao, mock(), APP_WIDGET_ID,
+  private val filterDao = mock<FilterDao> {
+    on { findFiltersByWidgetId(APP_WIDGET_ID) } doReturn Flowable.just(emptyList())
+  }
+
+  private val useCase = ConfigureUseCase(packageResolver, widgetDao, mock(), filterDao, mock(), APP_WIDGET_ID,
       emptyDebouncer(), testScheduling())
 
   @Test
   fun `should find expected packageMatchers`() {
-    assertEquals(expectedPackageMatchers, useCase.findPossiblePackageMatchersSync(givenPackages))
+    useCase.findPossiblePackageMatchers()
+        .test()
+        .assertValue(expectedPackageMatchers)
+  }
+
+  @Test
+  fun `should find possible packageMatchers with persisted filtered out`() {
+    val persisted = listOf("com.*")
+    given(filterDao.findFiltersByWidgetId(APP_WIDGET_ID))
+        .willReturn(Flowable.just(persisted))
+
+    val expected = expectedPackageMatchers - persisted
+
+    useCase.findPossiblePackageMatchers()
+        .test()
+        .assertValue(expected)
   }
 
   @Test
@@ -89,23 +109,23 @@ class ConfigureUseCaseTest(
     @Parameters(name = "expectedPackageMatchers: {0} given: {1}")
     fun data() = arrayOf(
         arrayOf(
-            setOf("com.*", "com.tasomaniac.*", "com.tasomaniac.devdrawer"),
+            listOf("com.*", "com.tasomaniac.*", "com.tasomaniac.devdrawer"),
             listOf("com.tasomaniac.devdrawer")),
         arrayOf(
-            setOf(
+            listOf(
                 "com.*", "com.tasomaniac.*", "com.tasomaniac.devdrawer",
                 "de.*", "de.is24.*", "de.is24.android"
             ),
             listOf("com.tasomaniac.devdrawer", "de.is24.android")),
         arrayOf(
-            setOf(
+            listOf(
                 "com.*", "com.tasomaniac.*",
                 "com.tasomaniac.devdrawer",
                 "com.tasomaniac.openwith"
             ),
             listOf("com.tasomaniac.devdrawer", "com.tasomaniac.openwith")),
         arrayOf(
-            setOf("somePackage.*", "somePackage"),
+            listOf("somePackage.*", "somePackage"),
             listOf("somePackage"))
     )
 
