@@ -1,4 +1,4 @@
-package com.tasomaniac.devdrawer.widget
+package com.tasomaniac.devdrawer.main
 
 import android.content.res.Resources
 import com.tasomaniac.devdrawer.R

@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import com.tasomaniac.devdrawer.R
 import com.tasomaniac.devdrawer.configure.ConfigureActivity
 import com.tasomaniac.devdrawer.extensions.inflate
-import com.tasomaniac.devdrawer.widget.WidgetNameResolver
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.main_item_widget.*
 import javax.inject.Inject

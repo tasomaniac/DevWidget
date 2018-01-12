@@ -1,17 +1,39 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-  <TextView
-      android:id="@+id/widgetTitle"
-      android:layout_width="wrap_content"
+  <LinearLayout
+      android:id="@+id/widgetHeader"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:textSize="24sp"/>
+      android:orientation="horizontal"
+      android:gravity="center_vertical">
+
+    <TextView
+        android:id="@+id/widgetTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        tools:text="Widget #5"/>
+
+    <ImageButton
+        android:id="@+id/widgetConfigure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_settings"
+        android:padding="@dimen/half_gap"
+        android:background="?android:selectableItemBackgroundBorderless"
+        android:contentDescription="@null"/>
+
+  </LinearLayout>
 
   <ListView
       android:id="@+id/widgetAppList"
       android:layout_width="match_parent"
-      android:layout_height="match_parent" />
+      android:layout_height="match_parent"
+      tools:listitem="@layout/app_widget_list_item"/>
 
 </LinearLayout>

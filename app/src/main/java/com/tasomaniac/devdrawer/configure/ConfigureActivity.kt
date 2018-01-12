@@ -2,6 +2,7 @@ package com.tasomaniac.devdrawer.configure
 
 import android.app.Activity
 import android.appwidget.AppWidgetManager
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -104,5 +105,12 @@ class ConfigureActivity : DaggerAppCompatActivity(), ConfigureView {
     override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) = Unit
 
   }
-}
 
+  companion object {
+
+    fun createIntent(context: Context, appWidgetId: Int): Intent {
+      return Intent(context, ConfigureActivity::class.java)
+          .putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
+    }
+  }
+}
