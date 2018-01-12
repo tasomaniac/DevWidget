@@ -64,6 +64,7 @@ class ConfigureActivity : DaggerAppCompatActivity(), ConfigureView {
   }
 
   override fun setItems(items: Collection<String>) {
+    adapter.clear()
     adapter.addAll(items)
   }
 
