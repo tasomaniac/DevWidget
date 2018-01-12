@@ -12,13 +12,14 @@ import javax.inject.Inject
 
 class WidgetUpdater @Inject constructor(
     private val app: Application,
-    private val appWidgetManager: AppWidgetManager
+    private val appWidgetManager: AppWidgetManager,
+    private val widgetNameResolver: WidgetNameResolver
 ) {
 
   fun update(widget: Widget) {
     val remoteViews = RemoteViews(app.packageName, R.layout.app_widget)
 
-    remoteViews.setTextViewText(R.id.widgetTitle, widget.name)
+    remoteViews.setTextViewText(R.id.widgetTitle, widgetNameResolver.resolve(widget))
     remoteViews.setRemoteAdapter(R.id.widgetAppList, remoteAdapter(app, widget.appWidgetId))
 
     appWidgetManager.updateAppWidget(widget.appWidgetId, remoteViews)
