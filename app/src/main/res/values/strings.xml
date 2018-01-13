@@ -8,6 +8,8 @@
   <string name="configure_action_add">Add</string>
 
   <string name="widget_content_description_configure">Configure %s</string>
+  <string name="widget_content_description_uninstall_app">Uninstall %s</string>
+  <string name="widget_content_description_app_details">Open App Details for %s</string>
   <string name="widget_empty_title">Widget #%d</string>
   <string name="done">Done</string>
 

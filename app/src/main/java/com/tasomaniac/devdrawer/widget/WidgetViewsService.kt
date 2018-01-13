@@ -1,6 +1,7 @@
 package com.tasomaniac.devdrawer.widget
 
 import android.appwidget.AppWidgetManager
+import android.content.Context
 import android.content.Intent
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
@@ -13,7 +14,7 @@ import javax.inject.Inject
 class WidgetViewsService : RemoteViewsService() {
 
   @Inject lateinit var dao: AppDao
-  @Inject lateinit var widgetDataResolver : WidgetDataResolver
+  @Inject lateinit var widgetDataResolver: WidgetDataResolver
 
   override fun onCreate() {
     AndroidInjection.inject(this)
@@ -21,10 +22,11 @@ class WidgetViewsService : RemoteViewsService() {
   }
 
   override fun onGetViewFactory(intent: Intent): WidgetViewsFactory {
-    return WidgetViewsFactory(dao, widgetDataResolver, intent.appWidgetId)
+    return WidgetViewsFactory(this, dao, widgetDataResolver, intent.appWidgetId)
   }
 
   class WidgetViewsFactory(
+      private val context: Context,
       private val appDao: AppDao,
       private val widgetDataResolver: WidgetDataResolver,
       private val appWidgetId: Int
@@ -42,12 +44,29 @@ class WidgetViewsService : RemoteViewsService() {
 
     override fun getViewAt(position: Int): RemoteViews {
       val app = apps[position]
-      return RemoteViews(BuildConfig.APPLICATION_ID, R.layout.app_widget_list_item).apply {
-        setTextViewText(R.id.appWidgetPackageName, app.packageName)
-        setTextViewText(R.id.appWidgetLabel, app.label)
-        setImageViewBitmap(R.id.appWidgetIcon, app.icon)
-      }
+      return createViewWith(app)
     }
+
+    private fun createViewWith(app: WidgetData) =
+        RemoteViews(BuildConfig.APPLICATION_ID, R.layout.app_widget_list_item).apply {
+          setTextViewText(R.id.appWidgetPackageName, app.packageName)
+          setTextViewText(R.id.appWidgetLabel, app.label)
+          setImageViewBitmap(R.id.appWidgetIcon, app.icon)
+
+          setOnClickFillInIntent(R.id.appWidgetContainer,
+              ClickHandlingActivity.createForLaunchApp(app.packageName)
+          )
+          val uninstall = context.getString(R.string.widget_content_description_uninstall_app, app.label)
+          setContentDescription(R.id.appWidgetUninstall, uninstall)
+          setOnClickFillInIntent(R.id.appWidgetUninstall,
+              ClickHandlingActivity.createForUninstallApp(app.packageName)
+          )
+          val appDetails = context.getString(R.string.widget_content_description_app_details, app.label)
+          setContentDescription(R.id.appWidgetDetails, appDetails)
+          setOnClickFillInIntent(R.id.appWidgetDetails,
+              ClickHandlingActivity.createForAppDetails(app.packageName)
+          )
+        }
 
     override fun getCount() = apps.size
 

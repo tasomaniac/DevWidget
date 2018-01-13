@@ -9,8 +9,7 @@
       android:supportsRtl="true"
       android:theme="@style/Theme.DevDrawer">
 
-    <activity
-        android:name=".main.MainActivity">
+    <activity android:name=".main.MainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
 
@@ -28,7 +27,8 @@
           android:resource="@xml/app_widget_info" />
     </receiver>
 
-    <activity android:name=".configure.ConfigureActivity"
+    <activity
+        android:name=".configure.ConfigureActivity"
         android:label="@string/configure_title"
         android:windowSoftInputMode="stateAlwaysHidden">
       <intent-filter>
@@ -55,6 +55,17 @@
         <data android:scheme="package" />
       </intent-filter>
     </receiver>
+
+    <activity
+        android:name=".widget.ClickHandlingActivity"
+        android:documentLaunchMode="never"
+        android:excludeFromRecents="true"
+        android:finishOnCloseSystemDialogs="true"
+        android:noHistory="true"
+        android:process=":click"
+        android:relinquishTaskIdentity="true"
+        android:taskAffinity=""
+        android:theme="@android:style/Theme.Translucent.NoTitleBar" />
   </application>
 
 </manifest>

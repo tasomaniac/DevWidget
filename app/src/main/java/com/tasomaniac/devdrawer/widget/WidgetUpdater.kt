@@ -19,18 +19,19 @@ class WidgetUpdater @Inject constructor(
 ) {
 
   fun update(widget: Widget) {
-    val remoteViews = RemoteViews(app.packageName, R.layout.app_widget)
+    val remoteViews = RemoteViews(app.packageName, R.layout.app_widget).apply {
+      if (widget.name.isEmpty()) {
+        setViewVisibility(R.id.widgetHeader, View.GONE)
+      } else {
+        setViewVisibility(R.id.widgetHeader, View.VISIBLE)
+        setTextViewText(R.id.widgetTitle, widget.name)
 
-    if (widget.name.isEmpty()) {
-      remoteViews.setViewVisibility(R.id.widgetHeader, View.GONE)
-    } else {
-      remoteViews.setViewVisibility(R.id.widgetHeader, View.VISIBLE)
-      remoteViews.setTextViewText(R.id.widgetTitle, widget.name)
+        setupConfigureButton(widget)
+      }
 
-      remoteViews.setupConfigureButton(widget)
+      setRemoteAdapter(R.id.widgetAppList, remoteAdapter(app, widget.appWidgetId))
+      setPendingIntentTemplate(R.id.widgetAppList, ClickHandlingActivity.intent(app).toPending(app))
     }
-
-    remoteViews.setRemoteAdapter(R.id.widgetAppList, remoteAdapter(app, widget.appWidgetId))
 
     appWidgetManager.updateAppWidget(widget.appWidgetId, remoteViews)
   }
