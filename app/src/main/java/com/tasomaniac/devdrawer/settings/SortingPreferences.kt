@@ -23,7 +23,8 @@ class SortingPreferences @Inject constructor(
       @StringRes val entry: Int
   ) {
     ORDER_ADDED(R.string.pref_value_sorting_order_added, R.string.pref_entry_sorting_order_added),
-    ALPHABETICALLY(R.string.pref_value_sorting_alphabetically, R.string.pref_entry_sorting_alphabetically);
+    ALPHABETICALLY_PACKAGES(R.string.pref_value_sorting_alphabetically_packages, R.string.pref_entry_sorting_alphabetically_packages),
+    ALPHABETICALLY_NAMES(R.string.pref_value_sorting_alphabetically_names, R.string.pref_entry_sorting_alphabetically_names);
 
     fun stringVale(resources: Resources) = resources.getString(value)
 

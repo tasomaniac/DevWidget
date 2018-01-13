@@ -22,9 +22,11 @@
   <string name="pref_key_sorting" translatable="false">pref_sorting</string>
   <string name="pref_title_sorting">Sorting</string>
   <string name="pref_value_sorting_order_added" translatable="false">order_added</string>
-  <string name="pref_value_sorting_alphabetically" translatable="false">alphabetically</string>
+  <string name="pref_value_sorting_alphabetically_packages" translatable="false">alphabetically_packages</string>
+  <string name="pref_value_sorting_alphabetically_names" translatable="false">alphabetically_names</string>
   <string name="pref_entry_sorting_order_added">Order added</string>
-  <string name="pref_entry_sorting_alphabetically">Alphabetically</string>
+  <string name="pref_entry_sorting_alphabetically_packages">Packages alphabetically</string>
+  <string name="pref_entry_sorting_alphabetically_names">Names alphabetically</string>
 
   <string name="pref_title_category_display">Display</string>
   <string name="pref_key_night_mode" translatable="false">pref_night_mode</string>
