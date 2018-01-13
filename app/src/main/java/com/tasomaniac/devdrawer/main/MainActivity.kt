@@ -1,6 +1,5 @@
 package com.tasomaniac.devdrawer.main
 
-import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES.O
 import android.os.Bundle
 import android.support.annotation.RequiresApi
@@ -24,7 +23,6 @@ class MainActivity : DaggerAppCompatActivity(), MainView {
     setContentView(R.layout.main_activity)
     setSupportActionBar(toolbar)
 
-    if (SDK_INT >= O) setupAddWidgetButton()
     setupList()
     presenter.bind(this)
   }
@@ -35,7 +33,7 @@ class MainActivity : DaggerAppCompatActivity(), MainView {
   }
 
   @RequiresApi(O)
-  private fun setupAddWidgetButton() {
+  override fun renderAddWidgetButton() {
     mainAddNewWidget.visibility = View.VISIBLE
     mainAddNewWidget.setOnClickListener {
       listener?.onAddNewWidgetClicked(context = this)

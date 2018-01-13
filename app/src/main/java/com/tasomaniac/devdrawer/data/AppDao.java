@@ -21,4 +21,7 @@ public interface AppDao {
 
   @Query("DELETE FROM app WHERE packageMatcher = :packageMatcher")
   void deleteAppsByPackageMatcherSync(String packageMatcher);
+
+  @Query("UPDATE app SET appWidgetId = :appWidgetId WHERE appWidgetId = 2147483647")
+  void updateTempWidgetIdSync(int appWidgetId);
 }

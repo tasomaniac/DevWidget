@@ -29,6 +29,9 @@ public interface WidgetDao {
   @Update(onConflict = OnConflictStrategy.IGNORE)
   void updateWidgetSync(Widget widget);
 
+  @Query("UPDATE widget SET appWidgetId = :appWidgetId WHERE appWidgetId = -1")
+  void updateTempWidgetIdSync(int appWidgetId);
+
   @Delete
   void deleteWidgetsSync(List<Widget> widgets);
 }

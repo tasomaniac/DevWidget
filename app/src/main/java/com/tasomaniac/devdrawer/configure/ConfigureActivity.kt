@@ -4,7 +4,9 @@ import android.app.Activity
 import android.appwidget.AppWidgetManager
 import android.content.Context
 import android.content.Intent
+import android.os.Build.VERSION_CODES.O
 import android.os.Bundle
+import android.support.annotation.RequiresApi
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.ArrayAdapter
@@ -18,7 +20,7 @@ class ConfigureActivity : DaggerAppCompatActivity(), ConfigureView {
 
   @Inject lateinit var presenter: ConfigurePresenter
   @Inject lateinit var packageMatcherListAdapter: PackageMatcherListAdapter
-  
+
   private lateinit var adapter: ArrayAdapter<String>
   private var listener: ConfigureView.Listener? = null
 
@@ -106,11 +108,23 @@ class ConfigureActivity : DaggerAppCompatActivity(), ConfigureView {
 
   }
 
+  val configurePin: ConfigurePinning
+    get() = intent.getBooleanExtra(EXTRA_SHOULD_PIN, false)
+
   companion object {
+
+    private const val EXTRA_SHOULD_PIN = "EXTRA_SHOULD_PIN"
 
     fun createIntent(context: Context, appWidgetId: Int): Intent {
       return Intent(context, ConfigureActivity::class.java)
           .putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
+    }
+
+    @RequiresApi(O)
+    fun createIntentForPinning(context: Context): Intent {
+      return Intent(context, ConfigureActivity::class.java)
+          .putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, -1)
+          .putExtra(EXTRA_SHOULD_PIN, true)
     }
   }
 }

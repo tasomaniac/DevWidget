@@ -17,16 +17,6 @@
       </intent-filter>
     </activity>
 
-    <receiver android:name=".widget.WidgetProvider">
-      <intent-filter>
-        <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-      </intent-filter>
-
-      <meta-data
-          android:name="android.appwidget.provider"
-          android:resource="@xml/app_widget_info" />
-    </receiver>
-
     <activity
         android:name=".configure.ConfigureActivity"
         android:label="@string/configure_title"
@@ -36,9 +26,32 @@
       </intent-filter>
     </activity>
 
+    <receiver android:name=".configure.WidgetPinnedReceiver" />
+    
     <service
         android:name=".widget.WidgetViewsService"
         android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+    <receiver android:name=".widget.WidgetProvider">
+      <intent-filter>
+        <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+      </intent-filter>
+
+      <meta-data
+          android:name="android.appwidget.provider"
+          android:resource="@xml/app_widget_info" />
+    </receiver>
+    
+    <activity
+        android:name=".widget.ClickHandlingActivity"
+        android:documentLaunchMode="never"
+        android:excludeFromRecents="true"
+        android:finishOnCloseSystemDialogs="true"
+        android:noHistory="true"
+        android:process=":click"
+        android:relinquishTaskIdentity="true"
+        android:taskAffinity=""
+        android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
     <receiver android:name=".receivers.PackageAddedReceiver">
       <intent-filter>
@@ -56,16 +69,6 @@
       </intent-filter>
     </receiver>
 
-    <activity
-        android:name=".widget.ClickHandlingActivity"
-        android:documentLaunchMode="never"
-        android:excludeFromRecents="true"
-        android:finishOnCloseSystemDialogs="true"
-        android:noHistory="true"
-        android:process=":click"
-        android:relinquishTaskIdentity="true"
-        android:taskAffinity=""
-        android:theme="@android:style/Theme.Translucent.NoTitleBar" />
   </application>
 
 </manifest>

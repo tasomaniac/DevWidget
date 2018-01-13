@@ -6,7 +6,10 @@ import android.support.annotation.RequiresApi
 
 interface MainView {
 
-  fun updateItems(items : List<WidgetListData>, diffCallbacks: WidgetDiffCallbacks)
+  @RequiresApi(O)
+  fun renderAddWidgetButton()
+
+  fun updateItems(items: List<WidgetListData>, diffCallbacks: WidgetDiffCallbacks)
   fun setListener(listener: Listener?)
 
   interface Listener {

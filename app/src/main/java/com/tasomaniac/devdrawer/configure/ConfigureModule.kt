@@ -4,6 +4,8 @@ import android.appwidget.AppWidgetManager
 import dagger.Module
 import dagger.Provides
 
+typealias ConfigurePinning = Boolean
+
 @Module
 object ConfigureModule {
 
@@ -18,5 +20,9 @@ object ConfigureModule {
     }
     return appWidgetId
   }
+
+  @Provides
+  @JvmStatic
+  fun configurePinning(activity: ConfigureActivity) = activity.configurePin
 
 }

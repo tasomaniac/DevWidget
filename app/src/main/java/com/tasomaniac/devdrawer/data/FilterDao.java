@@ -1,9 +1,6 @@
 package com.tasomaniac.devdrawer.data;
 
-import android.arch.persistence.room.Dao;
-import android.arch.persistence.room.Insert;
-import android.arch.persistence.room.OnConflictStrategy;
-import android.arch.persistence.room.Query;
+import android.arch.persistence.room.*;
 import io.reactivex.Flowable;
 import io.reactivex.Single;
 
@@ -23,4 +20,7 @@ public interface FilterDao {
 
   @Query("DELETE FROM filter WHERE packageMatcher = :packageMatcher")
   void deleteFilterSync(String packageMatcher);
+
+  @Query("UPDATE filter SET appWidgetId = :appWidgetId WHERE appWidgetId = 2147483647")
+  void updateTempWidgetIdSync(int appWidgetId);
 }

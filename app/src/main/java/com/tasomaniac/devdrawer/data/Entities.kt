@@ -12,7 +12,8 @@ import android.arch.persistence.room.Relation
         entity = Widget::class,
         parentColumns = ["appWidgetId"],
         childColumns = ["appWidgetId"],
-        onDelete = ForeignKey.CASCADE
+        onDelete = ForeignKey.CASCADE,
+        onUpdate = ForeignKey.CASCADE
     )],
     indices = [Index("appWidgetId")]
 )
@@ -28,7 +29,8 @@ data class App(
         entity = Widget::class,
         parentColumns = ["appWidgetId"],
         childColumns = ["appWidgetId"],
-        onDelete = ForeignKey.CASCADE
+        onDelete = ForeignKey.CASCADE,
+        onUpdate = ForeignKey.CASCADE
     )],
     indices = [Index("appWidgetId")]
 )
