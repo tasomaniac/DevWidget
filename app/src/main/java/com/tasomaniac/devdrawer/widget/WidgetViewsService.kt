@@ -8,6 +8,8 @@ import android.widget.RemoteViewsService
 import com.tasomaniac.devdrawer.BuildConfig
 import com.tasomaniac.devdrawer.R
 import com.tasomaniac.devdrawer.data.AppDao
+import com.tasomaniac.devdrawer.settings.SortingPreferences
+import com.tasomaniac.devdrawer.settings.SortingPreferences.Sorting.*
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 
@@ -15,6 +17,7 @@ class WidgetViewsService : RemoteViewsService() {
 
   @Inject lateinit var dao: AppDao
   @Inject lateinit var widgetDataResolver: WidgetDataResolver
+  @Inject lateinit var sortingPreferences: SortingPreferences
 
   override fun onCreate() {
     AndroidInjection.inject(this)
@@ -22,13 +25,14 @@ class WidgetViewsService : RemoteViewsService() {
   }
 
   override fun onGetViewFactory(intent: Intent): WidgetViewsFactory {
-    return WidgetViewsFactory(this, dao, widgetDataResolver, intent.appWidgetId)
+    return WidgetViewsFactory(this, dao, widgetDataResolver, sortingPreferences, intent.appWidgetId)
   }
 
   class WidgetViewsFactory(
       private val context: Context,
       private val appDao: AppDao,
       private val widgetDataResolver: WidgetDataResolver,
+      private val sortingPreferences: SortingPreferences,
       private val appWidgetId: Int
   ) : RemoteViewsService.RemoteViewsFactory {
 
@@ -39,7 +43,13 @@ class WidgetViewsService : RemoteViewsService() {
 
       apps = packageNames.mapNotNull {
         widgetDataResolver.resolve(it)
-      }
+      }.sort()
+    }
+
+    private fun List<WidgetData>.sort() = when (sortingPreferences.sorting) {
+      ORDER_ADDED -> asReversed()
+      ALPHABETICALLY_PACKAGES -> sortedBy { it.packageName }
+      ALPHABETICALLY_NAMES -> sortedBy { it.label }
     }
 
     override fun getViewAt(position: Int): RemoteViews {

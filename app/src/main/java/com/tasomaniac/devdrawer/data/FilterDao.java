@@ -21,6 +21,4 @@ public interface FilterDao {
   @Query("DELETE FROM filter WHERE packageMatcher = :packageMatcher")
   void deleteFilterSync(String packageMatcher);
 
-  @Query("UPDATE filter SET appWidgetId = :appWidgetId WHERE appWidgetId = 2147483647")
-  void updateTempWidgetIdSync(int appWidgetId);
 }
