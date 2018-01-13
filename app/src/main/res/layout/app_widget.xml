@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:layout_height="300dp">
 
   <LinearLayout
       android:id="@+id/widgetHeader"
@@ -17,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
-        tools:text="Widget #5"/>
+        tools:text="Widget #5" />
 
     <ImageButton
         android:id="@+id/widgetConfigure"
@@ -26,14 +27,30 @@
         android:src="@drawable/ic_settings"
         android:padding="@dimen/half_gap"
         android:background="?android:selectableItemBackgroundBorderless"
-        android:contentDescription="@null"/>
+        android:contentDescription="@null" />
 
   </LinearLayout>
 
-  <ListView
-      android:id="@+id/widgetAppList"
+  <FrameLayout
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      tools:listitem="@layout/app_widget_list_item"/>
+      android:layout_height="match_parent">
+
+    <ListView
+        android:id="@+id/widgetAppList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/app_widget_list_item"
+        tools:visibility="gone"/>
+
+    <Button
+        android:id="@+id/widgetEmpty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/configure_title"
+        android:drawableEnd="@drawable/ic_settings"
+        android:drawablePadding="@dimen/half_gap"
+        android:layout_gravity="center"/>
+
+  </FrameLayout>
 
 </LinearLayout>

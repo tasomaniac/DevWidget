@@ -8,6 +8,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build.VERSION_CODES.O
+import android.support.annotation.IdRes
 import android.support.annotation.RequiresApi
 import android.view.View
 import android.widget.RemoteViews
@@ -32,43 +33,55 @@ class WidgetUpdater @Inject constructor(
   }
 
   fun update(widget: Widget) {
-    val remoteViews = RemoteViews(app.packageName, R.layout.app_widget).apply {
-      if (widget.name.isEmpty()) {
-        setViewVisibility(R.id.widgetHeader, View.GONE)
-      } else {
-        setViewVisibility(R.id.widgetHeader, View.VISIBLE)
-        setTextViewText(R.id.widgetTitle, widget.name)
-
-        setupConfigureButton(widget)
-      }
-
-      setRemoteAdapter(R.id.widgetAppList, remoteAdapter(app, widget.appWidgetId))
-      val intentTemplate = ClickHandlingActivity.intent(app).toPendingActivity(app)
-      setPendingIntentTemplate(R.id.widgetAppList, intentTemplate)
-    }
-
-    appWidgetManager.updateAppWidget(widget.appWidgetId, remoteViews)
-  }
-
-  private fun RemoteViews.setupConfigureButton(widget: Widget) {
-    setContentDescription(R.id.widgetConfigure,
-        app.getString(R.string.widget_content_description_configure, widget))
-    val intent = ConfigureActivity.createIntent(app, widget.appWidgetId).toPendingActivity(app)
-    setOnClickPendingIntent(R.id.widgetConfigure, intent)
+    RemoveViewsCreator(widget)
+        .createAndUpdate()
   }
 
   fun notifyWidgetDataChanged(appWidgetId: Int) {
     appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widgetAppList)
   }
 
-  companion object {
+  private inner class RemoveViewsCreator(private val widget: Widget) {
 
-    private fun remoteAdapter(context: Context, appWidgetId: Int): Intent {
+    fun createAndUpdate() {
+      appWidgetManager.updateAppWidget(widget.appWidgetId, create())
+    }
+
+    private fun create() = RemoteViews(app.packageName, R.layout.app_widget).apply {
+      if (widget.name.isEmpty()) {
+        setViewVisibility(R.id.widgetHeader, View.GONE)
+      } else {
+        setViewVisibility(R.id.widgetHeader, View.VISIBLE)
+        setTextViewText(R.id.widgetTitle, widget.name)
+
+        setupConfigureButton(R.id.widgetConfigure)
+      }
+
+      setRemoteAdapter(R.id.widgetAppList, remoteAdapter(app))
+
+      setEmptyView(R.id.widgetAppList, R.id.widgetEmpty)
+      setupConfigureButton(R.id.widgetEmpty)
+      
+      val intentTemplate = ClickHandlingActivity.intent(app).toPendingActivity(app)
+      setPendingIntentTemplate(R.id.widgetAppList, intentTemplate)
+    }
+
+    private fun RemoteViews.setupConfigureButton(@IdRes buttonId: Int) {
+      setContentDescription(buttonId, app.getString(R.string.widget_content_description_configure, widget))
+      val intent = ConfigureActivity.createIntent(app, widget.appWidgetId)
+          .toPendingActivity(app)
+      setOnClickPendingIntent(buttonId, intent)
+    }
+
+    private fun remoteAdapter(context: Context): Intent {
       return Intent(context, WidgetViewsService::class.java).apply {
-        putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
+        putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widget.appWidgetId)
         data = Uri.parse(toUri(Intent.URI_INTENT_SCHEME))
       }
     }
+  }
+
+  companion object {
 
     private fun Intent.toPendingActivity(context: Context) =
         PendingIntent.getActivity(context, 0, this, PendingIntent.FLAG_UPDATE_CURRENT)
