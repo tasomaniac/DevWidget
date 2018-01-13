@@ -6,6 +6,9 @@ import com.tasomaniac.devdrawer.configure.WidgetPinnedReceiver
 import com.tasomaniac.devdrawer.main.MainActivity
 import com.tasomaniac.devdrawer.receivers.PackageAddedReceiver
 import com.tasomaniac.devdrawer.receivers.PackageRemovedReceiver
+import com.tasomaniac.devdrawer.settings.SettingsActivity
+import com.tasomaniac.devdrawer.settings.SettingsFragment
+import com.tasomaniac.devdrawer.settings.SettingsModule
 import com.tasomaniac.devdrawer.widget.WidgetProvider
 import com.tasomaniac.devdrawer.widget.WidgetViewsService
 import dagger.Module
@@ -34,4 +37,10 @@ interface BindingModule {
 
   @ContributesAndroidInjector
   fun mainActivity(): MainActivity
+
+  @ContributesAndroidInjector
+  fun settingsActivity(): SettingsActivity
+
+  @ContributesAndroidInjector(modules = [SettingsModule::class])
+  fun settingsFragment(): SettingsFragment
 }

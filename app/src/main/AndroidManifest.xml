@@ -53,6 +53,10 @@
         android:taskAffinity=""
         android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
+    <activity android:name=".settings.SettingsActivity"
+        android:label="@string/settings"
+        android:parentActivityName=".main.MainActivity"/>
+
     <receiver android:name=".receivers.PackageAddedReceiver">
       <intent-filter>
         <action android:name="android.intent.action.PACKAGE_ADDED" />

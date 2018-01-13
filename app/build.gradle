@@ -59,6 +59,7 @@ dependencies {
   implementation "com.android.support:cardview-v7:$versions.supportLib"
   implementation "com.android.support:recyclerview-v7:$versions.supportLib"
   implementation "com.android.support:design:$versions.supportLib"
+  implementation "com.android.support:preference-v14:$versions.supportLib"
   implementation 'com.android.support.constraint:constraint-layout:1.1.0-beta4'
 
   implementation "android.arch.persistence.room:runtime:$versions.room"

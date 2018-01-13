@@ -1,11 +1,15 @@
 package com.tasomaniac.devdrawer.main
 
+import android.content.Intent
 import android.os.Build.VERSION_CODES.O
 import android.os.Bundle
 import android.support.annotation.RequiresApi
 import android.support.v7.widget.DividerItemDecoration
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import com.tasomaniac.devdrawer.R
+import com.tasomaniac.devdrawer.settings.SettingsActivity
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.main_activity.*
 import kotlinx.android.synthetic.main.main_content.*
@@ -52,5 +56,18 @@ class MainActivity : DaggerAppCompatActivity(), MainView {
   override fun onDestroy() {
     presenter.unbind(this)
     super.onDestroy()
+  }
+
+  override fun onCreateOptionsMenu(menu: Menu): Boolean {
+    menuInflater.inflate(R.menu.main_menu, menu)
+    return true
+  }
+
+  override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+    R.id.settings -> {
+      startActivity(Intent(this, SettingsActivity::class.java))
+      true
+    }
+    else -> false
   }
 }
