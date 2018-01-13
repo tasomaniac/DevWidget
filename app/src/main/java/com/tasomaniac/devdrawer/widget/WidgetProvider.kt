@@ -30,11 +30,16 @@ class WidgetProvider : AppWidgetProvider() {
   override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, vararg appWidgetIds: Int) {
     if (appWidgetIds.isEmpty()) return
 
+    val pendingResult = goAsync()
+
     disposable.dispose()
     disposable = widgetDao.findWidgetsById(*appWidgetIds)
         .flatten()
-        .compose(scheduling.forObservable())
-        .subscribe(widgetUpdater::update)
+        .flatMapCompletable(widgetUpdater::update)
+        .compose(scheduling.forCompletable())
+        .subscribe {
+          pendingResult.finish()
+        }
   }
 
   override fun onDeleted(context: Context, vararg appWidgetIds: Int) {

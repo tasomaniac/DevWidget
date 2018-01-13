@@ -16,6 +16,7 @@ import com.tasomaniac.devdrawer.R
 import com.tasomaniac.devdrawer.configure.ConfigureActivity
 import com.tasomaniac.devdrawer.configure.WidgetPinnedReceiver
 import com.tasomaniac.devdrawer.data.Widget
+import io.reactivex.Completable
 import javax.inject.Inject
 
 class WidgetUpdater @Inject constructor(
@@ -32,7 +33,7 @@ class WidgetUpdater @Inject constructor(
     appWidgetManager.requestPinAppWidget(widgetProvider, null, successCallback)
   }
 
-  fun update(widget: Widget) {
+  fun update(widget: Widget) = Completable.fromAction {
     RemoveViewsCreator(widget)
         .createAndUpdate()
   }
@@ -61,7 +62,7 @@ class WidgetUpdater @Inject constructor(
 
       setEmptyView(R.id.widgetAppList, R.id.widgetEmpty)
       setupConfigureButton(R.id.widgetEmpty)
-      
+
       val intentTemplate = ClickHandlingActivity.intent(app).toPendingActivity(app)
       setPendingIntentTemplate(R.id.widgetAppList, intentTemplate)
     }

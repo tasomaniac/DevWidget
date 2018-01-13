@@ -60,7 +60,7 @@ class ConfigureUseCase @Inject constructor(
   private fun updateWidget(widgetName: String): Completable {
     val widget = Widget(appWidgetId, widgetName)
     return widgetDao.updateWidget(widget)
-        .doOnComplete { widgetUpdater.update(widget) }
+        .andThen(widgetUpdater.update(widget))
   }
 
   fun updateWidgetName(widgetName: String) {
