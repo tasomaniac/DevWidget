@@ -2,8 +2,8 @@ package com.tasomaniac.devdrawer.main
 
 import com.tasomaniac.devdrawer.data.Widget
 import com.tasomaniac.devdrawer.data.WidgetDao
+import com.tasomaniac.devdrawer.settings.Sorting.*
 import com.tasomaniac.devdrawer.settings.SortingPreferences
-import com.tasomaniac.devdrawer.settings.SortingPreferences.Sorting.*
 import com.tasomaniac.devdrawer.widget.WidgetData
 import com.tasomaniac.devdrawer.widget.WidgetDataResolver
 import io.reactivex.Flowable

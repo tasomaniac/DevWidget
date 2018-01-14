@@ -3,12 +3,17 @@ package com.tasomaniac.devdrawer.settings
 import android.content.SharedPreferences
 import com.tasomaniac.devdrawer.R
 import com.tasomaniac.devdrawer.data.Analytics
+import com.tasomaniac.devdrawer.rx.SchedulingStrategy
+import com.tasomaniac.devdrawer.widget.WidgetUpdater
 import javax.inject.Inject
 
 class DisplaySettings @Inject constructor(
     private val sharedPreferences: SharedPreferences,
     private val nightModePreferences: NightModePreferences,
+    private val opacityPreferences: OpacityPreferences,
+    private val widgetUpdater: WidgetUpdater,
     private val analytics: Analytics,
+    private val scheduling: SchedulingStrategy,
     fragment: SettingsFragment
 ) : Settings(fragment), SharedPreferences.OnSharedPreferenceChangeListener {
 
@@ -16,7 +21,7 @@ class DisplaySettings @Inject constructor(
     addPreferencesFromResource(R.xml.pref_display)
     sharedPreferences.registerOnSharedPreferenceChangeListener(this)
 
-    val selectedEntry = nightModePreferences.selectedEntry
+    val selectedEntry = nightModePreferences.mode.entry
     findPreference(R.string.pref_key_night_mode).setSummary(selectedEntry)
   }
 
@@ -29,8 +34,23 @@ class DisplaySettings @Inject constructor(
       nightModePreferences.updateDefaultNightMode()
       activity.recreate()
 
+      updateAllWidgets()
+
       val selectedValue = nightModePreferences.mode.stringVale(context.resources)
       analytics.sendEvent("Preference", "Night Mode", selectedValue)
     }
+    if (key.isKeyEquals(R.string.pref_key_opacity)) {
+      updateAllWidgets()
+
+      val selectedValue = opacityPreferences.opacity.stringVale(context.resources)
+      analytics.sendEvent("Preference", "Opacity", selectedValue)
+    }
+
+  }
+
+  private fun updateAllWidgets() {
+    widgetUpdater.updateAll()
+        .compose(scheduling.forCompletable())
+        .subscribe()
   }
 }

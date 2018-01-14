@@ -16,12 +16,19 @@ import com.tasomaniac.devdrawer.R
 import com.tasomaniac.devdrawer.configure.ConfigureActivity
 import com.tasomaniac.devdrawer.configure.WidgetPinnedReceiver
 import com.tasomaniac.devdrawer.data.Widget
+import com.tasomaniac.devdrawer.data.WidgetDao
+import com.tasomaniac.devdrawer.rx.flatten
+import com.tasomaniac.devdrawer.settings.OpacityPreferences
 import io.reactivex.Completable
+import io.reactivex.annotations.CheckReturnValue
 import javax.inject.Inject
 
 class WidgetUpdater @Inject constructor(
     private val app: Application,
-    private val appWidgetManager: AppWidgetManager
+    private val appWidgetManager: AppWidgetManager,
+    private val widgetResources: WidgetResources,
+    private val opacityPreferences: OpacityPreferences,
+    private val widgetDao: WidgetDao
 ) {
 
   @RequiresApi(O)
@@ -33,10 +40,23 @@ class WidgetUpdater @Inject constructor(
     appWidgetManager.requestPinAppWidget(widgetProvider, null, successCallback)
   }
 
-  fun update(widget: Widget) = Completable.fromAction {
-    RemoveViewsCreator(widget)
-        .createAndUpdate()
-  }
+  @CheckReturnValue
+  fun update(widget: Widget) =
+      Completable.fromAction {
+        RemoveViewsCreator(widget)
+            .createAndUpdate()
+      }
+
+  @CheckReturnValue
+  fun updateAll() =
+      widgetDao.allWidgets()
+          .flatten()
+          .flatMapCompletable {
+            update(it)
+                .andThen(Completable.fromAction {
+                  appWidgetManager.notifyAppWidgetViewDataChanged(it.appWidgetId, R.id.widgetAppList)
+                })
+          }
 
   fun notifyWidgetDataChanged(appWidgetId: Int) {
     appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widgetAppList)
@@ -54,13 +74,21 @@ class WidgetUpdater @Inject constructor(
       } else {
         setViewVisibility(R.id.widgetHeader, View.VISIBLE)
         setTextViewText(R.id.widgetTitle, widget.name)
+        setTextColor(R.id.widgetTitle, widgetResources.foregroundColor)
 
         setupConfigureButton(R.id.widgetConfigure)
+        setImageViewResource(R.id.widgetConfigure, widgetResources.settingsIcon)
       }
+
+      val shadeColor = opacityPreferences.backgroundColor
+      setInt(R.id.shade, "setBackgroundColor", shadeColor)
+      setViewVisibility(R.id.shade, if (shadeColor == 0) View.GONE else View.VISIBLE)
 
       setRemoteAdapter(R.id.widgetAppList, remoteAdapter(app))
 
       setEmptyView(R.id.widgetAppList, R.id.widgetEmpty)
+      setTextColor(R.id.widgetEmpty, widgetResources.foregroundColor)
+      setTextViewCompoundDrawablesRelative(R.id.widgetEmpty, 0, 0, widgetResources.settingsIcon, 0)
       setupConfigureButton(R.id.widgetEmpty)
 
       val intentTemplate = ClickHandlingActivity.intent(app).toPendingActivity(app)

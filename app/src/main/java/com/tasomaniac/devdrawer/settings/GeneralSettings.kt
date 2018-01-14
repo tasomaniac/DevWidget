@@ -1,21 +1,18 @@
 package com.tasomaniac.devdrawer.settings
 
-import android.appwidget.AppWidgetManager
 import android.content.SharedPreferences
 import com.tasomaniac.devdrawer.R
 import com.tasomaniac.devdrawer.data.Analytics
-import com.tasomaniac.devdrawer.data.WidgetDao
 import com.tasomaniac.devdrawer.rx.SchedulingStrategy
-import io.reactivex.Completable
+import com.tasomaniac.devdrawer.widget.WidgetUpdater
 import javax.inject.Inject
 
 class GeneralSettings @Inject constructor(
     private val sharedPreferences: SharedPreferences,
     private val sortingPreferences: SortingPreferences,
-    private val appWidgetManager: AppWidgetManager,
-    private val scheduling: SchedulingStrategy,
-    private val widgetDao: WidgetDao,
+    private val widgetUpdater: WidgetUpdater,
     private val analytics: Analytics,
+    private val scheduling: SchedulingStrategy,
     fragment: SettingsFragment
 ) : Settings(fragment),
     SharedPreferences.OnSharedPreferenceChangeListener {
@@ -36,7 +33,7 @@ class GeneralSettings @Inject constructor(
       val sorting = sortingPreferences.sorting
       updateSummary(sorting)
 
-      updateAllWidgets()
+      widgetUpdater.updateAll()
           .compose(scheduling.forCompletable())
           .subscribe()
 
@@ -44,17 +41,8 @@ class GeneralSettings @Inject constructor(
     }
   }
 
-  private fun updateSummary(sorting: SortingPreferences.Sorting) {
+  private fun updateSummary(sorting: Sorting) {
     findPreference(R.string.pref_key_sorting).setSummary(sorting.entry)
   }
 
-  private fun updateAllWidgets(): Completable {
-    return widgetDao.allWidgetIds()
-        .map { it.toIntArray() }
-        .flatMapCompletable {
-          Completable.fromAction {
-            appWidgetManager.notifyAppWidgetViewDataChanged(it, R.id.widgetAppList)
-          }
-        }
-  }
 }

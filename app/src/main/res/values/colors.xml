@@ -3,4 +3,7 @@
     <color name="theme_primary_dark">#303F9F</color>
     <color name="theme_primary">#3F51B5</color>
     <color name="theme_accent">#009688</color>
+
+    <color name="foregroundDark">#D000</color>
+    <color name="foregroundLight">#FFF</color>
 </resources>

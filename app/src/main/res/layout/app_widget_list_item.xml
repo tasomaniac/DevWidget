@@ -4,9 +4,11 @@
     android:id="@+id/appWidgetContainer"
     android:layout_width="match_parent"
     android:layout_height="64dp"
+    android:paddingStart="@dimen/half_gap"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:background="?android:selectableItemBackground">
+    android:background="?android:selectableItemBackground"
+    tools:ignore="RtlSymmetry">
 
   <ImageView
       android:id="@+id/appWidgetIcon"

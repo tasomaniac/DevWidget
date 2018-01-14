@@ -2,9 +2,9 @@ package com.tasomaniac.devdrawer.settings
 
 import android.content.SharedPreferences
 import android.content.res.Resources
-import android.support.annotation.StringRes
 import com.tasomaniac.devdrawer.R
 import javax.inject.Inject
+
 
 class SortingPreferences @Inject constructor(
     private val sharedPreferences: SharedPreferences,
@@ -15,24 +15,7 @@ class SortingPreferences @Inject constructor(
   val sorting: Sorting
     get() {
       val value = sharedPreferences.getString(key, null)
-      return Sorting.fromValue(resources, value) ?: Sorting.ORDER_ADDED
+      return PreferenceEntries.fromValue(resources, value) ?: Sorting.ORDER_ADDED
     }
 
-  enum class Sorting(
-      @StringRes val value: Int,
-      @StringRes val entry: Int
-  ) {
-    ORDER_ADDED(R.string.pref_value_sorting_order_added, R.string.pref_entry_sorting_order_added),
-    ALPHABETICALLY_PACKAGES(R.string.pref_value_sorting_alphabetically_packages, R.string.pref_entry_sorting_alphabetically_packages),
-    ALPHABETICALLY_NAMES(R.string.pref_value_sorting_alphabetically_names, R.string.pref_entry_sorting_alphabetically_names);
-
-    fun stringVale(resources: Resources) = resources.getString(value)
-
-    companion object {
-
-      internal fun fromValue(resources: Resources, value: String?) =
-          Sorting.values()
-              .firstOrNull { it.stringVale(resources) == value }
-    }
-  }
 }

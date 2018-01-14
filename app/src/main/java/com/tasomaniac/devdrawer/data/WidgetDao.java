@@ -17,6 +17,9 @@ public interface WidgetDao {
   @Query("SELECT appWidgetId FROM widget")
   Single<List<Integer>> allWidgetIds();
 
+  @Query("SELECT * FROM widget")
+  Single<List<Widget>> allWidgets();
+
   @Query("SELECT * FROM widget WHERE appWidgetId = :appWidgetId")
   Maybe<Widget> findWidgetById(int appWidgetId);
 

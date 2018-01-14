@@ -8,31 +8,27 @@ import android.widget.RemoteViewsService
 import com.tasomaniac.devdrawer.BuildConfig
 import com.tasomaniac.devdrawer.R
 import com.tasomaniac.devdrawer.data.AppDao
+import com.tasomaniac.devdrawer.settings.Sorting.*
 import com.tasomaniac.devdrawer.settings.SortingPreferences
-import com.tasomaniac.devdrawer.settings.SortingPreferences.Sorting.*
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 
 class WidgetViewsService : RemoteViewsService() {
 
-  @Inject lateinit var dao: AppDao
+  @Inject lateinit var appDao: AppDao
   @Inject lateinit var widgetDataResolver: WidgetDataResolver
   @Inject lateinit var sortingPreferences: SortingPreferences
+  @Inject lateinit var widgetResources: WidgetResources
 
   override fun onCreate() {
     AndroidInjection.inject(this)
     super.onCreate()
   }
 
-  override fun onGetViewFactory(intent: Intent): WidgetViewsFactory {
-    return WidgetViewsFactory(this, dao, widgetDataResolver, sortingPreferences, intent.appWidgetId)
-  }
+  override fun onGetViewFactory(intent: Intent) = WidgetViewsFactory(this, intent.appWidgetId)
 
-  class WidgetViewsFactory(
+  inner class WidgetViewsFactory(
       private val context: Context,
-      private val appDao: AppDao,
-      private val widgetDataResolver: WidgetDataResolver,
-      private val sortingPreferences: SortingPreferences,
       private val appWidgetId: Int
   ) : RemoteViewsService.RemoteViewsFactory {
 
@@ -60,7 +56,9 @@ class WidgetViewsService : RemoteViewsService() {
     private fun createViewWith(app: WidgetData) =
         RemoteViews(BuildConfig.APPLICATION_ID, R.layout.app_widget_list_item).apply {
           setTextViewText(R.id.appWidgetPackageName, app.packageName)
+          setTextColor(R.id.appWidgetPackageName, widgetResources.foregroundColor)
           setTextViewText(R.id.appWidgetLabel, app.label)
+          setTextColor(R.id.appWidgetLabel, widgetResources.foregroundColor)
           setImageViewBitmap(R.id.appWidgetIcon, app.icon)
 
           setOnClickFillInIntent(R.id.appWidgetContainer,
@@ -68,11 +66,13 @@ class WidgetViewsService : RemoteViewsService() {
           )
           val uninstall = context.getString(R.string.widget_content_description_uninstall_app, app.label)
           setContentDescription(R.id.appWidgetUninstall, uninstall)
+          setImageViewResource(R.id.appWidgetUninstall, widgetResources.deleteIcon)
           setOnClickFillInIntent(R.id.appWidgetUninstall,
               ClickHandlingActivity.createForUninstallApp(app.packageName)
           )
           val appDetails = context.getString(R.string.widget_content_description_app_details, app.label)
           setContentDescription(R.id.appWidgetDetails, appDetails)
+          setImageViewResource(R.id.appWidgetDetails, widgetResources.settingsIcon)
           setOnClickFillInIntent(R.id.appWidgetDetails,
               ClickHandlingActivity.createForAppDetails(app.packageName)
           )
