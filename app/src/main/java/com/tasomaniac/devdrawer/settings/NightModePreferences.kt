@@ -2,12 +2,9 @@ package com.tasomaniac.devdrawer.settings
 
 import android.content.SharedPreferences
 import android.content.res.Resources
-import android.graphics.Color
-import android.support.annotation.ColorInt
 import android.support.v7.app.AppCompatDelegate
 import com.tasomaniac.devdrawer.R
 import com.tasomaniac.devdrawer.settings.NightMode.OFF
-import com.tasomaniac.devdrawer.settings.NightMode.ON
 import javax.inject.Inject
 
 class NightModePreferences @Inject constructor(
@@ -19,7 +16,7 @@ class NightModePreferences @Inject constructor(
   val mode: NightMode
     get() {
       val value = sharedPreferences.getString(key, null)
-      return PreferenceEntries.fromValue(resources, value) ?: ON
+      return PreferenceEntries.fromValue(resources, value) ?: OFF
     }
 
   fun updateDefaultNightMode() {
