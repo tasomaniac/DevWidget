@@ -21,7 +21,7 @@ class GeneralSettings @Inject constructor(
     addPreferencesFromResource(R.xml.pref_general)
     sharedPreferences.registerOnSharedPreferenceChangeListener(this)
 
-    updateSummary(sortingPreferences.sorting)
+    updateSummary()
   }
 
   override fun release() {
@@ -31,7 +31,7 @@ class GeneralSettings @Inject constructor(
   override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
     if (key.isKeyEquals(R.string.pref_key_sorting)) {
       val sorting = sortingPreferences.sorting
-      updateSummary(sorting)
+      updateSummary()
 
       widgetUpdater.updateAll()
           .compose(scheduling.forCompletable())
@@ -41,8 +41,8 @@ class GeneralSettings @Inject constructor(
     }
   }
 
-  private fun updateSummary(sorting: Sorting) {
-    findPreference(R.string.pref_key_sorting).setSummary(sorting.entry)
+  private fun updateSummary() {
+    findPreference(R.string.pref_key_sorting).setSummary(sortingPreferences.sorting.entry)
   }
 
 }

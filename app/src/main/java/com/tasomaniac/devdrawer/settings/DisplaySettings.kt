@@ -21,8 +21,8 @@ class DisplaySettings @Inject constructor(
     addPreferencesFromResource(R.xml.pref_display)
     sharedPreferences.registerOnSharedPreferenceChangeListener(this)
 
-    val selectedEntry = nightModePreferences.mode.entry
-    findPreference(R.string.pref_key_night_mode).setSummary(selectedEntry)
+    updateNightModeSummary()
+    updateOpacitySummary()
   }
 
   override fun release() {
@@ -40,12 +40,20 @@ class DisplaySettings @Inject constructor(
       analytics.sendEvent("Preference", "Night Mode", selectedValue)
     }
     if (key.isKeyEquals(R.string.pref_key_opacity)) {
+      updateOpacitySummary()
       updateAllWidgets()
 
       val selectedValue = opacityPreferences.opacity.stringVale(context.resources)
       analytics.sendEvent("Preference", "Opacity", selectedValue)
     }
+  }
 
+  private fun updateNightModeSummary() {
+    findPreference(R.string.pref_key_night_mode).setSummary(nightModePreferences.mode.entry)
+  }
+
+  private fun updateOpacitySummary() {
+    findPreference(R.string.pref_key_opacity).setSummary(opacityPreferences.opacity.entry)
   }
 
   private fun updateAllWidgets() {
