@@ -83,3 +83,14 @@ dependencies {
   androidTestImplementation "android.arch.persistence.room:testing:$versions.room"
 
 }
+
+project.tasks.withType(JavaCompile) {
+  options.compilerArgs += [
+      '-Xep:UnnecessaryDefaultInEnumSwitch:ERROR',
+      '-Xep:TypeParameterUnusedInFormals:ERROR',
+      '-Xep:ClassCanBeStatic:ERROR',
+      '-Xep:OperatorPrecedence:ERROR',
+      '-Xep:ReferenceEquality:ERROR',
+      '-Xep:FloatingPointLiteralPrecision:ERROR',
+  ]
+}
