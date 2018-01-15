@@ -5,7 +5,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import com.tasomaniac.devdrawer.R
 import dagger.android.support.DaggerAppCompatActivity
-import kotlinx.android.synthetic.main.activity_settings.*
+import kotlinx.android.synthetic.main.settings_activity.*
 import javax.inject.Inject
 
 class SettingsActivity : DaggerAppCompatActivity(),
@@ -15,7 +15,7 @@ class SettingsActivity : DaggerAppCompatActivity(),
 
   public override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_settings)
+    setContentView(R.layout.settings_activity)
     setSupportActionBar(toolbar)
 
     if (savedInstanceState == null) {

@@ -5,6 +5,7 @@
   <string name="configure_title">Configure Widget</string>
   <string name="configure_hint_widget_name">Widget Name (Optional)</string>
   <string name="configure_hint_package_matcher">Package Matcher</string>
+  <string name="configure_package_matchers_title">Matchers</string>
   <string name="configure_action_add">Add</string>
 
   <string name="widget_content_description_configure">Configure %s</string>
