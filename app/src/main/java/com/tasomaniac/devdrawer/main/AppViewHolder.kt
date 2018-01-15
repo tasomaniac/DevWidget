@@ -6,23 +6,38 @@ import android.view.ViewGroup
 import com.tasomaniac.devdrawer.R
 import com.tasomaniac.devdrawer.extensions.inflate
 import com.tasomaniac.devdrawer.widget.WidgetData
+import com.tasomaniac.devdrawer.widget.WidgetResources
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.app_widget_list_item.*
+import javax.inject.Inject
 
 class AppViewHolder(
+    private val widgetResources: WidgetResources,
     override val containerView: View
-): RecyclerView.ViewHolder(containerView), LayoutContainer {
+) : RecyclerView.ViewHolder(containerView),
+    LayoutContainer {
 
   fun bind(widgetData: WidgetData) {
+    appWidgetContainer.background = null
+    
     appWidgetIcon.setImageBitmap(widgetData.icon)
     appWidgetLabel.text = widgetData.label
+    appWidgetLabel.setTextColor(widgetResources.foregroundColor)
     appWidgetPackageName.text = widgetData.packageName
+    appWidgetPackageName.setTextColor(widgetResources.foregroundColor)
+
+    appWidgetUninstall.setImageResource(widgetResources.deleteIcon)
+    appWidgetDetails.setImageResource(widgetResources.settingsIcon)
   }
 
-  companion object {
-    fun create(parent: ViewGroup): AppViewHolder {
-      val view = parent.inflate(R.layout.app_widget_list_item)
-      return AppViewHolder(view)
+  class Factory @Inject constructor(widgetResources: WidgetResources) {
+
+    private val creator = { view: View ->
+      AppViewHolder(widgetResources, view)
     }
+
+    fun createWith(parent: ViewGroup) = creator(
+        parent.inflate(R.layout.app_widget_list_item)
+    )
   }
 }

@@ -2,6 +2,7 @@
 <resources>
   <dimen name="keyline_1">24dp</dimen>
   <dimen name="keyline_1_minus_4dp">20dp</dimen>
+  <dimen name="keyline_1_minus_8dp">12dp</dimen>
   <dimen name="keyline_2">80dp</dimen>
   <dimen name="keyline_2_minus_4dp">76dp</dimen>
 </resources>

@@ -1,7 +1,10 @@
 <com.tasomaniac.devdrawer.view.ForegroundLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/app_widget_min_height"
+    android:paddingStart="@dimen/keyline_1_minus_8dp"
+    android:paddingEnd="@dimen/keyline_1_minus_8dp"
     android:paddingTop="@dimen/half_gap"
     android:foreground="?selectableItemBackground"
     android:orientation="vertical">
@@ -10,13 +13,18 @@
       android:id="@+id/mainWidgetTitle"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:textSize="18sp"/>
+      android:paddingStart="@dimen/half_gap"
+      android:paddingEnd="@dimen/half_gap"
+      android:textAppearance="@style/AppWidget.Title"
+      tools:text="My Widget"/>
 
-  <android.support.v7.widget.RecyclerView
+  <com.tasomaniac.devdrawer.main.NonTouchRecyclerView
       android:id="@+id/mainWidgetAppList"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
+      android:layout_height="match_parent"
       android:orientation="vertical"
-      app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+      android:nestedScrollingEnabled="false"
+      app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+      tools:listitem="@layout/app_widget_list_item"/>
 
 </com.tasomaniac.devdrawer.view.ForegroundLinearLayout>

@@ -14,14 +14,14 @@ import javax.inject.Inject
 
 class WidgetViewHolder(
     private val widgetNameResolver: WidgetNameResolver,
+    private val appViewHolderFactory: AppViewHolder.Factory,
     override val containerView: View
 ) : RecyclerView.ViewHolder(containerView),
     LayoutContainer {
 
   fun bind(data: WidgetListData) {
     mainWidgetTitle.text = widgetNameResolver.resolve(data.widget)
-    mainWidgetAppList.adapter = WidgetAppListAdapter(data.widgetData)
-    mainWidgetAppList.isNestedScrollingEnabled = false
+    mainWidgetAppList.adapter = WidgetAppListAdapter(appViewHolderFactory, data.widgetData)
 
     itemView.setOnClickListener {
       val intent = Intent(itemView.context, ConfigureActivity::class.java)
@@ -30,10 +30,12 @@ class WidgetViewHolder(
     }
   }
 
-  class Factory @Inject constructor(widgetNameResolver: WidgetNameResolver) {
+  class Factory @Inject constructor(
+      widgetNameResolver: WidgetNameResolver,
+      appViewHolderFactory: AppViewHolder.Factory) {
 
     private val creator = { view: View ->
-      WidgetViewHolder(widgetNameResolver, view)
+      WidgetViewHolder(widgetNameResolver, appViewHolderFactory, view)
     }
 
     fun createWith(parent: ViewGroup) = creator(

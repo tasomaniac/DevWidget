@@ -55,11 +55,11 @@ class WidgetViewsService : RemoteViewsService() {
 
     private fun createViewWith(app: WidgetData) =
         RemoteViews(BuildConfig.APPLICATION_ID, R.layout.app_widget_list_item).apply {
+          setImageViewBitmap(R.id.appWidgetIcon, app.icon)
           setTextViewText(R.id.appWidgetPackageName, app.packageName)
           setTextColor(R.id.appWidgetPackageName, widgetResources.foregroundColor)
           setTextViewText(R.id.appWidgetLabel, app.label)
           setTextColor(R.id.appWidgetLabel, widgetResources.foregroundColor)
-          setImageViewBitmap(R.id.appWidgetIcon, app.icon)
 
           setOnClickFillInIntent(R.id.appWidgetContainer,
               ClickHandlingActivity.createForLaunchApp(app.packageName)

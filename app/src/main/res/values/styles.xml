@@ -24,4 +24,10 @@
     <item name="android:layout">@layout/preference_open_with</item>
   </style>
 
+  <style name="AppWidget.Title" parent="TextAppearance.AppCompat">
+    <item name="android:fontFamily">sans-serif-light</item>
+    <item name="android:textSize">16sp</item>
+    <item name="android:textAllCaps">true</item>
+  </style>
+
 </resources>
