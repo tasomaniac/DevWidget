@@ -16,10 +16,9 @@
   <string name="done">Done</string>
 
   <string name="settings">Settings</string>
-  
-  <string name="pref_key_category_general" translatable="false">pref_category_general</string>
+
   <string name="pref_title_general">General</string>
-  
+
   <string name="pref_key_sorting" translatable="false">pref_sorting</string>
   <string name="pref_title_sorting">Sorting</string>
   <string name="pref_value_sorting_order_added" translatable="false">order_added</string>
@@ -41,11 +40,13 @@
   <string name="pref_key_opacity" translatable="false">pref_opacity</string>
   <string name="pref_background_opacity_title">Background visibility</string>
   <string name="pref_value_opacity_fully_transparent" translatable="false">0</string>
+  <string name="pref_value_opacity_10" translatable="false">10</string>
   <string name="pref_value_opacity_25" translatable="false">25</string>
   <string name="pref_value_opacity_50" translatable="false">50</string>
   <string name="pref_value_opacity_75" translatable="false">75</string>
   <string name="pref_value_opacity_fully_opaque" translatable="false">100</string>
   <string name="pref_entry_opacity_fully_transparent">Fully transparent</string>
+  <string name="pref_entry_opacity_10">10% visible</string>
   <string name="pref_entry_opacity_25">25% visible</string>
   <string name="pref_entry_opacity_50">50% visible</string>
   <string name="pref_entry_opacity_75">75% visible</string>

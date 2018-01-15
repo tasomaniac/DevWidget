@@ -1,13 +1,13 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
   <PreferenceCategory
-    android:order="2"
-    android:key="@string/pref_key_category_general"
-    android:title="@string/pref_title_general">
+      android:order="2"
+      android:title="@string/pref_title_general">
 
     <ListPreference
         android:key="@string/pref_key_sorting"
         android:title="@string/pref_title_sorting"
+        android:summary="%s"
         android:defaultValue="@string/pref_value_sorting_order_added"
         android:entryValues="@array/pref_sorting_values"
         android:entries="@array/pref_sorting_entries" />
