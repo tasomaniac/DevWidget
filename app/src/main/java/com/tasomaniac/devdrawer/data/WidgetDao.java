@@ -11,7 +11,7 @@ import java.util.List;
 public interface WidgetDao {
 
   @Transaction
-  @Query("SELECT * FROM widget")
+  @Query("SELECT * FROM widget WHERE appWidgetId != -1")
   Flowable<List<WidgetAndPackageNames>> allWidgetsWithPackages();
 
   @Query("SELECT appWidgetId FROM widget")
