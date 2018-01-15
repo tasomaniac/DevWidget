@@ -1,11 +1,14 @@
 package com.tasomaniac.devdrawer.settings
 
+import android.app.Activity
+import android.app.TaskStackBuilder
 import android.content.SharedPreferences
 import com.tasomaniac.devdrawer.R
 import com.tasomaniac.devdrawer.data.Analytics
 import com.tasomaniac.devdrawer.rx.SchedulingStrategy
 import com.tasomaniac.devdrawer.widget.WidgetUpdater
 import javax.inject.Inject
+
 
 class DisplaySettings @Inject constructor(
     private val sharedPreferences: SharedPreferences,
@@ -29,7 +32,7 @@ class DisplaySettings @Inject constructor(
   override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
     if (key.isKeyEquals(R.string.pref_key_night_mode)) {
       nightModePreferences.updateDefaultNightMode()
-      activity.recreate()
+      activity.recreateTaskStack()
 
       updateAllWidgets()
 
@@ -48,5 +51,12 @@ class DisplaySettings @Inject constructor(
     widgetUpdater.updateAll()
         .compose(scheduling.forCompletable())
         .subscribe()
+  }
+
+  private fun Activity.recreateTaskStack() {
+    finish()
+    TaskStackBuilder.create(this)
+        .addNextIntentWithParentStack(intent)
+        .startActivities()
   }
 }
