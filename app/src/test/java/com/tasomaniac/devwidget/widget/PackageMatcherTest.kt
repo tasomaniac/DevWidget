@@ -1,6 +1,5 @@
 package com.tasomaniac.devwidget.widget
 
-import com.tasomaniac.devwidget.widget.matchPackage
 import io.reactivex.Observable
 import org.junit.Assert.assertEquals
 import org.junit.Test
