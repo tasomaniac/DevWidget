@@ -11,8 +11,9 @@ import android.view.View
 import com.tasomaniac.devwidget.R
 import com.tasomaniac.devwidget.settings.SettingsActivity
 import dagger.android.support.DaggerAppCompatActivity
-import kotlinx.android.synthetic.main.main_activity.*
-import kotlinx.android.synthetic.main.main_content.*
+import kotlinx.android.synthetic.main.include_appbar.toolbar
+import kotlinx.android.synthetic.main.main_activity.mainAddNewWidget
+import kotlinx.android.synthetic.main.main_content.mainWidgetList
 import javax.inject.Inject
 
 class MainActivity : DaggerAppCompatActivity(), MainView {

@@ -5,7 +5,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import com.tasomaniac.devwidget.R
 import dagger.android.support.DaggerAppCompatActivity
-import kotlinx.android.synthetic.main.settings_activity.*
+import kotlinx.android.synthetic.main.include_appbar.toolbar
 import javax.inject.Inject
 
 class SettingsActivity : DaggerAppCompatActivity(),

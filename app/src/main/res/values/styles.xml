@@ -10,11 +10,20 @@
     <item name="android:listPreferredItemPaddingEnd">?listPreferredItemPaddingRight</item>
   </style>
 
+  <style name="ThemeOverlay.DayNight" parent="ThemeOverlay.AppCompat.Light"/>
 
   <style name="AppWidget.Title" parent="TextAppearance.AppCompat">
     <item name="android:fontFamily">sans-serif-light</item>
     <item name="android:textSize">16sp</item>
     <item name="android:textAllCaps">true</item>
+  </style>
+
+  <style name="DevWidget.Toolbar" parent="Widget.AppCompat.Toolbar">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">?actionBarSize</item>
+    <item name="contentInsetStartWithNavigation">@dimen/keyline_2_minus_4dp</item>
+    <item name="navigationIcon">@drawable/ic_action_done</item>
+    <item name="popupTheme">@style/ThemeOverlay.DayNight</item>
   </style>
 
 </resources>

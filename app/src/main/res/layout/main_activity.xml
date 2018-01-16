@@ -1,37 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".main.MainActivity">
 
-  <android.support.design.widget.AppBarLayout
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/appbar_height"
-      android:fitsSystemWindows="true"
-      android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+  <include layout="@layout/include_appbar"/>
 
-    <android.support.design.widget.CollapsingToolbarLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        app:expandedTitleMarginStart="@dimen/keyline_1"
-        app:layout_scrollFlags="scroll|exitUntilCollapsed">
-
-      <android.support.v7.widget.Toolbar
-          android:id="@+id/toolbar"
-          android:layout_width="match_parent"
-          android:layout_height="?attr/actionBarSize"
-          app:contentInsetStartWithNavigation="@dimen/keyline_2_minus_4dp"
-          app:layout_collapseMode="pin"
-          app:navigationIcon="@drawable/ic_action_done"
-          app:navigationContentDescription="@string/done"
-          app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
-    </android.support.design.widget.CollapsingToolbarLayout>
-  </android.support.design.widget.AppBarLayout>
-
-  <include layout="@layout/main_content" />
+  <include layout="@layout/main_content"/>
 
   <android.support.design.widget.FloatingActionButton
       android:id="@+id/mainAddNewWidget"
@@ -39,7 +15,7 @@
       android:layout_height="wrap_content"
       android:layout_gravity="bottom|end"
       android:layout_margin="@dimen/keyline_1"
-      android:visibility="gone"
-      app:srcCompat="@drawable/ic_add" />
+      android:src="@drawable/ic_add"
+      android:visibility="gone"/>
 
 </android.support.design.widget.CoordinatorLayout>
