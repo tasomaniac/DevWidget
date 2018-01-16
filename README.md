@@ -1,4 +1,4 @@
-Open Link With [![Build Status](https://travis-ci.org/tasomaniac/DevWidget.png?branch=master)][https://travis-ci.org/tasomaniac/DevWidget]
+Open Link With [![Build Status](https://travis-ci.org/tasomaniac/DevWidget.png?branch=master)](https://travis-ci.org/tasomaniac/DevWidget)
 ==============
 
 <a href="https://f-droid.org/repository/browse/?fdid=com.tasomaniac.devwidget.floss" target="_blank">
