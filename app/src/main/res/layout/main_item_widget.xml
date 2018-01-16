@@ -1,4 +1,4 @@
-<com.tasomaniac.devdrawer.view.ForegroundLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.tasomaniac.devwidget.view.ForegroundLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -18,7 +18,7 @@
       android:textAppearance="@style/AppWidget.Title"
       tools:text="My Widget"/>
 
-  <com.tasomaniac.devdrawer.main.NonTouchRecyclerView
+  <com.tasomaniac.devwidget.main.NonTouchRecyclerView
       android:id="@+id/mainWidgetAppList"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
@@ -27,4 +27,4 @@
       app:layoutManager="android.support.v7.widget.LinearLayoutManager"
       tools:listitem="@layout/app_widget_list_item"/>
 
-</com.tasomaniac.devdrawer.view.ForegroundLinearLayout>
+</com.tasomaniac.devwidget.view.ForegroundLinearLayout>

@@ -14,7 +14,7 @@ android {
   compileSdkVersion versions.compileSdk
 
   defaultConfig {
-    applicationId 'com.tasomaniac.devdrawer'
+    applicationId 'com.tasomaniac.devwidget'
     minSdkVersion versions.minSdk
     targetSdkVersion versions.compileSdk
     versionCode versions.versionCode

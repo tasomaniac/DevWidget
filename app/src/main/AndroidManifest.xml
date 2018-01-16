@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.tasomaniac.devdrawer">
+    package="com.tasomaniac.devwidget">
 
   <application
-      android:name=".DevDrawerApp"
+      android:name=".DevWidgetApp"
       android:allowBackup="true"
       android:label="@string/app_name"
       android:supportsRtl="true"
-      android:theme="@style/Theme.DevDrawer">
+      android:theme="@style/Theme.DevWidget">
 
     <activity android:name=".main.MainActivity">
       <intent-filter>

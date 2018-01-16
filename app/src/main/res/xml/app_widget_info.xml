@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-    android:configure="com.tasomaniac.devdrawer.configure.ConfigureActivity"
+    android:configure="com.tasomaniac.devwidget.configure.ConfigureActivity"
     android:minHeight="@dimen/app_widget_min_height"
     android:minResizeHeight="40dp"
     android:minResizeWidth="180dp"

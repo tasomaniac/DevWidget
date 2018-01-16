@@ -31,7 +31,7 @@
         android:singleLine="true"
         android:fontFamily="sans-serif-condensed"
         android:textSize="12sp"
-        tools:text="com.tasomaniac.devdrawer" />
+        tools:text="com.tasomaniac.devwidget" />
 
     <TextView
         android:id="@+id/appWidgetLabel"
@@ -43,7 +43,7 @@
         android:gravity="center_vertical"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textSize="16sp"
-        tools:text="DevDrawer" />
+        tools:text="DevWidget" />
   </LinearLayout>
 
   <ImageView
