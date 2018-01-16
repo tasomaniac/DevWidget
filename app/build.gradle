@@ -8,6 +8,13 @@ apply plugin: 'com.github.triplet.play'
 apply plugin: 'io.fabric'
 apply plugin: 'net.ltgt.errorprone'
 
+def signingFile = file('props/release.signing')
+buildProperties {
+  signing.file signingFile.exists() ? signingFile : file('props/debug.signing')
+  secrets.file file('props/secrets.properties')
+}
+
+def secrets = buildProperties.secrets
 def gitSha = 'git rev-parse --short HEAD'.execute([], project.rootDir).text.trim()
 
 android {
@@ -26,17 +33,24 @@ android {
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
   }
 
+  signingConfigs {
+    debug.storeFile file('props/debug.keystore')
+    release.signingConfigProperties buildProperties.signing
+  }
+
   buildTypes {
     debug {
       ext.enableCrashlytics = false
       applicationIdSuffix '.debug'
       versionNameSuffix '-debug'
+      signingConfig signingConfigs.debug
     }
 
     release {
       minifyEnabled true
       shrinkResources true
       proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+      signingConfig signingConfigs.release
     }
   }
 
@@ -44,10 +58,25 @@ android {
     sourceCompatibility JavaVersion.VERSION_1_8
     targetCompatibility JavaVersion.VERSION_1_8
   }
+
+  lintOptions {
+    textReport true
+    textOutput 'stdout'
+
+    lintConfig file('props/lint.xml')
+    // We run a full lint analysis as build part in CI, so skip vital checks for assemble tasks.
+    checkReleaseBuilds false
+  }
 }
 
 androidExtensions {
   experimental true
+}
+
+play {
+  serviceAccountEmail = secrets['play_service_account'].or('').string
+  pk12File = file(secrets['play_key_file'].or('no_file.p12').string)
+  track = 'alpha'
 }
 
 dependencies {
@@ -92,5 +121,6 @@ project.tasks.withType(JavaCompile) {
       '-Xep:OperatorPrecedence:ERROR',
       '-Xep:ReferenceEquality:ERROR',
       '-Xep:FloatingPointLiteralPrecision:ERROR',
+      '-XepDisableWarningsInGeneratedCode'
   ]
 }
