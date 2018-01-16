@@ -3,9 +3,10 @@
     android:configure="com.tasomaniac.devwidget.configure.ConfigureActivity"
     android:minHeight="@dimen/app_widget_min_height"
     android:minResizeHeight="40dp"
-    android:minResizeWidth="180dp"
+    android:minResizeWidth="@dimen/app_widget_min_width"
     android:minWidth="@dimen/app_widget_min_width"
-    android:previewImage="@drawable/example_appwidget_preview"
+    android:previewImage="@drawable/appwidget_preview"
+    android:initialLayout="@layout/app_widget"
     android:resizeMode="horizontal|vertical"
     android:widgetCategory="home_screen"
     android:updatePeriodMillis="0" />

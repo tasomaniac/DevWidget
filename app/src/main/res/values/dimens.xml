@@ -10,5 +10,5 @@
 
   <dimen name="appbar_height">196dp</dimen>
   <dimen name="app_widget_min_height">128dp</dimen>
-  <dimen name="app_widget_min_width">250dp</dimen>
+  <dimen name="app_widget_min_width">180dp</dimen>
 </resources>
