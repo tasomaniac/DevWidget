@@ -38,6 +38,7 @@ class MainModel @Inject constructor(
             .scan(INITIAL_PAIR) { (data, _), newData ->
                 newData to DiffUtil.calculateDiff(WidgetDiffCallbacks(data, newData))
             }
+            .skip(1)
             .compose(scheduling.forFlowable())
             .subscribe(processor::onNext)
     }
@@ -54,7 +55,7 @@ class MainModel @Inject constructor(
 
     companion object {
 
-        val INITIAL_PAIR = emptyList<WidgetListData>() to
-                DiffUtil.calculateDiff(WidgetDiffCallbacks.EMPTY)
+        private val INITIAL_PAIR = emptyList<WidgetListData>() to
+                DiffUtil.calculateDiff(WidgetDiffCallbacks(emptyList(), emptyList()))
     }
 }

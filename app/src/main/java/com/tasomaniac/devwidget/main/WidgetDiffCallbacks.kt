@@ -19,7 +19,4 @@ class WidgetDiffCallbacks(
     override fun areContentsTheSame(oldPosition: Int, newPosition: Int) =
         oldItems[oldPosition] == newItems[newPosition]
 
-    companion object {
-        val EMPTY = WidgetDiffCallbacks(emptyList(), emptyList())
-    }
 }
