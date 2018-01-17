@@ -15,22 +15,16 @@ class SettingsFragment : PreferenceFragmentCompat() {
         super.onAttach(context)
     }
 
-    override fun onCreatePreferences(bundle: Bundle?, s: String?) {
-        settings.forEach { it.setup() }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        settings.forEach { it.resume() }
-    }
-
-    override fun onPause() {
-        settings.forEach { it.pause() }
-        super.onPause()
+    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+        settings.forEach {
+            lifecycle.addObserver(it)
+        }
     }
 
     override fun onDestroy() {
-        settings.forEach { it.release() }
+        settings.forEach {
+            lifecycle.removeObserver(it)
+        }
         super.onDestroy()
     }
 
