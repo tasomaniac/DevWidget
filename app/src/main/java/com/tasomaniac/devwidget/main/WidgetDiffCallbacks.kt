@@ -1,7 +1,6 @@
 package com.tasomaniac.devwidget.main
 
 import android.support.v7.util.DiffUtil
-import android.support.v7.widget.RecyclerView
 
 class WidgetDiffCallbacks(
     private val oldItems: List<WidgetListData>,
@@ -19,10 +18,6 @@ class WidgetDiffCallbacks(
 
     override fun areContentsTheSame(oldPosition: Int, newPosition: Int) =
         oldItems[oldPosition] == newItems[newPosition]
-
-    fun calculateDiffAndDispatchUpdates(adapter: RecyclerView.Adapter<*>) {
-        DiffUtil.calculateDiff(this).dispatchUpdatesTo(adapter)
-    }
 
     companion object {
         val EMPTY = WidgetDiffCallbacks(emptyList(), emptyList())

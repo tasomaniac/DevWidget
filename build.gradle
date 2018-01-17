@@ -11,6 +11,7 @@ buildscript {
             versionCode: versionMajor * 10000 + versionMinor * 1000 + versionBuild,
             versionName: "${versionMajor}.${versionMinor}",
 
+            arch       : '1.0.0',
             butterKnife: '8.8.1',
             dagger     : '2.14.1',
             kotlin     : '1.2.20',
@@ -32,7 +33,6 @@ buildscript {
         classpath 'io.fabric.tools:gradle:1.25.1'
         classpath 'com.novoda:gradle-android-command-plugin:1.7.1'
         classpath 'com.novoda:build-properties-plugin:1.2.1'
-        classpath 'net.ltgt.gradle:gradle-errorprone-plugin:0.0.13'
     }
 }
 

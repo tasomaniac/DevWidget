@@ -4,6 +4,7 @@ import com.tasomaniac.devwidget.configure.ConfigureActivity
 import com.tasomaniac.devwidget.configure.ConfigureModule
 import com.tasomaniac.devwidget.configure.WidgetPinnedReceiver
 import com.tasomaniac.devwidget.main.MainActivity
+import com.tasomaniac.devwidget.main.MainModule
 import com.tasomaniac.devwidget.receivers.PackageAddedReceiver
 import com.tasomaniac.devwidget.receivers.PackageRemovedReceiver
 import com.tasomaniac.devwidget.settings.SettingsActivity
@@ -35,7 +36,7 @@ interface BindingModule {
     @ContributesAndroidInjector
     fun widgetPinnedReceiver(): WidgetPinnedReceiver
 
-    @ContributesAndroidInjector
+    @ContributesAndroidInjector(modules = [MainModule::class])
     fun mainActivity(): MainActivity
 
     @ContributesAndroidInjector

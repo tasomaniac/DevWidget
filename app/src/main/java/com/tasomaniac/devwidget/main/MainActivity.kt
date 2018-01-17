@@ -1,27 +1,34 @@
 package com.tasomaniac.devwidget.main
 
+import android.appwidget.AppWidgetManager
 import android.content.Intent
+import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES.O
 import android.os.Bundle
-import android.support.annotation.RequiresApi
 import android.support.v7.widget.DividerItemDecoration
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import com.tasomaniac.devwidget.R
+import com.tasomaniac.devwidget.ViewModelFactory
+import com.tasomaniac.devwidget.rx.SchedulingStrategy
 import com.tasomaniac.devwidget.settings.SettingsActivity
+import com.tasomaniac.devwidget.viewModelWith
+import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
+import com.uber.autodispose.kotlin.autoDisposable
 import dagger.android.support.DaggerAppCompatActivity
-import kotlinx.android.synthetic.main.include_appbar.toolbar
-import kotlinx.android.synthetic.main.main_activity.mainAddNewWidget
-import kotlinx.android.synthetic.main.main_content.mainWidgetList
+import kotlinx.android.synthetic.main.include_appbar.*
+import kotlinx.android.synthetic.main.main_activity.*
+import kotlinx.android.synthetic.main.main_content.*
 import javax.inject.Inject
 
-class MainActivity : DaggerAppCompatActivity(), MainView {
+class MainActivity : DaggerAppCompatActivity() {
 
-    @Inject lateinit var presenter: MainPresenter
+    @Inject lateinit var viewModelFactory: ViewModelFactory
+    @Inject lateinit var navigation: MainNavigation
     @Inject lateinit var widgetListAdapter: WidgetListAdapter
-
-    private var listener: MainView.Listener? = null
+    @Inject lateinit var appWidgetManager: AppWidgetManager
+    @Inject lateinit var scheduling: SchedulingStrategy
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,8 +36,24 @@ class MainActivity : DaggerAppCompatActivity(), MainView {
         setSupportActionBar(toolbar)
 
         setupList()
-        presenter.bind(this)
+
+        if (SDK_INT >= O && appWidgetManager.isRequestPinAppWidgetSupported) {
+            mainAddNewWidget.visibility = View.VISIBLE
+            mainAddNewWidget.setOnClickListener {
+                navigation.navigateForPinning(this)
+            }
+        }
+
+        viewModelWith<MainModel>(viewModelFactory)
+            .data
+            .autoDisposable(scopeProvider)
+            .subscribe { (data, diff) ->
+                widgetListAdapter.data = data
+                diff.dispatchUpdatesTo(widgetListAdapter)
+            }
     }
+
+    private val scopeProvider get() = AndroidLifecycleScopeProvider.from(this)
 
     private fun setupList() {
         mainWidgetList.adapter = widgetListAdapter
@@ -40,28 +63,6 @@ class MainActivity : DaggerAppCompatActivity(), MainView {
                 DividerItemDecoration.VERTICAL
             )
         )
-    }
-
-    @RequiresApi(O)
-    override fun renderAddWidgetButton() {
-        mainAddNewWidget.visibility = View.VISIBLE
-        mainAddNewWidget.setOnClickListener {
-            listener?.onAddNewWidgetClicked(context = this)
-        }
-    }
-
-    override fun updateItems(items: List<WidgetListData>, diffCallbacks: WidgetDiffCallbacks) {
-        widgetListAdapter.data = items
-        diffCallbacks.calculateDiffAndDispatchUpdates(widgetListAdapter)
-    }
-
-    override fun setListener(listener: MainView.Listener?) {
-        this.listener = listener
-    }
-
-    override fun onDestroy() {
-        presenter.unbind(this)
-        super.onDestroy()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
