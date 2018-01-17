@@ -17,27 +17,27 @@ class AppViewHolder(
 ) : RecyclerView.ViewHolder(containerView),
     LayoutContainer {
 
-  fun bind(widgetData: WidgetData) {
-    appWidgetContainer.background = null
-    
-    appWidgetIcon.setImageBitmap(widgetData.icon)
-    appWidgetLabel.text = widgetData.label
-    appWidgetLabel.setTextColor(widgetResources.foregroundColor)
-    appWidgetPackageName.text = widgetData.packageName
-    appWidgetPackageName.setTextColor(widgetResources.foregroundColor)
+    fun bind(widgetData: WidgetData) {
+        appWidgetContainer.background = null
 
-    appWidgetUninstall.setImageResource(widgetResources.deleteIcon)
-    appWidgetDetails.setImageResource(widgetResources.settingsIcon)
-  }
+        appWidgetIcon.setImageBitmap(widgetData.icon)
+        appWidgetLabel.text = widgetData.label
+        appWidgetLabel.setTextColor(widgetResources.foregroundColor)
+        appWidgetPackageName.text = widgetData.packageName
+        appWidgetPackageName.setTextColor(widgetResources.foregroundColor)
 
-  class Factory @Inject constructor(widgetResources: WidgetResources) {
-
-    private val creator = { view: View ->
-      AppViewHolder(widgetResources, view)
+        appWidgetUninstall.setImageResource(widgetResources.deleteIcon)
+        appWidgetDetails.setImageResource(widgetResources.settingsIcon)
     }
 
-    fun createWith(parent: ViewGroup) = creator(
-        parent.inflate(R.layout.app_widget_list_item)
-    )
-  }
+    class Factory @Inject constructor(widgetResources: WidgetResources) {
+
+        private val creator = { view: View ->
+            AppViewHolder(widgetResources, view)
+        }
+
+        fun createWith(parent: ViewGroup) = creator(
+            parent.inflate(R.layout.app_widget_list_item)
+        )
+    }
 }

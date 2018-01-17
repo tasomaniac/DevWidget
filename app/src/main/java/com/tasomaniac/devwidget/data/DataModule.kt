@@ -9,22 +9,22 @@ import javax.inject.Singleton
 @Module
 object DataModule {
 
-  @Singleton
-  @Provides
-  @JvmStatic
-  fun room(app: Application): Database =
-      Room.databaseBuilder(app, Database::class.java, "devwidget").build()
+    @Singleton
+    @Provides
+    @JvmStatic
+    fun room(app: Application): Database =
+        Room.databaseBuilder(app, Database::class.java, "devwidget").build()
 
-  @Provides
-  @JvmStatic
-  fun widgetDao(database: Database) = database.widgetDao()
+    @Provides
+    @JvmStatic
+    fun widgetDao(database: Database) = database.widgetDao()
 
-  @Provides
-  @JvmStatic
-  fun appDao(database: Database) = database.appDao()
+    @Provides
+    @JvmStatic
+    fun appDao(database: Database) = database.appDao()
 
-  @Provides
-  @JvmStatic
-  fun filterDao(database: Database) = database.filterDao()
+    @Provides
+    @JvmStatic
+    fun filterDao(database: Database) = database.filterDao()
 
 }

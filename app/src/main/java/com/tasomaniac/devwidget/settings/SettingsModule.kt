@@ -7,12 +7,12 @@ import dagger.multibindings.ElementsIntoSet
 @Module
 class SettingsModule {
 
-  @Provides
-  @ElementsIntoSet
-  fun settings(
-      general: GeneralSettings,
-      display: DisplaySettings,
-      other: OtherSettings
-  ) = setOf(general, display, other)
+    @Provides
+    @ElementsIntoSet
+    fun settings(
+        general: GeneralSettings,
+        display: DisplaySettings,
+        other: OtherSettings
+    ) = setOf(general, display, other)
 
 }

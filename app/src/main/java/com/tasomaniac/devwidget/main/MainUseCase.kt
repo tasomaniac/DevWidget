@@ -12,24 +12,25 @@ import javax.inject.Inject
 class MainUseCase @Inject constructor(
     private val widgetDao: WidgetDao,
     private val widgetDataResolver: WidgetDataResolver,
-    private val sortingPreferences: SortingPreferences) {
+    private val sortingPreferences: SortingPreferences
+) {
 
-  fun observeWidgets(): Flowable<List<WidgetListData>> {
-    return widgetDao.allWidgetsWithPackages()
-        .map { widgets ->
-          widgets.map {
-            val widgetData = it.packageNames
-                .mapNotNull(widgetDataResolver::resolve)
-                .sort()
-            WidgetListData(Widget(it.appWidgetId, it.name), widgetData)
-          }
-        }
-  }
+    fun observeWidgets(): Flowable<List<WidgetListData>> {
+        return widgetDao.allWidgetsWithPackages()
+            .map { widgets ->
+                widgets.map {
+                    val widgetData = it.packageNames
+                        .mapNotNull(widgetDataResolver::resolve)
+                        .sort()
+                    WidgetListData(Widget(it.appWidgetId, it.name), widgetData)
+                }
+            }
+    }
 
-  private fun List<WidgetData>.sort() = when (sortingPreferences.sorting) {
-    ORDER_ADDED -> asReversed()
-    ALPHABETICALLY_PACKAGES -> sortedBy { it.packageName }
-    ALPHABETICALLY_NAMES -> sortedBy { it.label }
-  }
+    private fun List<WidgetData>.sort() = when (sortingPreferences.sorting) {
+        ORDER_ADDED -> asReversed()
+        ALPHABETICALLY_PACKAGES -> sortedBy { it.packageName }
+        ALPHABETICALLY_NAMES -> sortedBy { it.label }
+    }
 
 }

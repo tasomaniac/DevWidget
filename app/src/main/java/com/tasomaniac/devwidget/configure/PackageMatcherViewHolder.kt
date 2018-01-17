@@ -27,75 +27,79 @@ class PackageMatcherViewHolder(
     private val scheduling: SchedulingStrategy
 ) : RecyclerView.ViewHolder(textView) {
 
-  private var disposable = Disposables.empty()
+    private var disposable = Disposables.empty()
 
-  fun bind(packageMatcher: String) {
-    textView.text = packageMatcher
-    textView.setOnCreateContextMenuListener { menu, _, _ ->
-      menu.setup(packageMatcher)
-    }
-    textView.setupContextMenuClickListener()
-  }
-
-  private fun Menu.setup(packageMatcher: String) {
-    MenuInflater(textView.context).inflate(R.menu.package_matcher, this)
-    findItem(R.id.package_matcher_delete).setOnMenuItemClickListener {
-      delete(packageMatcher)
-      true
-    }
-  }
-
-  private fun delete(packageMatcher: String) {
-    disposable.dispose()
-    disposable = filterDao.deletePackageMatcher(packageMatcher)
-        .andThen(appDao.deleteAppsByPackageMatcher(packageMatcher))
-        .compose(scheduling.forCompletable())
-        .subscribe()
-  }
-
-  fun unbind() {
-    disposable.dispose()
-  }
-
-  private class ContextMenuClickListener : View.OnClickListener, View.OnTouchListener {
-
-    var lastX = 0f
-    var lastY = 0f
-
-    override fun onClick(view: View) {
-      if (SDK_INT >= N) {
-        view.showContextMenu(lastX, lastY)
-      } else {
-        view.showContextMenu()
-      }
+    fun bind(packageMatcher: String) {
+        textView.text = packageMatcher
+        textView.setOnCreateContextMenuListener { menu, _, _ ->
+            menu.setup(packageMatcher)
+        }
+        textView.setupContextMenuClickListener()
     }
 
-    @SuppressLint("ClickableViewAccessibility")
-    override fun onTouch(v: View, event: MotionEvent): Boolean {
-      if (event.actionMasked == MotionEvent.ACTION_DOWN) {
-        lastX = event.x
-        lastY = event.y
-      }
-      return false
+    private fun Menu.setup(packageMatcher: String) {
+        MenuInflater(textView.context).inflate(R.menu.package_matcher, this)
+        findItem(R.id.package_matcher_delete).setOnMenuItemClickListener {
+            delete(packageMatcher)
+            true
+        }
     }
 
-  }
-
-  private fun View.setupContextMenuClickListener() {
-    ContextMenuClickListener().let {
-      setOnClickListener(it)
-      setOnTouchListener(it)
-    }
-  }
-
-  class Factory @Inject constructor(appDao: AppDao, filterDao: FilterDao, scheduling: SchedulingStrategy) {
-
-    private val creator = { view: TextView ->
-      PackageMatcherViewHolder(view, appDao, filterDao, scheduling)
+    private fun delete(packageMatcher: String) {
+        disposable.dispose()
+        disposable = filterDao.deletePackageMatcher(packageMatcher)
+            .andThen(appDao.deleteAppsByPackageMatcher(packageMatcher))
+            .compose(scheduling.forCompletable())
+            .subscribe()
     }
 
-    fun createWith(parent: ViewGroup) = creator(
-        parent.inflate(R.layout.configure_package_matcher) as TextView
-    )
-  }
+    fun unbind() {
+        disposable.dispose()
+    }
+
+    private class ContextMenuClickListener : View.OnClickListener, View.OnTouchListener {
+
+        var lastX = 0f
+        var lastY = 0f
+
+        override fun onClick(view: View) {
+            if (SDK_INT >= N) {
+                view.showContextMenu(lastX, lastY)
+            } else {
+                view.showContextMenu()
+            }
+        }
+
+        @SuppressLint("ClickableViewAccessibility")
+        override fun onTouch(v: View, event: MotionEvent): Boolean {
+            if (event.actionMasked == MotionEvent.ACTION_DOWN) {
+                lastX = event.x
+                lastY = event.y
+            }
+            return false
+        }
+
+    }
+
+    private fun View.setupContextMenuClickListener() {
+        ContextMenuClickListener().let {
+            setOnClickListener(it)
+            setOnTouchListener(it)
+        }
+    }
+
+    class Factory @Inject constructor(
+        appDao: AppDao,
+        filterDao: FilterDao,
+        scheduling: SchedulingStrategy
+    ) {
+
+        private val creator = { view: TextView ->
+            PackageMatcherViewHolder(view, appDao, filterDao, scheduling)
+        }
+
+        fun createWith(parent: ViewGroup) = creator(
+            parent.inflate(R.layout.configure_package_matcher) as TextView
+        )
+    }
 }

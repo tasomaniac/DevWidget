@@ -13,41 +13,42 @@ import javax.inject.Inject
 class MainPresenter @Inject constructor(
     private val useCase: MainUseCase,
     private val scheduling: SchedulingStrategy,
-    private val appWidgetManager: AppWidgetManager) {
+    private val appWidgetManager: AppWidgetManager
+) {
 
-  private val disposables = CompositeDisposable()
+    private val disposables = CompositeDisposable()
 
-  fun bind(view: MainView) {
-    view.setListener(ViewListener())
+    fun bind(view: MainView) {
+        view.setListener(ViewListener())
 
-    if (SDK_INT >= O && appWidgetManager.isRequestPinAppWidgetSupported) {
-      view.renderAddWidgetButton()
+        if (SDK_INT >= O && appWidgetManager.isRequestPinAppWidgetSupported) {
+            view.renderAddWidgetButton()
+        }
+
+        val initialPair = emptyList<WidgetListData>() to WidgetDiffCallbacks.EMPTY
+        val disposable = useCase.observeWidgets()
+            .scan(initialPair) { (data, _), newData ->
+                newData to WidgetDiffCallbacks(data, newData)
+            }
+            .compose(scheduling.forFlowable())
+            .subscribe { (data, callbacks) ->
+                view.updateItems(data, callbacks)
+            }
+        disposables.add(disposable)
     }
 
-    val initialPair = emptyList<WidgetListData>() to WidgetDiffCallbacks.EMPTY
-    val disposable = useCase.observeWidgets()
-        .scan(initialPair) { (data, _), newData ->
-          newData to WidgetDiffCallbacks(data, newData)
-        }
-        .compose(scheduling.forFlowable())
-        .subscribe { (data, callbacks) ->
-          view.updateItems(data, callbacks)
-        }
-    disposables.add(disposable)
-  }
-
-  fun unbind(view: MainView) {
-    disposables.clear()
-    view.setListener(null)
-  }
-
-  class ViewListener : MainView.Listener {
-
-    @RequiresApi(O)
-    override fun onAddNewWidgetClicked(context: Context) {
-      val intent = ConfigureActivity.createIntentForPinning(context)
-      context.startActivity(intent)
+    fun unbind(view: MainView) {
+        disposables.clear()
+        view.setListener(null)
     }
-  }
+
+    class ViewListener : MainView.Listener {
+
+        @RequiresApi(O)
+        override fun onAddNewWidgetClicked(context: Context) {
+            val intent = ConfigureActivity.createIntentForPinning(context)
+            context.startActivity(intent)
+        }
+    }
 
 }

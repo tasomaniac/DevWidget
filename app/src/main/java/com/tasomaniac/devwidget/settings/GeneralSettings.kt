@@ -17,24 +17,28 @@ class GeneralSettings @Inject constructor(
 ) : Settings(fragment),
     SharedPreferences.OnSharedPreferenceChangeListener {
 
-  override fun setup() {
-    addPreferencesFromResource(R.xml.pref_general)
-    sharedPreferences.registerOnSharedPreferenceChangeListener(this)
-  }
-
-  override fun release() {
-    sharedPreferences.unregisterOnSharedPreferenceChangeListener(this)
-  }
-
-  override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
-    if (key.isKeyEquals(R.string.pref_key_sorting)) {
-
-      widgetUpdater.updateAll()
-          .compose(scheduling.forCompletable())
-          .subscribe()
-
-      analytics.sendEvent("Preference", "Sorting", sortingPreferences.sorting.stringVale(context.resources))
+    override fun setup() {
+        addPreferencesFromResource(R.xml.pref_general)
+        sharedPreferences.registerOnSharedPreferenceChangeListener(this)
     }
-  }
+
+    override fun release() {
+        sharedPreferences.unregisterOnSharedPreferenceChangeListener(this)
+    }
+
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
+        if (key.isKeyEquals(R.string.pref_key_sorting)) {
+
+            widgetUpdater.updateAll()
+                .compose(scheduling.forCompletable())
+                .subscribe()
+
+            analytics.sendEvent(
+                "Preference",
+                "Sorting",
+                sortingPreferences.sorting.stringVale(context.resources)
+            )
+        }
+    }
 
 }

@@ -20,47 +20,56 @@ class RemoveViewsCreator @Inject constructor(
     private val opacityPreferences: OpacityPreferences
 ) {
 
-  fun create(widget: Widget) = RemoteViews(app.packageName, R.layout.app_widget).apply {
+    fun create(widget: Widget) = RemoteViews(app.packageName, R.layout.app_widget).apply {
 
-    fun RemoteViews.setupConfigureButton(@IdRes buttonId: Int) {
-      setContentDescription(buttonId, app.getString(R.string.widget_content_description_configure, widget))
-      val intent = ConfigureActivity.createIntent(app, widget.appWidgetId)
-          .toPendingActivity(app)
-      setOnClickPendingIntent(buttonId, intent)
+        fun RemoteViews.setupConfigureButton(@IdRes buttonId: Int) {
+            setContentDescription(
+                buttonId,
+                app.getString(R.string.widget_content_description_configure, widget)
+            )
+            val intent = ConfigureActivity.createIntent(app, widget.appWidgetId)
+                .toPendingActivity(app)
+            setOnClickPendingIntent(buttonId, intent)
+        }
+
+        fun remoteAdapter(context: Context): Intent {
+            return Intent(context, WidgetViewsService::class.java).apply {
+                putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widget.appWidgetId)
+                data = Uri.parse(toUri(Intent.URI_INTENT_SCHEME))
+            }
+        }
+
+        if (widget.name.isEmpty()) {
+            setViewVisibility(R.id.widgetHeader, View.GONE)
+        } else {
+            setViewVisibility(R.id.widgetHeader, View.VISIBLE)
+            setTextViewText(R.id.widgetTitle, widget.name)
+            setTextColor(R.id.widgetTitle, widgetResources.foregroundColor)
+
+            setupConfigureButton(R.id.widgetConfigure)
+            setImageViewResource(R.id.widgetConfigure, widgetResources.settingsIcon)
+        }
+
+        val shadeColor = opacityPreferences.backgroundColor
+        setInt(R.id.shade, "setBackgroundColor", shadeColor)
+        setViewVisibility(R.id.shade, if (shadeColor == 0) View.GONE else View.VISIBLE)
+
+        setRemoteAdapter(R.id.widgetAppList, remoteAdapter(app))
+
+        setEmptyView(R.id.widgetAppList, R.id.widgetEmpty)
+        setTextColor(R.id.widgetEmpty, widgetResources.foregroundColor)
+        setTextViewCompoundDrawablesRelative(
+            R.id.widgetEmpty,
+            0,
+            0,
+            widgetResources.settingsIcon,
+            0
+        )
+        setupConfigureButton(R.id.widgetEmpty)
+
+        val intentTemplate = ClickHandlingActivity.intent(app).toPendingActivity(app)
+        setPendingIntentTemplate(R.id.widgetAppList, intentTemplate)
+
     }
-
-    fun remoteAdapter(context: Context): Intent {
-      return Intent(context, WidgetViewsService::class.java).apply {
-        putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widget.appWidgetId)
-        data = Uri.parse(toUri(Intent.URI_INTENT_SCHEME))
-      }
-    }
-
-    if (widget.name.isEmpty()) {
-      setViewVisibility(R.id.widgetHeader, View.GONE)
-    } else {
-      setViewVisibility(R.id.widgetHeader, View.VISIBLE)
-      setTextViewText(R.id.widgetTitle, widget.name)
-      setTextColor(R.id.widgetTitle, widgetResources.foregroundColor)
-
-      setupConfigureButton(R.id.widgetConfigure)
-      setImageViewResource(R.id.widgetConfigure, widgetResources.settingsIcon)
-    }
-
-    val shadeColor = opacityPreferences.backgroundColor
-    setInt(R.id.shade, "setBackgroundColor", shadeColor)
-    setViewVisibility(R.id.shade, if (shadeColor == 0) View.GONE else View.VISIBLE)
-
-    setRemoteAdapter(R.id.widgetAppList, remoteAdapter(app))
-
-    setEmptyView(R.id.widgetAppList, R.id.widgetEmpty)
-    setTextColor(R.id.widgetEmpty, widgetResources.foregroundColor)
-    setTextViewCompoundDrawablesRelative(R.id.widgetEmpty, 0, 0, widgetResources.settingsIcon, 0)
-    setupConfigureButton(R.id.widgetEmpty)
-
-    val intentTemplate = ClickHandlingActivity.intent(app).toPendingActivity(app)
-    setPendingIntentTemplate(R.id.widgetAppList, intentTemplate)
-
-  }
 
 }

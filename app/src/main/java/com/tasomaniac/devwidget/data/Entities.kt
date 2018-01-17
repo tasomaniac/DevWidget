@@ -46,16 +46,16 @@ data class Widget(
 )
 
 class WidgetAndPackageNames {
-  var appWidgetId: Int = 0
-  lateinit var name: String
+    var appWidgetId: Int = 0
+    lateinit var name: String
 
-  @field:Relation(
-      entity = App::class,
-      parentColumn = "appWidgetId",
-      entityColumn = "appWidgetId",
-      projection = ["packageName"]
-  )
-  lateinit var _packageNames: List<String>
+    @field:Relation(
+        entity = App::class,
+        parentColumn = "appWidgetId",
+        entityColumn = "appWidgetId",
+        projection = ["packageName"]
+    )
+    lateinit var _packageNames: List<String>
 
-  val packageNames get() = _packageNames.distinct()
+    val packageNames get() = _packageNames.distinct()
 }

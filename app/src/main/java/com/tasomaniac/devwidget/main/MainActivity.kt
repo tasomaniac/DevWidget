@@ -18,57 +18,62 @@ import javax.inject.Inject
 
 class MainActivity : DaggerAppCompatActivity(), MainView {
 
-  @Inject lateinit var presenter: MainPresenter
-  @Inject lateinit var widgetListAdapter: WidgetListAdapter
+    @Inject lateinit var presenter: MainPresenter
+    @Inject lateinit var widgetListAdapter: WidgetListAdapter
 
-  private var listener: MainView.Listener? = null
+    private var listener: MainView.Listener? = null
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    setContentView(R.layout.main_activity)
-    setSupportActionBar(toolbar)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.main_activity)
+        setSupportActionBar(toolbar)
 
-    setupList()
-    presenter.bind(this)
-  }
-
-  private fun setupList() {
-    mainWidgetList.adapter = widgetListAdapter
-    mainWidgetList.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
-  }
-
-  @RequiresApi(O)
-  override fun renderAddWidgetButton() {
-    mainAddNewWidget.visibility = View.VISIBLE
-    mainAddNewWidget.setOnClickListener {
-      listener?.onAddNewWidgetClicked(context = this)
+        setupList()
+        presenter.bind(this)
     }
-  }
 
-  override fun updateItems(items: List<WidgetListData>, diffCallbacks: WidgetDiffCallbacks) {
-    widgetListAdapter.data = items
-    diffCallbacks.calculateDiffAndDispatchUpdates(widgetListAdapter)
-  }
-
-  override fun setListener(listener: MainView.Listener?) {
-    this.listener = listener
-  }
-
-  override fun onDestroy() {
-    presenter.unbind(this)
-    super.onDestroy()
-  }
-
-  override fun onCreateOptionsMenu(menu: Menu): Boolean {
-    menuInflater.inflate(R.menu.main_menu, menu)
-    return true
-  }
-
-  override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-    R.id.settings -> {
-      startActivity(Intent(this, SettingsActivity::class.java))
-      true
+    private fun setupList() {
+        mainWidgetList.adapter = widgetListAdapter
+        mainWidgetList.addItemDecoration(
+            DividerItemDecoration(
+                this,
+                DividerItemDecoration.VERTICAL
+            )
+        )
     }
-    else -> false
-  }
+
+    @RequiresApi(O)
+    override fun renderAddWidgetButton() {
+        mainAddNewWidget.visibility = View.VISIBLE
+        mainAddNewWidget.setOnClickListener {
+            listener?.onAddNewWidgetClicked(context = this)
+        }
+    }
+
+    override fun updateItems(items: List<WidgetListData>, diffCallbacks: WidgetDiffCallbacks) {
+        widgetListAdapter.data = items
+        diffCallbacks.calculateDiffAndDispatchUpdates(widgetListAdapter)
+    }
+
+    override fun setListener(listener: MainView.Listener?) {
+        this.listener = listener
+    }
+
+    override fun onDestroy() {
+        presenter.unbind(this)
+        super.onDestroy()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.settings -> {
+            startActivity(Intent(this, SettingsActivity::class.java))
+            true
+        }
+        else -> false
+    }
 }

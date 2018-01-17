@@ -14,24 +14,24 @@ import javax.inject.Inject
 
 class WidgetPinnedReceiver : DaggerBroadcastReceiver() {
 
-  @Inject lateinit var widgetDao: WidgetDao
-  @Inject lateinit var scheduling: SchedulingStrategy
-  @Inject lateinit var widgetUpdater: WidgetUpdater
+    @Inject lateinit var widgetDao: WidgetDao
+    @Inject lateinit var scheduling: SchedulingStrategy
+    @Inject lateinit var widgetUpdater: WidgetUpdater
 
-  @SuppressLint("CheckResult")
-  override fun onReceive(context: Context, intent: Intent) {
-    super.onReceive(context, intent)
+    @SuppressLint("CheckResult")
+    override fun onReceive(context: Context, intent: Intent) {
+        super.onReceive(context, intent)
 
-    val pendingResult = goAsync()
-    widgetDao.updateTempWidgetId(intent.appWidgetId)
-        .andThen(widgetDao.findWidgetById(intent.appWidgetId))
-        .flatMapCompletable(widgetUpdater::update)
-        .compose(scheduling.forCompletable())
-        .subscribe {
-          pendingResult.finish()
-        }
-  }
+        val pendingResult = goAsync()
+        widgetDao.updateTempWidgetId(intent.appWidgetId)
+            .andThen(widgetDao.findWidgetById(intent.appWidgetId))
+            .flatMapCompletable(widgetUpdater::update)
+            .compose(scheduling.forCompletable())
+            .subscribe {
+                pendingResult.finish()
+            }
+    }
 
-  private val Intent.appWidgetId
-    get() = getIntExtra(EXTRA_APPWIDGET_ID, INVALID_APPWIDGET_ID)
+    private val Intent.appWidgetId
+        get() = getIntExtra(EXTRA_APPWIDGET_ID, INVALID_APPWIDGET_ID)
 }

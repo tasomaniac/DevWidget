@@ -8,23 +8,23 @@ class WidgetDiffCallbacks(
     private val newItems: List<WidgetListData>
 ) : DiffUtil.Callback() {
 
-  override fun getOldListSize() = oldItems.size
-  override fun getNewListSize() = newItems.size
+    override fun getOldListSize() = oldItems.size
+    override fun getNewListSize() = newItems.size
 
-  override fun areItemsTheSame(oldPosition: Int, newPosition: Int): Boolean {
-    val (oldWidget, _) = oldItems[oldPosition]
-    val (newWidget, _) = newItems[newPosition]
-    return oldWidget.appWidgetId == newWidget.appWidgetId
-  }
+    override fun areItemsTheSame(oldPosition: Int, newPosition: Int): Boolean {
+        val (oldWidget, _) = oldItems[oldPosition]
+        val (newWidget, _) = newItems[newPosition]
+        return oldWidget.appWidgetId == newWidget.appWidgetId
+    }
 
-  override fun areContentsTheSame(oldPosition: Int, newPosition: Int) =
-      oldItems[oldPosition] == newItems[newPosition]
+    override fun areContentsTheSame(oldPosition: Int, newPosition: Int) =
+        oldItems[oldPosition] == newItems[newPosition]
 
-  fun calculateDiffAndDispatchUpdates(adapter: RecyclerView.Adapter<*>) {
-    DiffUtil.calculateDiff(this).dispatchUpdatesTo(adapter)
-  }
+    fun calculateDiffAndDispatchUpdates(adapter: RecyclerView.Adapter<*>) {
+        DiffUtil.calculateDiff(this).dispatchUpdatesTo(adapter)
+    }
 
-  companion object {
-    val EMPTY = WidgetDiffCallbacks(emptyList(), emptyList())
-  }
+    companion object {
+        val EMPTY = WidgetDiffCallbacks(emptyList(), emptyList())
+    }
 }

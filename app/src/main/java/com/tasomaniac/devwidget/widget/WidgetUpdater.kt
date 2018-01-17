@@ -22,35 +22,38 @@ class WidgetUpdater @Inject constructor(
     private val widgetDao: WidgetDao
 ) {
 
-  @RequiresApi(O)
-  fun requestPin() {
-    val widgetProvider = ComponentName(app, WidgetProvider::class.java)
-    val successCallback = Intent(app, WidgetPinnedReceiver::class.java)
-        .toPendingBroadcast(app)
+    @RequiresApi(O)
+    fun requestPin() {
+        val widgetProvider = ComponentName(app, WidgetProvider::class.java)
+        val successCallback = Intent(app, WidgetPinnedReceiver::class.java)
+            .toPendingBroadcast(app)
 
-    appWidgetManager.requestPinAppWidget(widgetProvider, null, successCallback)
-  }
+        appWidgetManager.requestPinAppWidget(widgetProvider, null, successCallback)
+    }
 
-  @CheckReturnValue
-  fun update(widget: Widget) =
-      Completable.fromAction {
-        val remoteViews = removeViewsCreator.create(widget)
-        appWidgetManager.updateAppWidget(widget.appWidgetId, remoteViews)
-      }
+    @CheckReturnValue
+    fun update(widget: Widget) =
+        Completable.fromAction {
+            val remoteViews = removeViewsCreator.create(widget)
+            appWidgetManager.updateAppWidget(widget.appWidgetId, remoteViews)
+        }
 
-  @CheckReturnValue
-  fun updateAll() =
-      widgetDao.allWidgets()
-          .flatten()
-          .flatMapCompletable {
-            update(it)
-                .andThen(Completable.fromAction {
-                  appWidgetManager.notifyAppWidgetViewDataChanged(it.appWidgetId, R.id.widgetAppList)
-                })
-          }
+    @CheckReturnValue
+    fun updateAll() =
+        widgetDao.allWidgets()
+            .flatten()
+            .flatMapCompletable {
+                update(it)
+                    .andThen(Completable.fromAction {
+                        appWidgetManager.notifyAppWidgetViewDataChanged(
+                            it.appWidgetId,
+                            R.id.widgetAppList
+                        )
+                    })
+            }
 
-  fun notifyWidgetDataChanged(appWidgetId: Int) {
-    appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widgetAppList)
-  }
+    fun notifyWidgetDataChanged(appWidgetId: Int) {
+        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widgetAppList)
+    }
 
 }

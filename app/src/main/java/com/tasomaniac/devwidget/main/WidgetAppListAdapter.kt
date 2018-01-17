@@ -9,11 +9,12 @@ class WidgetAppListAdapter(
     private val data: List<WidgetData>
 ) : RecyclerView.Adapter<AppViewHolder>() {
 
-  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = appViewHolderFactory.createWith(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+        appViewHolderFactory.createWith(parent)
 
-  override fun onBindViewHolder(holder: AppViewHolder, position: Int) {
-    holder.bind(data[position])
-  }
+    override fun onBindViewHolder(holder: AppViewHolder, position: Int) {
+        holder.bind(data[position])
+    }
 
-  override fun getItemCount() = data.size
+    override fun getItemCount() = data.size
 }

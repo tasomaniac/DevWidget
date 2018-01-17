@@ -7,11 +7,11 @@ import javax.inject.Inject
 
 class WidgetNameResolver @Inject constructor(private val resources: Resources) {
 
-  fun resolve(widget: Widget): String {
-    return if (widget.name.isEmpty()) {
-      resources.getString(R.string.widget_empty_title, widget.appWidgetId)
-    } else {
-      widget.name
+    fun resolve(widget: Widget): String {
+        return if (widget.name.isEmpty()) {
+            resources.getString(R.string.widget_empty_title, widget.appWidgetId)
+        } else {
+            widget.name
+        }
     }
-  }
 }

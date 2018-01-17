@@ -17,30 +17,30 @@ import dagger.android.ContributesAndroidInjector
 @Module
 interface BindingModule {
 
-  @ContributesAndroidInjector
-  fun packageAddedReceiver(): PackageAddedReceiver
+    @ContributesAndroidInjector
+    fun packageAddedReceiver(): PackageAddedReceiver
 
-  @ContributesAndroidInjector
-  fun packageRemovedReceiver(): PackageRemovedReceiver
+    @ContributesAndroidInjector
+    fun packageRemovedReceiver(): PackageRemovedReceiver
 
-  @ContributesAndroidInjector
-  fun widgetProvider(): WidgetProvider
+    @ContributesAndroidInjector
+    fun widgetProvider(): WidgetProvider
 
-  @ContributesAndroidInjector
-  fun widgetViewsService(): WidgetViewsService
+    @ContributesAndroidInjector
+    fun widgetViewsService(): WidgetViewsService
 
-  @ContributesAndroidInjector(modules = [ConfigureModule::class])
-  fun configureActivity(): ConfigureActivity
+    @ContributesAndroidInjector(modules = [ConfigureModule::class])
+    fun configureActivity(): ConfigureActivity
 
-  @ContributesAndroidInjector
-  fun widgetPinnedReceiver(): WidgetPinnedReceiver
+    @ContributesAndroidInjector
+    fun widgetPinnedReceiver(): WidgetPinnedReceiver
 
-  @ContributesAndroidInjector
-  fun mainActivity(): MainActivity
+    @ContributesAndroidInjector
+    fun mainActivity(): MainActivity
 
-  @ContributesAndroidInjector
-  fun settingsActivity(): SettingsActivity
+    @ContributesAndroidInjector
+    fun settingsActivity(): SettingsActivity
 
-  @ContributesAndroidInjector(modules = [SettingsModule::class])
-  fun settingsFragment(): SettingsFragment
+    @ContributesAndroidInjector(modules = [SettingsModule::class])
+    fun settingsFragment(): SettingsFragment
 }

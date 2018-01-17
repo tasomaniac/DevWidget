@@ -9,20 +9,20 @@ typealias ConfigurePinning = Boolean
 @Module
 object ConfigureModule {
 
-  @Provides
-  @JvmStatic
-  fun appWidgetId(activity: ConfigureActivity): Int {
-    val appWidgetId = activity.intent
-        .getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID)
+    @Provides
+    @JvmStatic
+    fun appWidgetId(activity: ConfigureActivity): Int {
+        val appWidgetId = activity.intent
+            .getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID)
 
-    if (appWidgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
-      throw IllegalArgumentException("AppWidgetManager.EXTRA_APPWIDGET_ID is required.")
+        if (appWidgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
+            throw IllegalArgumentException("AppWidgetManager.EXTRA_APPWIDGET_ID is required.")
+        }
+        return appWidgetId
     }
-    return appWidgetId
-  }
 
-  @Provides
-  @JvmStatic
-  fun configurePinning(activity: ConfigureActivity) = activity.configurePin
+    @Provides
+    @JvmStatic
+    fun configurePinning(activity: ConfigureActivity) = activity.configurePin
 
 }

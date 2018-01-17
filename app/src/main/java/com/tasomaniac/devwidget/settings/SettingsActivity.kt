@@ -11,36 +11,36 @@ import javax.inject.Inject
 class SettingsActivity : DaggerAppCompatActivity(),
     SharedPreferences.OnSharedPreferenceChangeListener {
 
-  @Inject lateinit var sharedPreferences: SharedPreferences
+    @Inject lateinit var sharedPreferences: SharedPreferences
 
-  public override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    setContentView(R.layout.settings_activity)
-    setSupportActionBar(toolbar)
+    public override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.settings_activity)
+        setSupportActionBar(toolbar)
 
-    if (savedInstanceState == null) {
-      supportFragmentManager.beginTransaction()
-          .add(R.id.fragment_container, SettingsFragment.newInstance())
-          .commit()
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .add(R.id.fragment_container, SettingsFragment.newInstance())
+                .commit()
+        }
     }
-  }
 
-  override fun onResume() {
-    super.onResume()
-    sharedPreferences.registerOnSharedPreferenceChangeListener(this)
-  }
+    override fun onResume() {
+        super.onResume()
+        sharedPreferences.registerOnSharedPreferenceChangeListener(this)
+    }
 
-  override fun onPause() {
-    sharedPreferences.unregisterOnSharedPreferenceChangeListener(this)
-    super.onPause()
-  }
+    override fun onPause() {
+        sharedPreferences.unregisterOnSharedPreferenceChangeListener(this)
+        super.onPause()
+    }
 
-  override fun onSupportNavigateUp(): Boolean {
-    finish()
-    return true
-  }
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return true
+    }
 
-  override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, s: String) {
-    BackupManager(this).dataChanged()
-  }
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, s: String) {
+        BackupManager(this).dataChanged()
+    }
 }

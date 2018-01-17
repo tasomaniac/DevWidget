@@ -16,37 +16,41 @@ import javax.inject.Inject
 
 class WidgetProvider : AppWidgetProvider() {
 
-  @Inject lateinit var widgetDao: WidgetDao
-  @Inject lateinit var scheduling: SchedulingStrategy
-  @Inject lateinit var widgetUpdater: WidgetUpdater
+    @Inject lateinit var widgetDao: WidgetDao
+    @Inject lateinit var scheduling: SchedulingStrategy
+    @Inject lateinit var widgetUpdater: WidgetUpdater
 
-  private var disposable: Disposable = Disposables.empty()
+    private var disposable: Disposable = Disposables.empty()
 
-  override fun onReceive(context: Context, intent: Intent) {
-    AndroidInjection.inject(this, context)
-    super.onReceive(context, intent)
-  }
+    override fun onReceive(context: Context, intent: Intent) {
+        AndroidInjection.inject(this, context)
+        super.onReceive(context, intent)
+    }
 
-  override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, vararg appWidgetIds: Int) {
-    if (appWidgetIds.isEmpty()) return
+    override fun onUpdate(
+        context: Context,
+        appWidgetManager: AppWidgetManager,
+        vararg appWidgetIds: Int
+    ) {
+        if (appWidgetIds.isEmpty()) return
 
-    val pendingResult = goAsync()
+        val pendingResult = goAsync()
 
-    disposable.dispose()
-    disposable = widgetDao.findWidgetsById(*appWidgetIds)
-        .flatten()
-        .flatMapCompletable(widgetUpdater::update)
-        .compose(scheduling.forCompletable())
-        .subscribe {
-          pendingResult.finish()
-        }
-  }
+        disposable.dispose()
+        disposable = widgetDao.findWidgetsById(*appWidgetIds)
+            .flatten()
+            .flatMapCompletable(widgetUpdater::update)
+            .compose(scheduling.forCompletable())
+            .subscribe {
+                pendingResult.finish()
+            }
+    }
 
-  override fun onDeleted(context: Context, vararg appWidgetIds: Int) {
-    val widgets = appWidgetIds.map { Widget(it) }
-    widgetDao.deleteWidgets(widgets)
-        .compose(scheduling.forCompletable())
-        .subscribe()
-  }
+    override fun onDeleted(context: Context, vararg appWidgetIds: Int) {
+        val widgets = appWidgetIds.map { Widget(it) }
+        widgetDao.deleteWidgets(widgets)
+            .compose(scheduling.forCompletable())
+            .subscribe()
+    }
 }
 

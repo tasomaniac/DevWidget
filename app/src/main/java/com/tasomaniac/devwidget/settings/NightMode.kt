@@ -10,6 +10,14 @@ enum class NightMode(
     val delegate: Int
 ) : PreferenceEntries {
 
-  OFF(R.string.pref_value_night_mode_off, R.string.pref_entry_night_mode_off, AppCompatDelegate.MODE_NIGHT_NO),
-  ON(R.string.pref_value_night_mode_on, R.string.pref_entry_night_mode_on, AppCompatDelegate.MODE_NIGHT_YES);
+    OFF(
+        R.string.pref_value_night_mode_off,
+        R.string.pref_entry_night_mode_off,
+        AppCompatDelegate.MODE_NIGHT_NO
+    ),
+    ON(
+        R.string.pref_value_night_mode_on,
+        R.string.pref_entry_night_mode_on,
+        AppCompatDelegate.MODE_NIGHT_YES
+    );
 }

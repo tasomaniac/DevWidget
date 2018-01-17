@@ -11,9 +11,9 @@ class DefaultDebouncer<T>(
     private val unit: TimeUnit
 ) : Debouncer<T> {
 
-  override fun apply(upstream: Observable<T>) = upstream.debounce(timeout, unit)
+    override fun apply(upstream: Observable<T>) = upstream.debounce(timeout, unit)
 }
 
 class EmptyDebouncer<T> : Debouncer<T> {
-  override fun apply(upstream: Observable<T>) = upstream
+    override fun apply(upstream: Observable<T>) = upstream
 }

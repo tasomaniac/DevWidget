@@ -7,18 +7,18 @@ fun AppDao.insertApp(appWidgetId: Int, packageMatcher: String, packageName: Stri
 
 fun AppDao.insertApps(appWidgetId: Int, packageMatcher: String, packageNames: List<String>) =
     Completable.fromAction {
-      val apps = packageNames.map {
-        App(it, packageMatcher, appWidgetId)
-      }
-      insertAppSync(apps)
+        val apps = packageNames.map {
+            App(it, packageMatcher, appWidgetId)
+        }
+        insertAppSync(apps)
     }
 
 fun AppDao.deleteApp(packageName: String) =
     Completable.fromAction {
-      deleteAppSync(packageName)
+        deleteAppSync(packageName)
     }
 
 fun AppDao.deleteAppsByPackageMatcher(packageMatcher: String) =
     Completable.fromAction {
-      deleteAppsByPackageMatcherSync(packageMatcher)
+        deleteAppsByPackageMatcherSync(packageMatcher)
     }

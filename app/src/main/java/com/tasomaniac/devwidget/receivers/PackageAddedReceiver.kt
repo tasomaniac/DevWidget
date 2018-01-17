@@ -16,38 +16,38 @@ import javax.inject.Inject
 
 class PackageAddedReceiver : DaggerBroadcastReceiver() {
 
-  @Inject lateinit var filterDao: FilterDao
-  @Inject lateinit var appDao: AppDao
-  @Inject lateinit var scheduling: SchedulingStrategy
-  @Inject lateinit var widgetUpdater: WidgetUpdater
+    @Inject lateinit var filterDao: FilterDao
+    @Inject lateinit var appDao: AppDao
+    @Inject lateinit var scheduling: SchedulingStrategy
+    @Inject lateinit var widgetUpdater: WidgetUpdater
 
-  @SuppressLint("CheckResult")
-  override fun onReceive(context: Context, intent: Intent) {
-    super.onReceive(context, intent)
-    if (intent.action != Intent.ACTION_PACKAGE_ADDED) {
-      throw IllegalStateException("Unexpected receiver with action: ${intent.action}")
+    @SuppressLint("CheckResult")
+    override fun onReceive(context: Context, intent: Intent) {
+        super.onReceive(context, intent)
+        if (intent.action != Intent.ACTION_PACKAGE_ADDED) {
+            throw IllegalStateException("Unexpected receiver with action: ${intent.action}")
+        }
+        val pendingResult = goAsync()
+        val installedPackage = intent.data.schemeSpecificPart
+
+        filterDao.allFilters()
+            .flatten()
+            .filter {
+                matchPackage(it.packageMatcher).test(installedPackage)
+            }
+            .flatMapCompletable {
+                appDao.insertApp(it.appWidgetId, it.packageMatcher, installedPackage)
+                    .andThen(updateWidget(it.appWidgetId))
+            }
+            .compose(scheduling.forCompletable())
+            .subscribe {
+                pendingResult.finish()
+            }
     }
-    val pendingResult = goAsync()
-    val installedPackage = intent.data.schemeSpecificPart
 
-    filterDao.allFilters()
-        .flatten()
-        .filter {
-          matchPackage(it.packageMatcher).test(installedPackage)
+    private fun updateWidget(appWidgetId: Int): Completable {
+        return Completable.fromAction {
+            widgetUpdater.notifyWidgetDataChanged(appWidgetId)
         }
-        .flatMapCompletable {
-          appDao.insertApp(it.appWidgetId, it.packageMatcher, installedPackage)
-              .andThen(updateWidget(it.appWidgetId))
-        }
-        .compose(scheduling.forCompletable())
-        .subscribe {
-          pendingResult.finish()
-        }
-  }
-
-  private fun updateWidget(appWidgetId: Int): Completable {
-    return Completable.fromAction {
-      widgetUpdater.notifyWidgetDataChanged(appWidgetId)
     }
-  }
 }

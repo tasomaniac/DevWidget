@@ -9,19 +9,20 @@ import javax.inject.Inject
 
 class DevWidgetApp : DaggerApplication() {
 
-  @Inject lateinit var nightModePreferences: NightModePreferences
+    @Inject lateinit var nightModePreferences: NightModePreferences
 
-  override fun onCreate() {
-    super.onCreate()
-    nightModePreferences.updateDefaultNightMode()
+    override fun onCreate() {
+        super.onCreate()
+        nightModePreferences.updateDefaultNightMode()
 
-    if (!BuildConfig.DEBUG) {
-      //            Fabric.with(this, new Crashlytics());
-      //            Timber.plant(new CrashReportingTree());
-    } else {
-      Timber.plant(Timber.DebugTree())
+        if (!BuildConfig.DEBUG) {
+            //            Fabric.with(this, new Crashlytics());
+            //            Timber.plant(new CrashReportingTree());
+        } else {
+            Timber.plant(Timber.DebugTree())
+        }
     }
-  }
 
-  override fun applicationInjector(): AndroidInjector<DevWidgetApp> = DaggerAppComponent.builder().create(this)
+    override fun applicationInjector(): AndroidInjector<DevWidgetApp> =
+        DaggerAppComponent.builder().create(this)
 }
