@@ -28,6 +28,7 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import com.tasomaniac.devwidget.R;
 
+@SuppressWarnings("ALL")
 public class ForegroundLinearLayout extends LinearLayoutCompat {
 
     private Drawable mForeground;

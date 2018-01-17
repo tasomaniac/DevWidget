@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.tasomaniac.devwidget">
 
   <application
@@ -9,7 +10,9 @@
       android:icon="@mipmap/ic_launcher"
       android:roundIcon="@mipmap/ic_launcher"
       android:supportsRtl="true"
-      android:theme="@style/Theme.DevWidget">
+      android:theme="@style/Theme.DevWidget"
+      android:fullBackupContent="@xml/backup_descriptor"
+      tools:ignore="GoogleAppIndexingWarning">
 
     <activity android:name=".main.MainActivity">
       <intent-filter>
