@@ -4,86 +4,66 @@ import android.annotation.TargetApi
 import android.os.Build.VERSION_CODES.O
 import com.tasomaniac.devwidget.rx.SchedulingStrategy
 import com.tasomaniac.devwidget.widget.WidgetUpdater
+import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
+import com.uber.autodispose.kotlin.autoDisposable
 import io.reactivex.Completable
-import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
 class ConfigurePresenter @Inject constructor(
-    private val useCase: ConfigureUseCase,
-    private val widgetUpdater: WidgetUpdater,
-    private val configurePinning: ConfigurePinning,
-    private val scheduling: SchedulingStrategy
+    viewModelProvider: com.tasomaniac.devwidget.ViewModelProvider,
+    widgetUpdater: WidgetUpdater,
+    configurePinning: ConfigurePinning,
+    private val appWidgetId: Int,
+    private val scheduling: SchedulingStrategy,
+    private val scopeProvider: AndroidLifecycleScopeProvider
 ) {
 
-    private val disposables = CompositeDisposable()
+    @TargetApi(O)
+    private val updateWidget = Completable.fromAction {
+        if (configurePinning) {
+            widgetUpdater.requestPin()
+        } else {
+            widgetUpdater.notifyWidgetDataChanged(appWidgetId)
+        }
+    }
+
+    private val widgetNameModel = viewModelProvider.get<WidgetNameModel>()
+
+    private val packageMatcherModel = viewModelProvider.get<PackageMatcherModel>()
 
     fun bind(view: ConfigureView) {
-        view.setListener(
-            ViewListener(
-                view,
-                useCase,
-                widgetUpdater,
-                configurePinning,
-                disposables,
-                scheduling
-            )
-        )
-        disposables.add(
-            useCase.findPossiblePackageMatchers()
-                .compose(scheduling.forObservable())
-                .subscribe(view::setItems)
-        )
-        disposables.add(
-            useCase.packageMatchers()
-                .compose(scheduling.forObservable())
-                .subscribe(view::setFilters)
-        )
-    }
+        widgetNameModel.currentWidgetName()
+            .compose(scheduling.forMaybe())
+            .autoDisposable(scopeProvider)
+            .subscribe(view::setWidgetName)
 
-    fun unbind(view: ConfigureView) {
-        disposables.clear()
-        view.setListener(null)
-    }
+        view.widgetNameChanged = widgetNameModel::updateWidgetName
 
-    fun release() {
-        useCase.release()
-    }
+        packageMatcherModel.findPossiblePackageMatchers()
+            .compose(scheduling.forFlowable())
+            .autoDisposable(scopeProvider)
+            .subscribe(view::setItems)
 
-    private class ViewListener(
-        private val view: ConfigureView,
-        private val useCase: ConfigureUseCase,
-        private val widgetUpdater: WidgetUpdater,
-        private val configurePinning: ConfigurePinning,
-        private val disposables: CompositeDisposable,
-        private val scheduling: SchedulingStrategy
-    ) : ConfigureView.Listener {
+        packageMatcherModel.packageMatchers()
+            .compose(scheduling.forFlowable())
+            .autoDisposable(scopeProvider)
+            .subscribe(view::setFilters)
 
-        override fun onConfirmClicked() {
-            val disposable = useCase.findAndInsertMatchingApps()
-                .andThen(updateWidget())
+        view.onConfirmClicked = {
+            packageMatcherModel.findAndInsertMatchingApps()
+                .andThen(updateWidget)
                 .compose(scheduling.forCompletable())
                 .subscribe {
-                    view.finishWith(useCase.appWidgetId)
+                    view.finishWith(appWidgetId)
                 }
-            disposables.add(disposable)
         }
 
-        @TargetApi(O)
-        private fun updateWidget(): Completable {
-            return Completable.fromAction {
-                if (configurePinning) {
-                    widgetUpdater.requestPin()
-                } else {
-                    widgetUpdater.notifyWidgetDataChanged(useCase.appWidgetId)
-                }
-            }
-        }
-
-        override fun onPackageMatcherAdded(packageMatcher: String) {
-            val disposable = useCase.insertPackageMatcher(packageMatcher)
+        view.onPackageMatcherAdded = {
+            packageMatcherModel.insertPackageMatcher(it)
                 .compose(scheduling.forCompletable())
                 .subscribe()
-            disposables.add(disposable)
         }
+
     }
+
 }

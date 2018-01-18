@@ -10,10 +10,9 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import com.tasomaniac.devwidget.R
-import com.tasomaniac.devwidget.ViewModelFactory
+import com.tasomaniac.devwidget.ViewModelProvider
 import com.tasomaniac.devwidget.rx.SchedulingStrategy
 import com.tasomaniac.devwidget.settings.SettingsActivity
-import com.tasomaniac.devwidget.viewModelWith
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
 import com.uber.autodispose.kotlin.autoDisposable
 import dagger.android.support.DaggerAppCompatActivity
@@ -24,7 +23,7 @@ import javax.inject.Inject
 
 class MainActivity : DaggerAppCompatActivity() {
 
-    @Inject lateinit var viewModelFactory: ViewModelFactory
+    @Inject lateinit var viewModelProvider: ViewModelProvider
     @Inject lateinit var scopeProvider: AndroidLifecycleScopeProvider
     @Inject lateinit var navigation: MainNavigation
     @Inject lateinit var widgetListAdapter: WidgetListAdapter
@@ -45,7 +44,7 @@ class MainActivity : DaggerAppCompatActivity() {
             }
         }
 
-        viewModelWith<MainModel>(viewModelFactory)
+        viewModelProvider.get<MainModel>()
             .data
             .compose(scheduling.forFlowable())
             .autoDisposable(scopeProvider)

@@ -1,5 +1,7 @@
 package com.tasomaniac.devwidget.configure
 
+import android.arch.lifecycle.ViewModel
+import com.jakewharton.rx.replayingShare
 import com.tasomaniac.devwidget.data.AppDao
 import com.tasomaniac.devwidget.data.FilterDao
 import com.tasomaniac.devwidget.data.insertApps
@@ -7,17 +9,18 @@ import com.tasomaniac.devwidget.data.insertPackageMatchers
 import com.tasomaniac.devwidget.rx.flatten
 import com.tasomaniac.devwidget.widget.matchPackage
 import io.reactivex.Completable
+import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.annotations.CheckReturnValue
 import io.reactivex.functions.BiFunction
 import javax.inject.Inject
 
-class ConfigureUseCase @Inject constructor(
+class PackageMatcherModel @Inject constructor(
     private val packageResolver: PackageResolver,
     private val appDao: AppDao,
     private val filterDao: FilterDao,
     val appWidgetId: Int
-) {
+) : ViewModel() {
 
     @CheckReturnValue
     fun insertPackageMatcher(packageMatcher: String): Completable {
@@ -45,31 +48,16 @@ class ConfigureUseCase @Inject constructor(
     }
 
     @CheckReturnValue
-    fun findPossiblePackageMatchers(): Observable<List<String>> {
-        return Observable.combineLatest(
-            Observable.fromCallable { packageResolver.allLauncherPackages().toPackageMatchers() },
+    fun findPossiblePackageMatchers(): Flowable<List<String>> {
+        return Flowable.combineLatest(
+            Flowable.fromCallable { packageResolver.allLauncherPackages().toPackageMatchers() },
             packageMatchers(),
             BiFunction { possible, available ->
                 possible - available
             })
     }
 
-    private fun List<String>.toPackageMatchers(): List<String> {
-        return flatMap {
-            var currentPackage = it
-
-            it.split('.')
-                .foldRight(setOf(it)) { part, acc ->
-                    currentPackage = currentPackage.removeSuffix(".$part")
-                    acc + "$currentPackage.*"
-                }
-                .reversed()
-        }.distinct()
-    }
-
     @CheckReturnValue
-    fun packageMatchers() = filterDao.findFiltersByWidgetId(appWidgetId).toObservable()
-
-    fun release() = Unit
-
+    fun packageMatchers() = filterDao.findFiltersByWidgetId(appWidgetId).replayingShare()
 }
+
