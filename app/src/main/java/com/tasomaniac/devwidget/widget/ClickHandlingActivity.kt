@@ -1,11 +1,15 @@
 package com.tasomaniac.devwidget.widget
 
 import android.app.Activity
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
+import android.support.annotation.StringRes
+import android.widget.Toast
+import com.tasomaniac.devwidget.R
 
 class ClickHandlingActivity : Activity() {
 
@@ -20,11 +24,11 @@ class ClickHandlingActivity : Activity() {
 
         when (launchWhat) {
             LAUNCH_APP -> {
-                packageManager.getLaunchIntentForPackage(extraPackageName).apply {
+                packageManager.getLaunchIntentForPackage(extraPackageName)?.apply {
                     addCategory(Intent.CATEGORY_LAUNCHER)
                     flags = Intent.FLAG_ACTIVITY_NEW_TASK or
                             Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED
-                }.start()
+                }?.start() ?: toast(R.string.widget_error_activity_not_found)
             }
             UNINSTALL_APP -> {
                 Intent(Intent.ACTION_UNINSTALL_PACKAGE).apply {
@@ -41,7 +45,16 @@ class ClickHandlingActivity : Activity() {
         finish()
     }
 
-    fun Intent.start() = startActivity(this)
+    fun Intent.start() =
+        try {
+            startActivity(this)
+        } catch (e: ActivityNotFoundException) {
+            toast(R.string.widget_error_activity_cannot_be_launched)
+        }
+
+    private fun toast(@StringRes message: Int) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
 
     companion object {
 
