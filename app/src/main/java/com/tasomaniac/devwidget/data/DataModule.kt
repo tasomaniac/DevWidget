@@ -25,6 +25,10 @@ object DataModule {
 
     @Provides
     @JvmStatic
+    fun widgetAppDao(database: Database) = database.widgetAppDao()
+
+    @Provides
+    @JvmStatic
     fun filterDao(database: Database) = database.filterDao()
 
 }

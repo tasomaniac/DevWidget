@@ -1,21 +1,19 @@
 package com.tasomaniac.devwidget.data;
 
-import android.arch.persistence.room.*;
-import io.reactivex.Flowable;
-import io.reactivex.Maybe;
-import io.reactivex.Single;
+import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Delete;
+import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.OnConflictStrategy;
+import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Update;
 
 import java.util.List;
 
+import io.reactivex.Maybe;
+import io.reactivex.Single;
+
 @Dao
 public interface WidgetDao {
-
-  @Transaction
-  @Query("SELECT * FROM widget WHERE appWidgetId != -1")
-  Flowable<List<WidgetAndPackageNames>> allWidgetsWithPackages();
-
-  @Query("SELECT appWidgetId FROM widget")
-  Single<List<Integer>> allWidgetIds();
 
   @Query("SELECT * FROM widget")
   Single<List<Widget>> allWidgets();

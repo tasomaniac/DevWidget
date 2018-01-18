@@ -10,5 +10,7 @@ abstract class Database : RoomDatabase() {
 
     abstract fun appDao(): AppDao
 
+    abstract fun widgetAppDao(): WidgetAppDao
+
     abstract fun filterDao(): FilterDao
 }

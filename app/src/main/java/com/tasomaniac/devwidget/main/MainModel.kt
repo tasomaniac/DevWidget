@@ -3,7 +3,7 @@ package com.tasomaniac.devwidget.main
 import android.arch.lifecycle.ViewModel
 import android.support.v7.util.DiffUtil
 import com.tasomaniac.devwidget.data.Widget
-import com.tasomaniac.devwidget.data.WidgetDao
+import com.tasomaniac.devwidget.data.WidgetAppDao
 import com.tasomaniac.devwidget.rx.SchedulingStrategy
 import com.tasomaniac.devwidget.settings.Sorting.*
 import com.tasomaniac.devwidget.settings.SortingPreferences
@@ -18,7 +18,7 @@ private typealias MainResult = Pair<List<WidgetListData>, DiffUtil.DiffResult>
 class MainModel @Inject constructor(
     private val sortingPreferences: SortingPreferences,
     widgetDataResolver: WidgetDataResolver,
-    widgetDao: WidgetDao,
+    widgetAppDao: WidgetAppDao,
     scheduling: SchedulingStrategy
 ) : ViewModel() {
 
@@ -26,7 +26,7 @@ class MainModel @Inject constructor(
     private val disposable: Disposable
 
     init {
-        disposable = widgetDao.allWidgetsWithPackages()
+        disposable = widgetAppDao.allWidgetsWithPackages()
             .map { widgets ->
                 widgets.map {
                     val widgetData = it.packageNames
