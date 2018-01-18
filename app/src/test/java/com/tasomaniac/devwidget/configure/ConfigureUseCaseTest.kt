@@ -68,51 +68,51 @@ class ConfigureUseCaseTest(
             .assertValue(SOME_PACKAGE_MATCHERS)
     }
 
-    @Test
-    fun `given NOT available, should insert and update widget`() {
-        given(widgetDao.findWidgetById(APP_WIDGET_ID)).willReturn(Maybe.empty())
-
-        useCase.updateWidgetName(ANY_WIDGET_NAME)
-
-        then(widgetDao).should().insertWidgetSync(Widget(APP_WIDGET_ID))
-        then(widgetDao).should().updateWidgetSync(
-            Widget(
-                APP_WIDGET_ID,
-                ANY_WIDGET_NAME
-            )
-        )
-    }
-
-    @Test
-    fun `given already available, should update widget`() {
-        given(widgetDao.findWidgetById(APP_WIDGET_ID)).willReturn(
-            Maybe.just(
-                ANY_WIDGET
-            )
-        )
-
-        useCase.updateWidgetName(ANY_WIDGET_NAME)
-
-        then(widgetDao).should().updateWidgetSync(
-            Widget(
-                APP_WIDGET_ID,
-                ANY_WIDGET_NAME
-            )
-        )
-    }
-
-    @Test
-    fun `given already available, should emit current widget name`() {
-        given(widgetDao.findWidgetById(APP_WIDGET_ID)).willReturn(
-            Maybe.just(
-                ANY_WIDGET
-            )
-        )
-
-        useCase.currentWidgetName()
-            .test()
-            .assertValue(ANY_WIDGET_NAME)
-    }
+//    @Test
+//    fun `given NOT available, should insert and update widget`() {
+//        given(widgetDao.findWidgetById(APP_WIDGET_ID)).willReturn(Maybe.empty())
+//
+//        useCase.updateWidgetName(ANY_WIDGET_NAME)
+//
+//        then(widgetDao).should().insertWidgetSync(Widget(APP_WIDGET_ID))
+//        then(widgetDao).should().updateWidgetSync(
+//            Widget(
+//                APP_WIDGET_ID,
+//                ANY_WIDGET_NAME
+//            )
+//        )
+//    }
+//
+//    @Test
+//    fun `given already available, should update widget`() {
+//        given(widgetDao.findWidgetById(APP_WIDGET_ID)).willReturn(
+//            Maybe.just(
+//                ANY_WIDGET
+//            )
+//        )
+//
+//        useCase.updateWidgetName(ANY_WIDGET_NAME)
+//
+//        then(widgetDao).should().updateWidgetSync(
+//            Widget(
+//                APP_WIDGET_ID,
+//                ANY_WIDGET_NAME
+//            )
+//        )
+//    }
+//
+//    @Test
+//    fun `given already available, should emit current widget name`() {
+//        given(widgetDao.findWidgetById(APP_WIDGET_ID)).willReturn(
+//            Maybe.just(
+//                ANY_WIDGET
+//            )
+//        )
+//
+//        useCase.currentWidgetName()
+//            .test()
+//            .assertValue(ANY_WIDGET_NAME)
+//    }
 
     @Test
     fun `should insert packageMatchers`() {

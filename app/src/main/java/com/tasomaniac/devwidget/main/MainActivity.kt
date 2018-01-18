@@ -25,6 +25,7 @@ import javax.inject.Inject
 class MainActivity : DaggerAppCompatActivity() {
 
     @Inject lateinit var viewModelFactory: ViewModelFactory
+    @Inject lateinit var scopeProvider: AndroidLifecycleScopeProvider
     @Inject lateinit var navigation: MainNavigation
     @Inject lateinit var widgetListAdapter: WidgetListAdapter
     @Inject lateinit var appWidgetManager: AppWidgetManager
@@ -46,14 +47,13 @@ class MainActivity : DaggerAppCompatActivity() {
 
         viewModelWith<MainModel>(viewModelFactory)
             .data
+            .compose(scheduling.forFlowable())
             .autoDisposable(scopeProvider)
             .subscribe { (data, diff) ->
                 widgetListAdapter.data = data
                 diff.dispatchUpdatesTo(widgetListAdapter)
             }
     }
-
-    private val scopeProvider get() = AndroidLifecycleScopeProvider.from(this)
 
     private fun setupList() {
         mainWidgetList.adapter = widgetListAdapter

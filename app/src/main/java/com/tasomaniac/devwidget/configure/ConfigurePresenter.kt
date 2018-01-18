@@ -34,11 +34,6 @@ class ConfigurePresenter @Inject constructor(
                 .subscribe(view::setItems)
         )
         disposables.add(
-            useCase.currentWidgetName()
-                .compose(scheduling.forMaybe())
-                .subscribe(view::setWidgetName)
-        )
-        disposables.add(
             useCase.packageMatchers()
                 .compose(scheduling.forObservable())
                 .subscribe(view::setFilters)
@@ -82,10 +77,6 @@ class ConfigurePresenter @Inject constructor(
                     widgetUpdater.notifyWidgetDataChanged(useCase.appWidgetId)
                 }
             }
-        }
-
-        override fun widgetNameChanged(widgetName: String) {
-            useCase.updateWidgetName(widgetName)
         }
 
         override fun onPackageMatcherAdded(packageMatcher: String) {

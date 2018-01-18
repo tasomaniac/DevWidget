@@ -1,19 +1,19 @@
 package com.tasomaniac.devwidget.rx
 
-import io.reactivex.Observable
-import io.reactivex.ObservableTransformer
+import io.reactivex.Flowable
+import io.reactivex.FlowableTransformer
 import java.util.concurrent.TimeUnit
 
-interface Debouncer<T> : ObservableTransformer<T, T>
+interface Debouncer<T> : FlowableTransformer<T, T>
 
 class DefaultDebouncer<T>(
     private val timeout: Long,
     private val unit: TimeUnit
 ) : Debouncer<T> {
 
-    override fun apply(upstream: Observable<T>) = upstream.debounce(timeout, unit)
+    override fun apply(upstream: Flowable<T>) = upstream.debounce(timeout, unit)
 }
 
 class EmptyDebouncer<T> : Debouncer<T> {
-    override fun apply(upstream: Observable<T>) = upstream
+    override fun apply(upstream: Flowable<T>) = upstream
 }

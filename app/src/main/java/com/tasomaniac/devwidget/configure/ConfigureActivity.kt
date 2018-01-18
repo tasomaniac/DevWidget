@@ -11,6 +11,11 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.widget.ArrayAdapter
 import com.tasomaniac.devwidget.R
+import com.tasomaniac.devwidget.ViewModelFactory
+import com.tasomaniac.devwidget.rx.SchedulingStrategy
+import com.tasomaniac.devwidget.viewModelWith
+import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
+import com.uber.autodispose.kotlin.autoDisposable
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.configure_activity.*
 import kotlinx.android.synthetic.main.configure_content.*
@@ -18,25 +23,40 @@ import javax.inject.Inject
 
 class ConfigureActivity : DaggerAppCompatActivity(), ConfigureView {
 
+    @Inject lateinit var viewModelFactory: ViewModelFactory
+    @Inject lateinit var scopeProvider: AndroidLifecycleScopeProvider
     @Inject lateinit var presenter: ConfigurePresenter
     @Inject lateinit var packageMatcherListAdapter: PackageMatcherListAdapter
+    @Inject lateinit var scheduling: SchedulingStrategy
 
     private lateinit var adapter: ArrayAdapter<String>
+    private lateinit var textWatcher: WidgetNameWatcher
     private var listener: ConfigureView.Listener? = null
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.configure_activity)
         setupToolbar()
+        setupWidgetName()
         setupNewPackageMatcher()
         setupPackageMatcherList()
-        configureWidgetName.addTextChangedListener(textWatcher)
     }
 
     private fun setupToolbar() {
         toolbar.setNavigationOnClickListener {
             listener?.onConfirmClicked()
         }
+    }
+
+    private fun setupWidgetName() {
+        val nameModel = viewModelWith<WidgetNameModel>(viewModelFactory)
+        textWatcher = WidgetNameWatcher(nameModel)
+        configureWidgetName.addTextChangedListener(textWatcher)
+        nameModel
+            .currentWidgetName()
+            .compose(scheduling.forMaybe())
+            .autoDisposable(scopeProvider)
+            .subscribe(configureWidgetName::setText)
     }
 
     private fun setupNewPackageMatcher() {
@@ -60,10 +80,6 @@ class ConfigureActivity : DaggerAppCompatActivity(), ConfigureView {
 
     private fun setupPackageMatcherList() {
         configurePackageMatcherList.adapter = packageMatcherListAdapter
-    }
-
-    override fun setWidgetName(widgetName: String) {
-        configureWidgetName.setText(widgetName)
     }
 
     override fun setFilters(filters: List<String>) {
@@ -98,18 +114,8 @@ class ConfigureActivity : DaggerAppCompatActivity(), ConfigureView {
 
     override fun onDestroy() {
         presenter.release()
-        super.onDestroy()
         configureWidgetName.removeTextChangedListener(textWatcher)
-    }
-
-    private val textWatcher = object : TextWatcher {
-        override fun afterTextChanged(text: Editable) {
-            listener?.widgetNameChanged(text.toString())
-        }
-
-        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) = Unit
-        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) = Unit
-
+        super.onDestroy()
     }
 
     val configurePin: ConfigurePinning
@@ -130,5 +136,15 @@ class ConfigureActivity : DaggerAppCompatActivity(), ConfigureView {
                 .putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, -1)
                 .putExtra(EXTRA_SHOULD_PIN, true)
         }
+    }
+
+    class WidgetNameWatcher(private val nameModel: WidgetNameModel) : TextWatcher {
+        override fun afterTextChanged(text: Editable) {
+            nameModel.updateWidgetName(text.toString())
+        }
+
+        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) = Unit
+        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) = Unit
+
     }
 }

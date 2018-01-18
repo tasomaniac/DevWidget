@@ -4,7 +4,6 @@ import android.arch.lifecycle.ViewModel
 import android.support.v7.util.DiffUtil
 import com.tasomaniac.devwidget.data.Widget
 import com.tasomaniac.devwidget.data.WidgetAppDao
-import com.tasomaniac.devwidget.rx.SchedulingStrategy
 import com.tasomaniac.devwidget.settings.Sorting.*
 import com.tasomaniac.devwidget.settings.SortingPreferences
 import com.tasomaniac.devwidget.widget.WidgetData
@@ -18,8 +17,7 @@ private typealias MainResult = Pair<List<WidgetListData>, DiffUtil.DiffResult>
 class MainModel @Inject constructor(
     private val sortingPreferences: SortingPreferences,
     widgetDataResolver: WidgetDataResolver,
-    widgetAppDao: WidgetAppDao,
-    scheduling: SchedulingStrategy
+    widgetAppDao: WidgetAppDao
 ) : ViewModel() {
 
     private val processor = BehaviorProcessor.create<MainResult>()
@@ -39,7 +37,6 @@ class MainModel @Inject constructor(
                 newData to DiffUtil.calculateDiff(WidgetDiffCallbacks(data, newData))
             }
             .skip(1)
-            .compose(scheduling.forFlowable())
             .subscribe(processor::onNext)
     }
 

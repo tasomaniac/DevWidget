@@ -1,12 +1,24 @@
 package com.tasomaniac.devwidget.configure
 
 import android.appwidget.AppWidgetManager
+import android.arch.lifecycle.ViewModel
+import android.support.v4.app.FragmentActivity
+import com.tasomaniac.devwidget.LifecycleScopeModule
+import com.tasomaniac.devwidget.ViewModelKey
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
+import dagger.multibindings.IntoMap
 
 typealias ConfigurePinning = Boolean
 
-@Module
+@Module(
+    includes = [
+        ActivityBindingModule::class,
+        ConfigureViewModelModule::class,
+        LifecycleScopeModule::class
+    ]
+)
 object ConfigureModule {
 
     @Provides
@@ -25,4 +37,20 @@ object ConfigureModule {
     @JvmStatic
     fun configurePinning(activity: ConfigureActivity) = activity.configurePin
 
+}
+
+@Module
+interface ActivityBindingModule {
+
+    @Binds
+    fun fragmentActivity(activity: ConfigureActivity): FragmentActivity
+}
+
+@Module
+interface ConfigureViewModelModule {
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(WidgetNameModel::class)
+    fun widgetNameModel(model: WidgetNameModel): ViewModel
 }
