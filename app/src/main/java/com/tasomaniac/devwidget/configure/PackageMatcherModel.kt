@@ -39,7 +39,7 @@ class PackageMatcherModel @Inject constructor(
 
     private fun insertMatchingApps(packageMatcher: String): Completable {
         return Observable
-            .fromIterable(packageResolver.allLauncherPackages())
+            .fromIterable(packageResolver.allApplications())
             .filter(matchPackage(packageMatcher))
             .toList()
             .flatMapCompletable {
@@ -50,7 +50,7 @@ class PackageMatcherModel @Inject constructor(
     @CheckReturnValue
     fun findPossiblePackageMatchers(): Flowable<List<String>> {
         return Flowable.combineLatest(
-            Flowable.fromCallable { packageResolver.allLauncherPackages().toPackageMatchers() },
+            Flowable.fromCallable { packageResolver.allApplications().toPackageMatchers() },
             packageMatchers(),
             BiFunction { possible, available ->
                 possible - available

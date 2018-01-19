@@ -17,7 +17,7 @@ class PackageMatcherModelTest(
 ) {
 
     private val packageResolver = mock<PackageResolver> {
-        on { allLauncherPackages() } doReturn givenPackages
+        on { allApplications() } doReturn givenPackages
     }
     private val filterDao = mock<FilterDao> {
         on { findFiltersByWidgetId(APP_WIDGET_ID) } doReturn Flowable.just(
