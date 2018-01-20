@@ -51,11 +51,16 @@ class MainActivity : DaggerAppCompatActivity() {
             .compose(scheduling.forFlowable())
             .autoDisposable(scopeProvider)
             .subscribe { (data, diff) ->
+                updateVisibility(data)
                 widgetListAdapter.data = data
                 diff.dispatchUpdatesTo(widgetListAdapter)
             }
 
         if (savedInstanceState == null) analytics.sendScreenView(this, "Main")
+    }
+
+    private fun updateVisibility(data: List<WidgetListData>) {
+        mainEmptyInfo.visibility = if (data.isEmpty()) View.VISIBLE else View.GONE
     }
 
     private fun setupList() {

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_empty_info">No widget added yet!\n\nPlease use + button below to add <strong>DevWidget</strong> to your homescreen.</string>
+</resources>
