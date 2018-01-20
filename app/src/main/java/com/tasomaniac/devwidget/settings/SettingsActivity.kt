@@ -4,13 +4,15 @@ import android.app.backup.BackupManager
 import android.content.SharedPreferences
 import android.os.Bundle
 import com.tasomaniac.devwidget.R
+import com.tasomaniac.devwidget.data.Analytics
 import dagger.android.support.DaggerAppCompatActivity
-import kotlinx.android.synthetic.main.include_appbar.toolbar
+import kotlinx.android.synthetic.main.include_appbar.*
 import javax.inject.Inject
 
 class SettingsActivity : DaggerAppCompatActivity(),
     SharedPreferences.OnSharedPreferenceChangeListener {
 
+    @Inject lateinit var analytics: Analytics
     @Inject lateinit var sharedPreferences: SharedPreferences
 
     public override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,6 +24,7 @@ class SettingsActivity : DaggerAppCompatActivity(),
             supportFragmentManager.beginTransaction()
                 .add(R.id.fragment_container, SettingsFragment.newInstance())
                 .commit()
+            analytics.sendScreenView(this, "Settings")
         }
     }
 

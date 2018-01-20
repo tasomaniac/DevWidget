@@ -2,6 +2,7 @@ package com.tasomaniac.devwidget.configure
 
 import android.annotation.TargetApi
 import android.os.Build.VERSION_CODES.O
+import com.tasomaniac.devwidget.data.Analytics
 import com.tasomaniac.devwidget.rx.SchedulingStrategy
 import com.tasomaniac.devwidget.widget.WidgetUpdater
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
@@ -15,7 +16,8 @@ class ConfigurePresenter @Inject constructor(
     configurePinning: ConfigurePinning,
     private val appWidgetId: Int,
     private val scheduling: SchedulingStrategy,
-    private val scopeProvider: AndroidLifecycleScopeProvider
+    private val scopeProvider: AndroidLifecycleScopeProvider,
+    private val analytics: Analytics
 ) {
 
     @TargetApi(O)
@@ -53,6 +55,9 @@ class ConfigurePresenter @Inject constructor(
             packageMatcherModel.findAndInsertMatchingApps()
                 .andThen(updateWidget)
                 .compose(scheduling.forCompletable())
+                .doOnComplete {
+                    trackConfirm()
+                }
                 .subscribe {
                     view.finishWith(appWidgetId)
                 }
@@ -64,6 +69,13 @@ class ConfigurePresenter @Inject constructor(
                 .subscribe()
         }
 
+    }
+
+    private fun trackConfirm() {
+        analytics.sendEvent(
+            "Confirm Clicked",
+            "New Widget" to widgetNameModel.newWidget.toString()
+        )
     }
 
 }

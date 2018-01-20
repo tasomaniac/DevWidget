@@ -23,6 +23,7 @@ class WidgetNameModel @Inject constructor(
     scheduling: SchedulingStrategy
 ) : ViewModel() {
 
+    var newWidget = false
     private val disposable: Disposable
     private val processor = BehaviorProcessor.create<String>()
 
@@ -43,6 +44,7 @@ class WidgetNameModel @Inject constructor(
     private fun insertIfNotFound() =
         findWidget()
             .isEmpty.onlyTrue()
+            .doOnSuccess { newWidget = true }
             .flatMapCompletable {
                 widgetDao.insertWidget(Widget(appWidgetId))
             }

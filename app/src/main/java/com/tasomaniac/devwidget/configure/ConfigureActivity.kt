@@ -11,6 +11,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.widget.ArrayAdapter
 import com.tasomaniac.devwidget.R
+import com.tasomaniac.devwidget.data.Analytics
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.configure_activity.*
 import kotlinx.android.synthetic.main.configure_content.*
@@ -20,6 +21,7 @@ class ConfigureActivity : DaggerAppCompatActivity(), ConfigureView {
 
     @Inject lateinit var presenter: ConfigurePresenter
     @Inject lateinit var packageMatcherListAdapter: PackageMatcherListAdapter
+    @Inject lateinit var analytics: Analytics
 
     private lateinit var adapter: ArrayAdapter<String>
     private lateinit var textWatcher: TextWatcher
@@ -35,6 +37,8 @@ class ConfigureActivity : DaggerAppCompatActivity(), ConfigureView {
         setupWidgetName()
         setupNewPackageMatcher()
         setupPackageMatcherList()
+
+        if (savedInstanceState == null) analytics.sendScreenView(this, "Configure")
     }
 
     private fun setupToolbar() {

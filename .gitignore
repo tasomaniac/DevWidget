@@ -4,6 +4,7 @@
 /build
 /captures
 
+google-services.json
 my-release-key.keystore
 tasomaniac.p12
 release.signing

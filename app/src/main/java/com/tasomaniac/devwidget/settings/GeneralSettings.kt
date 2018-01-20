@@ -33,11 +33,8 @@ class GeneralSettings @Inject constructor(
                 .compose(scheduling.forCompletable())
                 .subscribe()
 
-            analytics.sendEvent(
-                "Preference",
-                "Sorting",
-                sortingPreferences.sorting.stringVale(context.resources)
-            )
+            val selectedValue = sortingPreferences.sorting.stringVale(context.resources)
+            analytics.sendValueEvent("Sorting", selectedValue)
         }
     }
 

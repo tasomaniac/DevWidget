@@ -36,13 +36,13 @@ class DisplaySettings @Inject constructor(
             updateAllWidgets()
 
             val selectedValue = nightModePreferences.mode.stringVale(context.resources)
-            analytics.sendEvent("Preference", "Night Mode", selectedValue)
+            analytics.sendValueEvent("Night Mode", selectedValue)
         }
         if (key.isKeyEquals(R.string.pref_key_opacity)) {
             updateAllWidgets()
 
             val selectedValue = opacityPreferences.opacity.stringVale(context.resources)
-            analytics.sendEvent("Preference", "Opacity", selectedValue)
+            analytics.sendValueEvent("Opacity", selectedValue)
         }
     }
 

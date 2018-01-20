@@ -15,21 +15,24 @@ class OtherSettings @Inject constructor(
     override fun setup() {
         addPreferencesFromResource(R.xml.pref_others)
 
-        findPreference(R.string.pref_key_open_source).onPreferenceClickListener =
-                onPreferenceClickListener
-        findPreference(R.string.pref_key_contact).onPreferenceClickListener =
-                onPreferenceClickListener
+        findPreference(R.string.pref_key_open_source).onPreferenceClickListener = listener
+        findPreference(R.string.pref_key_contact).onPreferenceClickListener = listener
+        findPreference(R.string.pref_key_market).onPreferenceClickListener = listener
+        findPreference(R.string.pref_key_version).onPreferenceClickListener = listener
         setupVersionPreference()
     }
-
-    private val onPreferenceClickListener = Preference.OnPreferenceClickListener {
+    
+    private val listener = Preference.OnPreferenceClickListener {
         when {
             it.isKeyEquals(R.string.pref_key_open_source) -> displayLicensesDialogFragment()
             it.isKeyEquals(R.string.pref_key_contact) -> startContactEmailChooser()
         }
 
-        analytics.sendEvent("Preference", "Item Click", it.key)
-        true
+        analytics.sendEvent(
+            "Preference Clicked",
+            "Clicked Item" to it.key
+        )
+        false
     }
 
     private fun setupVersionPreference() {

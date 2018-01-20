@@ -11,6 +11,7 @@ import android.view.MenuItem
 import android.view.View
 import com.tasomaniac.devwidget.R
 import com.tasomaniac.devwidget.ViewModelProvider
+import com.tasomaniac.devwidget.data.Analytics
 import com.tasomaniac.devwidget.rx.SchedulingStrategy
 import com.tasomaniac.devwidget.settings.SettingsActivity
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
@@ -29,6 +30,7 @@ class MainActivity : DaggerAppCompatActivity() {
     @Inject lateinit var widgetListAdapter: WidgetListAdapter
     @Inject lateinit var appWidgetManager: AppWidgetManager
     @Inject lateinit var scheduling: SchedulingStrategy
+    @Inject lateinit var analytics: Analytics
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +54,8 @@ class MainActivity : DaggerAppCompatActivity() {
                 widgetListAdapter.data = data
                 diff.dispatchUpdatesTo(widgetListAdapter)
             }
+
+        if (savedInstanceState == null) analytics.sendScreenView(this, "Main")
     }
 
     private fun setupList() {
