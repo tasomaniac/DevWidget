@@ -24,7 +24,7 @@ android {
   defaultConfig {
     applicationId 'com.tasomaniac.devwidget'
     minSdkVersion versions.minSdk
-    targetSdkVersion versions.compileSdk
+    targetSdkVersion versions.targetSdk
     versionCode versions.versionCode
     versionName versions.versionName
     buildConfigField 'String', 'GIT_SHA', "\"${gitSha}\""
