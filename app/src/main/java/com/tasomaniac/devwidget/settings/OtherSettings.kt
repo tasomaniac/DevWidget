@@ -21,7 +21,7 @@ class OtherSettings @Inject constructor(
         findPreference(R.string.pref_key_version).onPreferenceClickListener = listener
         setupVersionPreference()
     }
-    
+
     private val listener = Preference.OnPreferenceClickListener {
         when {
             it.isKeyEquals(R.string.pref_key_open_source) -> displayLicensesDialogFragment()

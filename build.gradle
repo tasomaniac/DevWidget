@@ -16,6 +16,7 @@ buildscript {
             arch       : '1.0.0',
             butterKnife: '8.8.1',
             dagger     : '2.14.1',
+            gms        : '11.8.0',
             kotlin     : '1.2.20',
             room       : '1.0.0',
             supportLib : '27.0.2',

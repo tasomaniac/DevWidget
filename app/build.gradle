@@ -92,7 +92,7 @@ if (isPlay) {
 
 dependencies {
   playImplementation 'com.crashlytics.sdk.android:crashlytics:2.8.0'
-  playImplementation 'com.google.firebase:firebase-core:11.8.0'
+  playImplementation "com.google.firebase:firebase-core:$versions.gms"
 
   implementation 'com.google.code.findbugs:jsr305:3.0.2'
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$versions.kotlin"

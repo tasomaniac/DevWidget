@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatDialogFragment
+import android.view.LayoutInflater
 import android.webkit.WebView
 import com.tasomaniac.devwidget.R
 
@@ -12,7 +13,7 @@ class LicensesDialogFragment : AppCompatDialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         @SuppressLint("InflateParams")
-        val view = layoutInflater.inflate(R.layout.dialog_licenses, null)
+        val view = LayoutInflater.from(activity).inflate(R.layout.dialog_licenses, null)
 
         val licenses = view.findViewById<WebView>(R.id.licenses)
         licenses.loadUrl("file:///android_asset/open_source_licenses.html")
