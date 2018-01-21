@@ -39,7 +39,7 @@ class MainActivity : DaggerAppCompatActivity() {
 
         setupList()
 
-        if (SDK_INT >= O && appWidgetManager.isRequestPinAppWidgetSupported) {
+        if (isPinningSupported()) {
             mainAddNewWidget.visibility = View.VISIBLE
             mainAddNewWidget.setOnClickListener {
                 navigation.navigateForPinning(this)
@@ -51,7 +51,7 @@ class MainActivity : DaggerAppCompatActivity() {
             .compose(scheduling.forFlowable())
             .autoDisposable(scopeProvider)
             .subscribe { (data, diff) ->
-                updateVisibility(data)
+                updateEmptyView(data)
                 widgetListAdapter.data = data
                 diff.dispatchUpdatesTo(widgetListAdapter)
             }
@@ -59,9 +59,23 @@ class MainActivity : DaggerAppCompatActivity() {
         if (savedInstanceState == null) analytics.sendScreenView(this, "Main")
     }
 
-    private fun updateVisibility(data: List<WidgetListData>) {
-        mainEmptyInfo.visibility = if (data.isEmpty()) View.VISIBLE else View.GONE
+    private fun updateEmptyView(data: List<WidgetListData>) {
+        if (data.isEmpty()) {
+            mainEmptyInfo.visibility = View.VISIBLE
+            mainEmptyInfo.setText(
+                if (isPinningSupported())
+                    R.string.main_empty_info_with_pinning
+                else
+                    R.string.main_empty_info
+            )
+
+        } else {
+            mainEmptyInfo.visibility = View.GONE
+        }
     }
+
+    private fun isPinningSupported() =
+        SDK_INT >= O && appWidgetManager.isRequestPinAppWidgetSupported
 
     private fun setupList() {
         mainWidgetList.adapter = widgetListAdapter
