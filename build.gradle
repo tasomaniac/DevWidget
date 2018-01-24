@@ -13,7 +13,7 @@ buildscript {
             versionCode: versionMajor * 10000 + versionMinor * 1000 + versionBuild,
             versionName: "${versionMajor}.${versionMinor}",
 
-            arch       : '1.0.0',
+            arch       : '1.1.0',
             butterKnife: '8.8.1',
             dagger     : '2.14.1',
             gms        : '11.8.0',
