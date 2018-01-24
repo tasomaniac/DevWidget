@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?><!-- http://tools.android.com/tips/lint-checks -->
 <lint>
-  <issue id="UnusedResources" severity="error" />
+  <issue id="UnusedResources" severity="error" >
+    <ignore regexp="default_gap"/>
+    <ignore regexp="half_gap"/>
+    <ignore regexp="quarter_gap"/>
+    <ignore regexp="keyline_1"/>
+    <ignore regexp="keyline_2"/>
+  </issue>
   <issue id="ParcelClassLoader" severity="error" />
   <issue id="HardcodedText" severity="error" />
   <issue id="HardwareIds" severity="error" />
