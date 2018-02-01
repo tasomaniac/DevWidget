@@ -4,7 +4,9 @@ import android.arch.lifecycle.ViewModel
 import android.support.v7.util.DiffUtil
 import com.tasomaniac.devwidget.data.Widget
 import com.tasomaniac.devwidget.data.WidgetAppDao
-import com.tasomaniac.devwidget.settings.Sorting.*
+import com.tasomaniac.devwidget.settings.Sorting.ALPHABETICALLY_NAMES
+import com.tasomaniac.devwidget.settings.Sorting.ALPHABETICALLY_PACKAGES
+import com.tasomaniac.devwidget.settings.Sorting.ORDER_ADDED
 import com.tasomaniac.devwidget.settings.SortingPreferences
 import com.tasomaniac.devwidget.widget.WidgetData
 import com.tasomaniac.devwidget.widget.WidgetDataResolver

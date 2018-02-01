@@ -1,9 +1,13 @@
+plugins {
+  id "io.gitlab.arturbosch.detekt" version "1.0.0.RC6-2"
+}
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.novoda.android-command'
 apply plugin: 'com.novoda.build-properties'
+apply plugin: 'com.novoda.static-analysis'
 if (isPlay) {
   apply plugin: 'io.fabric'
   apply plugin: 'com.github.triplet.play'
@@ -67,10 +71,26 @@ android {
     }
     play {}
   }
+}
+
+staticAnalysis {
+  penalty {
+    maxWarnings = 10
+    maxErrors = 0
+  }
+
+  detekt {
+    profile('main') {
+      config = 'props/detekt.yml'
+      output = 'build/reports'
+    }
+  }
 
   lintOptions {
     textReport true
     textOutput 'stdout'
+
+    checkAllWarnings true
 
     lintConfig file('props/lint.xml')
     // We run a full lint analysis as build part in CI, so skip vital checks for assemble tasks.

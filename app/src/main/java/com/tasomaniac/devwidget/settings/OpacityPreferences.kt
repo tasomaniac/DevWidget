@@ -22,7 +22,7 @@ class OpacityPreferences @Inject constructor(
         }
 
     val backgroundColor: Int
-        @ColorInt get() {
+        @ColorInt @Suppress("MagicNumber") get() {
             val backgroundColor = widgetResources.foregroundColorInverse
             val opacity = opacity.stringVale(resources).toInt()
             return backgroundColor and 0xffffff or (opacity * 255 / 100 shl 24)

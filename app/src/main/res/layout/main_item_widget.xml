@@ -16,6 +16,7 @@
       android:paddingStart="@dimen/half_gap"
       android:paddingEnd="@dimen/half_gap"
       android:textAppearance="@style/AppWidget.Title"
+      android:textIsSelectable="false"
       tools:text="My Widget"/>
 
   <com.tasomaniac.devwidget.main.NonTouchRecyclerView

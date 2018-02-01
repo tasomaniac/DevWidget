@@ -10,4 +10,5 @@
     android:minHeight="?listPreferredItemHeightSmall"
     android:paddingStart="@dimen/keyline_1"
     android:paddingEnd="@dimen/keyline_1"
+    android:textIsSelectable="false"
     tools:ignore="Overdraw" />

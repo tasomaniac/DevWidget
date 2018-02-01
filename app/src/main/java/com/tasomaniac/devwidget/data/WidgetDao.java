@@ -22,7 +22,7 @@ public interface WidgetDao {
   Maybe<Widget> findWidgetById(int appWidgetId);
 
   @Query("SELECT * from widget where appWidgetId IN (:appWidgetId)")
-  Single<List<Widget>> findWidgetsById(int... appWidgetId);
+  Single<List<Widget>> findWidgetsById(int[] appWidgetId);
 
   @Insert(onConflict = OnConflictStrategy.FAIL)
   void insertWidgetSync(Widget... widget);

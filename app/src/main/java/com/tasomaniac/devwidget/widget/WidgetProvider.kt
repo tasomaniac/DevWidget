@@ -37,7 +37,7 @@ class WidgetProvider : AppWidgetProvider() {
         val pendingResult = goAsync()
 
         disposable.dispose()
-        disposable = widgetDao.findWidgetsById(*appWidgetIds)
+        disposable = widgetDao.findWidgetsById(appWidgetIds)
             .flatten()
             .flatMapCompletable(widgetUpdater::update)
             .compose(scheduling.forCompletable())

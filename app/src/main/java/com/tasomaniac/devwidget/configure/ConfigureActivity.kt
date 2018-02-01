@@ -33,18 +33,14 @@ class ConfigureActivity : DaggerAppCompatActivity(), ConfigureView {
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.configure_activity)
-        setupToolbar()
+        toolbar.setNavigationOnClickListener {
+            onConfirmClicked()
+        }
         setupWidgetName()
         setupNewPackageMatcher()
         setupPackageMatcherList()
 
         if (savedInstanceState == null) analytics.sendScreenView(this, "Configure")
-    }
-
-    private fun setupToolbar() {
-        toolbar.setNavigationOnClickListener {
-            onConfirmClicked()
-        }
     }
 
     private fun setupWidgetName() {
