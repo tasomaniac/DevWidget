@@ -8,7 +8,7 @@ test-pattern: # Configure exclusions for test sources
     - '.*Test.kt'
     - '.*Spec.kt'
   exclude-rule-sets:
-     - 'comments'
+    - 'comments'
   exclude-rules:
     - 'NamingRules'
     - 'WildcardImport'
@@ -19,12 +19,39 @@ test-pattern: # Configure exclusions for test sources
     - 'SpreadOperator'
     - 'TooManyFunctions'
 
+processors:
+  active: true
+  exclude:
+  # - 'FunctionCountProcessor'
+  # - 'PropertyCountProcessor'
+  # - 'ClassCountProcessor'
+  # - 'PackageCountProcessor'
+  # - 'KtFileCountProcessor'
+
+console-reports:
+  active: true
+  exclude:
+  #  - 'ProjectStatisticsReport'
+  #  - 'ComplexityReport'
+  #  - 'NotificationReport'
+  #  - 'FindingsReport'
+  #  - 'BuildFailureReport'
+
+output-reports:
+  active: true
+  exclude:
+  #  - 'PlainOutputReport'
+  #  - 'XmlOutputReport'
+
 comments:
   active: true
   CommentOverPrivateFunction:
     active: true
   CommentOverPrivateProperty:
     active: false
+  EndOfSentenceFormat:
+    active: false
+    endOfSentenceFormat: ([.?!][ \t\n\r\f<])|([.?!]$)
   UndocumentedPublicClass:
     active: false
     searchInNestedClass: true
@@ -162,7 +189,7 @@ naming:
     classPattern: '[A-Z$][a-zA-Z0-9$]*'
   EnumNaming:
     active: true
-    enumEntryPattern: '^[A-Z$][a-zA-Z_$]*$'
+    enumEntryPattern: '^[A-Z$][a-zA-Z_0-9$]*$'
   ForbiddenClassName:
     active: false
     forbiddenName: ''
@@ -199,7 +226,7 @@ naming:
     minimumVariableNameLength: 1
   VariableNaming:
     active: true
-    variablePattern: '[a-z][A-Za-z0-9]*'
+    variablePattern: '(_)?[a-z][A-Za-z0-9]*'
     privateVariablePattern: '(_)?[a-z][A-Za-z0-9]*'
 
 performance:
