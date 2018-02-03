@@ -32,7 +32,7 @@
     </activity>
 
     <receiver android:name=".configure.WidgetPinnedReceiver" />
-    
+
     <service
         android:name=".widget.WidgetViewsService"
         android:permission="android.permission.BIND_REMOTEVIEWS" />
@@ -46,7 +46,7 @@
           android:name="android.appwidget.provider"
           android:resource="@xml/app_widget_info" />
     </receiver>
-    
+
     <activity
         android:name=".widget.ClickHandlingActivity"
         android:documentLaunchMode="never"
@@ -57,6 +57,16 @@
         android:relinquishTaskIdentity="true"
         android:taskAffinity=""
         android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+    <activity
+        android:name=".widget.ActivityChooserActivity"
+        android:documentLaunchMode="never"
+        android:excludeFromRecents="true"
+        android:finishOnCloseSystemDialogs="true"
+        android:process=":click"
+        android:relinquishTaskIdentity="true"
+        android:taskAffinity=""
+        android:theme="@style/Theme.DevWidget.BottomSheet" />
 
     <activity android:name=".settings.SettingsActivity"
         android:label="@string/settings"
