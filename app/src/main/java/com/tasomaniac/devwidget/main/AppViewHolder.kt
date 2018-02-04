@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.tasomaniac.devwidget.R
 import com.tasomaniac.devwidget.extensions.inflate
-import com.tasomaniac.devwidget.widget.WidgetData
+import com.tasomaniac.devwidget.widget.DisplayApplicationInfo
 import com.tasomaniac.devwidget.widget.WidgetResources
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.app_widget_list_item.*
@@ -17,13 +17,13 @@ class AppViewHolder(
 ) : RecyclerView.ViewHolder(containerView),
     LayoutContainer {
 
-    fun bind(widgetData: WidgetData) {
+    fun bind(app: DisplayApplicationInfo) {
         appWidgetContainer.background = null
 
-        appWidgetIcon.setImageDrawable(widgetData.icon)
-        appWidgetLabel.text = widgetData.label
+        appWidgetIcon.setImageDrawable(app.icon)
+        appWidgetLabel.text = app.label
         appWidgetLabel.setTextColor(widgetResources.foregroundColor)
-        appWidgetPackageName.text = widgetData.packageName
+        appWidgetPackageName.text = app.packageName
         appWidgetPackageName.setTextColor(widgetResources.foregroundColor)
 
         appWidgetUninstall.setImageResource(widgetResources.deleteIcon)

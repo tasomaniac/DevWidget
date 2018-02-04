@@ -6,12 +6,12 @@ import com.tasomaniac.devwidget.BuildConfig
 import com.tasomaniac.devwidget.R
 import javax.inject.Inject
 
-class ItemRemoveViewsCreator @Inject constructor(
+class ItemRemoteViewsCreator @Inject constructor(
     private val resources: Resources,
     private val widgetResources: WidgetResources
 ) {
 
-    fun createViewWith(app: WidgetData) =
+    fun createViewWith(app: DisplayApplicationInfo) =
         RemoteViews(BuildConfig.APPLICATION_ID, R.layout.app_widget_list_item).apply {
             setImageViewBitmap(R.id.appWidgetIcon, app.icon.toBitmap())
             setTextViewText(R.id.appWidgetPackageName, app.packageName)

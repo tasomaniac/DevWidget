@@ -21,7 +21,7 @@ class WidgetViewHolder(
 
     fun bind(data: WidgetListData) {
         mainWidgetTitle.text = widgetNameResolver.resolve(data.widget)
-        mainWidgetAppList.adapter = WidgetAppListAdapter(appViewHolderFactory, data.widgetData)
+        mainWidgetAppList.adapter = WidgetAppListAdapter(appViewHolderFactory, data.apps)
 
         itemView.setOnClickListener {
             val intent = Intent(itemView.context, ConfigureActivity::class.java)
