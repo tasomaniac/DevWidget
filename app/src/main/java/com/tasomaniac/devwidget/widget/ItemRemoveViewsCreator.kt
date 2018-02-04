@@ -13,7 +13,7 @@ class ItemRemoveViewsCreator @Inject constructor(
 
     fun createViewWith(app: WidgetData) =
         RemoteViews(BuildConfig.APPLICATION_ID, R.layout.app_widget_list_item).apply {
-            setImageViewBitmap(R.id.appWidgetIcon, app.icon)
+            setImageViewBitmap(R.id.appWidgetIcon, app.icon.toBitmap())
             setTextViewText(R.id.appWidgetPackageName, app.packageName)
             setTextColor(R.id.appWidgetPackageName, widgetResources.foregroundColor)
             setTextViewText(R.id.appWidgetLabel, app.label)

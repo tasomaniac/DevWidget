@@ -14,7 +14,7 @@ class WidgetDataResolver @Inject constructor(private val packageManager: Package
         WidgetData(
             label = appInfo.loadLabel(packageManager).toString(),
             packageName = appInfo.packageName,
-            icon = appInfo.loadIcon(packageManager).toBitmap()
+            icon = appInfo.loadIcon(packageManager)
         )
     } catch (e: PackageManager.NameNotFoundException) {
         Timber.e(e)

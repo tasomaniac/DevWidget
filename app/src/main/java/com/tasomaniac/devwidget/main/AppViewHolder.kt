@@ -20,7 +20,7 @@ class AppViewHolder(
     fun bind(widgetData: WidgetData) {
         appWidgetContainer.background = null
 
-        appWidgetIcon.setImageBitmap(widgetData.icon)
+        appWidgetIcon.setImageDrawable(widgetData.icon)
         appWidgetLabel.text = widgetData.label
         appWidgetLabel.setTextColor(widgetResources.foregroundColor)
         appWidgetPackageName.text = widgetData.packageName
