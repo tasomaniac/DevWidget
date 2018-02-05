@@ -10,6 +10,7 @@ import android.provider.Settings
 import android.support.annotation.StringRes
 import android.widget.Toast
 import com.tasomaniac.devwidget.R
+import com.tasomaniac.devwidget.widget.chooser.ActivityChooserActivity
 
 class ClickHandlingActivity : Activity() {
 
@@ -24,11 +25,13 @@ class ClickHandlingActivity : Activity() {
 
         when (launchWhat) {
             LAUNCH_APP -> {
-                packageManager.getLaunchIntentForPackage(extraPackageName)?.apply {
-                    addCategory(Intent.CATEGORY_LAUNCHER)
-                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or
-                            Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED
-                }?.start() ?: toast(R.string.widget_error_activity_not_found)
+                ActivityChooserActivity.createIntent(this, extraPackageName)
+                    .start()
+//                packageManager.getLaunchIntentForPackage(extraPackageName)?.apply {
+//                    addCategory(Intent.CATEGORY_LAUNCHER)
+//                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or
+//                            Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED
+//                }?.start() ?: toast(R.string.widget_error_activity_not_found)
             }
             UNINSTALL_APP -> {
                 Intent(Intent.ACTION_UNINSTALL_PACKAGE).apply {

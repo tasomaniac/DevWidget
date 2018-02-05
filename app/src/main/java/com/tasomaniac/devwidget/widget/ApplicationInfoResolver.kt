@@ -8,8 +8,7 @@ class ApplicationInfoResolver @Inject constructor(private val packageManager: Pa
 
     fun resolve(packageName: String): DisplayApplicationInfo? = try {
         val appInfo = packageManager
-            .getPackageInfo(packageName, PackageManager.GET_ACTIVITIES)
-            .applicationInfo
+            .getApplicationInfo(packageName, 0)
         DisplayApplicationInfo(packageManager, appInfo)
     } catch (e: PackageManager.NameNotFoundException) {
         Timber.e(e)

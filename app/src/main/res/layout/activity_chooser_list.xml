@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 -->
-<com.tasomaniac.devwidget.widget.ResolverDrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.tasomaniac.devwidget.widget.chooser.ResolverDrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/resolverDrawerLayout"
     android:layout_width="match_parent"
@@ -53,6 +53,8 @@
         android:clipToPadding="false"
         android:divider="@null"
         android:elevation="8dp"
-        android:scrollbarStyle="outsideOverlay" />
+        android:scrollbarStyle="outsideOverlay"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        android:orientation="vertical" />
 
-</com.tasomaniac.devwidget.widget.ResolverDrawerLayout>
+</com.tasomaniac.devwidget.widget.chooser.ResolverDrawerLayout>

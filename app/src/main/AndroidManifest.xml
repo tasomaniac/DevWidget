@@ -59,7 +59,7 @@
         android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
     <activity
-        android:name=".widget.ActivityChooserActivity"
+        android:name=".widget.chooser.ActivityChooserActivity"
         android:documentLaunchMode="never"
         android:excludeFromRecents="true"
         android:finishOnCloseSystemDialogs="true"
