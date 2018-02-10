@@ -1,0 +1,15 @@
+Android app widget for developers to have control over their apps really quickly on their homescreen.
+
+Features include:
+- Launching
+- Uninstalling
+- Go to app details
+- Clear data
+- Deeplink launching (Coming soon)
+- Automated clear data (Coming soon)
+
+The application is open source and the source can be found here:
+https://github.com/tasomaniac/DevWidget/
+
+Icon is inspired from: https://www.iconfinder.com/icons/2867880/code_icon_icon#size=128
+https://www.iconfinder.com/icons/316118/stars_icon#size=128
