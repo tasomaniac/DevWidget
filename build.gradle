@@ -26,7 +26,9 @@ buildscript {
         gradlePluginPortal()
         google()
         jcenter()
-        maven { url 'https://maven.fabric.io/public' }
+        if (isPlay) {
+            maven { url 'https://maven.fabric.io/public' }
+        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.2.0-alpha02'
