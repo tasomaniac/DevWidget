@@ -1,5 +1,5 @@
 plugins {
-  id "io.gitlab.arturbosch.detekt" version "1.0.0.RC6-3"
+    id "io.gitlab.arturbosch.detekt" version "1.0.0.RC6-3"
 }
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
@@ -9,157 +9,157 @@ apply plugin: 'com.novoda.android-command'
 apply plugin: 'com.novoda.build-properties'
 apply plugin: 'com.novoda.static-analysis'
 if (isPlay) {
-  apply plugin: 'io.fabric'
-  apply plugin: 'com.github.triplet.play'
+    apply plugin: 'io.fabric'
+    apply plugin: 'com.github.triplet.play'
 }
 
 buildProperties {
-  signing.using(file('props/release.signing')) | file('props/debug.signing')
-  secrets.using(file('props/secrets.properties'))
+    signing.using(file('props/release.signing')) | file('props/debug.signing')
+    secrets.using(file('props/secrets.properties'))
 }
 
 def secrets = buildProperties.secrets
 def gitSha = 'git rev-parse --short HEAD'.execute([], project.rootDir).text.trim()
 
 android {
-  compileSdkVersion versions.compileSdk
+    compileSdkVersion versions.compileSdk
 
-  defaultConfig {
-    applicationId 'com.tasomaniac.devwidget'
-    minSdkVersion versions.minSdk
-    targetSdkVersion versions.targetSdk
-    versionCode versions.versionCode
-    versionName versions.versionName
-    buildConfigField 'String', 'GIT_SHA', "\"${gitSha}\""
+    defaultConfig {
+        applicationId 'com.tasomaniac.devwidget'
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.targetSdk
+        versionCode versions.versionCode
+        versionName versions.versionName
+        buildConfigField 'String', 'GIT_SHA', "\"${gitSha}\""
 
-    resConfigs 'en'
+        resConfigs 'en'
 
-    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-  }
-
-  signingConfigs {
-    debug.storeFile file('props/debug.keystore')
-    release {
-      def signing = buildProperties.signing
-      storeFile file("props/${signing['storeFile'].string}")
-      storePassword signing['storePassword'].string
-      keyAlias signing['keyAlias'].string
-      keyPassword signing['keyPassword'].string
-    }
-  }
-
-  buildTypes {
-    debug {
-      ext.enableCrashlytics = false
-      applicationIdSuffix '.debug'
-      versionNameSuffix '-debug'
-      signingConfig signingConfigs.debug
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
-    release {
-      minifyEnabled true
-      shrinkResources true
-      proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-      signingConfig signingConfigs.release
+    signingConfigs {
+        debug.storeFile file('props/debug.keystore')
+        release {
+            def signing = buildProperties.signing
+            storeFile file("props/${signing['storeFile'].string}")
+            storePassword signing['storePassword'].string
+            keyAlias signing['keyAlias'].string
+            keyPassword signing['keyPassword'].string
+        }
     }
-  }
 
-  compileOptions {
-    sourceCompatibility JavaVersion.VERSION_1_8
-    targetCompatibility JavaVersion.VERSION_1_8
-  }
+    buildTypes {
+        debug {
+            ext.enableCrashlytics = false
+            applicationIdSuffix '.debug'
+            versionNameSuffix '-debug'
+            signingConfig signingConfigs.debug
+        }
 
-  flavorDimensions 'store'
-  productFlavors {
-    floss {
-        applicationIdSuffix '.floss'
-        versionNameSuffix '-floss'
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
     }
-    play {}
-  }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    flavorDimensions 'store'
+    productFlavors {
+        floss {
+            applicationIdSuffix '.floss'
+            versionNameSuffix '-floss'
+        }
+        play {}
+    }
 }
 
 staticAnalysis {
-  penalty {
-    maxWarnings = 10
-    maxErrors = 0
-  }
-
-  detekt {
-    profile('main') {
-      config = 'props/detekt.yml'
-      output = 'build/reports'
+    penalty {
+        maxWarnings = 10
+        maxErrors = 0
     }
-  }
 
-  lintOptions {
-    textReport true
-    textOutput 'stdout'
+    detekt {
+        profile('main') {
+            config = 'props/detekt.yml'
+            output = 'build/reports'
+        }
+    }
 
-    checkAllWarnings true
-    checkReleaseBuilds false
+    lintOptions {
+        textReport true
+        textOutput 'stdout'
 
-    lintConfig file('props/lint.xml')
+        checkAllWarnings true
+        checkReleaseBuilds false
 
-    includeVariants { it.name == 'flossDebug' }
-  }
+        lintConfig file('props/lint.xml')
+
+        includeVariants { it.name == 'flossDebug' }
+    }
 }
 
 androidExtensions {
-  experimental true
+    experimental true
 }
 
 if (isPlay) {
-  play {
-    serviceAccountEmail = secrets['play_service_account'].or('').string
-    pk12File = file(secrets['play_key_file'].or('no_file.p12').string)
-    track = 'alpha'
-  }
+    play {
+        serviceAccountEmail = secrets['play_service_account'].or('').string
+        pk12File = file(secrets['play_key_file'].or('no_file.p12').string)
+        track = 'alpha'
+    }
 }
 
 dependencies {
-  playImplementation 'com.crashlytics.sdk.android:crashlytics:2.9.1'
-  playImplementation "com.google.firebase:firebase-core:$versions.gms"
+    playImplementation 'com.crashlytics.sdk.android:crashlytics:2.9.1'
+    playImplementation "com.google.firebase:firebase-core:$versions.gms"
 
-  implementation 'com.google.code.findbugs:jsr305:3.0.2'
-  implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$versions.kotlin"
+    implementation 'com.google.code.findbugs:jsr305:3.0.2'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$versions.kotlin"
 
-  implementation "com.android.support:support-fragment:$versions.supportLib"
-  implementation "com.android.support:appcompat-v7:$versions.supportLib"
-  implementation "com.android.support:cardview-v7:$versions.supportLib"
-  implementation "com.android.support:recyclerview-v7:$versions.supportLib"
-  implementation "com.android.support:design:$versions.supportLib"
-  implementation "com.android.support:preference-v14:$versions.supportLib"
-  implementation 'com.android.support.constraint:constraint-layout:1.1.0-beta6'
+    implementation "com.android.support:support-fragment:$versions.supportLib"
+    implementation "com.android.support:appcompat-v7:$versions.supportLib"
+    implementation "com.android.support:cardview-v7:$versions.supportLib"
+    implementation "com.android.support:recyclerview-v7:$versions.supportLib"
+    implementation "com.android.support:design:$versions.supportLib"
+    implementation "com.android.support:preference-v14:$versions.supportLib"
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0-beta6'
 
-  implementation "android.arch.lifecycle:extensions:$versions.arch"
-  kapt "android.arch.lifecycle:compiler:$versions.arch"
+    implementation "android.arch.lifecycle:extensions:$versions.arch"
+    kapt "android.arch.lifecycle:compiler:$versions.arch"
 
-  implementation "android.arch.persistence.room:runtime:$versions.room"
-  implementation "android.arch.persistence.room:rxjava2:$versions.room"
-  kapt "android.arch.persistence.room:compiler:$versions.room"
+    implementation "android.arch.persistence.room:runtime:$versions.room"
+    implementation "android.arch.persistence.room:rxjava2:$versions.room"
+    kapt "android.arch.persistence.room:compiler:$versions.room"
 
-  implementation 'com.jakewharton.timber:timber:4.7.0'
-  implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
-  implementation 'io.reactivex.rxjava2:rxjava:2.1.12'
-  implementation 'com.jakewharton.rx2:replaying-share-kotlin:2.0.1'
-  implementation 'com.uber.autodispose:autodispose-kotlin:0.7.0'
-  implementation 'com.uber.autodispose:autodispose-android-archcomponents:0.7.0'
+    implementation 'com.jakewharton.timber:timber:4.7.0'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.12'
+    implementation 'com.jakewharton.rx2:replaying-share-kotlin:2.0.1'
+    implementation 'com.uber.autodispose:autodispose-kotlin:0.7.0'
+    implementation 'com.uber.autodispose:autodispose-android-archcomponents:0.7.0'
 
-  implementation "com.google.dagger:dagger-android-support:$versions.dagger"
-  kapt "com.google.dagger:dagger-compiler:$versions.dagger"
-  kapt "com.google.dagger:dagger-android-processor:$versions.dagger"
+    implementation "com.google.dagger:dagger-android-support:$versions.dagger"
+    kapt "com.google.dagger:dagger-compiler:$versions.dagger"
+    kapt "com.google.dagger:dagger-android-processor:$versions.dagger"
 
-  testImplementation 'junit:junit:4.12'
-  testImplementation 'org.mockito:mockito-core:2.17.0'
-  testImplementation 'com.nhaarman:mockito-kotlin:1.5.0'
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:2.17.0'
+    testImplementation 'com.nhaarman:mockito-kotlin:1.5.0'
 
-  androidTestImplementation 'com.android.support.test:runner:1.0.1'
-  androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-  androidTestImplementation "android.arch.persistence.room:testing:$versions.room"
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    androidTestImplementation "android.arch.persistence.room:testing:$versions.room"
 
 }
 
 if (isPlay) {
-  apply plugin: 'com.google.gms.google-services'
+    apply plugin: 'com.google.gms.google-services'
 }
