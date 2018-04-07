@@ -130,7 +130,7 @@ dependencies {
   implementation "com.android.support:recyclerview-v7:$versions.supportLib"
   implementation "com.android.support:design:$versions.supportLib"
   implementation "com.android.support:preference-v14:$versions.supportLib"
-  implementation 'com.android.support.constraint:constraint-layout:1.1.0-beta5'
+  implementation 'com.android.support.constraint:constraint-layout:1.1.0-beta6'
 
   implementation "android.arch.lifecycle:extensions:$versions.arch"
   kapt "android.arch.lifecycle:compiler:$versions.arch"
@@ -143,15 +143,15 @@ dependencies {
   implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
   implementation 'io.reactivex.rxjava2:rxjava:2.1.12'
   implementation 'com.jakewharton.rx2:replaying-share-kotlin:2.0.1'
-  implementation 'com.uber.autodispose:autodispose-kotlin:0.5.1'
-  implementation 'com.uber.autodispose:autodispose-android-archcomponents:0.5.1'
+  implementation 'com.uber.autodispose:autodispose-kotlin:0.7.0'
+  implementation 'com.uber.autodispose:autodispose-android-archcomponents:0.7.0'
 
   implementation "com.google.dagger:dagger-android-support:$versions.dagger"
   kapt "com.google.dagger:dagger-compiler:$versions.dagger"
   kapt "com.google.dagger:dagger-android-processor:$versions.dagger"
 
   testImplementation 'junit:junit:4.12'
-  testImplementation 'org.mockito:mockito-core:2.13.0'
+  testImplementation 'org.mockito:mockito-core:2.17.0'
   testImplementation 'com.nhaarman:mockito-kotlin:1.5.0'
 
   androidTestImplementation 'com.android.support.test:runner:1.0.1'
