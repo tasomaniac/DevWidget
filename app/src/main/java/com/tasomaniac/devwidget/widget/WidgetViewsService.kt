@@ -35,9 +35,7 @@ class WidgetViewsService : RemoteViewsService() {
         override fun onDataSetChanged() {
             val packageNames = appDao.findAppsByWidgetIdSync(appWidgetId)
 
-            apps = packageNames.mapNotNull {
-                applicationInfoResolver.resolve(it)
-            }.sort()
+            apps = packageNames.flatMap(applicationInfoResolver::resolve).sort()
         }
 
         private fun List<DisplayApplicationInfo>.sort() = when (sortingPreferences.sorting) {

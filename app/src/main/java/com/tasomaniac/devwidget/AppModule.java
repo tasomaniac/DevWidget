@@ -4,8 +4,10 @@ import android.app.Application;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.LauncherApps;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.os.UserManager;
 import android.preference.PreferenceManager;
 
 import com.tasomaniac.devwidget.rx.Debouncer;
@@ -29,6 +31,16 @@ abstract class AppModule {
     @Provides
     static PackageManager packageManager(Application app) {
         return app.getPackageManager();
+    }
+
+    @Provides
+    static UserManager userManager(Application app) {
+        return (UserManager) app.getSystemService(Context.USER_SERVICE);
+    }
+
+    @Provides
+    static LauncherApps launcherApps(Application app) {
+        return (LauncherApps) app.getSystemService(Context.LAUNCHER_APPS_SERVICE);
     }
 
     @Provides

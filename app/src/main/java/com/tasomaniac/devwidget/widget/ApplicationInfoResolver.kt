@@ -1,20 +1,29 @@
 package com.tasomaniac.devwidget.widget
 
+import android.content.pm.LauncherApps
 import android.content.pm.PackageManager
-import timber.log.Timber
+import android.os.UserManager
 import javax.inject.Inject
 
-class ApplicationInfoResolver @Inject constructor(private val packageManager: PackageManager) {
+class ApplicationInfoResolver @Inject constructor(
+    private val packageManager: PackageManager,
+    private val userManager: UserManager,
+    private val launcherApps: LauncherApps
+) {
 
-    fun resolve(packageName: String): DisplayApplicationInfo? = try {
-        val appInfo = packageManager.getApplicationInfo(packageName, 0)
-        DisplayApplicationInfo(
-            appInfo.loadLabel(packageManager),
-            appInfo.packageName,
-            appInfo.loadIcon(packageManager)
-        )
-    } catch (e: PackageManager.NameNotFoundException) {
-        Timber.e(e)
-        null
+    fun resolve(packageName: String): List<DisplayApplicationInfo> {
+        return userManager.userProfiles
+            .mapNotNull { user ->
+                launcherApps
+                    .getActivityList(packageName, user)
+                    .firstOrNull()
+                    ?.let {
+                        DisplayApplicationInfo(
+                            packageManager.getUserBadgedLabel(it.label, user),
+                            it.applicationInfo.packageName,
+                            it.getBadgedIcon(0)
+                        )
+                    }
+            }
     }
 }

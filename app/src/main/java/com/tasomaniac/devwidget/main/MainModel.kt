@@ -8,8 +8,8 @@ import com.tasomaniac.devwidget.settings.Sorting.ALPHABETICALLY_NAMES
 import com.tasomaniac.devwidget.settings.Sorting.ALPHABETICALLY_PACKAGES
 import com.tasomaniac.devwidget.settings.Sorting.ORDER_ADDED
 import com.tasomaniac.devwidget.settings.SortingPreferences
-import com.tasomaniac.devwidget.widget.DisplayApplicationInfo
 import com.tasomaniac.devwidget.widget.ApplicationInfoResolver
+import com.tasomaniac.devwidget.widget.DisplayApplicationInfo
 import io.reactivex.disposables.Disposable
 import io.reactivex.processors.BehaviorProcessor
 import javax.inject.Inject
@@ -30,7 +30,7 @@ class MainModel @Inject constructor(
             .map { widgets ->
                 widgets.map {
                     val apps = it.packageNames
-                        .mapNotNull(applicationInfoResolver::resolve)
+                        .flatMap(applicationInfoResolver::resolve)
                         .sort()
                     WidgetListData(Widget(it.appWidgetId, it.name), apps)
                 }
