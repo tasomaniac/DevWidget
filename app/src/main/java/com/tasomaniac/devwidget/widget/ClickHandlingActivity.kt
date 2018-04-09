@@ -32,12 +32,12 @@ class ClickHandlingActivity : Activity() {
             }
             UNINSTALL_APP -> {
                 Intent(Intent.ACTION_UNINSTALL_PACKAGE).apply {
-                    data = Uri.parse("package:" + extraPackageName)
+                    data = Uri.parse("package:$extraPackageName")
                 }.start()
             }
             APP_DETAILS -> {
                 Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
-                    data = Uri.parse("package:" + extraPackageName)
+                    data = Uri.parse("package:$extraPackageName")
                 }.start()
             }
         }
