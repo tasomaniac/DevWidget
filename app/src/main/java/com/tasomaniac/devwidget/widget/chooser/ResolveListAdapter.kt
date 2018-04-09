@@ -1,69 +1,25 @@
 package com.tasomaniac.devwidget.widget.chooser
 
-import android.support.v7.widget.RecyclerView
+import android.support.v7.recyclerview.extensions.ListAdapter
+import android.support.v7.util.DiffUtil
 import android.view.ViewGroup
-import com.tasomaniac.devwidget.widget.DisplayResolveInfo
 import javax.inject.Inject
 
 class ResolveListAdapter @Inject constructor(
     private val viewHolderFactory: ActivityChooserViewHolder.Factory
-) : RecyclerView.Adapter<ActivityChooserViewHolder>() {
+) : ListAdapter<DisplayResolveInfo, ActivityChooserViewHolder>(DiffUtilsCallback) {
 
-    private var mList: List<DisplayResolveInfo> = emptyList()
-
-    var displayExtendedInfo = false
-    var selectionEnabled = false
-    var checkedItemPosition = RecyclerView.NO_POSITION
-        private set
-
-    var itemClickListener: ItemClickListener? = null
-    var itemLongClickListener: ItemLongClickListener? = null
-
-    override fun getItemCount() = mList.size
-    override fun getItemId(position: Int) = position.toLong()
+    var itemClickListener: (DisplayResolveInfo) -> Unit = {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         viewHolderFactory.createWith(parent)
 
-    override fun onBindViewHolder(
-        holder: ActivityChooserViewHolder,
-        position: Int,
-        payloads: List<Any>?
-    ) {
-        super.onBindViewHolder(holder, position, payloads)
+    override fun onBindViewHolder(holder: ActivityChooserViewHolder, position: Int) =
+        holder.bind(getItem(position), itemClickListener)
+}
 
-        val checked = position == checkedItemPosition
-        holder.itemView.isActivated = checked
-    }
+object DiffUtilsCallback : DiffUtil.ItemCallback<DisplayResolveInfo>() {
+    override fun areItemsTheSame(oldItem: DisplayResolveInfo, newItem: DisplayResolveInfo) = oldItem == newItem
 
-    override fun onBindViewHolder(holder: ActivityChooserViewHolder, position: Int) {
-        val info = mList[position]
-
-        holder.bind(info)
-
-        holder.itemView.setOnClickListener {
-            itemClickListener?.onItemClick(info)
-            setItemChecked(holder.adapterPosition)
-        }
-        holder.itemView.setOnLongClickListener {
-            itemLongClickListener?.onItemLongClick(info) ?: false
-        }
-    }
-
-    fun setItemChecked(position: Int) {
-        if (!selectionEnabled) {
-            return
-        }
-
-        notifyItemChanged(position, true)
-        notifyItemChanged(checkedItemPosition, false)
-
-        checkedItemPosition = position
-    }
-
-    fun setApplications(list: List<DisplayResolveInfo>) {
-        this.mList = list
-        notifyDataSetChanged()
-    }
-
+    override fun areContentsTheSame(oldItem: DisplayResolveInfo, newItem: DisplayResolveInfo) = true
 }
