@@ -21,7 +21,8 @@ class ApplicationInfoResolver @Inject constructor(
                         DisplayApplicationInfo(
                             packageManager.getUserBadgedLabel(it.label, user),
                             it.applicationInfo.packageName,
-                            it.getBadgedIcon(0)
+                            it.getBadgedIcon(0),
+                            user
                         )
                     }
             }

@@ -21,7 +21,7 @@ class ItemRemoteViewsCreator @Inject constructor(
 
             setOnClickFillInIntent(
                 R.id.appWidgetContainer,
-                ClickHandlingActivity.createForLaunchApp(app.packageName)
+                ClickHandlingActivity.createForLaunchApp(app)
             )
             val uninstall =
                 resources.getString(R.string.widget_content_description_uninstall_app, app.label)
@@ -29,7 +29,7 @@ class ItemRemoteViewsCreator @Inject constructor(
             setImageViewResource(R.id.appWidgetUninstall, widgetResources.deleteIcon)
             setOnClickFillInIntent(
                 R.id.appWidgetUninstall,
-                ClickHandlingActivity.createForUninstallApp(app.packageName)
+                ClickHandlingActivity.createForUninstallApp(app)
             )
             val appDetails =
                 resources.getString(R.string.widget_content_description_app_details, app.label)
@@ -37,7 +37,7 @@ class ItemRemoteViewsCreator @Inject constructor(
             setImageViewResource(R.id.appWidgetDetails, widgetResources.settingsIcon)
             setOnClickFillInIntent(
                 R.id.appWidgetDetails,
-                ClickHandlingActivity.createForAppDetails(app.packageName)
+                ClickHandlingActivity.createForAppDetails(app)
             )
         }
 }
