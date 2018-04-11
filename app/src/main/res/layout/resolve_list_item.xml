@@ -17,60 +17,62 @@
 */
 -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:background="?android:attr/activatedBackgroundIndicator"
-  android:foreground="?selectableItemBackground"
-  android:minHeight="?listPreferredItemHeightSmall"
-  android:paddingBottom="4dp"
-  android:paddingTop="4dp">
-
-  <LinearLayout
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="center_vertical"
-    android:orientation="horizontal"
-    tools:ignore="UselessParent">
-
-    <!-- Activity icon when presenting dialog
-         Size will be filled in by ResolverActivity -->
-    <ImageView
-      android:id="@+id/icon"
-      android:layout_width="24dp"
-      android:layout_height="24dp"
-      android:layout_gravity="start|center_vertical"
-      android:layout_marginBottom="12dp"
-      android:layout_marginStart="?listPreferredItemPaddingLeft"
-      android:layout_marginTop="12dp"
-      android:contentDescription="@null"
-      android:scaleType="fitCenter" />
+    android:background="?android:attr/activatedBackgroundIndicator"
+    android:foreground="?selectableItemBackground"
+    android:minHeight="?listPreferredItemHeightSmall"
+    android:paddingBottom="4dp"
+    android:paddingTop="4dp">
 
     <LinearLayout
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="start|center_vertical"
-      android:gravity="start|center_vertical"
-      android:orientation="vertical"
-      android:paddingStart="?listPreferredItemPaddingLeft"
-      android:paddingEnd="?listPreferredItemPaddingRight">
-      <!-- Activity name -->
-      <TextView
-        android:id="@+id/text1"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ellipsize="marquee"
-        android:singleLine="true"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="?android:attr/textColorPrimary" />
-      <!-- Extended activity info to distinguish between duplicate activity names -->
-      <TextView
-        android:id="@+id/text2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ellipsize="marquee"
-        android:singleLine="true"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:layout_gravity="center_vertical"
+        android:orientation="horizontal"
+        tools:ignore="UselessParent">
+
+        <!-- Activity icon when presenting dialog
+             Size will be filled in by ResolverActivity -->
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="start|center_vertical"
+            android:layout_marginBottom="12dp"
+            android:layout_marginStart="?listPreferredItemPaddingLeft"
+            android:layout_marginTop="12dp"
+            android:contentDescription="@null"
+            android:scaleType="fitCenter" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_vertical"
+            android:gravity="start|center_vertical"
+            android:orientation="vertical"
+            android:paddingEnd="?listPreferredItemPaddingRight"
+            android:paddingStart="?listPreferredItemPaddingLeft">
+
+            <TextView
+                android:id="@+id/text1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="middle"
+                android:singleLine="true"
+                android:fontFamily="sans-serif-light"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="?android:attr/textColorPrimary" />
+
+            <TextView
+                android:id="@+id/text2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="middle"
+                android:fontFamily="sans-serif-condensed"
+                android:singleLine="true"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+        </LinearLayout>
     </LinearLayout>
-  </LinearLayout>
 </FrameLayout>

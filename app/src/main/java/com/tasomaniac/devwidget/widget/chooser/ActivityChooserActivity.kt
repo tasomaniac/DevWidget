@@ -10,6 +10,8 @@ import android.os.Process
 import android.os.UserHandle
 import androidx.core.widget.toast
 import com.tasomaniac.devwidget.R
+import com.tasomaniac.devwidget.settings.ClickBehavior
+import com.tasomaniac.devwidget.settings.ClickBehaviorPreferences
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_chooser_list.*
 import javax.inject.Inject
@@ -18,6 +20,7 @@ class ActivityChooserActivity : DaggerAppCompatActivity() {
 
     @Inject lateinit var adapter: ResolveListAdapter
     @Inject lateinit var launcherApps: LauncherApps
+    @Inject lateinit var clickBehaviorPreferences: ClickBehaviorPreferences
 
     private val extraPackageName
         get() = intent.getStringExtra(EXTRA_PACKAGE_NAME)
@@ -85,7 +88,8 @@ class ActivityChooserActivity : DaggerAppCompatActivity() {
     }
 
     private fun shouldResolveAllActivities(): Boolean {
-        return extraUser == Process.myUserHandle() && false // TODO also check a setting to enable this
+        return extraUser == Process.myUserHandle() &&
+                clickBehaviorPreferences.clickBehavior == ClickBehavior.EXPORTED
     }
 
     fun Intent.start() =
