@@ -34,10 +34,9 @@
     <ignore regexp="app_widget.*.xml"/>
   </issue>
 
-  <issue id="ObsoleteLintCustomCheck">
-    <ignore regexp="timber.lint.IssueRegistry"/>
-  </issue>
-
-  <!-- Not working well with kotlin extensions -->
-  <issue id="UnusedIds" severity="ignore" />
+    <issue id="ObsoleteLintCustomCheck"
+        severity="ignore" /> <!-- Project doesn't have custom lint checks and cannot fix 3rd party libraries-->
+    <issue id="UnusedIds" severity="ignore" />
+    <issue id="GoogleAppIndexingApiWarning" severity="ignore" />
+    <issue id="GoogleAppIndexingWarning" severity="ignore" />
 </lint>
