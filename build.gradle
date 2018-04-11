@@ -3,7 +3,7 @@ buildscript {
     ext.isPlay = project.hasProperty('play')
 
     def versionMajor = 1
-    def versionMinor = 0
+    def versionMinor = 1
     def versionBuild = 1
 
     ext.versions = [
