@@ -39,6 +39,11 @@ class ActivityChooserActivity : DaggerAppCompatActivity() {
             resolveLauncherActivities(extraUser)
         }
 
+        if (apps.isEmpty()) {
+            toast(R.string.widget_error_activity_not_found)
+            finish()
+            return
+        }
         if (apps.size == 1) {
             launch(apps.first())
             finish()
