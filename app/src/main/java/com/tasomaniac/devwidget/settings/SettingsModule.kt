@@ -12,7 +12,8 @@ class SettingsModule {
     fun settings(
         general: GeneralSettings,
         display: DisplaySettings,
+        advancedSettings: AdvancedSettings,
         other: OtherSettings
-    ) = setOf(general, display, other)
+    ) = setOf(general, display, advancedSettings, other)
 
 }

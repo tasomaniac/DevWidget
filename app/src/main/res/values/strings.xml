@@ -58,6 +58,15 @@
   <string name="pref_entry_opacity_75">75% visible</string>
   <string name="pref_entry_opacity_fully_opaque">Fully opaque</string>
 
+  <string name="pref_title_category_advanced">Advanced</string>
+
+  <string name="pref_key_click_behavior" translatable="false">pref_click_behavior</string>
+  <string name="pref_title_click_behavior">Clicking behavior</string>
+  <string name="pref_value_click_behavior_launcher" translatable="false">launcher</string>
+  <string name="pref_value_click_behavior_exported" translatable="false">exported</string>
+  <string name="pref_entry_click_behavior_launcher">Only launcher Activities</string>
+  <string name="pref_entry_click_behavior_exported">All exported Activities</string>
+
   <string name="pref_title_category_others">Others</string>
 
   <string name="pref_key_open_source" translatable="false">pref_open_source</string>
