@@ -8,8 +8,7 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Process
 import android.os.UserHandle
-import android.support.annotation.StringRes
-import android.widget.Toast
+import androidx.core.widget.toast
 import com.tasomaniac.devwidget.R
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_chooser_list.*
@@ -96,20 +95,12 @@ class ActivityChooserActivity : DaggerAppCompatActivity() {
             toast(R.string.widget_error_activity_cannot_be_launched)
         }
 
-    private fun toast(@StringRes message: Int) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-    }
-
     companion object {
 
         private const val EXTRA_PACKAGE_NAME = "EXTRA_PACKAGE_NAME"
         private const val EXTRA_USER = "EXTRA_USER"
 
-        fun createIntent(
-            context: Context,
-            packageName: String,
-            user: UserHandle
-        ) =
+        fun createIntent(context: Context, packageName: String, user: UserHandle) =
             Intent(context, ActivityChooserActivity::class.java).apply {
                 putExtra(EXTRA_PACKAGE_NAME, packageName)
                 putExtra(EXTRA_USER, user)

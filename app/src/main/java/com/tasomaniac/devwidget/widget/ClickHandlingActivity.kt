@@ -8,8 +8,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.UserHandle
 import android.provider.Settings
-import android.support.annotation.StringRes
-import android.widget.Toast
+import androidx.core.widget.toast
 import com.tasomaniac.devwidget.R
 import com.tasomaniac.devwidget.widget.chooser.ActivityChooserActivity
 
@@ -53,10 +52,6 @@ class ClickHandlingActivity : Activity() {
         } catch (e: ActivityNotFoundException) {
             toast(R.string.widget_error_activity_cannot_be_launched)
         }
-
-    private fun toast(@StringRes message: Int) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-    }
 
     companion object {
 
