@@ -1,0 +1,17 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:order="3"
+        android:title="@string/pref_title_category_advanced">
+
+        <ListPreference
+            android:key="@string/pref_key_click_behavior"
+            android:title="@string/pref_title_click_behavior"
+            android:summary="%s"
+            android:defaultValue="@string/pref_value_click_behavior_launcher"
+            android:entryValues="@array/pref_click_behavior_values"
+            android:entries="@array/pref_click_behavior_entries" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

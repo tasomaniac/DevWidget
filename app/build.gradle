@@ -122,6 +122,7 @@ dependencies {
     playImplementation "com.google.firebase:firebase-core:$versions.gms"
 
     implementation 'com.google.code.findbugs:jsr305:3.0.2'
+    implementation 'androidx.core:core-ktx:0.3'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$versions.kotlin"
 
     implementation "com.android.support:support-fragment:$versions.supportLib"

@@ -13,6 +13,7 @@ import com.tasomaniac.devwidget.data.WidgetDao
 import com.tasomaniac.devwidget.rx.flatten
 import io.reactivex.Completable
 import io.reactivex.annotations.CheckReturnValue
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class WidgetUpdater @Inject constructor(
@@ -44,6 +45,7 @@ class WidgetUpdater @Inject constructor(
             .flatten()
             .flatMapCompletable {
                 update(it)
+                    .delay(300, TimeUnit.MILLISECONDS)
                     .andThen(Completable.fromAction {
                         appWidgetManager.notifyAppWidgetViewDataChanged(
                             it.appWidgetId,

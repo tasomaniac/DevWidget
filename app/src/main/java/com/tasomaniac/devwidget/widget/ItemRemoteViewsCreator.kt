@@ -6,14 +6,14 @@ import com.tasomaniac.devwidget.BuildConfig
 import com.tasomaniac.devwidget.R
 import javax.inject.Inject
 
-class ItemRemoveViewsCreator @Inject constructor(
+class ItemRemoteViewsCreator @Inject constructor(
     private val resources: Resources,
     private val widgetResources: WidgetResources
 ) {
 
-    fun createViewWith(app: WidgetData) =
+    fun createViewWith(app: DisplayApplicationInfo) =
         RemoteViews(BuildConfig.APPLICATION_ID, R.layout.app_widget_list_item).apply {
-            setImageViewBitmap(R.id.appWidgetIcon, app.icon)
+            setImageViewBitmap(R.id.appWidgetIcon, app.icon.toBitmap())
             setTextViewText(R.id.appWidgetPackageName, app.packageName)
             setTextColor(R.id.appWidgetPackageName, widgetResources.foregroundColor)
             setTextViewText(R.id.appWidgetLabel, app.label)
@@ -21,7 +21,7 @@ class ItemRemoveViewsCreator @Inject constructor(
 
             setOnClickFillInIntent(
                 R.id.appWidgetContainer,
-                ClickHandlingActivity.createForLaunchApp(app.packageName)
+                ClickHandlingActivity.createForLaunchApp(app)
             )
             val uninstall =
                 resources.getString(R.string.widget_content_description_uninstall_app, app.label)
@@ -29,7 +29,7 @@ class ItemRemoveViewsCreator @Inject constructor(
             setImageViewResource(R.id.appWidgetUninstall, widgetResources.deleteIcon)
             setOnClickFillInIntent(
                 R.id.appWidgetUninstall,
-                ClickHandlingActivity.createForUninstallApp(app.packageName)
+                ClickHandlingActivity.createForUninstallApp(app)
             )
             val appDetails =
                 resources.getString(R.string.widget_content_description_app_details, app.label)
@@ -37,7 +37,7 @@ class ItemRemoveViewsCreator @Inject constructor(
             setImageViewResource(R.id.appWidgetDetails, widgetResources.settingsIcon)
             setOnClickFillInIntent(
                 R.id.appWidgetDetails,
-                ClickHandlingActivity.createForAppDetails(app.packageName)
+                ClickHandlingActivity.createForAppDetails(app)
             )
         }
 }

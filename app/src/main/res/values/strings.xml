@@ -18,6 +18,8 @@
   <string name="widget_error_activity_not_found">No Launcher Activity found!</string>
   <string name="widget_error_activity_cannot_be_launched">Activity cannot be launched. Make sure it is exported.</string>
 
+  <string name="activity_chooser_open_with">Open with…</string>
+
   <string name="delete">Delete</string>
   <string name="done">Done</string>
 
@@ -57,6 +59,15 @@
   <string name="pref_entry_opacity_50">50% visible</string>
   <string name="pref_entry_opacity_75">75% visible</string>
   <string name="pref_entry_opacity_fully_opaque">Fully opaque</string>
+
+  <string name="pref_title_category_advanced">Advanced</string>
+
+  <string name="pref_key_click_behavior" translatable="false">pref_click_behavior</string>
+  <string name="pref_title_click_behavior">Clicking behavior</string>
+  <string name="pref_value_click_behavior_launcher" translatable="false">launcher</string>
+  <string name="pref_value_click_behavior_exported" translatable="false">exported</string>
+  <string name="pref_entry_click_behavior_launcher">Only launcher Activities</string>
+  <string name="pref_entry_click_behavior_exported">All exported Activities</string>
 
   <string name="pref_title_category_others">Others</string>
 

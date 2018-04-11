@@ -8,8 +8,8 @@ import com.tasomaniac.devwidget.settings.Sorting.ALPHABETICALLY_NAMES
 import com.tasomaniac.devwidget.settings.Sorting.ALPHABETICALLY_PACKAGES
 import com.tasomaniac.devwidget.settings.Sorting.ORDER_ADDED
 import com.tasomaniac.devwidget.settings.SortingPreferences
-import com.tasomaniac.devwidget.widget.WidgetData
-import com.tasomaniac.devwidget.widget.WidgetDataResolver
+import com.tasomaniac.devwidget.widget.ApplicationInfoResolver
+import com.tasomaniac.devwidget.widget.DisplayApplicationInfo
 import io.reactivex.disposables.Disposable
 import io.reactivex.processors.BehaviorProcessor
 import javax.inject.Inject
@@ -18,7 +18,7 @@ private typealias MainResult = Pair<List<WidgetListData>, DiffUtil.DiffResult>
 
 class MainModel @Inject constructor(
     private val sortingPreferences: SortingPreferences,
-    widgetDataResolver: WidgetDataResolver,
+    applicationInfoResolver: ApplicationInfoResolver,
     widgetAppDao: WidgetAppDao
 ) : ViewModel() {
 
@@ -29,10 +29,10 @@ class MainModel @Inject constructor(
         disposable = widgetAppDao.allWidgetsWithPackages()
             .map { widgets ->
                 widgets.map {
-                    val widgetData = it.packageNames
-                        .mapNotNull(widgetDataResolver::resolve)
+                    val apps = it.packageNames
+                        .flatMap(applicationInfoResolver::resolve)
                         .sort()
-                    WidgetListData(Widget(it.appWidgetId, it.name), widgetData)
+                    WidgetListData(Widget(it.appWidgetId, it.name), apps)
                 }
             }
             .scan(INITIAL_PAIR) { (data, _), newData ->
@@ -46,10 +46,10 @@ class MainModel @Inject constructor(
 
     override fun onCleared() = disposable.dispose()
 
-    private fun List<WidgetData>.sort() = when (sortingPreferences.sorting) {
+    private fun List<DisplayApplicationInfo>.sort() = when (sortingPreferences.sorting) {
         ORDER_ADDED -> asReversed()
         ALPHABETICALLY_PACKAGES -> sortedBy { it.packageName }
-        ALPHABETICALLY_NAMES -> sortedBy { it.label }
+        ALPHABETICALLY_NAMES -> sortedBy { it.label.toString() }
     }
 
     companion object {

@@ -39,5 +39,15 @@
     <item>@string/pref_value_opacity_75</item>
     <item>@string/pref_value_opacity_fully_opaque</item>
   </string-array>
-  
+
+    <string-array name="pref_click_behavior_entries" translatable="false">
+        <item>@string/pref_entry_click_behavior_launcher</item>
+        <item>@string/pref_entry_click_behavior_exported</item>
+    </string-array>
+
+    <string-array name="pref_click_behavior_values" translatable="false">
+        <item>@string/pref_value_click_behavior_launcher</item>
+        <item>@string/pref_value_click_behavior_exported</item>
+    </string-array>
+
 </resources>

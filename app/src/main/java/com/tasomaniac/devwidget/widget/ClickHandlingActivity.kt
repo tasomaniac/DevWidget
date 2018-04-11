@@ -6,10 +6,11 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.os.UserHandle
 import android.provider.Settings
-import android.support.annotation.StringRes
-import android.widget.Toast
+import androidx.core.widget.toast
 import com.tasomaniac.devwidget.R
+import com.tasomaniac.devwidget.widget.chooser.ActivityChooserActivity
 
 class ClickHandlingActivity : Activity() {
 
@@ -19,16 +20,16 @@ class ClickHandlingActivity : Activity() {
     private val extraPackageName
         get() = intent.getStringExtra(EXTRA_PACKAGE_NAME)
 
+    private val extraUser
+        get() = intent.getParcelableExtra<UserHandle>(EXTRA_USER)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         when (launchWhat) {
             LAUNCH_APP -> {
-                packageManager.getLaunchIntentForPackage(extraPackageName)?.apply {
-                    addCategory(Intent.CATEGORY_LAUNCHER)
-                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or
-                            Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED
-                }?.start() ?: toast(R.string.widget_error_activity_not_found)
+                ActivityChooserActivity.createIntent(this, extraPackageName, extraUser)
+                    .start()
             }
             UNINSTALL_APP -> {
                 Intent(Intent.ACTION_UNINSTALL_PACKAGE).apply {
@@ -52,10 +53,6 @@ class ClickHandlingActivity : Activity() {
             toast(R.string.widget_error_activity_cannot_be_launched)
         }
 
-    private fun toast(@StringRes message: Int) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-    }
-
     companion object {
 
         private const val LAUNCH_WHAT = "LAUNCH_WHAT"
@@ -64,20 +61,24 @@ class ClickHandlingActivity : Activity() {
         private const val APP_DETAILS = "APP_DETAILS"
 
         private const val EXTRA_PACKAGE_NAME = "EXTRA_PACKAGE_NAME"
+        private const val EXTRA_USER = "EXTRA_USER"
 
-        fun createForLaunchApp(packageName: String) = Intent().apply {
+        fun createForLaunchApp(appInfo: DisplayApplicationInfo) = Intent().apply {
             putExtra(LAUNCH_WHAT, LAUNCH_APP)
-            putExtra(EXTRA_PACKAGE_NAME, packageName)
+            putExtra(EXTRA_PACKAGE_NAME, appInfo.packageName)
+            putExtra(EXTRA_USER, appInfo.user)
         }
 
-        fun createForUninstallApp(packageName: String) = Intent().apply {
+        fun createForUninstallApp(appInfo: DisplayApplicationInfo) = Intent().apply {
             putExtra(LAUNCH_WHAT, UNINSTALL_APP)
-            putExtra(EXTRA_PACKAGE_NAME, packageName)
+            putExtra(EXTRA_PACKAGE_NAME, appInfo.packageName)
+            putExtra(EXTRA_USER, appInfo.user)
         }
 
-        fun createForAppDetails(packageName: String) = Intent().apply {
+        fun createForAppDetails(appInfo: DisplayApplicationInfo) = Intent().apply {
             putExtra(LAUNCH_WHAT, APP_DETAILS)
-            putExtra(EXTRA_PACKAGE_NAME, packageName)
+            putExtra(EXTRA_PACKAGE_NAME, appInfo.packageName)
+            putExtra(EXTRA_USER, appInfo.user)
         }
 
         fun intent(context: Context) = Intent(context, ClickHandlingActivity::class.java)

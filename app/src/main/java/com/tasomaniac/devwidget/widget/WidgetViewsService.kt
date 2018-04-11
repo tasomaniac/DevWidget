@@ -15,9 +15,9 @@ import javax.inject.Inject
 class WidgetViewsService : RemoteViewsService() {
 
     @Inject lateinit var appDao: AppDao
-    @Inject lateinit var widgetDataResolver: WidgetDataResolver
+    @Inject lateinit var applicationInfoResolver: ApplicationInfoResolver
     @Inject lateinit var sortingPreferences: SortingPreferences
-    @Inject lateinit var itemCreator: ItemRemoveViewsCreator
+    @Inject lateinit var itemCreator: ItemRemoteViewsCreator
 
     override fun onCreate() {
         AndroidInjection.inject(this)
@@ -30,20 +30,18 @@ class WidgetViewsService : RemoteViewsService() {
         private val appWidgetId: Int
     ) : RemoteViewsService.RemoteViewsFactory {
 
-        private var apps: List<WidgetData> = emptyList()
+        private var apps: List<DisplayApplicationInfo> = emptyList()
 
         override fun onDataSetChanged() {
             val packageNames = appDao.findAppsByWidgetIdSync(appWidgetId)
 
-            apps = packageNames.mapNotNull {
-                widgetDataResolver.resolve(it)
-            }.sort()
+            apps = packageNames.flatMap(applicationInfoResolver::resolve).sort()
         }
 
-        private fun List<WidgetData>.sort() = when (sortingPreferences.sorting) {
+        private fun List<DisplayApplicationInfo>.sort() = when (sortingPreferences.sorting) {
             ORDER_ADDED -> asReversed()
             ALPHABETICALLY_PACKAGES -> sortedBy { it.packageName }
-            ALPHABETICALLY_NAMES -> sortedBy { it.label }
+            ALPHABETICALLY_NAMES -> sortedBy { it.label.toString() }
         }
 
         override fun getViewAt(position: Int): RemoteViews {

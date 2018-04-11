@@ -12,6 +12,7 @@ import com.tasomaniac.devwidget.settings.SettingsFragment
 import com.tasomaniac.devwidget.settings.SettingsModule
 import com.tasomaniac.devwidget.widget.WidgetProvider
 import com.tasomaniac.devwidget.widget.WidgetViewsService
+import com.tasomaniac.devwidget.widget.chooser.ActivityChooserActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -29,6 +30,9 @@ interface BindingModule {
 
     @ContributesAndroidInjector
     fun widgetViewsService(): WidgetViewsService
+
+    @ContributesAndroidInjector
+    fun activityChooserActivity(): ActivityChooserActivity
 
     @ContributesAndroidInjector(modules = [ConfigureModule::class])
     fun configureActivity(): ConfigureActivity
