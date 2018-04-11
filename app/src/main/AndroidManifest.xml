@@ -53,7 +53,6 @@
         android:excludeFromRecents="true"
         android:finishOnCloseSystemDialogs="true"
         android:noHistory="true"
-        android:process=":click"
         android:relinquishTaskIdentity="true"
         android:taskAffinity=""
         android:theme="@android:style/Theme.Translucent.NoTitleBar" />
@@ -63,7 +62,6 @@
         android:documentLaunchMode="never"
         android:excludeFromRecents="true"
         android:finishOnCloseSystemDialogs="true"
-        android:process=":click"
         android:relinquishTaskIdentity="true"
         android:taskAffinity=""
         android:theme="@style/Theme.DevWidget.BottomSheet" />
