@@ -49,6 +49,7 @@ class ActivityChooserActivity : DaggerAppCompatActivity() {
             launch(it)
         }
         activityChooserList.adapter = adapter
+        activityChooserTitle.setText(R.string.activity_chooser_open_with)
     }
 
     private fun resolveAllActivities(): List<DisplayResolveInfo> =

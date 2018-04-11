@@ -18,6 +18,8 @@
   <string name="widget_error_activity_not_found">No Launcher Activity found!</string>
   <string name="widget_error_activity_cannot_be_launched">Activity cannot be launched. Make sure it is exported.</string>
 
+  <string name="activity_chooser_open_with">Open with…</string>
+
   <string name="delete">Delete</string>
   <string name="done">Done</string>
 
