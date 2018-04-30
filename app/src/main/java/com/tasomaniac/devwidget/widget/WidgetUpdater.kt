@@ -43,14 +43,11 @@ class WidgetUpdater @Inject constructor(
     fun updateAll() =
         widgetDao.allWidgets()
             .flatten()
-            .flatMapCompletable {
-                update(it)
+            .flatMapCompletable { widget ->
+                update(widget)
                     .delay(300, TimeUnit.MILLISECONDS)
                     .andThen(Completable.fromAction {
-                        appWidgetManager.notifyAppWidgetViewDataChanged(
-                            it.appWidgetId,
-                            R.id.widgetAppList
-                        )
+                        notifyWidgetDataChanged(widget.appWidgetId)
                     })
             }
 

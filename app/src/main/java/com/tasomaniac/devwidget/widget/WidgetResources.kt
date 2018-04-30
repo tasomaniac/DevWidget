@@ -5,7 +5,6 @@ import android.support.annotation.ColorInt
 import android.support.annotation.DrawableRes
 import android.support.v4.content.ContextCompat
 import com.tasomaniac.devwidget.R
-import com.tasomaniac.devwidget.settings.NightMode
 import com.tasomaniac.devwidget.settings.NightMode.OFF
 import com.tasomaniac.devwidget.settings.NightMode.ON
 import com.tasomaniac.devwidget.settings.NightModePreferences
@@ -18,14 +17,14 @@ class WidgetResources @Inject constructor(
 
     val deleteIcon
         @DrawableRes get() = when (nightModePreferences.mode) {
-            NightMode.OFF -> R.drawable.ic_delete
-            NightMode.ON -> R.drawable.ic_delete_light
+            OFF -> R.drawable.ic_delete
+            ON -> R.drawable.ic_delete_light
         }
 
     val settingsIcon
         @DrawableRes get() = when (nightModePreferences.mode) {
-            NightMode.OFF -> R.drawable.ic_settings
-            NightMode.ON -> R.drawable.ic_settings_light
+            OFF -> R.drawable.ic_settings
+            ON -> R.drawable.ic_settings_light
         }
 
     private val foregroundDark = ContextCompat.getColor(context, R.color.foregroundDark)
