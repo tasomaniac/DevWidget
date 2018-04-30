@@ -27,11 +27,7 @@ class WidgetProvider : AppWidgetProvider() {
         super.onReceive(context, intent)
     }
 
-    override fun onUpdate(
-        context: Context,
-        appWidgetManager: AppWidgetManager,
-        vararg appWidgetIds: Int
-    ) {
+    override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, vararg appWidgetIds: Int) {
         if (appWidgetIds.isEmpty()) return
 
         val pendingResult = goAsync()
@@ -41,9 +37,7 @@ class WidgetProvider : AppWidgetProvider() {
             .flatten()
             .flatMapCompletable(widgetUpdater::update)
             .compose(scheduling.forCompletable())
-            .subscribe {
-                pendingResult.finish()
-            }
+            .subscribe(pendingResult::finish)
     }
 
     override fun onDeleted(context: Context, vararg appWidgetIds: Int) {

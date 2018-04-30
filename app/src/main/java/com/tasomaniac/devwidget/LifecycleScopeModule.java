@@ -11,8 +11,7 @@ import dagger.Provides;
 public abstract class LifecycleScopeModule {
 
     @Provides
-    static AndroidLifecycleScopeProvider lifecycleScopeProvider(
-            FragmentActivity activity) {
+    static AndroidLifecycleScopeProvider lifecycleScopeProvider(FragmentActivity activity) {
         return AndroidLifecycleScopeProvider.from(activity);
     }
 }
