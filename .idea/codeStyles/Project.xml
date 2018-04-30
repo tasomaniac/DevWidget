@@ -27,7 +27,6 @@
         <emptyLine />
       </value>
     </option>
-    <option name="RIGHT_MARGIN" value="100" />
     <AndroidXmlCodeStyleSettings>
       <option name="USE_CUSTOM_SETTINGS" value="true" />
     </AndroidXmlCodeStyleSettings>
@@ -110,9 +109,6 @@
       <option name="XML_SPACE_INSIDE_EMPTY_TAG" value="true" />
       <option name="XML_LEGACY_SETTINGS_IMPORTED" value="true" />
     </XML>
-    <codeStyleSettings language="JAVA">
-      <option name="RIGHT_MARGIN" value="80" />
-    </codeStyleSettings>
     <codeStyleSettings language="XML">
       <option name="FORCE_REARRANGE_MODE" value="1" />
       <indentOptions>
