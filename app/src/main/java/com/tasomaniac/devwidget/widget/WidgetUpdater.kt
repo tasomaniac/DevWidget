@@ -33,9 +33,9 @@ class WidgetUpdater @Inject constructor(
     }
 
     @CheckReturnValue
-    fun update(widget: Widget) =
+    fun update(widget: Widget, minWidth: Int? = null) =
         Completable.fromAction {
-            val remoteViews = removeViewsCreator.create(widget)
+            val remoteViews = removeViewsCreator.create(widget, minWidth)
             appWidgetManager.updateAppWidget(widget.appWidgetId, remoteViews)
         }
 

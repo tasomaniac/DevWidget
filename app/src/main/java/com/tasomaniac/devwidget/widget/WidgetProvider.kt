@@ -4,14 +4,14 @@ import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import com.tasomaniac.devwidget.data.Widget
 import com.tasomaniac.devwidget.data.WidgetDao
 import com.tasomaniac.devwidget.data.deleteWidgets
 import com.tasomaniac.devwidget.rx.SchedulingStrategy
 import com.tasomaniac.devwidget.rx.flatten
 import dagger.android.AndroidInjection
-import io.reactivex.disposables.Disposable
-import io.reactivex.disposables.Disposables
+import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
 class WidgetProvider : AppWidgetProvider() {
@@ -20,7 +20,7 @@ class WidgetProvider : AppWidgetProvider() {
     @Inject lateinit var scheduling: SchedulingStrategy
     @Inject lateinit var widgetUpdater: WidgetUpdater
 
-    private var disposable: Disposable = Disposables.empty()
+    private val disposables = CompositeDisposable()
 
     override fun onReceive(context: Context, intent: Intent) {
         AndroidInjection.inject(this, context)
@@ -32,12 +32,32 @@ class WidgetProvider : AppWidgetProvider() {
 
         val pendingResult = goAsync()
 
-        disposable.dispose()
-        disposable = widgetDao.findWidgetsById(appWidgetIds)
+        disposables.clear()
+        disposables.add(widgetDao.findWidgetsById(appWidgetIds)
             .flatten()
-            .flatMapCompletable(widgetUpdater::update)
+            .flatMapCompletable {
+                widgetUpdater.update(it)
+            }
             .compose(scheduling.forCompletable())
-            .subscribe(pendingResult::finish)
+            .subscribe(pendingResult::finish))
+    }
+
+    override fun onAppWidgetOptionsChanged(
+        context: Context,
+        appWidgetManager: AppWidgetManager,
+        appWidgetId: Int,
+        newOptions: Bundle
+    ) {
+        val minWidth = newOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH)
+
+        val pendingResult = goAsync()
+        disposables.clear()
+        disposables.add(widgetDao.findWidgetById(appWidgetId)
+            .flatMapCompletable {
+                widgetUpdater.update(it, minWidth)
+            }
+            .compose(scheduling.forCompletable())
+            .subscribe(pendingResult::finish))
     }
 
     override fun onDeleted(context: Context, vararg appWidgetIds: Int) {

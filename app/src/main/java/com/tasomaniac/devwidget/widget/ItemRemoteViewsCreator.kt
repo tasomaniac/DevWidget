@@ -11,9 +11,12 @@ class ItemRemoteViewsCreator @Inject constructor(
     private val widgetResources: WidgetResources
 ) {
 
-    fun createViewWith(app: DisplayApplicationInfo) =
+    fun createViewWith(app: DisplayApplicationInfo, widgetWidth: Int) =
         RemoteViews(BuildConfig.APPLICATION_ID, R.layout.app_widget_list_item).apply {
             setImageViewBitmap(R.id.appWidgetIcon, app.icon.toBitmap())
+            val iconSize = widgetResources.resolveAppIconSize(widgetWidth)
+            setInt(R.id.appWidgetIcon, "setMaxHeight", iconSize)
+            setInt(R.id.appWidgetIcon, "setMaxWidth", iconSize)
             setTextViewText(R.id.appWidgetPackageName, app.packageName)
             setTextColor(R.id.appWidgetPackageName, widgetResources.foregroundColor)
             setTextViewText(R.id.appWidgetLabel, app.label)

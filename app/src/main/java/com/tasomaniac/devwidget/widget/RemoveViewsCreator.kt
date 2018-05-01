@@ -20,7 +20,7 @@ class RemoveViewsCreator @Inject constructor(
     private val opacityPreferences: OpacityPreferences
 ) {
 
-    fun create(widget: Widget) = RemoteViews(app.packageName, R.layout.app_widget).apply {
+    fun create(widget: Widget, minWidth: Int?) = RemoteViews(app.packageName, R.layout.app_widget).apply {
 
         fun RemoteViews.setupConfigureButton(@IdRes buttonId: Int) {
             setContentDescription(
@@ -34,6 +34,7 @@ class RemoveViewsCreator @Inject constructor(
 
         fun remoteAdapter(context: Context): Intent {
             return Intent(context, WidgetViewsService::class.java).apply {
+                putExtra(WidgetViewsService.WIDGET_WIDTH, minWidth)
                 putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widget.appWidgetId)
                 data = Uri.parse(toUri(Intent.URI_INTENT_SCHEME))
             }
