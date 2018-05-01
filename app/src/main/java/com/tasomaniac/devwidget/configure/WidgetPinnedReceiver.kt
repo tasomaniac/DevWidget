@@ -25,7 +25,7 @@ class WidgetPinnedReceiver : DaggerBroadcastReceiver() {
         val pendingResult = goAsync()
         widgetDao.updateTempWidgetId(intent.appWidgetId)
             .andThen(widgetDao.findWidgetById(intent.appWidgetId))
-            .flatMapCompletable(widgetUpdater::update)
+            .flatMapCompletable { widgetUpdater.update(it) }
             .compose(scheduling.forCompletable())
             .subscribe {
                 pendingResult.finish()

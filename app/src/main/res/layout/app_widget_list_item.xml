@@ -12,8 +12,11 @@
 
   <ImageView
       android:id="@+id/appWidgetIcon"
-      android:layout_width="48dp"
-      android:layout_height="48dp"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:minWidth="@dimen/app_widget_icon_size"
+      android:minHeight="@dimen/app_widget_icon_size"
+      android:adjustViewBounds="true"
       android:contentDescription="@null" />
 
   <LinearLayout
