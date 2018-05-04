@@ -44,7 +44,7 @@ class ItemRemoteViewsCreator @Inject constructor(
                 )
                 setViewVisibility(R.id.appWidgetFavAction, View.VISIBLE)
             } else {
-                setImageViewResource(R.id.appWidgetDetails, widgetResources.settingsIcon)
+                setImageViewResource(R.id.appWidgetDetails, widgetResources.moreActionsIcon)
                 setOnClickFillInIntent(
                     R.id.appWidgetDetails,
                     ClickHandlingActivity.createForActionsDialog(app)
