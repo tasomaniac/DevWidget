@@ -48,7 +48,7 @@
     </receiver>
 
     <activity
-        android:name=".widget.ClickHandlingActivity"
+        android:name=".widget.click.ClickHandlingActivity"
         android:documentLaunchMode="never"
         android:excludeFromRecents="true"
         android:finishOnCloseSystemDialogs="true"

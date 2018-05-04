@@ -13,6 +13,8 @@ import com.tasomaniac.devwidget.settings.SettingsModule
 import com.tasomaniac.devwidget.widget.WidgetProvider
 import com.tasomaniac.devwidget.widget.WidgetViewsService
 import com.tasomaniac.devwidget.widget.chooser.ActivityChooserActivity
+import com.tasomaniac.devwidget.widget.click.ClickHandlingActivity
+import com.tasomaniac.devwidget.widget.click.ClickHandlingModule
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -33,6 +35,9 @@ interface BindingModule {
 
     @ContributesAndroidInjector
     fun activityChooserActivity(): ActivityChooserActivity
+
+    @ContributesAndroidInjector(modules = [ClickHandlingModule::class])
+    fun clickHandlingActivity(): ClickHandlingActivity
 
     @ContributesAndroidInjector(modules = [ConfigureModule::class])
     fun configureActivity(): ConfigureActivity

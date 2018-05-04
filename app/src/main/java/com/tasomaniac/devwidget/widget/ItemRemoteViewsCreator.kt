@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.RemoteViews
 import com.tasomaniac.devwidget.BuildConfig
 import com.tasomaniac.devwidget.R
+import com.tasomaniac.devwidget.widget.click.ClickHandlingActivity
 import javax.inject.Inject
 
 class ItemRemoteViewsCreator @Inject constructor(
