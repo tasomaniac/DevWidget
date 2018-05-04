@@ -43,18 +43,15 @@ class WidgetProvider : AppWidgetProvider() {
     }
 
     override fun onAppWidgetOptionsChanged(
-        context: Context,
-        appWidgetManager: AppWidgetManager,
-        appWidgetId: Int,
-        newOptions: Bundle
+        context: Context, appWidgetManager: AppWidgetManager,
+        appWidgetId: Int, newOptions: Bundle
     ) {
-        val minWidth = newOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH)
-
         val pendingResult = goAsync()
+
         disposables.clear()
         disposables.add(widgetDao.findWidgetById(appWidgetId)
             .flatMapCompletable {
-                widgetUpdater.update(it, minWidth)
+                widgetUpdater.update(it, newOptions)
             }
             .compose(scheduling.forCompletable())
             .subscribe(pendingResult::finish))

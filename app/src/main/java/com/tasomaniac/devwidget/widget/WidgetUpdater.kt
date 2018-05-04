@@ -5,6 +5,7 @@ import android.appwidget.AppWidgetManager
 import android.content.ComponentName
 import android.content.Intent
 import android.os.Build.VERSION_CODES.O
+import android.os.Bundle
 import android.support.annotation.RequiresApi
 import com.tasomaniac.devwidget.R
 import com.tasomaniac.devwidget.configure.WidgetPinnedReceiver
@@ -33,11 +34,17 @@ class WidgetUpdater @Inject constructor(
     }
 
     @CheckReturnValue
-    fun update(widget: Widget, minWidth: Int? = null) =
+    fun update(widget: Widget, widgetOptions: Bundle = widget.defaultOptions()) =
         Completable.fromAction {
+            val minWidth = widgetOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH)
             val remoteViews = removeViewsCreator.create(widget, minWidth)
             appWidgetManager.updateAppWidget(widget.appWidgetId, remoteViews)
         }
+
+    private fun Widget.defaultOptions(): Bundle {
+        return appWidgetManager.getAppWidgetOptions(appWidgetId)
+
+    }
 
     @CheckReturnValue
     fun updateAll() =
