@@ -55,7 +55,7 @@
         android:noHistory="true"
         android:relinquishTaskIdentity="true"
         android:taskAffinity=""
-        android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        android:theme="@style/Theme.DevWidget.Translucent" />
 
     <activity
         android:name=".widget.chooser.ActivityChooserActivity"
