@@ -44,16 +44,21 @@ class WidgetResources @Inject constructor(
         }
 
     @Dimension
-    fun resolveAppIconSize(minWidth: Int?): Int {
-        return if (minWidth != null && minWidth < TINY_WIDGET_LIMIT) {
-            resources.getDimensionPixelSize(R.dimen.app_widget_icon_size_small)
-        } else {
-            resources.getDimensionPixelSize(R.dimen.app_widget_icon_size)
+    fun resolveAppIconSize(widgetWidth: Int): Int {
+        return when {
+            widgetWidth < TINY_WIDGET_LIMIT -> 0
+            widgetWidth < FAV_ACTION_LIMIT -> resources.getDimensionPixelSize(R.dimen.app_widget_icon_size_small)
+            else -> resources.getDimensionPixelSize(R.dimen.app_widget_icon_size)
         }
+    }
+
+    fun shouldDisplayFavAction(widgetWidth: Int): Boolean {
+        return widgetWidth >= FAV_ACTION_LIMIT
     }
 
     companion object {
         private const val TINY_WIDGET_LIMIT = 214
+        private const val FAV_ACTION_LIMIT = 291
     }
 
 }
