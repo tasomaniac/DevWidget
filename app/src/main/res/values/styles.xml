@@ -10,6 +10,16 @@
     <item name="android:listPreferredItemPaddingEnd">?listPreferredItemPaddingRight</item>
   </style>
 
+  <style name="Theme.DevWidget.Translucent">
+    <item name="android:windowIsTranslucent">true</item>
+    <item name="android:windowNoTitle">true</item>
+    <item name="android:windowBackground">@color/transparent</item>
+    <item name="android:windowContentOverlay">@null</item>
+    <item name="colorControlActivated">?colorControlHighlight</item>
+    <item name="android:statusBarColor">@color/transparent</item>
+    <item name="android:windowTranslucentStatus">true</item>
+    <item name="android:windowTranslucentNavigation">true</item>
+  </style>
 
   <style name="Theme.DevWidget.BottomSheet">
     <item name="android:windowIsTranslucent">true</item>

@@ -1,6 +1,5 @@
 package com.tasomaniac.devwidget.widget
 
-import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
@@ -9,11 +8,12 @@ import android.os.Bundle
 import android.os.UserHandle
 import android.provider.Settings
 import android.support.v7.app.AlertDialog
+import android.support.v7.app.AppCompatActivity
 import androidx.core.widget.toast
 import com.tasomaniac.devwidget.R
 import com.tasomaniac.devwidget.widget.chooser.ActivityChooserActivity
 
-class ClickHandlingActivity : Activity() {
+class ClickHandlingActivity : AppCompatActivity() {
 
     private val launchWhat
         get() = intent.getStringExtra(LAUNCH_WHAT)
@@ -51,8 +51,6 @@ class ClickHandlingActivity : Activity() {
                     .show()
             }
         }
-
-        finish()
     }
 
     fun Intent.start() =
@@ -60,6 +58,8 @@ class ClickHandlingActivity : Activity() {
             startActivity(this)
         } catch (e: ActivityNotFoundException) {
             toast(R.string.widget_error_activity_cannot_be_launched)
+        } finally {
+            finish()
         }
 
     companion object {
