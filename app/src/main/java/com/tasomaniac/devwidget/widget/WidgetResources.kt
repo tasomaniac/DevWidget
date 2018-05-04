@@ -28,6 +28,12 @@ class WidgetResources @Inject constructor(
             ON -> R.drawable.ic_settings_light
         }
 
+    val moreActionsIcon
+        @DrawableRes get() = when (nightModePreferences.mode) {
+            OFF -> R.drawable.ic_more_actions
+            ON -> R.drawable.ic_more_actions_light
+        }
+
     private val foregroundDark = ResourcesCompat.getColor(resources, R.color.foregroundDark, null)
     private val foregroundLight = ResourcesCompat.getColor(resources, R.color.foregroundLight, null)
 
