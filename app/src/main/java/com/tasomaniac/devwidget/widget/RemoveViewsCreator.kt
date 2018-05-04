@@ -12,6 +12,7 @@ import com.tasomaniac.devwidget.R
 import com.tasomaniac.devwidget.configure.ConfigureActivity
 import com.tasomaniac.devwidget.data.Widget
 import com.tasomaniac.devwidget.settings.OpacityPreferences
+import com.tasomaniac.devwidget.widget.click.ClickHandlingActivity
 import javax.inject.Inject
 
 class RemoveViewsCreator @Inject constructor(
