@@ -1,6 +1,7 @@
 package com.tasomaniac.devwidget.widget
 
 import android.content.res.Resources
+import android.view.View
 import android.widget.RemoteViews
 import com.tasomaniac.devwidget.BuildConfig
 import com.tasomaniac.devwidget.R
@@ -26,21 +27,29 @@ class ItemRemoteViewsCreator @Inject constructor(
                 R.id.appWidgetContainer,
                 ClickHandlingActivity.createForLaunchApp(app)
             )
-            val uninstall =
-                resources.getString(R.string.widget_content_description_uninstall_app, app.label)
-            setContentDescription(R.id.appWidgetUninstall, uninstall)
-            setImageViewResource(R.id.appWidgetUninstall, widgetResources.deleteIcon)
-            setOnClickFillInIntent(
-                R.id.appWidgetUninstall,
-                ClickHandlingActivity.createForUninstallApp(app)
-            )
-            val appDetails =
-                resources.getString(R.string.widget_content_description_app_details, app.label)
-            setContentDescription(R.id.appWidgetDetails, appDetails)
-            setImageViewResource(R.id.appWidgetDetails, widgetResources.settingsIcon)
-            setOnClickFillInIntent(
-                R.id.appWidgetDetails,
-                ClickHandlingActivity.createForAppDetails(app)
-            )
+            if (widgetResources.shouldDisplayFavAction(widgetWidth)) {
+                val uninstall = resources.getString(R.string.widget_content_description_uninstall_app, app.label)
+                setContentDescription(R.id.appWidgetFavAction, uninstall)
+                setImageViewResource(R.id.appWidgetFavAction, widgetResources.deleteIcon)
+                setOnClickFillInIntent(
+                    R.id.appWidgetFavAction,
+                    ClickHandlingActivity.createForUninstallApp(app)
+                )
+                val appDetails = resources.getString(R.string.widget_content_description_app_details, app.label)
+                setContentDescription(R.id.appWidgetDetails, appDetails)
+                setImageViewResource(R.id.appWidgetDetails, widgetResources.settingsIcon)
+                setOnClickFillInIntent(
+                    R.id.appWidgetDetails,
+                    ClickHandlingActivity.createForAppDetails(app)
+                )
+                setViewVisibility(R.id.appWidgetFavAction, View.VISIBLE)
+            } else {
+                setImageViewResource(R.id.appWidgetDetails, widgetResources.settingsIcon)
+                setOnClickFillInIntent(
+                    R.id.appWidgetDetails,
+                    ClickHandlingActivity.createForActionsDialog(app)
+                )
+                setViewVisibility(R.id.appWidgetFavAction, View.GONE)
+            }
         }
 }

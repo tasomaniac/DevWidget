@@ -8,6 +8,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.UserHandle
 import android.provider.Settings
+import android.support.v7.app.AlertDialog
 import androidx.core.widget.toast
 import com.tasomaniac.devwidget.R
 import com.tasomaniac.devwidget.widget.chooser.ActivityChooserActivity
@@ -41,6 +42,14 @@ class ClickHandlingActivity : Activity() {
                     data = Uri.parse("package:$extraPackageName")
                 }.start()
             }
+            ACTIONS_DIALOG -> {
+                AlertDialog.Builder(this)
+                    .setTitle("Choose")
+                    .setItems(arrayOf("Uninstall", "Details")) { _, _ ->
+
+                    }
+                    .show()
+            }
         }
 
         finish()
@@ -59,6 +68,7 @@ class ClickHandlingActivity : Activity() {
         private const val LAUNCH_APP = "LAUNCH_APP"
         private const val UNINSTALL_APP = "UNINSTALL_APP"
         private const val APP_DETAILS = "APP_DETAILS"
+        private const val ACTIONS_DIALOG = "ACTIONS_DIALOG"
 
         private const val EXTRA_PACKAGE_NAME = "EXTRA_PACKAGE_NAME"
         private const val EXTRA_USER = "EXTRA_USER"
@@ -77,6 +87,12 @@ class ClickHandlingActivity : Activity() {
 
         fun createForAppDetails(appInfo: DisplayApplicationInfo) = Intent().apply {
             putExtra(LAUNCH_WHAT, APP_DETAILS)
+            putExtra(EXTRA_PACKAGE_NAME, appInfo.packageName)
+            putExtra(EXTRA_USER, appInfo.user)
+        }
+
+        fun createForActionsDialog(appInfo: DisplayApplicationInfo) = Intent().apply {
+            putExtra(LAUNCH_WHAT, ACTIONS_DIALOG)
             putExtra(EXTRA_PACKAGE_NAME, appInfo.packageName)
             putExtra(EXTRA_USER, appInfo.user)
         }
