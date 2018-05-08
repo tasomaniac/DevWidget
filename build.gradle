@@ -16,7 +16,7 @@ buildscript {
             arch       : '1.1.1',
             dagger     : '2.15',
             kotlin     : '1.2.41',
-            room       : '1.1.0-rc1',
+            room       : '1.1.0',
             supportLib : '27.1.1',
     ]
 
@@ -28,8 +28,9 @@ buildscript {
             maven { url 'https://maven.fabric.io/public' }
         }
     }
+    
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.0-alpha13'
+        classpath 'com.android.tools.build:gradle:3.2.0-alpha14'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.17.0'
         classpath 'com.github.triplet.gradle:play-publisher:1.2.0'
@@ -37,8 +38,8 @@ buildscript {
         classpath 'com.novoda:gradle-build-properties-plugin:0.4.1'
         classpath 'com.novoda:gradle-static-analysis-plugin:0.5.2'
         if (isPlay) {
-            classpath 'com.google.gms:google-services:3.3.0'
-            classpath 'io.fabric.tools:gradle:1.25.3'
+            classpath 'com.google.gms:google-services:3.2.1'
+            classpath 'io.fabric.tools:gradle:1.25.4'
         }
     }
 }
