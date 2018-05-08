@@ -50,23 +50,13 @@ class ClickHandlingActivity : DaggerAppCompatActivity() {
 
         const val EXTRA_INPUT = "EXTRA_INPUT"
 
-        fun createForLaunchApp(appInfo: DisplayApplicationInfo) = Intent().apply {
-            val input = Input(LAUNCH_APP, appInfo.packageName, appInfo.user)
-            putExtra(EXTRA_INPUT, input)
-        }
+        fun createForLaunchApp(appInfo: DisplayApplicationInfo) = intentFor(LAUNCH_APP, appInfo)
+        fun createForUninstallApp(appInfo: DisplayApplicationInfo) = intentFor(UNINSTALL_APP, appInfo)
+        fun createForAppDetails(appInfo: DisplayApplicationInfo) = intentFor(APP_DETAILS, appInfo)
+        fun createForActionsDialog(appInfo: DisplayApplicationInfo) = intentFor(ACTIONS_DIALOG, appInfo)
 
-        fun createForUninstallApp(appInfo: DisplayApplicationInfo) = Intent().apply {
-            val input = Input(UNINSTALL_APP, appInfo.packageName, appInfo.user)
-            putExtra(EXTRA_INPUT, input)
-        }
-
-        fun createForAppDetails(appInfo: DisplayApplicationInfo) = Intent().apply {
-            val input = Input(APP_DETAILS, appInfo.packageName, appInfo.user)
-            putExtra(EXTRA_INPUT, input)
-        }
-
-        fun createForActionsDialog(appInfo: DisplayApplicationInfo) = Intent().apply {
-            val input = Input(ACTIONS_DIALOG, appInfo.packageName, appInfo.user)
+        private fun intentFor(launchWhat: String, appInfo: DisplayApplicationInfo) = Intent().apply {
+            val input = Input(launchWhat, appInfo.packageName, appInfo.user)
             putExtra(EXTRA_INPUT, input)
         }
 

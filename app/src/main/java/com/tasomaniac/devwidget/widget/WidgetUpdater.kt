@@ -43,7 +43,6 @@ class WidgetUpdater @Inject constructor(
 
     private fun Widget.defaultOptions(): Bundle {
         return appWidgetManager.getAppWidgetOptions(appWidgetId)
-
     }
 
     @CheckReturnValue
