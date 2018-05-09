@@ -29,15 +29,19 @@ class ItemRemoteViewsCreator @Inject constructor(
                 ClickHandlingActivity.createForLaunchApp(app)
             )
             if (widgetResources.shouldDisplayFavAction(widgetWidth)) {
-                val uninstall = resources.getString(R.string.widget_content_description_uninstall_app, app.label)
-                setContentDescription(R.id.appWidgetFavAction, uninstall)
+                setContentDescription(
+                    R.id.appWidgetFavAction,
+                    resources.getString(R.string.widget_content_description_uninstall_app, app.label)
+                )
                 setImageViewResource(R.id.appWidgetFavAction, widgetResources.deleteIcon)
                 setOnClickFillInIntent(
                     R.id.appWidgetFavAction,
                     ClickHandlingActivity.createForUninstallApp(app)
                 )
-                val appDetails = resources.getString(R.string.widget_content_description_app_details, app.label)
-                setContentDescription(R.id.appWidgetDetails, appDetails)
+                setContentDescription(
+                    R.id.appWidgetDetails,
+                    resources.getString(R.string.widget_content_description_app_details, app.label)
+                )
                 setImageViewResource(R.id.appWidgetDetails, widgetResources.settingsIcon)
                 setOnClickFillInIntent(
                     R.id.appWidgetDetails,
@@ -45,6 +49,10 @@ class ItemRemoteViewsCreator @Inject constructor(
                 )
                 setViewVisibility(R.id.appWidgetFavAction, View.VISIBLE)
             } else {
+                setContentDescription(
+                    R.id.appWidgetDetails,
+                    resources.getString(R.string.widget_content_description_more_options)
+                )
                 setImageViewResource(R.id.appWidgetDetails, widgetResources.moreActionsIcon)
                 setOnClickFillInIntent(
                     R.id.appWidgetDetails,
