@@ -48,14 +48,14 @@
     </receiver>
 
     <activity
-        android:name=".widget.ClickHandlingActivity"
+        android:name=".widget.click.ClickHandlingActivity"
         android:documentLaunchMode="never"
         android:excludeFromRecents="true"
         android:finishOnCloseSystemDialogs="true"
         android:noHistory="true"
         android:relinquishTaskIdentity="true"
         android:taskAffinity=""
-        android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        android:theme="@style/Theme.DevWidget.Translucent" />
 
     <activity
         android:name=".widget.chooser.ActivityChooserActivity"

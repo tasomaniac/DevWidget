@@ -24,10 +24,11 @@ class WidgetViewsService : RemoteViewsService() {
         super.onCreate()
     }
 
-    override fun onGetViewFactory(intent: Intent) = WidgetViewsFactory(intent.appWidgetId)
+    override fun onGetViewFactory(intent: Intent) = WidgetViewsFactory(intent.appWidgetId, intent.widgetWidth)
 
     inner class WidgetViewsFactory(
-        private val appWidgetId: Int
+        private val appWidgetId: Int,
+        private val widgetWidth: Int
     ) : RemoteViewsService.RemoteViewsFactory {
 
         private var apps: List<DisplayApplicationInfo> = emptyList()
@@ -46,7 +47,7 @@ class WidgetViewsService : RemoteViewsService() {
 
         override fun getViewAt(position: Int): RemoteViews {
             val app = apps[position]
-            return itemCreator.createViewWith(app)
+            return itemCreator.createViewWith(app, widgetWidth)
         }
 
         override fun getCount() = apps.size
@@ -61,6 +62,11 @@ class WidgetViewsService : RemoteViewsService() {
     }
 
     companion object {
+        const val WIDGET_WIDTH = "widget_width"
+
+        private val Intent.widgetWidth: Int
+            get() = getIntExtra(WIDGET_WIDTH, Int.MAX_VALUE)
+
         private val Intent.appWidgetId
             get() = getIntExtra(
                 AppWidgetManager.EXTRA_APPWIDGET_ID,

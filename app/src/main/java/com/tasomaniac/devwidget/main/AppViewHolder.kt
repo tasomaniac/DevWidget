@@ -26,7 +26,7 @@ class AppViewHolder(
         appWidgetPackageName.text = app.packageName
         appWidgetPackageName.setTextColor(widgetResources.foregroundColor)
 
-        appWidgetUninstall.setImageResource(widgetResources.deleteIcon)
+        appWidgetFavAction.setImageResource(widgetResources.deleteIcon)
         appWidgetDetails.setImageResource(widgetResources.settingsIcon)
     }
 
