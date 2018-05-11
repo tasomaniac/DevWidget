@@ -8,10 +8,12 @@ import android.provider.Settings
 import android.support.v7.app.AlertDialog
 import androidx.core.widget.toast
 import com.tasomaniac.devwidget.R
+import com.tasomaniac.devwidget.widget.WidgetResources
 import com.tasomaniac.devwidget.widget.chooser.ActivityChooserActivity
 import javax.inject.Inject
 
 class ClickHandlingNavigation @Inject constructor(
+    private val widgetResources: WidgetResources,
     private val activity: Activity,
     private val input: ClickHandlingActivity.Input
 ) {
@@ -34,24 +36,26 @@ class ClickHandlingNavigation @Inject constructor(
     }
 
     fun navigateToActionsDialog() {
-        val actions = arrayOf(
-            activity.getString(R.string.widget_action_uninstall),
-            activity.getString(R.string.widget_action_app_details)
+        val adapter = ActionDialogAdapter(
+            activity,
+            listOf(
+                Action(widgetResources.deleteIcon, R.string.widget_action_uninstall) {
+                    uninstall()
+                },
+                Action(widgetResources.settingsIcon, R.string.widget_action_app_details) {
+                    navigateToAppDetails()
+                }
+            )
         )
         AlertDialog.Builder(activity)
             .setTitle(R.string.widget_choose_action)
-            .setItems(actions) { _, which -> navigate(which) }
+            .setAdapter(adapter) { _, which ->
+                adapter.getItem(which).navigate()
+            }
             .setOnDismissListener {
                 activity.finish()
             }
             .show()
-    }
-
-    private fun navigate(which: Int) {
-        when (which) {
-            0 -> uninstall()
-            1 -> navigateToAppDetails()
-        }
     }
 
     fun Intent.start() = activity.apply {
@@ -63,4 +67,5 @@ class ClickHandlingNavigation @Inject constructor(
             finish()
         }
     }
+
 }
