@@ -120,7 +120,7 @@ dependencies {
     playImplementation 'com.crashlytics.sdk.android:crashlytics:2.9.4'
     playImplementation "com.google.firebase:firebase-core:16.0.1"
 
-    implementation 'com.github.spotbugs:spotbugs:3.1.6'
+    implementation 'com.google.code.findbugs:jsr305:3.0.2'
     implementation 'androidx.core:core-ktx:0.3'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
 
