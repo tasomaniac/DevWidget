@@ -1,4 +1,4 @@
-Open Link With [![Build Status](https://travis-ci.org/tasomaniac/DevWidget.png?branch=master)](https://travis-ci.org/tasomaniac/DevWidget)
+DevWidget [![Build Status](https://travis-ci.org/tasomaniac/DevWidget.png?branch=master)](https://travis-ci.org/tasomaniac/DevWidget)
 ==============
 
 <a href="https://f-droid.org/repository/browse/?fdid=com.tasomaniac.devwidget.floss" target="_blank">
@@ -26,7 +26,7 @@ Why
 
 Although the problem discovered above is not huge, it is missing in the Android ecosystem. And I couldn't find anything doing this. So I wrote one. :)
 
-Although it is not the most useful app, it does save you when you stuck in a browser where you want the native app to be open. I hope you find it useful.
+Although it is not the most useful app, it does save you when you're stuck in a browser where you want the native app to be open. I hope you find it useful.
 
 
 License
