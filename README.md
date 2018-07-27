@@ -21,12 +21,12 @@ Features include:
 
 **Note:** This project/idea was inspired by [Tony Owen's DevDrawer Android app](https://github.com/tunitowen/DevDrawer). This widget has been really really helpful to me for long years. But unfortunately, it's not been maintained anymore and it has many crashes that prevents its usage. I decided to build another one from scratch with more modern design and more modern tools for my own needs. 
 
-Why
----
 
-Although the problem discovered above is not huge, it is missing in the Android ecosystem. And I couldn't find anything doing this. So I wrote one. :)
 
-Although it is not the most useful app, it does save you when you're stuck in a browser where you want the native app to be open. I hope you find it useful.
+
+
+
+
 
 
 License
