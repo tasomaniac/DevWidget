@@ -1,5 +1,5 @@
 plugins {
-    id "io.gitlab.arturbosch.detekt" version "1.0.0.RC8"
+    id "io.gitlab.arturbosch.detekt" version "1.0.0.RC6-3"
 }
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
@@ -23,7 +23,6 @@ def gitSha = 'git rev-parse --short HEAD'.execute([], project.rootDir).text.trim
 
 android {
     compileSdkVersion versions.compileSdk
-    buildToolsVersion versions.buildTools
     defaultConfig {
         applicationId "com.tasomaniac.devwidget"
         minSdkVersion versions.minSdk
@@ -122,7 +121,7 @@ dependencies {
     playImplementation "com.google.firebase:firebase-core:16.0.1"
 
     implementation 'com.github.spotbugs:spotbugs:3.1.6'
-    implementation 'androidx.core:core-ktx:1.0.0-beta01'
+    implementation 'androidx.core:core-ktx:0.3'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
 
     implementation "com.android.support:support-fragment:$versions.supportLib"
