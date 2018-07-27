@@ -7,17 +7,17 @@ buildscript {
     def versionBuild = 1
 
     ext.versions = [
-            compileSdk : 27,
-            targetSdk  : 25,
+            compileSdk : 28,
             minSdk     : 21,
+            targetSdk  : 25,
             versionCode: versionMajor * 10000 + versionMinor * 1000 + versionBuild,
             versionName: "${versionMajor}.${versionMinor}",
 
             arch       : '1.1.1',
-            dagger     : '2.15',
-            kotlin     : '1.2.41',
-            room       : '1.1.0',
-            supportLib : '27.1.1',
+            dagger     : '2.16',
+            kotlin     : '1.2.51',
+            room       : '1.1.1',
+            supportLib : '28.0.0-beta01',
     ]
 
     repositories {
@@ -30,15 +30,15 @@ buildscript {
     }
     
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.0-alpha14'
+        classpath 'com.android.tools.build:gradle:3.2.0-beta04'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
-        classpath 'com.github.ben-manes:gradle-versions-plugin:0.17.0'
-        classpath 'com.github.triplet.gradle:play-publisher:1.2.0'
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.20.0'
+        classpath 'com.github.triplet.gradle:play-publisher:1.2.2'
         classpath 'com.novoda:gradle-android-command-plugin:2.0.1'
         classpath 'com.novoda:gradle-build-properties-plugin:0.4.1'
         classpath 'com.novoda:gradle-static-analysis-plugin:0.5.2'
         if (isPlay) {
-            classpath 'com.google.gms:google-services:3.2.1'
+            classpath 'com.google.gms:google-services:4.0.2'
             classpath 'io.fabric.tools:gradle:1.25.4'
         }
     }
