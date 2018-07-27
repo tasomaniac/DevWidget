@@ -23,9 +23,9 @@ def gitSha = 'git rev-parse --short HEAD'.execute([], project.rootDir).text.trim
 
 android {
     compileSdkVersion versions.compileSdk
-
+    buildToolsVersion versions.buildTools
     defaultConfig {
-        applicationId 'com.tasomaniac.devwidget'
+        applicationId "com.tasomaniac.devwidget"
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdk
         versionCode versions.versionCode
