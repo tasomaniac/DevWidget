@@ -49,8 +49,8 @@ class ClickHandlingNavigation @Inject constructor(
         )
         AlertDialog.Builder(activity)
             .setTitle(R.string.widget_choose_action)
-            .setAdapter(adapter) { _, which ->
-                adapter.getItem(which).navigate()
+            .setAdapter(adapter) { _, position ->
+                adapter.getItem(position)!!.navigate()
             }
             .setOnDismissListener {
                 activity.finish()

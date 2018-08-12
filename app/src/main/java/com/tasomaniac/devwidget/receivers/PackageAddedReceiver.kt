@@ -28,7 +28,7 @@ class PackageAddedReceiver : DaggerBroadcastReceiver() {
             throw IllegalStateException("Unexpected receiver with action: ${intent.action}")
         }
         val pendingResult = goAsync()
-        val installedPackage = intent.data.schemeSpecificPart
+        val installedPackage = intent.data!!.schemeSpecificPart
 
         filterDao.allFilters()
             .flatten()

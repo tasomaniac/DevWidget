@@ -14,11 +14,11 @@ class ActionDialogAdapter(
     context, R.layout.click_handling_action_dialog, data
 ) {
 
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View =
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View =
         (super.getView(position, convertView, parent) as TextView).apply {
-            val item = getItem(position)
+            val item = getItem(position)!!
 
             setText(item.text)
-            setCompoundDrawablesRelativeWithIntrinsicBounds(item.icon, 0, 0, 0);
+            setCompoundDrawablesRelativeWithIntrinsicBounds(item.icon, 0, 0, 0)
         }
 }

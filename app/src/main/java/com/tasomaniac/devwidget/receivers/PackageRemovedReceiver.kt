@@ -26,7 +26,7 @@ class PackageRemovedReceiver : DaggerBroadcastReceiver() {
         }
 
         val pendingResult = goAsync()
-        val uninstalledPackage = intent.data.schemeSpecificPart
+        val uninstalledPackage = intent.data!!.schemeSpecificPart
 
         appDao.deleteApp(uninstalledPackage)
             .andThen(widgetUpdater.updateAll())
