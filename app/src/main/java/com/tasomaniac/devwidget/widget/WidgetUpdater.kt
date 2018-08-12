@@ -45,6 +45,7 @@ class WidgetUpdater @Inject constructor(
         return appWidgetManager.getAppWidgetOptions(appWidgetId)
     }
 
+    @Suppress("MagicNumber")
     @CheckReturnValue
     fun updateAll() =
         widgetDao.allWidgets()

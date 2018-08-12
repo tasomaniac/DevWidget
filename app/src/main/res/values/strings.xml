@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
   <string name="app_name">DevWidget</string>
   <string name="add_widget">Add widget</string>
 
@@ -44,10 +44,10 @@
 
   <string name="pref_key_night_mode" translatable="false">pref_night_mode</string>
   <string name="pref_title_night_mode">Night Mode</string>
-  <string name="pref_value_night_mode_off" translatable="false">off</string>
-  <string name="pref_value_night_mode_on" translatable="false">on</string>
-  <string name="pref_entry_night_mode_off">Off</string>
-  <string name="pref_entry_night_mode_on">On</string>
+  <string name="pref_value_night_mode_off" translatable="false" tools:ignore="DuplicateStrings">off</string>
+  <string name="pref_value_night_mode_on" translatable="false" tools:ignore="DuplicateStrings">on</string>
+  <string name="pref_entry_night_mode_off" tools:ignore="DuplicateStrings">Off</string>
+  <string name="pref_entry_night_mode_on" tools:ignore="DuplicateStrings">On</string>
 
   <string name="pref_key_opacity" translatable="false">pref_opacity</string>
   <string name="pref_background_opacity_title">Background visibility</string>

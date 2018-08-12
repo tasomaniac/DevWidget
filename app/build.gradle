@@ -23,6 +23,7 @@ def gitSha = 'git rev-parse --short HEAD'.execute([], project.rootDir).text.trim
 
 android {
     compileSdkVersion versions.compileSdk
+
     defaultConfig {
         applicationId "com.tasomaniac.devwidget"
         minSdkVersion versions.minSdk
@@ -96,6 +97,7 @@ staticAnalysis {
         textOutput 'stdout'
 
         checkAllWarnings true
+        checkTestSources false
         checkReleaseBuilds false
 
         lintConfig file('props/lint.xml')
@@ -130,7 +132,7 @@ dependencies {
     implementation "com.android.support:recyclerview-v7:$versions.supportLib"
     implementation "com.android.support:design:$versions.supportLib"
     implementation "com.android.support:preference-v14:$versions.supportLib"
-    implementation 'com.android.support.constraint:constraint-layout:2.0.0-alpha1'
+    implementation 'com.android.support.constraint:constraint-layout:2.0.0-alpha2'
 
     implementation "android.arch.lifecycle:extensions:$versions.arch"
     kapt "android.arch.lifecycle:compiler:$versions.arch"
@@ -141,7 +143,7 @@ dependencies {
 
     implementation 'com.jakewharton.timber:timber:4.7.1'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
-    implementation 'io.reactivex.rxjava2:rxjava:2.1.17'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.0'
     implementation 'com.jakewharton.rx2:replaying-share-kotlin:2.0.1'
     implementation 'com.uber.autodispose:autodispose-kotlin:0.8.0'
     implementation 'com.uber.autodispose:autodispose-android-archcomponents:0.8.0'
@@ -151,7 +153,7 @@ dependencies {
     kapt "com.google.dagger:dagger-android-processor:$versions.dagger"
 
     testImplementation 'junit:junit:4.12'
-    testImplementation 'org.mockito:mockito-core:2.20.1'
+    testImplementation 'org.mockito:mockito-core:2.21.0'
     testImplementation 'com.nhaarman:mockito-kotlin:1.6.0'
 
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

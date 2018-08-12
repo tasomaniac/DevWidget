@@ -29,6 +29,12 @@
     <issue id="BinaryOperationInTimber" severity="error" />
     <issue id="WifiManagerPotentialLeak" severity="error" />
 
+    <issue id="VectorPath">
+        <ignore path="*/ic_launcher_foreground.xml" />
+        <ignore path="*/ic_settings.xml" />
+        <ignore path="*/ic_settings_light.xml" />
+    </issue>
+
     <issue id="SelectableText" severity="ignore" />
     <issue id="UnknownNullness" severity="ignore" /> <!-- https://issuetracker.google.com/issues/78011047 -->
     <issue id="SyntheticAccessor" severity="ignore" />

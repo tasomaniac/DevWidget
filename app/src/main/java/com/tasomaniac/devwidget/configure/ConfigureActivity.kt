@@ -59,20 +59,16 @@ class ConfigureActivity : DaggerAppCompatActivity(), ConfigureView {
     }
 
     private fun setupNewPackageMatcher() {
-        adapter = ArrayAdapter(
-            this,
-            android.R.layout.simple_spinner_dropdown_item,
-            android.R.id.text1
-        )
+        adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, android.R.id.text1)
         configureNewPackageMatcher.setAdapter(adapter)
 
         val onPackageMatcherAdded: (String) -> Unit = {
-            onPackageMatcherAdded(it).also {
+            onPackageMatcherAdded(it).also { _ ->
                 configureNewPackageMatcher.text = null
             }
         }
         configureNewPackageMatcher.setOnItemClickListener { _, _, position, _ ->
-            onPackageMatcherAdded(adapter.getItem(position))
+            onPackageMatcherAdded(adapter.getItem(position)!!)
         }
         configureNewPackageMatcher.setOnEditorActionListener { _, _, _ ->
             onPackageMatcherAdded(configureNewPackageMatcher.text.toString())
