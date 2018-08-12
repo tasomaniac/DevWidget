@@ -49,4 +49,8 @@
     <issue id="AppCompatResource">
         <ignore path="*/res/menu/main_menu.xml" />
     </issue>
+
+    <!-- Tools 3.3 problems -->
+    <issue id="ClickableViewAccessibility"
+        severity="ignore" /> <!-- https://issuetracker.google.com/issues/112496356 -->
 </lint>
