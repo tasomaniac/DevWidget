@@ -1,6 +1,6 @@
 package com.tasomaniac.devwidget
 
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.ViewModel
 import dagger.MapKey
 import kotlin.annotation.AnnotationRetention.RUNTIME
 import kotlin.reflect.KClass

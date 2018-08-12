@@ -6,7 +6,7 @@ import android.content.ComponentName
 import android.content.Intent
 import android.os.Build.VERSION_CODES.O
 import android.os.Bundle
-import android.support.annotation.RequiresApi
+import androidx.annotation.RequiresApi
 import com.tasomaniac.devwidget.R
 import com.tasomaniac.devwidget.configure.WidgetPinnedReceiver
 import com.tasomaniac.devwidget.data.Widget

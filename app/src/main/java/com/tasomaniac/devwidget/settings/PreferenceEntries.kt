@@ -1,7 +1,7 @@
 package com.tasomaniac.devwidget.settings
 
 import android.content.res.Resources
-import android.support.annotation.StringRes
+import androidx.annotation.StringRes
 
 interface PreferenceEntries {
     @get:StringRes

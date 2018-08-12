@@ -1,6 +1,6 @@
 package com.tasomaniac.devwidget.main
 
-import android.support.v7.util.DiffUtil
+import androidx.recyclerview.widget.DiffUtil
 
 class WidgetDiffCallbacks(
     private val oldItems: List<WidgetListData>,

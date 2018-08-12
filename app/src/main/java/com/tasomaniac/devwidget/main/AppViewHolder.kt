@@ -1,14 +1,19 @@
 package com.tasomaniac.devwidget.main
 
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.tasomaniac.devwidget.R
 import com.tasomaniac.devwidget.extensions.inflate
 import com.tasomaniac.devwidget.widget.DisplayApplicationInfo
 import com.tasomaniac.devwidget.widget.WidgetResources
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.app_widget_list_item.*
+import kotlinx.android.synthetic.main.app_widget_list_item.appWidgetContainer
+import kotlinx.android.synthetic.main.app_widget_list_item.appWidgetDetails
+import kotlinx.android.synthetic.main.app_widget_list_item.appWidgetFavAction
+import kotlinx.android.synthetic.main.app_widget_list_item.appWidgetIcon
+import kotlinx.android.synthetic.main.app_widget_list_item.appWidgetLabel
+import kotlinx.android.synthetic.main.app_widget_list_item.appWidgetPackageName
 import javax.inject.Inject
 
 class AppViewHolder(

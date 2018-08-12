@@ -1,11 +1,9 @@
 package com.tasomaniac.devwidget.main
 
-import android.arch.lifecycle.ViewModel
-import android.support.v4.app.FragmentActivity
-
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.ViewModel
 import com.tasomaniac.devwidget.LifecycleScopeModule
 import com.tasomaniac.devwidget.ViewModelKey
-
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

@@ -7,19 +7,19 @@
     android:orientation="vertical"
     tools:context=".configure.ConfigureActivity">
 
-  <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:fitsSystemWindows="true"
       android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-    <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
         style="@style/DevWidget.Toolbar"
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:navigationContentDescription="@string/add_widget"/>
-  </android.support.design.widget.AppBarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
   <include layout="@layout/configure_content" />
 

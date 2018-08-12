@@ -5,9 +5,9 @@ import android.appwidget.AppWidgetManager
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.support.annotation.IdRes
 import android.view.View
 import android.widget.RemoteViews
+import androidx.annotation.IdRes
 import com.tasomaniac.devwidget.R
 import com.tasomaniac.devwidget.configure.ConfigureActivity
 import com.tasomaniac.devwidget.data.Widget

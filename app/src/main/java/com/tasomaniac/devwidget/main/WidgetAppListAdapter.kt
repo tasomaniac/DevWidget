@@ -1,7 +1,7 @@
 package com.tasomaniac.devwidget.main
 
-import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.tasomaniac.devwidget.widget.DisplayApplicationInfo
 
 class WidgetAppListAdapter(

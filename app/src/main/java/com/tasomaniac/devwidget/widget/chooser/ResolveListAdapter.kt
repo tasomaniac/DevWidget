@@ -1,8 +1,8 @@
 package com.tasomaniac.devwidget.widget.chooser
 
-import android.support.v7.recyclerview.extensions.ListAdapter
-import android.support.v7.util.DiffUtil
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import javax.inject.Inject
 
 class ResolveListAdapter @Inject constructor(

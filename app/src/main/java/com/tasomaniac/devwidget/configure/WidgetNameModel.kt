@@ -1,6 +1,6 @@
 package com.tasomaniac.devwidget.configure
 
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.ViewModel
 import com.tasomaniac.devwidget.data.Widget
 import com.tasomaniac.devwidget.data.WidgetDao
 import com.tasomaniac.devwidget.data.insertWidget

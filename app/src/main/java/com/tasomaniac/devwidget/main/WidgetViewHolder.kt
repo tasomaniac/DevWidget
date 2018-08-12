@@ -2,14 +2,15 @@ package com.tasomaniac.devwidget.main
 
 import android.appwidget.AppWidgetManager
 import android.content.Intent
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.tasomaniac.devwidget.R
 import com.tasomaniac.devwidget.configure.ConfigureActivity
 import com.tasomaniac.devwidget.extensions.inflate
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.main_item_widget.*
+import kotlinx.android.synthetic.main.main_item_widget.mainWidgetAppList
+import kotlinx.android.synthetic.main.main_item_widget.mainWidgetTitle
 import javax.inject.Inject
 
 class WidgetViewHolder(

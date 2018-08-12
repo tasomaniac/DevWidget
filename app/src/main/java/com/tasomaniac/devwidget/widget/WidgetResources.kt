@@ -1,10 +1,10 @@
 package com.tasomaniac.devwidget.widget
 
 import android.content.res.Resources
-import android.support.annotation.ColorInt
-import android.support.annotation.Dimension
-import android.support.annotation.DrawableRes
-import android.support.v4.content.res.ResourcesCompat
+import androidx.annotation.ColorInt
+import androidx.annotation.Dimension
+import androidx.annotation.DrawableRes
+import androidx.core.content.res.ResourcesCompat
 import com.tasomaniac.devwidget.R
 import com.tasomaniac.devwidget.settings.NightMode.OFF
 import com.tasomaniac.devwidget.settings.NightMode.ON

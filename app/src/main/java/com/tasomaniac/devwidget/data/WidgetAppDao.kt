@@ -1,8 +1,8 @@
 package com.tasomaniac.devwidget.data
 
-import android.arch.persistence.room.Dao
-import android.arch.persistence.room.Query
-import android.arch.persistence.room.Transaction
+import androidx.room.Dao
+import androidx.room.Query
+import androidx.room.Transaction
 
 import io.reactivex.Flowable
 

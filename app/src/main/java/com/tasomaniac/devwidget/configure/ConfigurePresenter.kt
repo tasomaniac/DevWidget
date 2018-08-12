@@ -6,7 +6,7 @@ import com.tasomaniac.devwidget.data.Analytics
 import com.tasomaniac.devwidget.rx.SchedulingStrategy
 import com.tasomaniac.devwidget.widget.WidgetUpdater
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
-import com.uber.autodispose.kotlin.autoDisposable
+import com.uber.autodispose.autoDisposable
 import io.reactivex.Completable
 import javax.inject.Inject
 

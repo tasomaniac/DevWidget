@@ -5,21 +5,21 @@ import android.content.Intent
 import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES.O
 import android.os.Bundle
-import android.support.v7.widget.DividerItemDecoration
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.tasomaniac.devwidget.R
 import com.tasomaniac.devwidget.ViewModelProvider
 import com.tasomaniac.devwidget.data.Analytics
 import com.tasomaniac.devwidget.rx.SchedulingStrategy
 import com.tasomaniac.devwidget.settings.SettingsActivity
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
-import com.uber.autodispose.kotlin.autoDisposable
+import com.uber.autodispose.autoDisposable
 import dagger.android.support.DaggerAppCompatActivity
-import kotlinx.android.synthetic.main.include_appbar.*
-import kotlinx.android.synthetic.main.main_activity.*
-import kotlinx.android.synthetic.main.main_content.*
+import kotlinx.android.synthetic.main.include_appbar.toolbar
+import kotlinx.android.synthetic.main.main_content.mainEmptyInfo
+import kotlinx.android.synthetic.main.main_content.mainWidgetList
 import javax.inject.Inject
 
 class MainActivity : DaggerAppCompatActivity() {
@@ -40,6 +40,7 @@ class MainActivity : DaggerAppCompatActivity() {
         setupList()
 
         if (isPinningSupported()) {
+            val mainAddNewWidget = findViewById<View>(R.id.mainAddNewWidget)
             mainAddNewWidget.visibility = View.VISIBLE
             mainAddNewWidget.setOnClickListener {
                 navigation.navigateForPinning(this)

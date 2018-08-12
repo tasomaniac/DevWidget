@@ -1,7 +1,7 @@
 package com.tasomaniac.devwidget.main
 
-import android.arch.lifecycle.ViewModel
-import android.support.v7.util.DiffUtil
+import androidx.lifecycle.ViewModel
+import androidx.recyclerview.widget.DiffUtil
 import com.tasomaniac.devwidget.data.Widget
 import com.tasomaniac.devwidget.data.WidgetAppDao
 import com.tasomaniac.devwidget.settings.Sorting.ALPHABETICALLY_NAMES

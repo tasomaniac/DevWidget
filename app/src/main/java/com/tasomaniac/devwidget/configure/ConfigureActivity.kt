@@ -6,15 +6,17 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build.VERSION_CODES.O
 import android.os.Bundle
-import android.support.annotation.RequiresApi
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.ArrayAdapter
+import androidx.annotation.RequiresApi
 import com.tasomaniac.devwidget.R
 import com.tasomaniac.devwidget.data.Analytics
 import dagger.android.support.DaggerAppCompatActivity
-import kotlinx.android.synthetic.main.configure_activity.*
-import kotlinx.android.synthetic.main.configure_content.*
+import kotlinx.android.synthetic.main.configure_activity.toolbar
+import kotlinx.android.synthetic.main.configure_content.configureNewPackageMatcher
+import kotlinx.android.synthetic.main.configure_content.configurePackageMatcherList
+import kotlinx.android.synthetic.main.configure_content.configureWidgetName
 import javax.inject.Inject
 
 class ConfigureActivity : DaggerAppCompatActivity(), ConfigureView {

@@ -8,12 +8,15 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Process
 import android.os.UserHandle
-import androidx.core.widget.toast
+import android.widget.Toast
 import com.tasomaniac.devwidget.R
+import com.tasomaniac.devwidget.extensions.toast
 import com.tasomaniac.devwidget.settings.ClickBehavior
 import com.tasomaniac.devwidget.settings.ClickBehaviorPreferences
 import dagger.android.support.DaggerAppCompatActivity
-import kotlinx.android.synthetic.main.activity_chooser_list.*
+import kotlinx.android.synthetic.main.activity_chooser_list.activityChooserList
+import kotlinx.android.synthetic.main.activity_chooser_list.activityChooserTitle
+import kotlinx.android.synthetic.main.activity_chooser_list.resolverDrawerLayout
 import javax.inject.Inject
 
 class ActivityChooserActivity : DaggerAppCompatActivity() {
@@ -40,7 +43,7 @@ class ActivityChooserActivity : DaggerAppCompatActivity() {
         }
 
         if (apps.isEmpty()) {
-            toast(R.string.widget_error_activity_not_found)
+            Toast.makeText(this, R.string.widget_error_activity_not_found, Toast.LENGTH_SHORT).show()
             finish()
             return
         }

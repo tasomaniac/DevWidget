@@ -1,6 +1,6 @@
 package com.tasomaniac.devwidget.configure
 
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.ViewModel
 import com.jakewharton.rx.replayingShare
 import com.tasomaniac.devwidget.data.AppDao
 import com.tasomaniac.devwidget.data.FilterDao

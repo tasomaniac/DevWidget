@@ -2,7 +2,7 @@ package com.tasomaniac.devwidget.settings
 
 import android.content.SharedPreferences
 import android.content.res.Resources
-import android.support.annotation.ColorInt
+import androidx.annotation.ColorInt
 import com.tasomaniac.devwidget.R
 import com.tasomaniac.devwidget.widget.WidgetResources
 import javax.inject.Inject

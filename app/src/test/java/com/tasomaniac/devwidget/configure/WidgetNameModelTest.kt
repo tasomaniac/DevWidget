@@ -3,7 +3,12 @@ package com.tasomaniac.devwidget.configure
 import android.appwidget.AppWidgetManager
 import android.os.Bundle
 import android.widget.RemoteViews
-import com.nhaarman.mockito_kotlin.*
+import com.nhaarman.mockitokotlin2.any
+import com.nhaarman.mockitokotlin2.doReturn
+import com.nhaarman.mockitokotlin2.eq
+import com.nhaarman.mockitokotlin2.given
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.then
 import com.tasomaniac.devwidget.data.Widget
 import com.tasomaniac.devwidget.data.WidgetDao
 import com.tasomaniac.devwidget.rx.emptyDebouncer

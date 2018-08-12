@@ -5,9 +5,9 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.provider.Settings
-import android.support.v7.app.AlertDialog
-import androidx.core.widget.toast
+import androidx.appcompat.app.AlertDialog
 import com.tasomaniac.devwidget.R
+import com.tasomaniac.devwidget.extensions.toast
 import com.tasomaniac.devwidget.widget.WidgetResources
 import com.tasomaniac.devwidget.widget.chooser.ActivityChooserActivity
 import javax.inject.Inject

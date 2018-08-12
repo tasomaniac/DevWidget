@@ -2,7 +2,7 @@ package com.tasomaniac.devwidget.settings
 
 import android.content.SharedPreferences
 import android.content.res.Resources
-import android.support.v7.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatDelegate
 import com.tasomaniac.devwidget.R
 import com.tasomaniac.devwidget.settings.NightMode.OFF
 import javax.inject.Inject

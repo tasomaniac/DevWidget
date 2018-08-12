@@ -3,10 +3,11 @@ package com.tasomaniac.devwidget.settings
 import android.app.backup.BackupManager
 import android.content.SharedPreferences
 import android.os.Bundle
+import androidx.fragment.app.transaction
 import com.tasomaniac.devwidget.R
 import com.tasomaniac.devwidget.data.Analytics
 import dagger.android.support.DaggerAppCompatActivity
-import kotlinx.android.synthetic.main.include_appbar.*
+import kotlinx.android.synthetic.main.include_appbar.toolbar
 import javax.inject.Inject
 
 class SettingsActivity : DaggerAppCompatActivity(),
@@ -21,9 +22,9 @@ class SettingsActivity : DaggerAppCompatActivity(),
         setSupportActionBar(toolbar)
 
         if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .add(R.id.fragment_container, SettingsFragment.newInstance())
-                .commit()
+            supportFragmentManager.transaction {
+                add(R.id.fragment_container, SettingsFragment.newInstance())
+            }
             analytics.sendScreenView(this, "Settings")
         }
     }

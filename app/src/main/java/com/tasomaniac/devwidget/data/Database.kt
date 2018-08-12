@@ -1,7 +1,7 @@
 package com.tasomaniac.devwidget.data
 
-import android.arch.persistence.room.Database
-import android.arch.persistence.room.RoomDatabase
+import androidx.room.Database
+import androidx.room.RoomDatabase
 
 @Database(entities = [Widget::class, Filter::class, App::class], version = 1, exportSchema = false)
 abstract class Database : RoomDatabase() {

@@ -1,9 +1,8 @@
 package com.tasomaniac.devwidget;
 
-import android.support.v4.app.FragmentActivity;
-
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider;
 
+import androidx.fragment.app.FragmentActivity;
 import dagger.Module;
 import dagger.Provides;
 

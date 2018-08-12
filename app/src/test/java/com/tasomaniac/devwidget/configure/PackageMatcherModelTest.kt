@@ -1,6 +1,8 @@
 package com.tasomaniac.devwidget.configure
 
-import com.nhaarman.mockito_kotlin.*
+import com.nhaarman.mockitokotlin2.doReturn
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.then
 import com.tasomaniac.devwidget.data.Filter
 import com.tasomaniac.devwidget.data.FilterDao
 import io.reactivex.Flowable
