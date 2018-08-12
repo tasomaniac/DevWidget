@@ -26,6 +26,10 @@ class AppViewHolder(
         appWidgetContainer.background = null
 
         appWidgetIcon.setImageDrawable(app.icon)
+        val iconSize = widgetResources.resolveAppIconSize(Int.MAX_VALUE)
+        appWidgetIcon.maxHeight = iconSize
+        appWidgetIcon.maxWidth = iconSize
+
         appWidgetLabel.text = app.label
         appWidgetLabel.setTextColor(widgetResources.foregroundColor)
         appWidgetPackageName.text = app.packageName
