@@ -1,7 +1,7 @@
 package com.tasomaniac.devwidget.configure
 
 import androidx.lifecycle.ViewModel
-import com.jakewharton.rx.replayingShare
+import com.jakewharton.rx.ReplayingShare
 import com.tasomaniac.devwidget.data.AppDao
 import com.tasomaniac.devwidget.data.FilterDao
 import com.tasomaniac.devwidget.data.insertApps
@@ -58,6 +58,7 @@ class PackageMatcherModel @Inject constructor(
     }
 
     @CheckReturnValue
-    fun packageMatchers() = filterDao.findFiltersByWidgetId(appWidgetId).replayingShare()
+    fun packageMatchers(): Flowable<List<String>> =
+        filterDao.findFiltersByWidgetId(appWidgetId).compose(ReplayingShare.instance())
 }
 
