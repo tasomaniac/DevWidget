@@ -1,5 +1,6 @@
 package com.tasomaniac.devwidget.widget.click
 
+import android.annotation.SuppressLint
 import android.app.Notification
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -21,7 +22,8 @@ class ActionListGenerator @Inject constructor(
         return listOfNotNull(
             Action(R.string.widget_action_uninstall, widgetResources.deleteIcon, ::UninstallCommand),
             Action(R.string.widget_action_app_details, widgetResources.settingsIcon, ::AppDetailsCommand),
-            appNotificationsAction()
+            appNotificationsAction(),
+            appSettingsAction()
         )
     }
 
@@ -33,6 +35,19 @@ class ActionListGenerator @Inject constructor(
         val resolveInfo = packageManager.queryIntentActivities(intent, 0).firstOrNull() ?: return null
 
         return Action(R.string.widget_action_app_notification_settings) {
+            ComponentCommand(resolveInfo.activityInfo.componentName())
+        }
+    }
+
+    @SuppressLint("InlinedApi")
+    private fun appSettingsAction(): Action? {
+        val intent = Intent(Intent.ACTION_APPLICATION_PREFERENCES)
+            .addCategory(Intent.CATEGORY_DEFAULT)
+            .setPackage(input.packageName)
+
+        val resolveInfo = packageManager.queryIntentActivities(intent, 0).firstOrNull() ?: return null
+
+        return Action(R.string.widget_action_app_settings) {
             ComponentCommand(resolveInfo.activityInfo.componentName())
         }
     }
