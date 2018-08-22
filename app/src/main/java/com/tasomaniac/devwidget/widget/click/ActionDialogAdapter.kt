@@ -19,6 +19,10 @@ class ActionDialogAdapter(
             val item = getItem(position)!!
 
             setText(item.text)
-            setCompoundDrawablesRelativeWithIntrinsicBounds(item.icon, 0, 0, 0)
+            if (item.icon != null) {
+                setCompoundDrawablesRelativeWithIntrinsicBounds(item.icon, 0, 0, 0)
+            } else {
+                setCompoundDrawables(null, null, null, null)
+            }
         }
 }

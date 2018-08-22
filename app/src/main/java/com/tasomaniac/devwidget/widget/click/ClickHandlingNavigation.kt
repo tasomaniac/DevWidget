@@ -1,71 +1,44 @@
 package com.tasomaniac.devwidget.widget.click
 
 import android.app.Activity
-import android.content.ActivityNotFoundException
-import android.content.Intent
-import android.net.Uri
-import android.provider.Settings
 import androidx.appcompat.app.AlertDialog
 import com.tasomaniac.devwidget.R
-import com.tasomaniac.devwidget.extensions.toast
-import com.tasomaniac.devwidget.widget.WidgetResources
-import com.tasomaniac.devwidget.widget.chooser.ActivityChooserActivity
+import com.tasomaniac.devwidget.navigation.Navigator
+import com.tasomaniac.devwidget.widget.click.commands.ActivityChooserCommand
+import com.tasomaniac.devwidget.widget.click.commands.AppDetailsCommand
+import com.tasomaniac.devwidget.widget.click.commands.FinishCommand
+import com.tasomaniac.devwidget.widget.click.commands.UninstallCommand
 import javax.inject.Inject
 
 class ClickHandlingNavigation @Inject constructor(
-    private val widgetResources: WidgetResources,
+    private val actionListGenerator: ActionListGenerator,
     private val activity: Activity,
+    private val navigator: Navigator,
     private val input: ClickHandlingActivity.Input
 ) {
 
-    fun navigateToChooser() {
-        ActivityChooserActivity.createIntent(activity, input.packageName, input.user)
-            .start()
-    }
+    fun navigateToChooser() = navigator.navigate(ActivityChooserCommand(input.packageName, input.user))
 
-    fun uninstall() {
-        Intent(Intent.ACTION_UNINSTALL_PACKAGE).apply {
-            data = Uri.parse("package:${input.packageName}")
-        }.start()
-    }
+    fun uninstall() = navigator.navigate(UninstallCommand(input.packageName))
 
-    fun navigateToAppDetails() {
-        Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
-            data = Uri.parse("package:${input.packageName}")
-        }.start()
-    }
+    fun navigateToAppDetails() = navigator.navigate(AppDetailsCommand(input.packageName))
 
     fun navigateToActionsDialog() {
         val adapter = ActionDialogAdapter(
             activity,
-            listOf(
-                Action(widgetResources.deleteIcon, R.string.widget_action_uninstall) {
-                    uninstall()
-                },
-                Action(widgetResources.settingsIcon, R.string.widget_action_app_details) {
-                    navigateToAppDetails()
-                }
-            )
+            actionListGenerator.actionList()
         )
         AlertDialog.Builder(activity)
             .setTitle(R.string.widget_choose_action)
             .setAdapter(adapter) { _, position ->
-                adapter.getItem(position)!!.navigate()
+                val command = adapter.getItem(position)!!.command(input.packageName)
+                navigator.navigate(command)
             }
             .setOnDismissListener {
-                activity.finish()
+                navigator.navigate(FinishCommand)
             }
             .show()
     }
 
-    fun Intent.start() = activity.apply {
-        try {
-            startActivity(this@start)
-        } catch (e: ActivityNotFoundException) {
-            toast(R.string.widget_error_activity_cannot_be_launched)
-        } finally {
-            finish()
-        }
-    }
-
 }
+
