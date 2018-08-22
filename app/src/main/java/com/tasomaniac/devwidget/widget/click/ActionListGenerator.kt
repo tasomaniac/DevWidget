@@ -9,6 +9,7 @@ import com.tasomaniac.devwidget.widget.WidgetResources
 import com.tasomaniac.devwidget.widget.chooser.componentName
 import com.tasomaniac.devwidget.widget.click.commands.AppDetailsCommand
 import com.tasomaniac.devwidget.widget.click.commands.ComponentCommand
+import com.tasomaniac.devwidget.widget.click.commands.PlayStoreCommand
 import com.tasomaniac.devwidget.widget.click.commands.UninstallCommand
 import javax.inject.Inject
 
@@ -22,6 +23,7 @@ class ActionListGenerator @Inject constructor(
         return listOfNotNull(
             Action(R.string.widget_action_uninstall, widgetResources.deleteIcon, ::UninstallCommand),
             Action(R.string.widget_action_app_details, widgetResources.settingsIcon, ::AppDetailsCommand),
+            Action(R.string.widget_action_play_store, widgetResources.playStoreIcon, ::PlayStoreCommand),
             appNotificationsAction(),
             appSettingsAction()
         )
