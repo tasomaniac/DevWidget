@@ -15,32 +15,15 @@ import com.tasomaniac.devwidget.settings.OpacityPreferences
 import com.tasomaniac.devwidget.widget.click.ClickHandlingActivity
 import javax.inject.Inject
 
-class RemoveViewsCreator @Inject constructor(
+class RemoveViewsCreator(
     private val app: Application,
     private val widgetResources: WidgetResources,
-    private val opacityPreferences: OpacityPreferences
+    private val opacityPreferences: OpacityPreferences,
+    private val widget: Widget,
+    private val minWidth: Int
 ) {
 
-    fun create(widget: Widget, minWidth: Int) = RemoteViews(app.packageName, R.layout.app_widget).apply {
-
-        fun RemoteViews.setupConfigureButton(@IdRes buttonId: Int) {
-            setContentDescription(
-                buttonId,
-                app.getString(R.string.widget_content_description_configure, widget)
-            )
-            val intent = ConfigureActivity.createIntent(app, widget.appWidgetId)
-                .toPendingActivity(app)
-            setOnClickPendingIntent(buttonId, intent)
-        }
-
-        fun remoteAdapter(context: Context): Intent {
-            return Intent(context, WidgetViewsService::class.java).apply {
-                putExtra(WidgetViewsService.WIDGET_WIDTH, minWidth)
-                putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widget.appWidgetId)
-                data = Uri.parse(toUri(Intent.URI_INTENT_SCHEME))
-            }
-        }
-
+    fun create() = RemoteViews(app.packageName, R.layout.app_widget).apply {
         if (widget.name.isEmpty()) {
             setViewVisibility(R.id.widgetHeader, View.GONE)
         } else {
@@ -50,6 +33,7 @@ class RemoveViewsCreator @Inject constructor(
 
             setupConfigureButton(R.id.widgetConfigure)
             setImageViewResource(R.id.widgetConfigure, widgetResources.settingsIcon)
+            setupDevOptionsButton()
         }
 
         val shadeColor = opacityPreferences.backgroundColor
@@ -74,4 +58,38 @@ class RemoveViewsCreator @Inject constructor(
 
     }
 
+    private fun RemoteViews.setupConfigureButton(@IdRes buttonId: Int) {
+        setContentDescription(
+            buttonId,
+            app.getString(R.string.widget_content_description_configure, widget)
+        )
+        val intent = ConfigureActivity.createIntent(app, widget.appWidgetId)
+            .toPendingActivity(app)
+        setOnClickPendingIntent(buttonId, intent)
+    }
+
+    private fun remoteAdapter(context: Context): Intent {
+        return Intent(context, WidgetViewsService::class.java).apply {
+            putExtra(WidgetViewsService.WIDGET_WIDTH, minWidth)
+            putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widget.appWidgetId)
+            data = Uri.parse(toUri(Intent.URI_INTENT_SCHEME))
+        }
+    }
+
+    private fun RemoteViews.setupDevOptionsButton() {
+        val intent = Intent(android.provider.Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS)
+            .toPendingActivity(app)
+        setOnClickPendingIntent(R.id.widgetDevOptions, intent)
+        setImageViewResource(R.id.widgetDevOptions, widgetResources.devOptionsIcon)
+    }
+
+    class Factory @Inject constructor(
+        private val app: Application,
+        private val widgetResources: WidgetResources,
+        private val opacityPreferences: OpacityPreferences
+    ) {
+
+        fun create(widget: Widget, minWidth: Int) =
+            RemoveViewsCreator(app, widgetResources, opacityPreferences, widget, minWidth)
+    }
 }
