@@ -21,5 +21,4 @@ interface FilterDao {
 
     @Query("DELETE FROM filter WHERE packageMatcher = :packageMatcher")
     fun deleteFilterSync(packageMatcher: String)
-
 }

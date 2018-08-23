@@ -29,5 +29,4 @@ class AdvancedSettings @Inject constructor(
             analytics.sendValueEvent("ClickBehavior", selectedValue)
         }
     }
-
 }

@@ -30,5 +30,4 @@ object DataModule {
     @Provides
     @JvmStatic
     fun filterDao(database: Database) = database.filterDao()
-
 }

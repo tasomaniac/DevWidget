@@ -39,7 +39,7 @@
         android:paddingBottom="4dp"
         android:paddingEnd="12dp"
         android:paddingTop="4dp"
-        tools:ignore="RtlSymmetry">
+        tools:ignore="RtlSymmetry,NegativeMargin">
 
         <androidx.preference.internal.PreferenceImageView
             android:id="@android:id/icon"

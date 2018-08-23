@@ -23,5 +23,4 @@ class NightModePreferences @Inject constructor(
     fun updateDefaultNightMode() {
         AppCompatDelegate.setDefaultNightMode(mode.delegate)
     }
-
 }

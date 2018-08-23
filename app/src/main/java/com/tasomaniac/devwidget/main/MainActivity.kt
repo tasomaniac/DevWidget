@@ -69,7 +69,6 @@ class MainActivity : DaggerAppCompatActivity() {
                 else
                     R.string.main_empty_info
             )
-
         } else {
             mainEmptyInfo.visibility = View.GONE
         }

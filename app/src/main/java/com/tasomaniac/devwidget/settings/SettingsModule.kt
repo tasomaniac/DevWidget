@@ -15,5 +15,4 @@ class SettingsModule {
         advancedSettings: AdvancedSettings,
         other: OtherSettings
     ) = setOf(general, display, advancedSettings, other)
-
 }

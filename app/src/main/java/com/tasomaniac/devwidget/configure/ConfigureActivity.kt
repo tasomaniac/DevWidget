@@ -55,7 +55,6 @@ class ConfigureActivity : DaggerAppCompatActivity(), ConfigureView {
                 Unit
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) = Unit
-
         }
         configureWidgetName.addTextChangedListener(textWatcher)
     }

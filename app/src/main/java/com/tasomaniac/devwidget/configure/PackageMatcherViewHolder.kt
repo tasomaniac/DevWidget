@@ -78,7 +78,6 @@ class PackageMatcherViewHolder(
             }
             return false
         }
-
     }
 
     private fun View.setupContextMenuClickListener() {

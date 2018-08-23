@@ -61,4 +61,3 @@ class PackageMatcherModel @Inject constructor(
     fun packageMatchers(): Flowable<List<String>> =
         filterDao.findFiltersByWidgetId(appWidgetId).compose(ReplayingShare.instance())
 }
-

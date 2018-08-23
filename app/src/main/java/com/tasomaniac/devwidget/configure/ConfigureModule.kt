@@ -37,7 +37,6 @@ object ConfigureModule {
     @Provides
     @JvmStatic
     fun configurePinning(activity: ConfigureActivity) = activity.configurePin
-
 }
 
 @Module

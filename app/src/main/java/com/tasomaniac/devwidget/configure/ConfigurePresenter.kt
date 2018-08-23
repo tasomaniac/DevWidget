@@ -68,7 +68,6 @@ class ConfigurePresenter @Inject constructor(
                 .compose(scheduling.forCompletable())
                 .subscribe()
         }
-
     }
 
     private fun trackConfirm() {
@@ -77,5 +76,4 @@ class ConfigurePresenter @Inject constructor(
             "New Widget" to widgetNameModel.newWidget.toString()
         )
     }
-
 }

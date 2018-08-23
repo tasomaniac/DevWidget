@@ -17,5 +17,4 @@ class SortingPreferences @Inject constructor(
             val value = sharedPreferences.getString(key, null)
             return PreferenceEntries.fromValue(resources, value) ?: Sorting.ORDER_ADDED
         }
-
 }

@@ -36,6 +36,4 @@ class ClickHandlingNavigation @Inject constructor(
             }
             .show()
     }
-
 }
-

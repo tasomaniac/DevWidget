@@ -13,5 +13,5 @@ class ViewModelFactory @Inject constructor(
     override fun <T : ViewModel> create(clazz: Class<T>) = provider(clazz).get() as T
 
     private fun <T : ViewModel> provider(clazz: Class<T>) = creators[clazz]
-            ?: throw IllegalArgumentException("Unrecognised class " + clazz)
+        ?: throw IllegalArgumentException("Unrecognised class $clazz")
 }

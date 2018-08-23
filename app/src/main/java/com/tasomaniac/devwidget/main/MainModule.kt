@@ -18,5 +18,4 @@ interface MainModule {
     @IntoMap
     @ViewModelKey(MainModel::class)
     fun mainModel(mainModel: MainModel): ViewModel
-
 }

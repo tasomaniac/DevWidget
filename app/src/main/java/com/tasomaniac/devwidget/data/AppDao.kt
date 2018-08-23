@@ -19,5 +19,4 @@ interface AppDao {
 
     @Query("DELETE FROM app WHERE packageMatcher = :packageMatcher")
     fun deleteAppsByPackageMatcherSync(packageMatcher: String)
-
 }

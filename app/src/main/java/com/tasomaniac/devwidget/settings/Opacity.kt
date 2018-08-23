@@ -20,5 +20,4 @@ enum class Opacity(
         R.string.pref_value_opacity_fully_opaque,
         R.string.pref_entry_opacity_fully_opaque
     ),
-
 }

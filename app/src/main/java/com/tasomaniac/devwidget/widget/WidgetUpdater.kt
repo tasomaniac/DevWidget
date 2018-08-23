@@ -61,5 +61,4 @@ class WidgetUpdater @Inject constructor(
     fun notifyWidgetDataChanged(appWidgetId: Int) {
         appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widgetAppList)
     }
-
 }

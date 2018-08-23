@@ -78,5 +78,4 @@ class WidgetResources @Inject constructor(
         private const val TINY_WIDGET_LIMIT = 214
         private const val FAV_ACTION_LIMIT = 291
     }
-
 }

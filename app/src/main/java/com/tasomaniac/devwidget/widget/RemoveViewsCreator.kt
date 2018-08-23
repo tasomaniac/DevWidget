@@ -55,7 +55,6 @@ class RemoveViewsCreator(
 
         val intentTemplate = ClickHandlingActivity.intent(app).toPendingActivity(app)
         setPendingIntentTemplate(R.id.widgetAppList, intentTemplate)
-
     }
 
     private fun RemoteViews.setupConfigureButton(@IdRes buttonId: Int) {

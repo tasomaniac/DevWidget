@@ -56,6 +56,5 @@ class ClickHandlingActivity : DaggerAppCompatActivity() {
         }
 
         fun intent(context: Context) = Intent(context, ClickHandlingActivity::class.java)
-
     }
 }

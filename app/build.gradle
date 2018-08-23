@@ -1,5 +1,6 @@
 plugins {
     id 'io.gitlab.arturbosch.detekt' version '1.0.0.RC6-3'
+    id 'org.jlleitschuh.gradle.ktlint' version '5.0.0'
 }
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
@@ -92,6 +93,10 @@ staticAnalysis {
         }
     }
 
+    ktlint {
+        includeVariants { it.name == 'flossDebug' }
+    }
+
     lintOptions {
         textReport true
         textOutput 'stdout'
@@ -145,7 +150,7 @@ dependencies {
 
     implementation 'com.jakewharton.timber:timber:4.7.1'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.0'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.1'
     implementation 'io.reactivex.rxjava2:rxkotlin:2.3.0'
     implementation 'com.jakewharton.rx2:replaying-share-kotlin:2.0.1'
     implementation 'com.uber.autodispose:autodispose-ktx:1.0.0-RC1'

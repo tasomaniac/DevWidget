@@ -18,5 +18,4 @@ class WidgetDiffCallbacks(
 
     override fun areContentsTheSame(oldPosition: Int, newPosition: Int) =
         oldItems[oldPosition] == newItems[newPosition]
-
 }

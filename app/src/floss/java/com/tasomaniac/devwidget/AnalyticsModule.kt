@@ -11,5 +11,4 @@ interface AnalyticsModule {
     @Binds
     @Singleton
     fun provideAnalytics(analytics: Analytics.DebugAnalytics): Analytics
-
 }

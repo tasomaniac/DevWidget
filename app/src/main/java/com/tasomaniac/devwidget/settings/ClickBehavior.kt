@@ -16,5 +16,4 @@ enum class ClickBehavior(
         R.string.pref_value_click_behavior_exported,
         R.string.pref_entry_click_behavior_exported
     ),
-
 }

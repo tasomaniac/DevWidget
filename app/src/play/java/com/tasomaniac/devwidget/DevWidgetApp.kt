@@ -31,6 +31,5 @@ class DevWidgetApp : BaseDevWidgetApp() {
                 Crashlytics.logException(t)
             }
         }
-
     }
 }

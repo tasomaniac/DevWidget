@@ -37,5 +37,4 @@ class GeneralSettings @Inject constructor(
             analytics.sendValueEvent("Sorting", selectedValue)
         }
     }
-
 }

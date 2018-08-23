@@ -17,5 +17,4 @@ class ClickBehaviorPreferences @Inject constructor(
             val value = sharedPreferences.getString(key, null)
             return PreferenceEntries.fromValue(resources, value) ?: ClickBehavior.LAUNCHER
         }
-
 }

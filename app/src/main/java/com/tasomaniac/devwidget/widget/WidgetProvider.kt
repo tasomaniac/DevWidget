@@ -43,8 +43,10 @@ class WidgetProvider : AppWidgetProvider() {
     }
 
     override fun onAppWidgetOptionsChanged(
-        context: Context, appWidgetManager: AppWidgetManager,
-        appWidgetId: Int, newOptions: Bundle
+        context: Context,
+        appWidgetManager: AppWidgetManager,
+        appWidgetId: Int,
+        newOptions: Bundle
     ) {
         val pendingResult = goAsync()
 
@@ -64,4 +66,3 @@ class WidgetProvider : AppWidgetProvider() {
             .subscribe()
     }
 }
-

@@ -17,5 +17,4 @@ enum class Sorting(
         R.string.pref_value_sorting_alphabetically_names,
         R.string.pref_entry_sorting_alphabetically_names
     );
-
 }

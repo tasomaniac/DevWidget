@@ -58,7 +58,6 @@ class WidgetViewsService : RemoteViewsService() {
         override fun getLoadingView(): RemoteViews? = null
         override fun onCreate() = Unit
         override fun onDestroy() = Unit
-
     }
 
     companion object {
@@ -73,5 +72,4 @@ class WidgetViewsService : RemoteViewsService() {
                 AppWidgetManager.INVALID_APPWIDGET_ID
             )
     }
-
 }

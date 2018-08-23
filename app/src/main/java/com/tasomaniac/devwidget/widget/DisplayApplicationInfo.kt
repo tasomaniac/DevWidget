@@ -9,4 +9,3 @@ data class DisplayApplicationInfo(
     val icon: Drawable,
     val user: UserHandle
 )
-

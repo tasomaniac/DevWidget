@@ -29,5 +29,4 @@ class LicensesDialogFragment : AppCompatDialogFragment() {
 
         fun newInstance() = LicensesDialogFragment()
     }
-
 }
