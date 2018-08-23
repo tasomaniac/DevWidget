@@ -20,7 +20,6 @@
   <string name="widget_content_description_configure">Configure %s</string>
     <string name="widget_content_description_dev_options">Developer Options</string>
   <string name="widget_content_description_uninstall_app">Uninstall %s</string>
-  <string name="widget_content_description_app_details">Open App Details for %s</string>
   <string name="widget_content_description_more_options">More options</string>
   <string name="widget_empty_title">Widget #%d</string>
   <string name="widget_error_activity_not_found">No Launcher Activity found!</string>

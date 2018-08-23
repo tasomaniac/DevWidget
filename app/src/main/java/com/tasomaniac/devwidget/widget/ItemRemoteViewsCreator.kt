@@ -28,37 +28,38 @@ class ItemRemoteViewsCreator @Inject constructor(
                 R.id.appWidgetContainer,
                 ClickHandlingActivity.createForLaunchApp(app)
             )
+
+            setupMoreActionsButton(app)
+
             if (widgetResources.shouldDisplayFavAction(widgetWidth)) {
-                setContentDescription(
-                    R.id.appWidgetFavAction,
-                    resources.getString(R.string.widget_content_description_uninstall_app, app.label)
-                )
-                setImageViewResource(R.id.appWidgetFavAction, widgetResources.deleteIcon)
-                setOnClickFillInIntent(
-                    R.id.appWidgetFavAction,
-                    ClickHandlingActivity.createForUninstallApp(app)
-                )
-                setContentDescription(
-                    R.id.appWidgetDetails,
-                    resources.getString(R.string.widget_content_description_app_details, app.label)
-                )
-                setImageViewResource(R.id.appWidgetDetails, widgetResources.settingsIcon)
-                setOnClickFillInIntent(
-                    R.id.appWidgetDetails,
-                    ClickHandlingActivity.createForAppDetails(app)
-                )
+                setupFavActionButton(app)
                 setViewVisibility(R.id.appWidgetFavAction, View.VISIBLE)
             } else {
-                setContentDescription(
-                    R.id.appWidgetDetails,
-                    resources.getString(R.string.widget_content_description_more_options)
-                )
-                setImageViewResource(R.id.appWidgetDetails, widgetResources.moreActionsIcon)
-                setOnClickFillInIntent(
-                    R.id.appWidgetDetails,
-                    ClickHandlingActivity.createForActionsDialog(app)
-                )
                 setViewVisibility(R.id.appWidgetFavAction, View.GONE)
             }
         }
+
+    private fun RemoteViews.setupFavActionButton(app: DisplayApplicationInfo) {
+        setContentDescription(
+            R.id.appWidgetFavAction,
+            resources.getString(R.string.widget_content_description_uninstall_app, app.label)
+        )
+        setImageViewResource(R.id.appWidgetFavAction, widgetResources.deleteIcon)
+        setOnClickFillInIntent(
+            R.id.appWidgetFavAction,
+            ClickHandlingActivity.createForUninstallApp(app)
+        )
+    }
+
+    private fun RemoteViews.setupMoreActionsButton(app: DisplayApplicationInfo) {
+        setContentDescription(
+            R.id.appWidgetDetails,
+            resources.getString(R.string.widget_content_description_more_options)
+        )
+        setImageViewResource(R.id.appWidgetDetails, widgetResources.moreActionsIcon)
+        setOnClickFillInIntent(
+            R.id.appWidgetDetails,
+            ClickHandlingActivity.createForActionsDialog(app)
+        )
+    }
 }

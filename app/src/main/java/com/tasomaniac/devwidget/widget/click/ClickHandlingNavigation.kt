@@ -5,7 +5,6 @@ import androidx.appcompat.app.AlertDialog
 import com.tasomaniac.devwidget.R
 import com.tasomaniac.devwidget.navigation.Navigator
 import com.tasomaniac.devwidget.widget.click.commands.ActivityChooserCommand
-import com.tasomaniac.devwidget.widget.click.commands.AppDetailsCommand
 import com.tasomaniac.devwidget.widget.click.commands.FinishCommand
 import com.tasomaniac.devwidget.widget.click.commands.UninstallCommand
 import javax.inject.Inject
@@ -20,8 +19,6 @@ class ClickHandlingNavigation @Inject constructor(
     fun navigateToChooser() = navigator.navigate(ActivityChooserCommand(input.packageName, input.user))
 
     fun uninstall() = navigator.navigate(UninstallCommand(input.packageName))
-
-    fun navigateToAppDetails() = navigator.navigate(AppDetailsCommand(input.packageName))
 
     fun navigateToActionsDialog() {
         val adapter = ActionDialogAdapter(
