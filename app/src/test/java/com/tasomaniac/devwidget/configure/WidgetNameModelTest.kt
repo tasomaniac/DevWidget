@@ -26,18 +26,26 @@ class WidgetNameModelTest {
     private val appWidgetManager = mock<AppWidgetManager> {
         on { getAppWidgetOptions(APP_WIDGET_ID) } doReturn mock<Bundle>()
     }
-    private val removeViewsCreator = mock<RemoveViewsCreator> {
-        on { create(any(), any()) } doReturn mock<RemoteViews>()
-    }
-    private val widgetUpdater = WidgetUpdater(mock(), appWidgetManager, removeViewsCreator, widgetDao)
 
-    private val useCase = WidgetNameModel(
-        widgetDao,
-        widgetUpdater,
-        APP_WIDGET_ID,
-        emptyDebouncer(),
-        testScheduling()
-    )
+    private val useCase: WidgetNameModel
+
+    init {
+        val removeViewsCreator = mock<RemoveViewsCreator> {
+            on { create() } doReturn mock<RemoteViews>()
+        }
+        val remoteViewCreatorFactory = mock<RemoveViewsCreator.Factory> {
+            on { create(any(), any()) } doReturn removeViewsCreator
+        }
+        val widgetUpdater = WidgetUpdater(mock(), appWidgetManager, remoteViewCreatorFactory, widgetDao)
+
+        useCase = WidgetNameModel(
+            widgetDao,
+            widgetUpdater,
+            APP_WIDGET_ID,
+            emptyDebouncer(),
+            testScheduling()
+        )
+    }
 
     @Test
     fun `given NOT available, should insert and update widget`() {
