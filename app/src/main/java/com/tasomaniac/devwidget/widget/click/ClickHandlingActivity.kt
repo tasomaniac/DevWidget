@@ -25,9 +25,6 @@ class ClickHandlingActivity : DaggerAppCompatActivity() {
             UNINSTALL_APP -> {
                 navigation.uninstall()
             }
-            APP_DETAILS -> {
-                navigation.navigateToAppDetails()
-            }
             ACTIONS_DIALOG -> {
                 navigation.navigateToActionsDialog()
             }
@@ -45,14 +42,12 @@ class ClickHandlingActivity : DaggerAppCompatActivity() {
 
         private const val LAUNCH_APP = "LAUNCH_APP"
         private const val UNINSTALL_APP = "UNINSTALL_APP"
-        private const val APP_DETAILS = "APP_DETAILS"
         private const val ACTIONS_DIALOG = "ACTIONS_DIALOG"
 
         const val EXTRA_INPUT = "EXTRA_INPUT"
 
         fun createForLaunchApp(appInfo: DisplayApplicationInfo) = intentFor(LAUNCH_APP, appInfo)
         fun createForUninstallApp(appInfo: DisplayApplicationInfo) = intentFor(UNINSTALL_APP, appInfo)
-        fun createForAppDetails(appInfo: DisplayApplicationInfo) = intentFor(APP_DETAILS, appInfo)
         fun createForActionsDialog(appInfo: DisplayApplicationInfo) = intentFor(ACTIONS_DIALOG, appInfo)
 
         private fun intentFor(launchWhat: String, appInfo: DisplayApplicationInfo) = Intent().apply {

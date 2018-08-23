@@ -20,7 +20,7 @@ import javax.inject.Inject
 class WidgetUpdater @Inject constructor(
     private val app: Application,
     private val appWidgetManager: AppWidgetManager,
-    private val removeViewsCreator: RemoveViewsCreator,
+    private val removeViewsCreatorFactory: RemoveViewsCreator.Factory,
     private val widgetDao: WidgetDao
 ) {
 
@@ -37,7 +37,7 @@ class WidgetUpdater @Inject constructor(
     fun update(widget: Widget, widgetOptions: Bundle = widget.defaultOptions()) =
         Completable.fromAction {
             val minWidth = widgetOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH)
-            val remoteViews = removeViewsCreator.create(widget, minWidth)
+            val remoteViews = removeViewsCreatorFactory.create(widget, minWidth).create()
             appWidgetManager.updateAppWidget(widget.appWidgetId, remoteViews)
         }
 

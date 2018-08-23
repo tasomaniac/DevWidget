@@ -36,7 +36,7 @@ class AppViewHolder(
         appWidgetPackageName.setTextColor(widgetResources.foregroundColor)
 
         appWidgetFavAction.setImageResource(widgetResources.deleteIcon)
-        appWidgetDetails.setImageResource(widgetResources.settingsIcon)
+        appWidgetDetails.setImageResource(widgetResources.moreActionsIcon)
     }
 
     class Factory @Inject constructor(widgetResources: WidgetResources) {
