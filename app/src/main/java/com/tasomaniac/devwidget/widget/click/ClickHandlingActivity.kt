@@ -51,10 +51,15 @@ class ClickHandlingActivity : DaggerAppCompatActivity() {
         fun createForActionsDialog(appInfo: DisplayApplicationInfo) = intentFor(ACTIONS_DIALOG, appInfo)
 
         private fun intentFor(launchWhat: String, appInfo: DisplayApplicationInfo) = Intent().apply {
-            val input = Input(launchWhat, appInfo.packageName, appInfo.user)
-            putExtra(EXTRA_INPUT, input)
+            input = Input(launchWhat, appInfo.packageName, appInfo.user)
         }
 
         fun intent(context: Context) = Intent(context, ClickHandlingActivity::class.java)
     }
 }
+
+var Intent.input: ClickHandlingActivity.Input
+    get() = getParcelableExtra(ClickHandlingActivity.EXTRA_INPUT)
+    set(value) {
+        putExtra(ClickHandlingActivity.EXTRA_INPUT, value)
+    }
