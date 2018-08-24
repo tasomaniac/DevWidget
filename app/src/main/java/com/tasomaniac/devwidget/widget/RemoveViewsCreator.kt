@@ -63,7 +63,7 @@ class RemoveViewsCreator(
             app.getString(R.string.widget_content_description_configure, widget)
         )
         val intent = ConfigureActivity.createIntent(app, widget.appWidgetId)
-            .toPendingActivity(app)
+            .toPendingActivity(app, widget.appWidgetId)
         setOnClickPendingIntent(buttonId, intent)
     }
 
