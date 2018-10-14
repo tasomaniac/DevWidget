@@ -1,0 +1,29 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:name="vector"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <group android:name="group" />
+    <path
+        android:name="canvas_background"
+        android:pathData="M -1 -1 L 581 -1 L 581 401 L -1 401 Z"
+        android:strokeWidth="1" />
+    <group android:name="group_3">
+        <group android:name="group_1" />
+        <path
+            android:name="svg_1"
+            android:pathData="M 19.055 14.504 L 16.392 11.842 C 16.163 11.643 16.065 11.333 16.138 11.038 C 16.211 10.744 16.443 10.516 16.738 10.447 C 17.033 10.378 17.342 10.481 17.538 10.712 L 20.765 13.939 C 21.073 14.253 21.073 14.755 20.765 15.069 L 17.538 18.296 C 17.22 18.573 16.742 18.558 16.442 18.262 C 16.142 17.966 16.12 17.489 16.392 17.167 L 19.055 14.504 Z M 5.185 14.504 L 7.848 17.167 C 8.12 17.489 8.098 17.966 7.798 18.262 C 7.498 18.558 7.02 18.573 6.702 18.296 L 3.475 15.069 C 3.167 14.755 3.167 14.253 3.475 13.939 L 6.702 10.712 C 7.02 10.436 7.498 10.451 7.798 10.746 C 8.098 11.042 8.12 11.52 7.848 11.842 L 5.185 14.504 Z M 11.285 21.153 C 11.165 21.569 10.737 21.816 10.316 21.712 C 9.895 21.608 9.632 21.19 9.72 20.765 L 12.947 7.856 C 13.007 7.566 13.22 7.333 13.503 7.247 C 13.786 7.161 14.094 7.237 14.304 7.445 C 14.514 7.653 14.594 7.959 14.512 8.243 L 11.285 21.153 Z"
+            android:fillColor="#FFFFFF"
+            android:strokeColor="#FFFFFF"
+            android:strokeWidth="1" />
+        <group android:name="group_2" />
+        <group android:name="svg_11">
+            <path
+                android:name="svg_9"
+                android:pathData="M 4.029 8.833 L 4.575 10.25 L 5.121 8.833 L 6.15 8.5 L 5.121 8.167 L 4.575 6.75 L 4.029 8.167 L 3 8.5 L 4.029 8.833 Z M 4.929 3.583 L 5.475 5 L 6.021 3.583 L 7.05 3.25 L 6.021 2.917 L 5.475 1.5 L 4.929 2.917 L 3.9 3.25 L 4.929 3.583 Z M 8.193 6.975 L 9.075 9.375 L 9.957 6.975 L 12 6.313 L 9.957 5.65 L 9.075 3.25 L 8.193 5.65 L 6.15 6.313 L 8.193 6.975 Z"
+                android:fillColor="#FFFFFF"
+                android:strokeWidth="1" />
+        </group>
+    </group>
+</vector>

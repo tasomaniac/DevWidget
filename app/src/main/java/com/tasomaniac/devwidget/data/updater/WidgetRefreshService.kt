@@ -4,6 +4,7 @@ import android.annotation.TargetApi
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.NotificationManager.IMPORTANCE_MIN
 import android.app.Service
 import android.content.Intent
 import android.content.IntentFilter
@@ -26,8 +27,9 @@ class WidgetRefreshService : Service() {
 
         val notification = Notification.Builder(this, CHANNEL_ID)
             .setContentTitle(getString(R.string.app_name))
-            .setContentText("Widget update service is on")
-            .setSmallIcon(R.drawable.ic_delete_light)
+            .setContentText(getString(R.string.widget_refresh_notification_content))
+            .setSmallIcon(R.drawable.ic_notification_icon)
+            .setColor(getColor(R.color.theme_primary))
             .build()
         startForeground(NOTIFICATION_ID, notification)
 
@@ -46,10 +48,12 @@ class WidgetRefreshService : Service() {
 
     private fun setupNotificationChannel() {
         val notificationManager = getSystemService<NotificationManager>()!!
-        val channel = NotificationChannel(CHANNEL_ID, "Widget updater", NotificationManager.IMPORTANCE_MIN)
-        channel.lockscreenVisibility = Notification.VISIBILITY_SECRET
-        channel.description =
-                "Android Oreo requires a persistent background service for widget auto-update. Disabling will require to use refresh button manually."
+        val channelName = getString(R.string.widget_refresh_notification_channel_name)
+        val channel = NotificationChannel(CHANNEL_ID, channelName, IMPORTANCE_MIN).apply {
+            lockscreenVisibility = Notification.VISIBILITY_SECRET
+            setShowBadge(false)
+            description = getString(R.string.widget_refresh_notification_channel_desc)
+        }
         notificationManager.createNotificationChannel(channel)
     }
 

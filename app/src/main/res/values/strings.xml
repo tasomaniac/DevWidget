@@ -26,6 +26,10 @@
     <string name="widget_error_activity_not_found">No Launcher Activity found!</string>
     <string name="widget_error_activity_cannot_be_launched">Activity cannot be launched. Make sure it is exported.</string>
 
+    <string name="widget_refresh_notification_content">Widget auto-update service is on</string>
+    <string name="widget_refresh_notification_channel_name">Widget auto-updater</string>
+    <string name="widget_refresh_notification_channel_desc">Android Oreo requires a persistent background service for widget auto-update. Disabling will require to use refresh button manually.</string>
+
     <string name="activity_chooser_open_with">Open with…</string>
 
     <string name="delete">Delete</string>
