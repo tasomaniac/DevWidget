@@ -3,6 +3,7 @@ package com.tasomaniac.devwidget.widget
 import android.content.res.Resources
 import android.view.View
 import android.widget.RemoteViews
+import androidx.core.graphics.drawable.toBitmap
 import com.tasomaniac.devwidget.BuildConfig
 import com.tasomaniac.devwidget.R
 import com.tasomaniac.devwidget.widget.click.ClickHandlingActivity
