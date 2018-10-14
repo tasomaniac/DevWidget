@@ -9,16 +9,16 @@
     tools:showIn="@layout/settings_activity">
 
     <com.google.android.material.appbar.CollapsingToolbarLayout
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:fitsSystemWindows="true"
-      app:expandedTitleMarginStart="@dimen/keyline_1"
-      app:layout_scrollFlags="scroll|exitUntilCollapsed">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        app:expandedTitleMarginStart="@dimen/keyline_1"
+        app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
         <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        style="@style/DevWidget.Toolbar"
-        app:layout_collapseMode="pin"
-        app:navigationContentDescription="@string/done"/>
+            android:id="@+id/toolbar"
+            style="@style/DevWidget.Toolbar"
+            app:layout_collapseMode="pin"
+            app:navigationContentDescription="@string/done" />
     </com.google.android.material.appbar.CollapsingToolbarLayout>
 </com.google.android.material.appbar.AppBarLayout>

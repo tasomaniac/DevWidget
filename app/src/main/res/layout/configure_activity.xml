@@ -8,20 +8,20 @@
     tools:context=".configure.ConfigureActivity">
 
     <com.google.android.material.appbar.AppBarLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:fitsSystemWindows="true"
-      android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
-        <androidx.appcompat.widget.Toolbar
-        style="@style/DevWidget.Toolbar"
-        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:navigationContentDescription="@string/add_widget"/>
+        android:fitsSystemWindows="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <androidx.appcompat.widget.Toolbar
+            style="@style/DevWidget.Toolbar"
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:navigationContentDescription="@string/add_widget" />
     </com.google.android.material.appbar.AppBarLayout>
 
-  <include layout="@layout/configure_content" />
+    <include layout="@layout/configure_content" />
 
 </LinearLayout>
 

@@ -3,9 +3,9 @@
     android:id="@android:id/text1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:drawablePadding="8dp"
     android:gravity="center_vertical"
     android:minHeight="?android:attr/listPreferredItemHeightSmall"
     android:paddingEnd="24dp"
     android:paddingStart="24dp"
-    android:drawablePadding="8dp"
     android:textAppearance="?android:attr/textAppearanceListItemSmall" />

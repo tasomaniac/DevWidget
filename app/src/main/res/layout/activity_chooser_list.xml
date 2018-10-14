@@ -53,8 +53,8 @@
         android:clipToPadding="false"
         android:divider="@null"
         android:elevation="8dp"
+        android:orientation="vertical"
         android:scrollbarStyle="outsideOverlay"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:orientation="vertical" />
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 </com.tasomaniac.devwidget.widget.chooser.ResolverDrawerLayout>

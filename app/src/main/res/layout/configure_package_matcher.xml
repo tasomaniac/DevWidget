@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?selectableItemBackground"
-    android:textAppearance="?textAppearanceListItemSmall"
     android:gravity="center_vertical"
     android:minHeight="?listPreferredItemHeightSmall"
-    android:paddingStart="@dimen/keyline_1"
     android:paddingEnd="@dimen/keyline_1"
+    android:paddingStart="@dimen/keyline_1"
+    android:textAppearance="?textAppearanceListItemSmall"
     android:textIsSelectable="false"
     tools:ignore="Overdraw" />

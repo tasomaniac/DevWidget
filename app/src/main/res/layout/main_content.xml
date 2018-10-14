@@ -20,7 +20,7 @@
         android:paddingEnd="@dimen/keyline_1"
         android:textSize="16sp"
         android:text="@string/main_empty_info"
-        tools:visibility="visible"/>
+        tools:visibility="visible" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/mainWidgetList"
@@ -28,5 +28,5 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:visibility="gone"/>
+        tools:visibility="gone" />
 </FrameLayout>

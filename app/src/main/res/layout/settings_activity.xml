@@ -6,12 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".settings.SettingsActivity">
 
-  <include layout="@layout/include_appbar"/>
+    <include layout="@layout/include_appbar" />
 
-  <FrameLayout
-      android:id="@+id/fragment_container"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
