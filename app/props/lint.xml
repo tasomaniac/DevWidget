@@ -31,6 +31,7 @@
 
     <issue id="VectorPath">
         <ignore path="*/ic_launcher_foreground.xml" />
+        <ignore path="*/ic_notification_icon.xml" />
         <ignore path="*/ic_settings.xml" />
         <ignore path="*/ic_settings_light.xml" />
     </issue>
@@ -44,6 +45,9 @@
     <issue id="GoogleAppIndexingApiWarning" severity="ignore" />
     <issue id="GoogleAppIndexingWarning" severity="ignore" />
 
+    <issue id="ConvertToWebp">
+        <ignore path="*/empty.jpg" />
+    </issue>
     <!-- Jettify and AndroidX problems -->
     <issue id="MissingRegistered" severity="ignore" />
     <issue id="AppCompatResource">
@@ -53,4 +57,7 @@
     <!-- Tools 3.3 problems -->
     <issue id="ClickableViewAccessibility"
         severity="ignore" /> <!-- https://issuetracker.google.com/issues/112496356 -->
+    <issue id="UnusedAttribute">
+        <ignore regexp="android:foreground" />
+    </issue>
 </lint>

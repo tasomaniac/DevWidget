@@ -82,7 +82,7 @@
                 android:layout_gravity="center"
                 android:drawableEnd="@drawable/ic_settings"
                 android:drawablePadding="@dimen/half_gap"
-                android:text="@string/configure_title"
+                android:text="@string/widget_configure"
                 tools:visibility="gone" />
 
         </FrameLayout>

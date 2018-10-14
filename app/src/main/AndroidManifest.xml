@@ -26,7 +26,7 @@
 
         <activity
             android:name=".configure.ConfigureActivity"
-            android:label="@string/configure_title"
+            android:label="@string/widget_configure"
             android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
