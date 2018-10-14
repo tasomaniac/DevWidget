@@ -5,6 +5,7 @@ import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.then
 import com.tasomaniac.devwidget.data.Filter
 import com.tasomaniac.devwidget.data.FilterDao
+import com.tasomaniac.devwidget.data.updater.PackageResolver
 import io.reactivex.Flowable
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -27,7 +28,7 @@ class PackageMatcherModelTest(
         )
     }
 
-    private val model = PackageMatcherModel(packageResolver, mock(), filterDao, APP_WIDGET_ID)
+    private val model = PackageMatcherModel(packageResolver, filterDao, mock(), APP_WIDGET_ID)
 
     @Test
     fun `should find expected packageMatchers`() {
@@ -54,7 +55,7 @@ class PackageMatcherModelTest(
         BDDMockito.given(filterDao.findFiltersByWidgetId(APP_WIDGET_ID))
             .willReturn(Flowable.just(SOME_PACKAGE_MATCHERS))
 
-        model.packageMatchers()
+        model.findAvailablePackageMatchers()
             .test()
             .assertValue(SOME_PACKAGE_MATCHERS)
     }

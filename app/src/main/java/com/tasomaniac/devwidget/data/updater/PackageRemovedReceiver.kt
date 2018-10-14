@@ -1,4 +1,4 @@
-package com.tasomaniac.devwidget.receivers
+package com.tasomaniac.devwidget.data.updater
 
 import android.annotation.SuppressLint
 import android.content.Context

@@ -46,6 +46,12 @@ class WidgetResources @Inject constructor(
             ON -> R.drawable.ic_dev_options_light
         }
 
+    val refreshIcon
+        @DrawableRes get() = when (nightModePreferences.mode) {
+            OFF -> R.drawable.ic_refresh
+            ON -> R.drawable.ic_refresh_light
+        }
+
     private val foregroundDark = ResourcesCompat.getColor(resources, R.color.foregroundDark, null)
     private val foregroundLight = ResourcesCompat.getColor(resources, R.color.foregroundLight, null)
 

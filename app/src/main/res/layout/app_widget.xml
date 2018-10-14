@@ -34,12 +34,24 @@
                 tools:text="Widget #5" />
 
             <ImageButton
+                android:id="@+id/widgetRefresh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?android:selectableItemBackgroundBorderless"
+                android:contentDescription="@string/widget_content_description_refresh"
+                android:padding="@dimen/half_gap"
+                android:visibility="gone"
+                tools:visibility="visible"
+                tools:src="@drawable/ic_refresh" />
+
+            <ImageButton
                 android:id="@+id/widgetDevOptions"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="?android:selectableItemBackgroundBorderless"
                 android:contentDescription="@string/widget_content_description_dev_options"
-                android:padding="@dimen/half_gap" />
+                android:padding="@dimen/half_gap"
+                tools:src="@drawable/ic_dev_options" />
 
             <ImageButton
                 android:id="@+id/widgetConfigure"
@@ -48,7 +60,7 @@
                 android:background="?android:selectableItemBackgroundBorderless"
                 android:contentDescription="@null"
                 android:padding="@dimen/half_gap"
-                android:src="@drawable/ic_settings" />
+                tools:src="@drawable/ic_settings" />
 
         </LinearLayout>
 

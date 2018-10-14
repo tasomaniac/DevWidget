@@ -1,4 +1,4 @@
-package com.tasomaniac.devwidget.widget
+package com.tasomaniac.devwidget.data.updater
 
 import io.reactivex.functions.Predicate
 

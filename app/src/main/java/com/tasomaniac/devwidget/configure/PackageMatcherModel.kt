@@ -2,23 +2,20 @@ package com.tasomaniac.devwidget.configure
 
 import androidx.lifecycle.ViewModel
 import com.jakewharton.rx.ReplayingShare
-import com.tasomaniac.devwidget.data.AppDao
 import com.tasomaniac.devwidget.data.FilterDao
-import com.tasomaniac.devwidget.data.insertApps
 import com.tasomaniac.devwidget.data.insertPackageMatchers
-import com.tasomaniac.devwidget.extensions.flatten
-import com.tasomaniac.devwidget.widget.matchPackage
+import com.tasomaniac.devwidget.data.updater.PackageResolver
+import com.tasomaniac.devwidget.data.updater.WidgetAppsDataUpdater
 import io.reactivex.Completable
 import io.reactivex.Flowable
-import io.reactivex.Observable
 import io.reactivex.annotations.CheckReturnValue
-import io.reactivex.functions.BiFunction
+import io.reactivex.rxkotlin.combineLatest
 import javax.inject.Inject
 
 class PackageMatcherModel @Inject constructor(
     private val packageResolver: PackageResolver,
-    private val appDao: AppDao,
     private val filterDao: FilterDao,
+    private val widgetAppsDataUpdater: WidgetAppsDataUpdater,
     val appWidgetId: Int
 ) : ViewModel() {
 
@@ -28,36 +25,18 @@ class PackageMatcherModel @Inject constructor(
     }
 
     @CheckReturnValue
-    fun findAndInsertMatchingApps(): Completable {
-        return filterDao.findFiltersByWidgetId(appWidgetId)
-            .firstOrError()
-            .flatten()
-            .flatMapCompletable { packageMatcher ->
-                insertMatchingApps(packageMatcher)
-            }
-    }
-
-    private fun insertMatchingApps(packageMatcher: String): Completable {
-        return Observable
-            .fromIterable(packageResolver.allApplications())
-            .filter(matchPackage(packageMatcher))
-            .toList()
-            .flatMapCompletable {
-                appDao.insertApps(appWidgetId, packageMatcher, it)
-            }
-    }
+    fun findAndInsertMatchingApps() = widgetAppsDataUpdater.findAndInsertMatchingApps(appWidgetId)
 
     @CheckReturnValue
     fun findPossiblePackageMatchers(): Flowable<List<String>> {
-        return Flowable.combineLatest(
-            Flowable.fromCallable { packageResolver.allApplications().toPackageMatchers() },
-            packageMatchers(),
-            BiFunction { possible, available ->
+        return Flowable.fromCallable { packageResolver.allApplications().toPackageMatchers() }
+            .combineLatest(findAvailablePackageMatchers())
+            .map { (possible, available) ->
                 possible - available
-            })
+            }
     }
 
     @CheckReturnValue
-    fun packageMatchers(): Flowable<List<String>> =
+    fun findAvailablePackageMatchers(): Flowable<List<String>> =
         filterDao.findFiltersByWidgetId(appWidgetId).compose(ReplayingShare.instance())
 }

@@ -2,6 +2,7 @@ package com.tasomaniac.devwidget.configure
 
 import android.annotation.TargetApi
 import android.os.Build.VERSION_CODES.O
+import com.tasomaniac.devwidget.ViewModelProvider
 import com.tasomaniac.devwidget.data.Analytics
 import com.tasomaniac.devwidget.extensions.SchedulingStrategy
 import com.tasomaniac.devwidget.widget.WidgetUpdater
@@ -11,7 +12,7 @@ import io.reactivex.Completable
 import javax.inject.Inject
 
 class ConfigurePresenter @Inject constructor(
-    viewModelProvider: com.tasomaniac.devwidget.ViewModelProvider,
+    viewModelProvider: ViewModelProvider,
     widgetUpdater: WidgetUpdater,
     configurePinning: ConfigurePinning,
     private val appWidgetId: Int,
@@ -46,7 +47,7 @@ class ConfigurePresenter @Inject constructor(
             .autoDisposable(scopeProvider)
             .subscribe(view::setItems)
 
-        packageMatcherModel.packageMatchers()
+        packageMatcherModel.findAvailablePackageMatchers()
             .compose(scheduling.forFlowable())
             .autoDisposable(scopeProvider)
             .subscribe(view::setFilters)

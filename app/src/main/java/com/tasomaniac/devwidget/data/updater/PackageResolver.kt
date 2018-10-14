@@ -1,4 +1,4 @@
-package com.tasomaniac.devwidget.configure
+package com.tasomaniac.devwidget.data.updater
 
 import android.content.pm.PackageManager
 import javax.inject.Inject

@@ -4,69 +4,70 @@
     android:id="@+id/appWidgetContainer"
     android:layout_width="match_parent"
     android:layout_height="64dp"
-    android:paddingStart="@dimen/half_gap"
+    android:background="?android:selectableItemBackground"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:background="?android:selectableItemBackground"
+    android:paddingStart="@dimen/half_gap"
     tools:ignore="RtlSymmetry">
 
-  <ImageView
-      android:id="@+id/appWidgetIcon"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:minWidth="@dimen/app_widget_icon_size"
-      android:minHeight="@dimen/app_widget_icon_size"
-      android:adjustViewBounds="true"
-      android:contentDescription="@null" />
-
-  <LinearLayout
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_weight="1"
-      android:orientation="vertical"
-      android:layout_marginStart="@dimen/half_gap">
-
-    <TextView
-        android:id="@+id/appWidgetPackageName"
+    <ImageView
+        android:id="@+id/appWidgetIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ellipsize="middle"
-        android:singleLine="true"
-        android:fontFamily="sans-serif-condensed"
-        android:textSize="12sp"
-        tools:text="com.tasomaniac.devwidget" />
+        android:adjustViewBounds="true"
+        android:contentDescription="@null"
+        android:minHeight="@dimen/app_widget_icon_size"
+        android:minWidth="@dimen/app_widget_icon_size"
+        tools:src="@mipmap/ic_launcher" />
 
-    <TextView
-        android:id="@+id/appWidgetLabel"
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/half_gap"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/appWidgetPackageName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="middle"
+            android:fontFamily="sans-serif-condensed"
+            android:singleLine="true"
+            android:textSize="12sp"
+            tools:text="com.tasomaniac.devwidget" />
+
+        <TextView
+            android:id="@+id/appWidgetLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:ellipsize="middle"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textSize="16sp"
+            tools:text="DevWidget" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/appWidgetFavAction"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:ellipsize="middle"
-        android:singleLine="true"
-        android:fontFamily="sans-serif-light"
-        android:gravity="center_vertical"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textSize="16sp"
-        tools:text="DevWidget" />
-  </LinearLayout>
+        android:layout_height="wrap_content"
+        android:background="?android:selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:contentDescription="@null"
+        android:padding="@dimen/half_gap"
+        tools:ignore="KeyboardInaccessibleWidget" />
 
-  <ImageView
-      android:id="@+id/appWidgetFavAction"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:padding="@dimen/half_gap"
-      android:background="?android:selectableItemBackgroundBorderless"
-      android:clickable="true"
-      android:contentDescription="@null"
-      tools:ignore="KeyboardInaccessibleWidget" />
-
-  <ImageView
-      android:id="@+id/appWidgetDetails"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:src="@drawable/ic_settings"
-      android:padding="@dimen/half_gap"
-      android:background="?android:selectableItemBackgroundBorderless"
-      android:clickable="true"
-      android:contentDescription="@null"
-      tools:ignore="KeyboardInaccessibleWidget" />
+    <ImageView
+        android:id="@+id/appWidgetDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?android:selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:contentDescription="@null"
+        android:padding="@dimen/half_gap"
+        android:src="@drawable/ic_settings"
+        tools:ignore="KeyboardInaccessibleWidget" />
 </LinearLayout>

@@ -1,4 +1,4 @@
-package com.tasomaniac.devwidget.receivers
+package com.tasomaniac.devwidget.data.updater
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -9,7 +9,6 @@ import com.tasomaniac.devwidget.data.insertApp
 import com.tasomaniac.devwidget.extensions.SchedulingStrategy
 import com.tasomaniac.devwidget.extensions.flatten
 import com.tasomaniac.devwidget.widget.WidgetUpdater
-import com.tasomaniac.devwidget.widget.matchPackage
 import dagger.android.DaggerBroadcastReceiver
 import io.reactivex.Completable
 import javax.inject.Inject

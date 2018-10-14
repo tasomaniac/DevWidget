@@ -5,6 +5,8 @@ import android.appwidget.AppWidgetManager
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
+import android.provider.Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS
 import android.view.View
 import android.widget.RemoteViews
 import androidx.annotation.IdRes
@@ -13,6 +15,7 @@ import com.tasomaniac.devwidget.configure.ConfigureActivity
 import com.tasomaniac.devwidget.data.Widget
 import com.tasomaniac.devwidget.settings.OpacityPreferences
 import com.tasomaniac.devwidget.widget.click.ClickHandlingActivity
+import com.tasomaniac.devwidget.widget.click.WidgetRefreshActivity
 import javax.inject.Inject
 
 class RemoveViewsCreator(
@@ -38,6 +41,7 @@ class RemoveViewsCreator(
         setupConfigureButton(R.id.widgetConfigure)
         setImageViewResource(R.id.widgetConfigure, widgetResources.settingsIcon)
         setupDevOptionsButton()
+        setupRefreshButton()
     }
 
     private fun RemoteViews.setupConfigureButton(@IdRes buttonId: Int) {
@@ -51,10 +55,22 @@ class RemoveViewsCreator(
     }
 
     private fun RemoteViews.setupDevOptionsButton() {
-        val intent = Intent(android.provider.Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS)
+        val intent = Intent(ACTION_APPLICATION_DEVELOPMENT_SETTINGS)
             .toPendingActivity(app)
         setOnClickPendingIntent(R.id.widgetDevOptions, intent)
         setImageViewResource(R.id.widgetDevOptions, widgetResources.devOptionsIcon)
+    }
+
+    private fun RemoteViews.setupRefreshButton() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+            setViewVisibility(R.id.widgetRefresh, View.GONE)
+        } else {
+            setViewVisibility(R.id.widgetRefresh, View.VISIBLE)
+            val intent = WidgetRefreshActivity.createIntent(app, widget.appWidgetId)
+                .toPendingActivity(app, widget.appWidgetId)
+            setOnClickPendingIntent(R.id.widgetRefresh, intent)
+            setImageViewResource(R.id.widgetRefresh, widgetResources.refreshIcon)
+        }
     }
 
     private fun RemoteViews.setupBackgroundShade() {
@@ -77,7 +93,8 @@ class RemoveViewsCreator(
     }
 
     private fun RemoteViews.setupClickHandling() {
-        val intentTemplate = ClickHandlingActivity.intent(app).toPendingActivity(app)
+        val intentTemplate = ClickHandlingActivity.intent(app)
+            .toPendingActivity(app, widget.appWidgetId)
         setPendingIntentTemplate(R.id.widgetAppList, intentTemplate)
     }
 

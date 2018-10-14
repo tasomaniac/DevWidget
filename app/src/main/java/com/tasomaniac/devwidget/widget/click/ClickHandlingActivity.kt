@@ -44,8 +44,6 @@ class ClickHandlingActivity : DaggerAppCompatActivity() {
         private const val UNINSTALL_APP = "UNINSTALL_APP"
         private const val ACTIONS_DIALOG = "ACTIONS_DIALOG"
 
-        const val EXTRA_INPUT = "EXTRA_INPUT"
-
         fun createForLaunchApp(appInfo: DisplayApplicationInfo) = intentFor(LAUNCH_APP, appInfo)
         fun createForUninstallApp(appInfo: DisplayApplicationInfo) = intentFor(UNINSTALL_APP, appInfo)
         fun createForActionsDialog(appInfo: DisplayApplicationInfo) = intentFor(ACTIONS_DIALOG, appInfo)
@@ -58,8 +56,10 @@ class ClickHandlingActivity : DaggerAppCompatActivity() {
     }
 }
 
+private const val EXTRA_INPUT = "EXTRA_INPUT"
+
 var Intent.input: ClickHandlingActivity.Input
-    get() = getParcelableExtra(ClickHandlingActivity.EXTRA_INPUT)
+    get() = getParcelableExtra(EXTRA_INPUT)
     set(value) {
-        putExtra(ClickHandlingActivity.EXTRA_INPUT, value)
+        putExtra(EXTRA_INPUT, value)
     }
