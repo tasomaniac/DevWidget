@@ -4,10 +4,12 @@ import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import com.tasomaniac.devwidget.data.Widget
 import com.tasomaniac.devwidget.data.WidgetDao
 import com.tasomaniac.devwidget.data.deleteWidgets
+import com.tasomaniac.devwidget.data.updater.WidgetRefreshService
 import com.tasomaniac.devwidget.extensions.SchedulingStrategy
 import com.tasomaniac.devwidget.extensions.flatten
 import dagger.android.AndroidInjection
@@ -25,6 +27,10 @@ class WidgetProvider : AppWidgetProvider() {
     override fun onReceive(context: Context, intent: Intent) {
         AndroidInjection.inject(this, context)
         super.onReceive(context, intent)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            context.startForegroundService(Intent(context, WidgetRefreshService::class.java))
+        }
     }
 
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, vararg appWidgetIds: Int) {
