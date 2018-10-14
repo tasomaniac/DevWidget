@@ -1,4 +1,4 @@
-<com.tasomaniac.devwidget.view.ForegroundLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.tasomaniac.devwidget.main.ForegroundLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -28,4 +28,4 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/app_widget_list_item" />
 
-</com.tasomaniac.devwidget.view.ForegroundLinearLayout>
+</com.tasomaniac.devwidget.main.ForegroundLinearLayout>

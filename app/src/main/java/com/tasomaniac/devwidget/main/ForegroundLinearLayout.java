@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.tasomaniac.devwidget.view;
+package com.tasomaniac.devwidget.main;
 
 import android.content.Context;
 import android.content.res.TypedArray;
