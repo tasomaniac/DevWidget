@@ -3,7 +3,7 @@ package com.tasomaniac.devwidget.settings
 import android.content.SharedPreferences
 import com.tasomaniac.devwidget.R
 import com.tasomaniac.devwidget.data.Analytics
-import com.tasomaniac.devwidget.rx.SchedulingStrategy
+import com.tasomaniac.devwidget.extensions.SchedulingStrategy
 import com.tasomaniac.devwidget.widget.WidgetUpdater
 import javax.inject.Inject
 

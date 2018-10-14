@@ -6,7 +6,7 @@ import com.tasomaniac.devwidget.data.AppDao
 import com.tasomaniac.devwidget.data.FilterDao
 import com.tasomaniac.devwidget.data.insertApps
 import com.tasomaniac.devwidget.data.insertPackageMatchers
-import com.tasomaniac.devwidget.rx.flatten
+import com.tasomaniac.devwidget.extensions.flatten
 import com.tasomaniac.devwidget.widget.matchPackage
 import io.reactivex.Completable
 import io.reactivex.Flowable

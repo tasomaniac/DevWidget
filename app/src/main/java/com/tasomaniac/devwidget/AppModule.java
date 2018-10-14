@@ -10,9 +10,9 @@ import android.content.res.Resources;
 import android.os.UserManager;
 import android.preference.PreferenceManager;
 
-import com.tasomaniac.devwidget.rx.Debouncer;
-import com.tasomaniac.devwidget.rx.DefaultDebouncer;
-import com.tasomaniac.devwidget.rx.SchedulingStrategy;
+import com.tasomaniac.devwidget.extensions.Debouncer;
+import com.tasomaniac.devwidget.extensions.DefaultDebouncer;
+import com.tasomaniac.devwidget.extensions.SchedulingStrategy;
 
 import java.util.concurrent.TimeUnit;
 

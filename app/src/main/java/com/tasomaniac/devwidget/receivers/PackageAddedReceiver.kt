@@ -6,8 +6,8 @@ import android.content.Intent
 import com.tasomaniac.devwidget.data.AppDao
 import com.tasomaniac.devwidget.data.FilterDao
 import com.tasomaniac.devwidget.data.insertApp
-import com.tasomaniac.devwidget.rx.SchedulingStrategy
-import com.tasomaniac.devwidget.rx.flatten
+import com.tasomaniac.devwidget.extensions.SchedulingStrategy
+import com.tasomaniac.devwidget.extensions.flatten
 import com.tasomaniac.devwidget.widget.WidgetUpdater
 import com.tasomaniac.devwidget.widget.matchPackage
 import dagger.android.DaggerBroadcastReceiver

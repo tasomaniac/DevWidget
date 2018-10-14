@@ -1,4 +1,4 @@
-package com.tasomaniac.devwidget.rx
+package com.tasomaniac.devwidget.extensions
 
 import io.reactivex.CompletableTransformer
 import io.reactivex.FlowableTransformer

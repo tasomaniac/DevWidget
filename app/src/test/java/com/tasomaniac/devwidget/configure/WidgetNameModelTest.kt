@@ -11,8 +11,8 @@ import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.then
 import com.tasomaniac.devwidget.data.Widget
 import com.tasomaniac.devwidget.data.WidgetDao
-import com.tasomaniac.devwidget.rx.emptyDebouncer
-import com.tasomaniac.devwidget.rx.testScheduling
+import com.tasomaniac.devwidget.extensions.emptyDebouncer
+import com.tasomaniac.devwidget.extensions.testScheduling
 import com.tasomaniac.devwidget.widget.RemoveViewsCreator
 import com.tasomaniac.devwidget.widget.WidgetUpdater
 import io.reactivex.Maybe

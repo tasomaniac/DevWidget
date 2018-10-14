@@ -5,9 +5,9 @@ import com.tasomaniac.devwidget.data.Widget
 import com.tasomaniac.devwidget.data.WidgetDao
 import com.tasomaniac.devwidget.data.insertWidget
 import com.tasomaniac.devwidget.data.updateWidget
-import com.tasomaniac.devwidget.rx.Debouncer
-import com.tasomaniac.devwidget.rx.SchedulingStrategy
-import com.tasomaniac.devwidget.rx.onlyTrue
+import com.tasomaniac.devwidget.extensions.Debouncer
+import com.tasomaniac.devwidget.extensions.SchedulingStrategy
+import com.tasomaniac.devwidget.extensions.onlyTrue
 import com.tasomaniac.devwidget.widget.WidgetUpdater
 import io.reactivex.Completable
 import io.reactivex.annotations.CheckReturnValue

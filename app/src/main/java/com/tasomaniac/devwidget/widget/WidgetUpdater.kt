@@ -11,7 +11,7 @@ import com.tasomaniac.devwidget.R
 import com.tasomaniac.devwidget.configure.WidgetPinnedReceiver
 import com.tasomaniac.devwidget.data.Widget
 import com.tasomaniac.devwidget.data.WidgetDao
-import com.tasomaniac.devwidget.rx.flatten
+import com.tasomaniac.devwidget.extensions.flatten
 import io.reactivex.Completable
 import io.reactivex.annotations.CheckReturnValue
 import java.util.concurrent.TimeUnit

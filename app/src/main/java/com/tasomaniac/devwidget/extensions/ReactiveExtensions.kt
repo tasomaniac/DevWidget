@@ -1,6 +1,6 @@
 @file:Suppress("NOTHING_TO_INLINE")
 
-package com.tasomaniac.devwidget.rx
+package com.tasomaniac.devwidget.extensions
 
 import io.reactivex.Single
 

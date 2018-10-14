@@ -3,7 +3,7 @@ package com.tasomaniac.devwidget.configure
 import android.annotation.TargetApi
 import android.os.Build.VERSION_CODES.O
 import com.tasomaniac.devwidget.data.Analytics
-import com.tasomaniac.devwidget.rx.SchedulingStrategy
+import com.tasomaniac.devwidget.extensions.SchedulingStrategy
 import com.tasomaniac.devwidget.widget.WidgetUpdater
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
 import com.uber.autodispose.autoDisposable

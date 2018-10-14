@@ -6,7 +6,7 @@ import android.content.Intent
 import com.tasomaniac.devwidget.data.AppDao
 import com.tasomaniac.devwidget.data.WidgetDao
 import com.tasomaniac.devwidget.data.deleteApp
-import com.tasomaniac.devwidget.rx.SchedulingStrategy
+import com.tasomaniac.devwidget.extensions.SchedulingStrategy
 import com.tasomaniac.devwidget.widget.WidgetUpdater
 import dagger.android.DaggerBroadcastReceiver
 import javax.inject.Inject

@@ -8,8 +8,8 @@ import android.os.Bundle
 import com.tasomaniac.devwidget.data.Widget
 import com.tasomaniac.devwidget.data.WidgetDao
 import com.tasomaniac.devwidget.data.deleteWidgets
-import com.tasomaniac.devwidget.rx.SchedulingStrategy
-import com.tasomaniac.devwidget.rx.flatten
+import com.tasomaniac.devwidget.extensions.SchedulingStrategy
+import com.tasomaniac.devwidget.extensions.flatten
 import dagger.android.AndroidInjection
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject

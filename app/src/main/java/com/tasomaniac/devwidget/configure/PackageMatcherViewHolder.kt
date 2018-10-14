@@ -15,8 +15,8 @@ import com.tasomaniac.devwidget.data.AppDao
 import com.tasomaniac.devwidget.data.FilterDao
 import com.tasomaniac.devwidget.data.deleteAppsByPackageMatcher
 import com.tasomaniac.devwidget.data.deletePackageMatcher
+import com.tasomaniac.devwidget.extensions.SchedulingStrategy
 import com.tasomaniac.devwidget.extensions.inflate
-import com.tasomaniac.devwidget.rx.SchedulingStrategy
 import io.reactivex.disposables.Disposables
 import javax.inject.Inject
 
