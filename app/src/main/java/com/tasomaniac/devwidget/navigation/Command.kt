@@ -9,9 +9,9 @@ import com.tasomaniac.devwidget.extensions.toast
 interface Command {
     fun action(activity: Activity)
 
-    fun Intent.start(activity: Activity) = activity.apply {
+    fun Intent.safeStart(activity: Activity) = activity.apply {
         try {
-            startActivity(this@start)
+            startActivity(this@safeStart)
         } catch (e: ActivityNotFoundException) {
             toast(R.string.widget_error_activity_cannot_be_launched)
         } finally {

@@ -28,7 +28,8 @@ class ClickHandlingNavigation @Inject constructor(
         AlertDialog.Builder(activity)
             .setTitle(R.string.widget_choose_action)
             .setAdapter(adapter) { _, position ->
-                val command = adapter.getItem(position)!!.command(input.packageName)
+                val action = adapter.getItem(position)!!
+                val command = action.commandForPackage?.invoke(input.packageName) ?: action.command!!
                 navigator.navigate(command)
             }
             .setOnDismissListener {

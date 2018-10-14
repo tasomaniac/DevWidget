@@ -11,6 +11,6 @@ data class AppDetailsCommand(private val packageName: String) : Command {
     override fun action(activity: Activity) {
         Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
             data = Uri.parse("package:$packageName")
-        }.start(activity)
+        }.safeStart(activity)
     }
 }

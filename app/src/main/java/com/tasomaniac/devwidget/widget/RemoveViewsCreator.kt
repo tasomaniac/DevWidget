@@ -15,6 +15,7 @@ import com.tasomaniac.devwidget.configure.ConfigureActivity
 import com.tasomaniac.devwidget.data.Widget
 import com.tasomaniac.devwidget.settings.OpacityPreferences
 import com.tasomaniac.devwidget.widget.click.ClickHandlingActivity
+import com.tasomaniac.devwidget.widget.click.HeaderOptionsActivity
 import com.tasomaniac.devwidget.widget.click.WidgetRefreshActivity
 import javax.inject.Inject
 
@@ -38,10 +39,20 @@ class RemoveViewsCreator(
         setTextViewText(R.id.widgetTitle, widget.name)
         setTextColor(R.id.widgetTitle, widgetResources.foregroundColor)
 
-        setupConfigureButton(R.id.widgetConfigure)
-        setImageViewResource(R.id.widgetConfigure, widgetResources.settingsIcon)
-        setupDevOptionsButton()
-        setupRefreshButton()
+        if (widgetResources.shouldDisplayExtendedHeader(minWidth)) {
+            setupConfigureButton(R.id.widgetConfigure)
+            setImageViewResource(R.id.widgetConfigure, widgetResources.settingsIcon)
+            setupDevOptionsButton()
+            setupRefreshButton()
+
+            setViewVisibility(R.id.widgetDevOptions, View.VISIBLE)
+            setViewVisibility(R.id.widgetRefresh, View.VISIBLE)
+        } else {
+            setupCompactHeader()
+
+            setViewVisibility(R.id.widgetDevOptions, View.GONE)
+            setViewVisibility(R.id.widgetRefresh, View.GONE)
+        }
     }
 
     private fun RemoteViews.setupConfigureButton(@IdRes buttonId: Int) {
@@ -71,6 +82,15 @@ class RemoveViewsCreator(
             setOnClickPendingIntent(R.id.widgetRefresh, intent)
             setImageViewResource(R.id.widgetRefresh, widgetResources.refreshIcon)
         }
+    }
+
+    private fun RemoteViews.setupCompactHeader() {
+        setContentDescription(R.id.widgetConfigure, app.getString(R.string.widget_content_description_more_options))
+        setImageViewResource(R.id.widgetConfigure, widgetResources.moreActionsIcon)
+
+        val intent = HeaderOptionsActivity.createIntent(app, widget.appWidgetId)
+            .toPendingActivity(app, widget.appWidgetId)
+        setOnClickPendingIntent(R.id.widgetConfigure, intent)
     }
 
     private fun RemoteViews.setupBackgroundShade() {

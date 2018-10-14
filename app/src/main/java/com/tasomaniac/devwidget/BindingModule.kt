@@ -15,6 +15,8 @@ import com.tasomaniac.devwidget.widget.WidgetViewsService
 import com.tasomaniac.devwidget.widget.chooser.ActivityChooserActivity
 import com.tasomaniac.devwidget.widget.click.ClickHandlingActivity
 import com.tasomaniac.devwidget.widget.click.ClickHandlingModule
+import com.tasomaniac.devwidget.widget.click.HeaderOptionsActivity
+import com.tasomaniac.devwidget.widget.click.HeaderOptionsModule
 import com.tasomaniac.devwidget.widget.click.WidgetRefreshActivity
 import com.tasomaniac.devwidget.widget.click.WidgetRefreshModule
 import dagger.Module
@@ -43,6 +45,9 @@ interface BindingModule {
 
     @ContributesAndroidInjector(modules = [WidgetRefreshModule::class])
     fun widgetRefreshActivity(): WidgetRefreshActivity
+
+    @ContributesAndroidInjector(modules = [HeaderOptionsModule::class])
+    fun headerOptionsActivity(): HeaderOptionsActivity
 
     @ContributesAndroidInjector(modules = [ConfigureModule::class])
     fun configureActivity(): ConfigureActivity

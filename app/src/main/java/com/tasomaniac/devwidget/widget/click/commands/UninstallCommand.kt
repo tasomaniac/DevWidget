@@ -9,6 +9,6 @@ data class UninstallCommand(private val packageName: String) : Command {
     override fun action(activity: Activity) {
         Intent(Intent.ACTION_UNINSTALL_PACKAGE).apply {
             data = Uri.parse("package:$packageName")
-        }.start(activity)
+        }.safeStart(activity)
     }
 }

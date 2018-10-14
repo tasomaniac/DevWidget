@@ -36,9 +36,10 @@ class ActionListGenerator @Inject constructor(
 
         val resolveInfo = packageManager.queryIntentActivities(intent, 0).firstOrNull() ?: return null
 
-        return Action(R.string.widget_action_app_notification_settings) {
-            ComponentCommand(resolveInfo.activityInfo.componentName())
-        }
+        return Action(
+            R.string.widget_action_app_notification_settings,
+            command = ComponentCommand(resolveInfo.activityInfo.componentName())
+        )
     }
 
     @SuppressLint("InlinedApi")
@@ -49,8 +50,9 @@ class ActionListGenerator @Inject constructor(
 
         val resolveInfo = packageManager.queryIntentActivities(intent, 0).firstOrNull() ?: return null
 
-        return Action(R.string.widget_action_app_settings) {
-            ComponentCommand(resolveInfo.activityInfo.componentName())
-        }
+        return Action(
+            R.string.widget_action_app_settings,
+            command = ComponentCommand(resolveInfo.activityInfo.componentName())
+        )
     }
 }

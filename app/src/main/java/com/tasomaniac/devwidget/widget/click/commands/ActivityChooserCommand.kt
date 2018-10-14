@@ -12,6 +12,6 @@ data class ActivityChooserCommand(
 
     override fun action(activity: Activity) {
         ActivityChooserActivity.createIntent(activity, packageName, user)
-            .start(activity)
+            .safeStart(activity)
     }
 }

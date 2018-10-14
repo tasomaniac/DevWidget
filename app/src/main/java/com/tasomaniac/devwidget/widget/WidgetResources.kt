@@ -80,6 +80,10 @@ class WidgetResources @Inject constructor(
         return widgetWidth >= FAV_ACTION_LIMIT
     }
 
+    fun shouldDisplayExtendedHeader(widgetWidth: Int): Boolean {
+        return widgetWidth >= TINY_WIDGET_LIMIT
+    }
+
     companion object {
         private const val TINY_WIDGET_LIMIT = 214
         private const val FAV_ACTION_LIMIT = 291

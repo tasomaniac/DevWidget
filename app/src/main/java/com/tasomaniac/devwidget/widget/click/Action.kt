@@ -7,5 +7,6 @@ import com.tasomaniac.devwidget.navigation.Command
 class Action(
     @StringRes val text: Int,
     @DrawableRes val icon: Int? = null,
-    val command: (packageName: String) -> Command
+    val commandForPackage: ((packageName: String) -> Command)? = null,
+    val command: Command? = null
 )
