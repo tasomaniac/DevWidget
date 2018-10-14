@@ -80,6 +80,16 @@
             android:theme="@style/Theme.DevWidget.Translucent" />
 
         <activity
+            android:name=".data.updater.StopWidgetRefreshActivity"
+            android:documentLaunchMode="never"
+            android:excludeFromRecents="true"
+            android:finishOnCloseSystemDialogs="true"
+            android:noHistory="true"
+            android:relinquishTaskIdentity="true"
+            android:taskAffinity=""
+            android:theme="@style/Theme.DevWidget.Translucent" />
+
+        <activity
             android:name=".widget.chooser.ActivityChooserActivity"
             android:documentLaunchMode="never"
             android:excludeFromRecents="true"

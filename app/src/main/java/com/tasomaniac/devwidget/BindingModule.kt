@@ -5,6 +5,7 @@ import com.tasomaniac.devwidget.configure.ConfigureModule
 import com.tasomaniac.devwidget.configure.WidgetPinnedReceiver
 import com.tasomaniac.devwidget.data.updater.PackageAddedReceiver
 import com.tasomaniac.devwidget.data.updater.PackageRemovedReceiver
+import com.tasomaniac.devwidget.data.updater.StopWidgetRefreshActivity
 import com.tasomaniac.devwidget.main.MainActivity
 import com.tasomaniac.devwidget.main.MainModule
 import com.tasomaniac.devwidget.settings.SettingsActivity
@@ -51,6 +52,9 @@ interface BindingModule {
 
     @ContributesAndroidInjector(modules = [ConfigureModule::class])
     fun configureActivity(): ConfigureActivity
+
+    @ContributesAndroidInjector
+    fun stopWidgetRefreshActivity(): StopWidgetRefreshActivity
 
     @ContributesAndroidInjector
     fun widgetPinnedReceiver(): WidgetPinnedReceiver

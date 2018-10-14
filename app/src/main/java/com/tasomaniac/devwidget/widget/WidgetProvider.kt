@@ -4,7 +4,8 @@ import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.content.Intent
-import android.os.Build
+import android.os.Build.VERSION.SDK_INT
+import android.os.Build.VERSION_CODES.O
 import android.os.Bundle
 import com.tasomaniac.devwidget.data.Widget
 import com.tasomaniac.devwidget.data.WidgetDao
@@ -12,6 +13,7 @@ import com.tasomaniac.devwidget.data.deleteWidgets
 import com.tasomaniac.devwidget.data.updater.WidgetRefreshService
 import com.tasomaniac.devwidget.extensions.SchedulingStrategy
 import com.tasomaniac.devwidget.extensions.flatten
+import com.tasomaniac.devwidget.settings.AutoUpdatePreferences
 import dagger.android.AndroidInjection
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
@@ -21,6 +23,7 @@ class WidgetProvider : AppWidgetProvider() {
     @Inject lateinit var widgetDao: WidgetDao
     @Inject lateinit var scheduling: SchedulingStrategy
     @Inject lateinit var widgetUpdater: WidgetUpdater
+    @Inject lateinit var autoUpdatePreferences: AutoUpdatePreferences
 
     private val disposables = CompositeDisposable()
 
@@ -28,7 +31,7 @@ class WidgetProvider : AppWidgetProvider() {
         AndroidInjection.inject(this, context)
         super.onReceive(context, intent)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (SDK_INT >= O && autoUpdatePreferences.autoUpdate) {
             context.startForegroundService(Intent(context, WidgetRefreshService::class.java))
         }
     }

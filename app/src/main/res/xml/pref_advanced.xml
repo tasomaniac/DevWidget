@@ -12,6 +12,13 @@
             android:entryValues="@array/pref_click_behavior_values"
             android:entries="@array/pref_click_behavior_entries" />
 
+        <SwitchPreference
+            android:key="@string/pref_key_auto_updater"
+            android:title="@string/pref_title_auto_updater"
+            android:summaryOn="@string/pref_summary_auto_updater_on"
+            android:summaryOff="@string/pref_summary_auto_updater_off"
+            android:defaultValue="true" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>

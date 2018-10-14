@@ -8,10 +8,12 @@ import android.app.NotificationManager.IMPORTANCE_MIN
 import android.app.Service
 import android.content.Intent
 import android.content.IntentFilter
+import android.graphics.drawable.Icon
 import android.os.Build
 import android.os.IBinder
 import androidx.core.content.getSystemService
 import com.tasomaniac.devwidget.R
+import com.tasomaniac.devwidget.widget.toPendingActivity
 
 @TargetApi(Build.VERSION_CODES.O)
 class WidgetRefreshService : Service() {
@@ -25,11 +27,17 @@ class WidgetRefreshService : Service() {
         super.onCreate()
         setupNotificationChannel()
 
+        val stopAction = Notification.Action.Builder(
+            Icon.createWithResource(this, R.drawable.empty),
+            getString(R.string.stop),
+            Intent(this, StopWidgetRefreshActivity::class.java).toPendingActivity(this)
+        ).build()
         val notification = Notification.Builder(this, CHANNEL_ID)
             .setContentTitle(getString(R.string.app_name))
             .setContentText(getString(R.string.widget_refresh_notification_content))
             .setSmallIcon(R.drawable.ic_notification_icon)
             .setColor(getColor(R.color.theme_primary))
+            .addAction(stopAction)
             .build()
         startForeground(NOTIFICATION_ID, notification)
 
