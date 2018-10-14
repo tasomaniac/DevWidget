@@ -4,7 +4,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.tasomaniac.devwidget.widget.DisplayApplicationInfo
 
-class WidgetAppListAdapter(
+class AppListAdapter(
     private val appViewHolderFactory: AppViewHolder.Factory,
     private val data: List<DisplayApplicationInfo>
 ) : RecyclerView.Adapter<AppViewHolder>() {
