@@ -1,8 +1,6 @@
 package com.tasomaniac.devwidget.configure
 
 import android.appwidget.AppWidgetManager
-import android.os.Bundle
-import android.widget.RemoteViews
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.eq
@@ -15,6 +13,7 @@ import com.tasomaniac.devwidget.extensions.emptyDebouncer
 import com.tasomaniac.devwidget.extensions.testScheduling
 import com.tasomaniac.devwidget.widget.RemoveViewsCreator
 import com.tasomaniac.devwidget.widget.WidgetUpdater
+import io.reactivex.Completable
 import io.reactivex.Maybe
 import org.junit.Test
 
@@ -22,23 +21,25 @@ class WidgetNameModelTest {
 
     private val widgetDao = mock<WidgetDao> {
         on { findWidgetById(APP_WIDGET_ID) } doReturn Maybe.empty()
+        on { insertWidget(any()) } doReturn Completable.complete()
+        on { updateWidget(any()) } doReturn Completable.complete()
     }
     private val appWidgetManager = mock<AppWidgetManager> {
-        on { getAppWidgetOptions(APP_WIDGET_ID) } doReturn mock<Bundle>()
+        on { getAppWidgetOptions(APP_WIDGET_ID) } doReturn mock()
     }
 
-    private val useCase: WidgetNameModel
+    private val widgetNameModel: WidgetNameModel
 
     init {
         val removeViewsCreator = mock<RemoveViewsCreator> {
-            on { create() } doReturn mock<RemoteViews>()
+            on { create() } doReturn mock()
         }
         val remoteViewCreatorFactory = mock<RemoveViewsCreator.Factory> {
             on { create(any(), any()) } doReturn removeViewsCreator
         }
         val widgetUpdater = WidgetUpdater(mock(), appWidgetManager, remoteViewCreatorFactory, widgetDao)
 
-        useCase = WidgetNameModel(
+        widgetNameModel = WidgetNameModel(
             widgetDao,
             widgetUpdater,
             APP_WIDGET_ID,
@@ -51,10 +52,10 @@ class WidgetNameModelTest {
     fun `given NOT available, should insert and update widget`() {
         given(widgetDao.findWidgetById(APP_WIDGET_ID)).willReturn(Maybe.empty())
 
-        useCase.updateWidgetName(ANY_WIDGET_NAME)
+        widgetNameModel.updateWidgetName(ANY_WIDGET_NAME)
 
-        then(widgetDao).should().insertWidgetSync(Widget(APP_WIDGET_ID))
-        then(widgetDao).should().updateWidgetSync(Widget(APP_WIDGET_ID, ANY_WIDGET_NAME))
+        then(widgetDao).should().insertWidget(Widget(APP_WIDGET_ID))
+        then(widgetDao).should().updateWidget(Widget(APP_WIDGET_ID, ANY_WIDGET_NAME))
         then(appWidgetManager).should().updateAppWidget(eq(APP_WIDGET_ID), any())
     }
 
@@ -62,9 +63,9 @@ class WidgetNameModelTest {
     fun `given already available, should update widget`() {
         given(widgetDao.findWidgetById(APP_WIDGET_ID)).willReturn(Maybe.just(ANY_WIDGET))
 
-        useCase.updateWidgetName(ANY_WIDGET_NAME)
+        widgetNameModel.updateWidgetName(ANY_WIDGET_NAME)
 
-        then(widgetDao).should().updateWidgetSync(Widget(APP_WIDGET_ID, ANY_WIDGET_NAME))
+        then(widgetDao).should().updateWidget(Widget(APP_WIDGET_ID, ANY_WIDGET_NAME))
         then(appWidgetManager).should().updateAppWidget(eq(APP_WIDGET_ID), any())
     }
 
@@ -72,7 +73,7 @@ class WidgetNameModelTest {
     fun `given already available, should emit current widget name`() {
         given(widgetDao.findWidgetById(APP_WIDGET_ID)).willReturn(Maybe.just(ANY_WIDGET))
 
-        useCase.currentWidgetName()
+        widgetNameModel.currentWidgetName()
             .test()
             .assertValue(ANY_WIDGET_NAME)
     }

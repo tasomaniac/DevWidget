@@ -2,8 +2,8 @@ package com.tasomaniac.devwidget.configure
 
 import androidx.lifecycle.ViewModel
 import com.jakewharton.rx.ReplayingShare
+import com.tasomaniac.devwidget.data.Filter
 import com.tasomaniac.devwidget.data.FilterDao
-import com.tasomaniac.devwidget.data.insertPackageMatchers
 import com.tasomaniac.devwidget.data.updater.PackageResolver
 import com.tasomaniac.devwidget.data.updater.WidgetAppsDataUpdater
 import io.reactivex.Completable
@@ -21,7 +21,7 @@ class PackageMatcherModel @Inject constructor(
 
     @CheckReturnValue
     fun insertPackageMatcher(packageMatcher: String): Completable {
-        return filterDao.insertPackageMatchers(appWidgetId, listOf(packageMatcher))
+        return filterDao.insertFilter(Filter(packageMatcher, appWidgetId))
     }
 
     @CheckReturnValue

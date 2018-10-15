@@ -1,11 +1,13 @@
 package com.tasomaniac.devwidget.configure
 
+import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.then
 import com.tasomaniac.devwidget.data.Filter
 import com.tasomaniac.devwidget.data.FilterDao
 import com.tasomaniac.devwidget.data.updater.PackageResolver
+import io.reactivex.Completable
 import io.reactivex.Flowable
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -23,9 +25,8 @@ class PackageMatcherModelTest(
         on { allApplications() } doReturn givenPackages
     }
     private val filterDao = mock<FilterDao> {
-        on { findFiltersByWidgetId(APP_WIDGET_ID) } doReturn Flowable.just(
-            emptyList()
-        )
+        on { findFiltersByWidgetId(APP_WIDGET_ID) } doReturn Flowable.just(emptyList())
+        on { insertFilter(any()) } doReturn Completable.complete()
     }
 
     private val model = PackageMatcherModel(packageResolver, filterDao, mock(), APP_WIDGET_ID)
@@ -65,8 +66,8 @@ class PackageMatcherModelTest(
         model.insertPackageMatcher("com.tasomaniac.*")
             .test()
 
-        val expected = listOf(Filter("com.tasomaniac.*", APP_WIDGET_ID))
-        then(filterDao).should().insertFilterSync(expected)
+        val expected = Filter("com.tasomaniac.*", APP_WIDGET_ID)
+        then(filterDao).should().insertFilter(expected)
     }
 
     companion object {

@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import io.reactivex.Completable
 
 @Dao
 interface AppDao {
@@ -12,7 +13,10 @@ interface AppDao {
     fun findAppsByWidgetIdSync(appWidgetId: Int): List<String>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertAppSync(app: List<App>)
+    fun insertApp(app: App): Completable
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun insertApps(app: List<App>): Completable
 
     @Query("DELETE FROM app WHERE packageName = :packageName")
     fun deleteAppSync(packageName: String)

@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import io.reactivex.Completable
 
 import io.reactivex.Maybe
 import io.reactivex.Single
@@ -23,10 +24,10 @@ interface WidgetDao {
     fun findWidgetsById(appWidgetId: IntArray): Single<List<Widget>>
 
     @Insert(onConflict = OnConflictStrategy.FAIL)
-    fun insertWidgetSync(vararg widget: Widget)
+    fun insertWidget(vararg widget: Widget): Completable
 
     @Update(onConflict = OnConflictStrategy.IGNORE)
-    fun updateWidgetSync(widget: Widget)
+    fun updateWidget(widget: Widget): Completable
 
     @Query("UPDATE widget SET appWidgetId = :appWidgetId WHERE appWidgetId = -1")
     fun updateTempWidgetIdSync(appWidgetId: Int)

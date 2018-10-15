@@ -3,8 +3,6 @@ package com.tasomaniac.devwidget.configure
 import androidx.lifecycle.ViewModel
 import com.tasomaniac.devwidget.data.Widget
 import com.tasomaniac.devwidget.data.WidgetDao
-import com.tasomaniac.devwidget.data.insertWidget
-import com.tasomaniac.devwidget.data.updateWidget
 import com.tasomaniac.devwidget.extensions.Debouncer
 import com.tasomaniac.devwidget.extensions.SchedulingStrategy
 import com.tasomaniac.devwidget.extensions.onlyTrue

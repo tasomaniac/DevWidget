@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
 
@@ -17,7 +18,7 @@ interface FilterDao {
     fun findFiltersByWidgetId(appWidgetId: Int): Flowable<List<String>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertFilterSync(filter: List<Filter>)
+    fun insertFilter(filter: Filter): Completable
 
     @Query("DELETE FROM filter WHERE packageMatcher = :packageMatcher")
     fun deleteFilterSync(packageMatcher: String)

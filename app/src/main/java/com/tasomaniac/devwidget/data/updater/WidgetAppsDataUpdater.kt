@@ -1,8 +1,8 @@
 package com.tasomaniac.devwidget.data.updater
 
+import com.tasomaniac.devwidget.data.App
 import com.tasomaniac.devwidget.data.AppDao
 import com.tasomaniac.devwidget.data.FilterDao
-import com.tasomaniac.devwidget.data.insertApps
 import com.tasomaniac.devwidget.extensions.flatten
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -30,8 +30,11 @@ class WidgetAppsDataUpdater @Inject constructor(
             .fromIterable(packageResolver.allApplications())
             .filter(matchPackage(packageMatcher))
             .toList()
-            .flatMapCompletable {
-                appDao.insertApps(appWidgetId, packageMatcher, it)
+            .flatMapCompletable { packageNames ->
+                val apps = packageNames.map {
+                    App(it, packageMatcher, appWidgetId)
+                }
+                appDao.insertApps(apps)
             }
     }
 }
