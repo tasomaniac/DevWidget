@@ -23,41 +23,33 @@
         <ignore regexp="okio-.*jar" />
         <ignore regexp="retrofit-.*.jar" />
     </issue>
-    <issue id="TypographyEllipsis" severity="error" />
     <issue id="SimpleDateFormat" severity="error" />
-    <issue id="ThrowableNotAtBeginning" severity="error" />
-    <issue id="BinaryOperationInTimber" severity="error" />
-    <issue id="WifiManagerPotentialLeak" severity="error" />
 
+    <!-- Project doesn't have custom lint checks and cannot fix 3rd party libraries-->
+    <issue id="ObsoleteLintCustomCheck" severity="ignore" />
+    <!-- Don't really want to put NonNull annotation everywhere since that is the default already.
+         https://issuetracker.google.com/issues/78011047 -->
+    <issue id="UnknownNullness" severity="ignore" />
+    <issue id="SelectableText" severity="ignore" />
+    <issue id="SyntheticAccessor" severity="ignore" />
+    <issue id="UnusedIds" severity="ignore" />
+    <issue id="GoogleAppIndexingApiWarning" severity="ignore" />
+    <issue id="GoogleAppIndexingWarning" severity="ignore" />
+
+    <!-- Tools 3.3 problems -->
+    <!-- https://issuetracker.google.com/issues/116404240 -->
+    <issue id="UnusedAttribute">
+        <ignore regexp="android:foreground" />
+    </issue>
+
+    <!-- Minor issues -->
     <issue id="VectorPath">
         <ignore path="*/ic_launcher_foreground.xml" />
         <ignore path="*/ic_notification_icon.xml" />
         <ignore path="*/ic_settings.xml" />
         <ignore path="*/ic_settings_light.xml" />
     </issue>
-
-    <issue id="SelectableText" severity="ignore" />
-    <issue id="UnknownNullness" severity="ignore" /> <!-- https://issuetracker.google.com/issues/78011047 -->
-    <issue id="SyntheticAccessor" severity="ignore" />
-    <issue id="ObsoleteLintCustomCheck"
-        severity="ignore" /> <!-- Project doesn't have custom lint checks and cannot fix 3rd party libraries-->
-    <issue id="UnusedIds" severity="ignore" />
-    <issue id="GoogleAppIndexingApiWarning" severity="ignore" />
-    <issue id="GoogleAppIndexingWarning" severity="ignore" />
-
     <issue id="ConvertToWebp">
         <ignore path="*/empty.jpg" />
-    </issue>
-    <!-- Jettify and AndroidX problems -->
-    <issue id="MissingRegistered" severity="ignore" />
-    <issue id="AppCompatResource">
-        <ignore path="*/res/menu/main_menu.xml" />
-    </issue>
-
-    <!-- Tools 3.3 problems -->
-    <issue id="ClickableViewAccessibility"
-        severity="ignore" /> <!-- https://issuetracker.google.com/issues/112496356 -->
-    <issue id="UnusedAttribute">
-        <ignore regexp="android:foreground" />
     </issue>
 </lint>
