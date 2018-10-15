@@ -96,7 +96,7 @@ staticAnalysis {
     }
 
     ktlint {
-        version '0.28.0'
+        version '0.29.0'
 
         includeVariants { it.name == 'flossDebug' }
     }
@@ -129,7 +129,7 @@ if (isPlay) {
 
 dependencies {
     playImplementation 'com.crashlytics.sdk.android:crashlytics:2.9.5'
-    playImplementation 'com.google.firebase:firebase-core:16.0.3'
+    playImplementation 'com.google.firebase:firebase-core:16.0.4'
 
     implementation 'com.google.code.findbugs:jsr305:3.0.2'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
@@ -142,7 +142,7 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'com.google.android.material:material:1.0.0'
 
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 
     implementation "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle"
@@ -157,19 +157,19 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.2.2'
     implementation 'io.reactivex.rxjava2:rxkotlin:2.3.0'
     implementation 'com.jakewharton.rx2:replaying-share-kotlin:2.1.0'
-    implementation 'com.uber.autodispose:autodispose-ktx:1.0.0-RC1'
-    implementation 'com.uber.autodispose:autodispose-android-archcomponents-ktx:1.0.0-RC1'
+    implementation 'com.uber.autodispose:autodispose-ktx:1.0.0'
+    implementation 'com.uber.autodispose:autodispose-android-archcomponents-ktx:1.0.0'
 
     implementation "com.google.dagger:dagger-android-support:$versions.dagger"
     kapt "com.google.dagger:dagger-compiler:$versions.dagger"
     kapt "com.google.dagger:dagger-android-processor:$versions.dagger"
 
     testImplementation 'junit:junit:4.12'
-    testImplementation 'org.mockito:mockito-core:2.22.0'
-    testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.0.0-RC1'
+    testImplementation 'org.mockito:mockito-core:2.23.0'
+    testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.0.0-RC3'
 
-    androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
+    androidTestImplementation 'androidx.test:runner:1.1.0-beta02'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-beta02'
     androidTestImplementation "androidx.room:room-testing:$versions.room"
 }
 
