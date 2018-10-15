@@ -4,3 +4,5 @@
 
 -dontwarn org.jetbrains.annotations.**
 -dontwarn com.google.errorprone.annotations.*
+
+-keepnames public interface com.uber.autodispose.lifecycle.CorrespondingEventsFunction { *; }
