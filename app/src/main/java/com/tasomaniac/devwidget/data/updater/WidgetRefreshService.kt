@@ -26,25 +26,16 @@ class WidgetRefreshService : Service() {
     override fun onCreate() {
         super.onCreate()
         setupNotificationChannel()
+        startForeground()
 
-        val stopAction = Notification.Action.Builder(
-            Icon.createWithResource(this, R.drawable.empty),
-            getString(R.string.stop),
-            Intent(this, StopWidgetRefreshActivity::class.java).toPendingActivity(this)
-        ).build()
-        val notification = Notification.Builder(this, CHANNEL_ID)
-            .setContentTitle(getString(R.string.app_name))
-            .setContentText(getString(R.string.widget_refresh_notification_content))
-            .setSmallIcon(R.drawable.ic_notification_icon)
-            .setColor(getColor(R.color.theme_primary))
-            .addAction(stopAction)
-            .build()
-        startForeground(NOTIFICATION_ID, notification)
-
-        val packageAddedFilter = IntentFilter(Intent.ACTION_PACKAGE_ADDED).apply { addDataScheme("package") }
+        val packageAddedFilter = IntentFilter(Intent.ACTION_PACKAGE_ADDED).apply {
+            addDataScheme("package")
+        }
         registerReceiver(packageAddedReceiver, packageAddedFilter)
 
-        val packageRemovedFilter = IntentFilter(Intent.ACTION_PACKAGE_REMOVED).apply { addDataScheme("package") }
+        val packageRemovedFilter = IntentFilter(Intent.ACTION_PACKAGE_REMOVED).apply {
+            addDataScheme("package")
+        }
         registerReceiver(packageRemovedReceiver, packageRemovedFilter)
     }
 
@@ -63,6 +54,22 @@ class WidgetRefreshService : Service() {
             description = getString(R.string.widget_refresh_notification_channel_desc)
         }
         notificationManager.createNotificationChannel(channel)
+    }
+
+    private fun startForeground() {
+        val stopAction = Notification.Action.Builder(
+            Icon.createWithResource(this, R.drawable.empty),
+            getString(R.string.stop),
+            Intent(this, StopWidgetRefreshActivity::class.java).toPendingActivity(this)
+        ).build()
+        val notification = Notification.Builder(this, CHANNEL_ID)
+            .setContentTitle(getString(R.string.app_name))
+            .setContentText(getString(R.string.widget_refresh_notification_content))
+            .setSmallIcon(R.drawable.ic_notification_icon)
+            .setColor(getColor(R.color.theme_primary))
+            .addAction(stopAction)
+            .build()
+        startForeground(NOTIFICATION_ID, notification)
     }
 
     companion object {
