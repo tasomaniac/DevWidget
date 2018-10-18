@@ -6,6 +6,7 @@ import com.tasomaniac.devwidget.configure.WidgetPinnedReceiver
 import com.tasomaniac.devwidget.data.updater.PackageAddedReceiver
 import com.tasomaniac.devwidget.data.updater.PackageRemovedReceiver
 import com.tasomaniac.devwidget.data.updater.StopWidgetRefreshActivity
+import com.tasomaniac.devwidget.data.updater.WidgetRefreshRescheduleJob
 import com.tasomaniac.devwidget.main.MainActivity
 import com.tasomaniac.devwidget.main.MainModule
 import com.tasomaniac.devwidget.settings.SettingsActivity
@@ -55,6 +56,9 @@ interface BindingModule {
 
     @ContributesAndroidInjector
     fun stopWidgetRefreshActivity(): StopWidgetRefreshActivity
+
+    @ContributesAndroidInjector
+    fun widgetRefreshRescheduleJob(): WidgetRefreshRescheduleJob
 
     @ContributesAndroidInjector
     fun widgetPinnedReceiver(): WidgetPinnedReceiver

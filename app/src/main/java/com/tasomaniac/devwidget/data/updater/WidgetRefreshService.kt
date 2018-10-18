@@ -6,6 +6,9 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.NotificationManager.IMPORTANCE_MIN
 import android.app.Service
+import android.app.job.JobInfo
+import android.app.job.JobScheduler
+import android.content.ComponentName
 import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.drawable.Icon
@@ -14,6 +17,7 @@ import android.os.IBinder
 import androidx.core.content.getSystemService
 import com.tasomaniac.devwidget.R
 import com.tasomaniac.devwidget.widget.toPendingActivity
+import java.util.concurrent.TimeUnit
 
 @TargetApi(Build.VERSION_CODES.O)
 class WidgetRefreshService : Service() {
@@ -27,6 +31,7 @@ class WidgetRefreshService : Service() {
         super.onCreate()
         setupNotificationChannel()
         startForeground()
+        scheduleWidgetRefreshPeriodicJob()
 
         val packageAddedFilter = IntentFilter(Intent.ACTION_PACKAGE_ADDED).apply {
             addDataScheme("package")
@@ -72,7 +77,19 @@ class WidgetRefreshService : Service() {
         startForeground(NOTIFICATION_ID, notification)
     }
 
+    private fun scheduleWidgetRefreshPeriodicJob() {
+        val jobScheduler = getSystemService<JobScheduler>()!!
+        val componentName = ComponentName(this, WidgetRefreshRescheduleJob::class.java)
+        jobScheduler.schedule(
+            JobInfo.Builder(RESCHEDULE_JOB_ID, componentName)
+                .setRequiresBatteryNotLow(true)
+                .setPeriodic(TimeUnit.HOURS.toMillis(2))
+                .build()
+        )
+    }
+
     companion object {
+        private const val RESCHEDULE_JOB_ID = 1
         private const val NOTIFICATION_ID = 100
         private const val CHANNEL_ID = "widgetRefreshService"
     }

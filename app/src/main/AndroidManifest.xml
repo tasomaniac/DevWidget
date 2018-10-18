@@ -104,6 +104,9 @@
             android:parentActivityName=".main.MainActivity" />
 
         <service android:name=".data.updater.WidgetRefreshService" />
+        <service
+            android:name=".data.updater.WidgetRefreshRescheduleJob"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
 
         <receiver android:name=".data.updater.PackageAddedReceiver">
             <intent-filter>
