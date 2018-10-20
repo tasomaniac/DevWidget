@@ -27,7 +27,7 @@
     <string name="widget_error_activity_cannot_be_launched">Activity cannot be launched. Make sure it is exported.</string>
 
     <string name="widget_refresh_notification_title">Widget auto-update service is on</string>
-    <string name="widget_refresh_notification_content">You may long click to go into Notification settings and set this notification\'s priority to "Low"</string>
+    <string name="widget_refresh_notification_content">You may long click to go into Notification settings and set this notification\'s priority to “Low”</string>
     <string name="widget_refresh_notification_channel_name">Widget auto-updater</string>
     <string name="widget_refresh_notification_channel_desc">Android Oreo requires a persistent background service for widget auto-update. Disabling will require to use refresh button manually.</string>
 
