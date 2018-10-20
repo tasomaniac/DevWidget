@@ -4,6 +4,7 @@ import android.annotation.TargetApi
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.NotificationManager.IMPORTANCE_LOW
 import android.app.NotificationManager.IMPORTANCE_MIN
 import android.app.Service
 import android.app.job.JobInfo
@@ -26,6 +27,7 @@ class WidgetRefreshService : Service() {
 
     private val packageAddedReceiver = PackageAddedReceiver()
     private val packageRemovedReceiver = PackageRemovedReceiver()
+    private val notificationManager by lazy { getSystemService<NotificationManager>()!! }
 
     override fun onCreate() {
         super.onCreate()
@@ -51,9 +53,8 @@ class WidgetRefreshService : Service() {
     }
 
     private fun setupNotificationChannel() {
-        val notificationManager = getSystemService<NotificationManager>()!!
         val channelName = getString(R.string.widget_refresh_notification_channel_name)
-        val channel = NotificationChannel(CHANNEL_ID, channelName, IMPORTANCE_MIN).apply {
+        val channel = NotificationChannel(CHANNEL_ID, channelName, IMPORTANCE_LOW).apply {
             lockscreenVisibility = Notification.VISIBILITY_SECRET
             setShowBadge(false)
             description = getString(R.string.widget_refresh_notification_channel_desc)
@@ -68,13 +69,21 @@ class WidgetRefreshService : Service() {
             Intent(this, StopWidgetRefreshActivity::class.java).toPendingActivity(this)
         ).build()
         val notification = Notification.Builder(this, CHANNEL_ID)
-            .setContentTitle(getString(R.string.app_name))
-            .setContentText(getString(R.string.widget_refresh_notification_content))
+            .setContentTitle(getString(R.string.widget_refresh_notification_title))
+            .adjustText()
             .setSmallIcon(R.drawable.ic_notification_icon)
             .setColor(getColor(R.color.theme_primary))
             .addAction(stopAction)
             .build()
         startForeground(NOTIFICATION_ID, notification)
+    }
+
+    private fun Notification.Builder.adjustText() = apply {
+        val channel = notificationManager.getNotificationChannel(CHANNEL_ID)
+        if (channel.importance > IMPORTANCE_MIN) {
+            style = Notification.BigTextStyle()
+                .bigText(getString(R.string.widget_refresh_notification_content))
+        }
     }
 
     private fun scheduleWidgetRefreshPeriodicJob() {
