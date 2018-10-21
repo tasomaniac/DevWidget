@@ -1,6 +1,5 @@
 package com.tasomaniac.devwidget.settings
 
-import android.annotation.TargetApi
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Build.VERSION.SDK_INT
@@ -8,6 +7,7 @@ import android.os.Build.VERSION_CODES.O
 import androidx.preference.SwitchPreference
 import com.tasomaniac.devwidget.R
 import com.tasomaniac.devwidget.data.Analytics
+import com.tasomaniac.devwidget.data.updater.ShouldStartWidgetRefreshService
 import com.tasomaniac.devwidget.data.updater.WidgetRefreshService
 import javax.inject.Inject
 
@@ -15,6 +15,7 @@ class AdvancedSettings @Inject constructor(
     private val sharedPreferences: SharedPreferences,
     private val clickBehaviorPreferences: ClickBehaviorPreferences,
     private val autoUpdatePreferences: AutoUpdatePreferences,
+    private val shouldStartWidgetRefreshService: ShouldStartWidgetRefreshService,
     private val analytics: Analytics,
     fragment: SettingsFragment
 ) : Settings(fragment),
@@ -47,15 +48,14 @@ class AdvancedSettings @Inject constructor(
 
     private fun autoUpdateToggled() {
         val autoUpdate = autoUpdatePreferences.autoUpdate
-        toggleWidgetRefreshService(autoUpdate)
+        toggleWidgetRefreshService()
         (findPreference(R.string.pref_key_auto_updater) as SwitchPreference).isChecked = autoUpdate
         analytics.sendValueEvent("AutoUpdate", autoUpdate.toString())
     }
 
-    @TargetApi(O)
-    private fun toggleWidgetRefreshService(autoUpdate: Boolean) {
+    private fun toggleWidgetRefreshService() {
         val intent = Intent(activity, WidgetRefreshService::class.java)
-        if (autoUpdate) {
+        if (shouldStartWidgetRefreshService.check()) {
             activity.startForegroundService(intent)
         } else {
             activity.stopService(intent)
