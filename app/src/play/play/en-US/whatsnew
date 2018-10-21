@@ -1,8 +1,7 @@
-v1.3
+v1.4
 
-Added additional 3 options into overflow
-- Open in Play Store
-- App Settings (only displayed if the app has necessary intent-filter)
-- App Notification Settings (only displayed if the app has necessary intent-filter)
+Android Oreo+ support.
 
-A bug that exists from the beginning has been resolved: When multiple widgets exist, the configuration button was openning the wrong widget screen.
+Persistent notification has to be added to be able to keep the widget up-to-date.
+I don't think this will consume much battery but it is shown like that since it is a background service.
+Any feedback is welcome!
