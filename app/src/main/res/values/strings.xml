@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <string name="app_name">DevWidget</string>
     <string name="add_widget">Add widget</string>
 
@@ -36,50 +36,13 @@
     <string name="done">Done</string>
 
     <string name="settings">Settings</string>
-
     <string name="pref_title_general">General</string>
-
-    <string name="pref_key_sorting" translatable="false">pref_sorting</string>
     <string name="pref_title_sorting">Sorting</string>
-    <string name="pref_value_sorting_order_added" translatable="false">order_added</string>
-    <string name="pref_value_sorting_alphabetically_packages" translatable="false">alphabetically_packages</string>
-    <string name="pref_value_sorting_alphabetically_names" translatable="false">alphabetically_names</string>
-    <string name="pref_entry_sorting_order_added">Order added</string>
-    <string name="pref_entry_sorting_alphabetically_packages">Packages alphabetically</string>
-    <string name="pref_entry_sorting_alphabetically_names">Names alphabetically</string>
-
     <string name="pref_title_category_display">Display</string>
-
-    <string name="pref_key_night_mode" translatable="false">pref_night_mode</string>
     <string name="pref_title_night_mode">Night Mode</string>
-    <string name="pref_value_night_mode_off" translatable="false" tools:ignore="DuplicateStrings">off</string>
-    <string name="pref_value_night_mode_on" translatable="false" tools:ignore="DuplicateStrings">on</string>
-    <string name="pref_entry_night_mode_off" tools:ignore="DuplicateStrings">Off</string>
-    <string name="pref_entry_night_mode_on" tools:ignore="DuplicateStrings">On</string>
-
-    <string name="pref_key_opacity" translatable="false">pref_opacity</string>
     <string name="pref_background_opacity_title">Background visibility</string>
-    <string name="pref_value_opacity_fully_transparent" translatable="false">0</string>
-    <string name="pref_value_opacity_10" translatable="false">10</string>
-    <string name="pref_value_opacity_25" translatable="false">25</string>
-    <string name="pref_value_opacity_50" translatable="false">50</string>
-    <string name="pref_value_opacity_75" translatable="false">75</string>
-    <string name="pref_value_opacity_fully_opaque" translatable="false">100</string>
-    <string name="pref_entry_opacity_fully_transparent">Fully transparent</string>
-    <string name="pref_entry_opacity_10">10% visible</string>
-    <string name="pref_entry_opacity_25">25% visible</string>
-    <string name="pref_entry_opacity_50">50% visible</string>
-    <string name="pref_entry_opacity_75">75% visible</string>
-    <string name="pref_entry_opacity_fully_opaque">Fully opaque</string>
-
     <string name="pref_title_category_advanced">Advanced</string>
-
-    <string name="pref_key_click_behavior" translatable="false">pref_click_behavior</string>
     <string name="pref_title_click_behavior">Clicking behavior</string>
-    <string name="pref_value_click_behavior_launcher" translatable="false">launcher</string>
-    <string name="pref_value_click_behavior_exported" translatable="false">exported</string>
-    <string name="pref_entry_click_behavior_launcher">Only launcher Activities</string>
-    <string name="pref_entry_click_behavior_exported">All exported Activities</string>
 
     <string name="pref_title_auto_updater">Auto Updater</string>
     <string name="pref_summary_auto_updater_on">Android Oreo requires service to listen package changes. Widgets will auto-update.</string>

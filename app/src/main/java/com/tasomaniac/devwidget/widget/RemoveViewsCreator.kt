@@ -9,11 +9,13 @@ import android.os.Build
 import android.provider.Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS
 import android.view.View
 import android.widget.RemoteViews
+import androidx.annotation.ColorInt
 import androidx.annotation.IdRes
 import com.tasomaniac.devwidget.R
 import com.tasomaniac.devwidget.configure.ConfigureActivity
 import com.tasomaniac.devwidget.data.Widget
 import com.tasomaniac.devwidget.extensions.toPendingActivity
+import com.tasomaniac.devwidget.settings.Opacity
 import com.tasomaniac.devwidget.settings.OpacityPreferences
 import com.tasomaniac.devwidget.widget.click.ClickHandlingActivity
 import com.tasomaniac.devwidget.widget.click.HeaderOptionsActivity
@@ -95,7 +97,7 @@ class RemoveViewsCreator(
     }
 
     private fun RemoteViews.setupBackgroundShade() {
-        val shadeColor = opacityPreferences.backgroundColor
+        val shadeColor = opacityPreferences.opacity.toBackgroundColor()
         setInt(R.id.shade, "setBackgroundColor", shadeColor)
         setViewVisibility(R.id.shade, if (shadeColor == 0) View.GONE else View.VISIBLE)
     }
@@ -125,6 +127,13 @@ class RemoveViewsCreator(
             putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widget.appWidgetId)
             data = Uri.parse(toUri(Intent.URI_INTENT_SCHEME))
         }
+    }
+
+    @ColorInt @Suppress("MagicNumber")
+    private fun Opacity.toBackgroundColor(): Int {
+        val backgroundColor = widgetResources.foregroundColorInverse
+        val opacity = stringVale(app.resources).toInt()
+        return backgroundColor and 0xffffff or (opacity * 255 / 100 shl 24)
     }
 
     class Factory @Inject constructor(
