@@ -1,1 +1,36 @@
-<manifest package="com.tasomaniac.devwidget.data" />
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.tasomaniac.devwidget.data">
+
+    <application>
+        <activity
+            android:name=".updater.StopWidgetRefreshActivity"
+            android:documentLaunchMode="never"
+            android:excludeFromRecents="true"
+            android:finishOnCloseSystemDialogs="true"
+            android:noHistory="true"
+            android:relinquishTaskIdentity="true"
+            android:taskAffinity=""
+            android:theme="@style/Theme.DevWidget.Translucent" />
+
+        <service android:name=".updater.WidgetRefreshService" />
+        <service
+            android:name=".updater.WidgetRefreshRescheduleJob"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
+        <receiver android:name=".updater.PackageAddedReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name=".updater.PackageRemovedReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+    </application>
+</manifest>
