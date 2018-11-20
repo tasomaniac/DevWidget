@@ -1,1 +1,5 @@
-include ':app', ':data', ':base', ':widget'
+include ':app'
+include ':data'
+include ':base'
+include ':widget'
+include ':widget-updater'

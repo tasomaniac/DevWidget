@@ -59,7 +59,7 @@ class RemoveViewsCreator(
     private fun RemoteViews.setupConfigureButton(@IdRes buttonId: Int) {
         setContentDescription(
             buttonId,
-            app.getString(R.string.widget_content_description_configure, widget)
+            app.getString(R.string.widget_content_description_configure, widget.name)
         )
         val intent = ConfigureActivity.createIntent(app, widget.appWidgetId)
             .toPendingActivity(app, widget.appWidgetId)

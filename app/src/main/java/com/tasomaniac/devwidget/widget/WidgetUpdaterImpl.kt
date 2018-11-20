@@ -11,27 +11,23 @@ import io.reactivex.annotations.CheckReturnValue
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class WidgetUpdater @Inject constructor(
-    private val appWidgetManager: AppWidgetManager,
+class WidgetUpdaterImpl @Inject constructor(
+    override val appWidgetManager: AppWidgetManager,
     private val removeViewsCreatorFactory: RemoveViewsCreator.Factory,
     private val widgetDao: WidgetDao
-) {
+) : WidgetUpdater {
 
     @CheckReturnValue
-    fun update(widget: Widget, widgetOptions: Bundle = widget.defaultOptions()) =
+    override fun update(widget: Widget, widgetOptions: Bundle) =
         Completable.fromAction {
             val minWidth = widgetOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH)
             val remoteViews = removeViewsCreatorFactory.create(widget, minWidth).create()
             appWidgetManager.updateAppWidget(widget.appWidgetId, remoteViews)
         }
 
-    private fun Widget.defaultOptions(): Bundle {
-        return appWidgetManager.getAppWidgetOptions(appWidgetId)
-    }
-
     @Suppress("MagicNumber")
     @CheckReturnValue
-    fun updateAll() =
+    override fun updateAll() =
         widgetDao.allWidgets()
             .flatten()
             .flatMapCompletable { widget ->
@@ -42,7 +38,7 @@ class WidgetUpdater @Inject constructor(
                     })
             }
 
-    fun notifyWidgetDataChanged(appWidgetId: Int) {
+    override fun notifyWidgetDataChanged(appWidgetId: Int) {
         appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widgetAppList)
     }
 }
