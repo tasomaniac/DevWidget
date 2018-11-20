@@ -4,8 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
-import com.tasomaniac.devwidget.R
 import com.tasomaniac.devwidget.navigation.Navigator
+import com.tasomaniac.devwidget.widget.R
 import com.tasomaniac.devwidget.widget.WidgetResources
 import com.tasomaniac.devwidget.widget.click.commands.DevOptionsCommand
 import com.tasomaniac.devwidget.widget.click.commands.FinishCommand

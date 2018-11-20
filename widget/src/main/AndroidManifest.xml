@@ -1,1 +1,16 @@
-<manifest package="com.tasomaniac.devwidget.widget" />
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.tasomaniac.devwidget.widget">
+
+    <application>
+
+        <receiver android:name=".WidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/app_widget_info" />
+        </receiver>
+    </application>
+</manifest>

@@ -4,7 +4,6 @@ import android.app.Application
 import android.appwidget.AppWidgetManager
 import android.content.ComponentName
 import android.os.Bundle
-import com.tasomaniac.devwidget.R
 import com.tasomaniac.devwidget.data.Widget
 import com.tasomaniac.devwidget.data.WidgetDao
 import com.tasomaniac.devwidget.extensions.flatten

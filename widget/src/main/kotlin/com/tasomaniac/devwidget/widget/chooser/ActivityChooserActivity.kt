@@ -9,10 +9,10 @@ import android.os.Bundle
 import android.os.Process
 import android.os.UserHandle
 import android.widget.Toast
-import com.tasomaniac.devwidget.R
 import com.tasomaniac.devwidget.extensions.toast
 import com.tasomaniac.devwidget.settings.ClickBehavior
 import com.tasomaniac.devwidget.settings.ClickBehaviorPreferences
+import com.tasomaniac.devwidget.widget.R
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_chooser_list.activityChooserList
 import kotlinx.android.synthetic.main.activity_chooser_list.activityChooserTitle

@@ -5,7 +5,6 @@ import androidx.annotation.ColorInt
 import androidx.annotation.Dimension
 import androidx.annotation.DrawableRes
 import androidx.core.content.res.ResourcesCompat
-import com.tasomaniac.devwidget.R
 import com.tasomaniac.devwidget.settings.NightMode.OFF
 import com.tasomaniac.devwidget.settings.NightMode.ON
 import com.tasomaniac.devwidget.settings.NightModePreferences

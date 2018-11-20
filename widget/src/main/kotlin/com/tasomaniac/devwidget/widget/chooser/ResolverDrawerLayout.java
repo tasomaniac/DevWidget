@@ -36,7 +36,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.AbsListView;
 import android.widget.OverScroller;
 
-import com.tasomaniac.devwidget.R;
+import com.tasomaniac.devwidget.widget.R;
 
 import androidx.core.view.NestedScrollingParent;
 import androidx.core.view.NestedScrollingParentHelper;

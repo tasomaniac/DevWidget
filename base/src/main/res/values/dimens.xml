@@ -9,11 +9,5 @@
   <dimen name="keyline_2_minus_4dp">68dp</dimen>
 
   <dimen name="appbar_height">196dp</dimen>
-  <dimen name="app_widget_min_height">128dp</dimen>
-  <dimen name="app_widget_min_width">180dp</dimen>
-  <dimen name="app_widget_min_resize_width">127dp</dimen>
-  <dimen name="app_widget_icon_size">48dp</dimen>
-  <dimen name="app_widget_icon_size_small">32dp</dimen>
 
-  <dimen name="activity_chooser_max_width">480dp</dimen>
 </resources>

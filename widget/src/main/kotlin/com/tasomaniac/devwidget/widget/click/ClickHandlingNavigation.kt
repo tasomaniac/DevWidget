@@ -2,8 +2,8 @@ package com.tasomaniac.devwidget.widget.click
 
 import android.app.Activity
 import androidx.appcompat.app.AlertDialog
-import com.tasomaniac.devwidget.R
 import com.tasomaniac.devwidget.navigation.Navigator
+import com.tasomaniac.devwidget.widget.R
 import com.tasomaniac.devwidget.widget.click.commands.ActivityChooserCommand
 import com.tasomaniac.devwidget.widget.click.commands.FinishCommand
 import com.tasomaniac.devwidget.widget.click.commands.UninstallCommand

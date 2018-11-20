@@ -1,21 +1,21 @@
 package com.tasomaniac.devwidget.widget
 
+import android.app.Application
 import android.content.res.Resources
 import android.view.View
 import android.widget.RemoteViews
 import androidx.core.graphics.drawable.toBitmap
-import com.tasomaniac.devwidget.BuildConfig
-import com.tasomaniac.devwidget.R
 import com.tasomaniac.devwidget.widget.click.ClickHandlingActivity
 import javax.inject.Inject
 
 class ItemRemoteViewsCreator @Inject constructor(
+    private val application: Application,
     private val resources: Resources,
     private val widgetResources: WidgetResources
 ) {
 
     fun createViewWith(app: DisplayApplicationInfo, widgetWidth: Int) =
-        RemoteViews(BuildConfig.APPLICATION_ID, R.layout.app_widget_list_item).apply {
+        RemoteViews(application.packageName, R.layout.app_widget_list_item).apply {
             setImageViewBitmap(R.id.appWidgetIcon, app.icon.toBitmap())
             val iconSize = widgetResources.resolveAppIconSize(widgetWidth)
             setInt(R.id.appWidgetIcon, "setMaxHeight", iconSize)

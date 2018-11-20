@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Notification
 import android.content.Intent
 import android.content.pm.PackageManager
-import com.tasomaniac.devwidget.R
+import com.tasomaniac.devwidget.widget.R
 import com.tasomaniac.devwidget.widget.WidgetResources
 import com.tasomaniac.devwidget.widget.chooser.componentName
 import com.tasomaniac.devwidget.widget.click.commands.AppDetailsCommand

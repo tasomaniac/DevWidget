@@ -39,16 +39,6 @@
             android:name=".widget.WidgetViewsService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
-        <receiver android:name=".widget.WidgetProvider">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/app_widget_info" />
-        </receiver>
-
         <activity
             android:name=".widget.click.ClickHandlingActivity"
             android:documentLaunchMode="never"

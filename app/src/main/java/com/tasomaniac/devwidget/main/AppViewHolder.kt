@@ -2,25 +2,26 @@ package com.tasomaniac.devwidget.main
 
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.tasomaniac.devwidget.R
 import com.tasomaniac.devwidget.extensions.inflate
 import com.tasomaniac.devwidget.widget.DisplayApplicationInfo
 import com.tasomaniac.devwidget.widget.WidgetResources
-import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.app_widget_list_item.appWidgetContainer
-import kotlinx.android.synthetic.main.app_widget_list_item.appWidgetDetails
-import kotlinx.android.synthetic.main.app_widget_list_item.appWidgetFavAction
-import kotlinx.android.synthetic.main.app_widget_list_item.appWidgetIcon
-import kotlinx.android.synthetic.main.app_widget_list_item.appWidgetLabel
-import kotlinx.android.synthetic.main.app_widget_list_item.appWidgetPackageName
 import javax.inject.Inject
 
 class AppViewHolder(
     private val widgetResources: WidgetResources,
-    override val containerView: View
-) : RecyclerView.ViewHolder(containerView),
-    LayoutContainer {
+    containerView: View
+) : RecyclerView.ViewHolder(containerView) {
+
+    private val appWidgetContainer = containerView.findViewById<View>(R.id.appWidgetContainer)
+    private val appWidgetDetails = containerView.findViewById<ImageView>(R.id.appWidgetDetails)
+    private val appWidgetFavAction = containerView.findViewById<ImageView>(R.id.appWidgetFavAction)
+    private val appWidgetIcon = containerView.findViewById<ImageView>(R.id.appWidgetIcon)
+    private val appWidgetLabel = containerView.findViewById<TextView>(R.id.appWidgetLabel)
+    private val appWidgetPackageName = containerView.findViewById<TextView>(R.id.appWidgetPackageName)
 
     fun bind(app: DisplayApplicationInfo) {
         appWidgetContainer.background = null
