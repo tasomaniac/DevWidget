@@ -36,12 +36,6 @@
     <issue id="GoogleAppIndexingApiWarning" severity="ignore" />
     <issue id="GoogleAppIndexingWarning" severity="ignore" />
 
-    <!-- Tools 3.3 problems -->
-    <!-- https://issuetracker.google.com/issues/116404240 -->
-    <issue id="UnusedAttribute">
-        <ignore regexp="android:foreground" />
-    </issue>
-
     <!-- Minor issues -->
     <issue id="VectorPath">
         <ignore path="*/ic_launcher_foreground.xml" />
