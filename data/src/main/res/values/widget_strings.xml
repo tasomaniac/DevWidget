@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="widget_refresh_notification_title">Widget auto-update service is on</string>
+    <string name="widget_refresh_notification_content">You may long click to go into Notification settings and set this notification\'s priority to “Low”</string>
+    <string name="widget_refresh_notification_channel_name">Widget auto-updater</string>
+    <string name="widget_refresh_notification_channel_desc">Android Oreo requires a persistent background service for widget auto-update. Disabling will require to use refresh button manually.</string>
+</resources>

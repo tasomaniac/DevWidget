@@ -1,6 +1,8 @@
 package com.tasomaniac.devwidget.widget
 
+import android.app.Application
 import android.appwidget.AppWidgetManager
+import android.content.ComponentName
 import android.os.Bundle
 import com.tasomaniac.devwidget.R
 import com.tasomaniac.devwidget.data.Widget
@@ -13,16 +15,18 @@ import javax.inject.Inject
 
 class WidgetUpdaterImpl @Inject constructor(
     override val appWidgetManager: AppWidgetManager,
+    private val app: Application,
     private val removeViewsCreatorFactory: RemoveViewsCreator.Factory,
     private val widgetDao: WidgetDao
 ) : WidgetUpdater {
 
     @CheckReturnValue
-    override fun update(widget: Widget, widgetOptions: Bundle) =
+    override fun update(appWidgetId: Int, name: String, widgetOptions: Bundle) =
         Completable.fromAction {
+            val widget = Widget(appWidgetId, name)
             val minWidth = widgetOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH)
             val remoteViews = removeViewsCreatorFactory.create(widget, minWidth).create()
-            appWidgetManager.updateAppWidget(widget.appWidgetId, remoteViews)
+            appWidgetManager.updateAppWidget(appWidgetId, remoteViews)
         }
 
     @Suppress("MagicNumber")
@@ -31,7 +35,7 @@ class WidgetUpdaterImpl @Inject constructor(
         widgetDao.allWidgets()
             .flatten()
             .flatMapCompletable { widget ->
-                update(widget)
+                update(widget.appWidgetId, widget.name)
                     .delay(300, TimeUnit.MILLISECONDS)
                     .andThen(Completable.fromAction {
                         notifyWidgetDataChanged(widget.appWidgetId)
@@ -41,4 +45,7 @@ class WidgetUpdaterImpl @Inject constructor(
     override fun notifyWidgetDataChanged(appWidgetId: Int) {
         appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widgetAppList)
     }
+
+    override fun hasWidgets() =
+        appWidgetManager.getAppWidgetIds(ComponentName(app, WidgetProvider::class.java)).isNotEmpty()
 }

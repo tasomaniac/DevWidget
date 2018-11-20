@@ -42,8 +42,8 @@ class WidgetProvider : AppWidgetProvider() {
         disposables.clear()
         disposables.add(widgetDao.findWidgetsById(appWidgetIds)
             .flatten()
-            .flatMapCompletable {
-                widgetUpdater.update(it)
+            .flatMapCompletable { (appWidgetId, widgetName) ->
+                widgetUpdater.update(appWidgetId, widgetName)
             }
             .compose(scheduling.forCompletable())
             .subscribe(pendingResult::finish))
@@ -59,8 +59,8 @@ class WidgetProvider : AppWidgetProvider() {
 
         disposables.clear()
         disposables.add(widgetDao.findWidgetById(appWidgetId)
-            .flatMapCompletable {
-                widgetUpdater.update(it, newOptions)
+            .flatMapCompletable { (_, widgetName) ->
+                widgetUpdater.update(appWidgetId, widgetName, newOptions)
             }
             .compose(scheduling.forCompletable())
             .subscribe(pendingResult::finish))

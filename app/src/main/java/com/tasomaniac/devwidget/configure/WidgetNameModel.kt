@@ -50,7 +50,7 @@ class WidgetNameModel @Inject constructor(
     private fun updateWidget(widgetName: String): Completable {
         val widget = Widget(appWidgetId, widgetName)
         return widgetDao.updateWidget(widget)
-            .andThen(widgetUpdater.update(widget))
+            .andThen(widgetUpdater.update(appWidgetId, widgetName))
     }
 
     fun updateWidgetName(widgetName: String) {

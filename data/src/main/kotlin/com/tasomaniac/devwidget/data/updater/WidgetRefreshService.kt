@@ -16,7 +16,7 @@ import android.graphics.drawable.Icon
 import android.os.Build
 import android.os.IBinder
 import androidx.core.content.getSystemService
-import com.tasomaniac.devwidget.R
+import com.tasomaniac.devwidget.data.R
 import com.tasomaniac.devwidget.extensions.toPendingActivity
 import java.util.concurrent.TimeUnit
 
