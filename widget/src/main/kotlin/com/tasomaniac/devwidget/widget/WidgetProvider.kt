@@ -4,6 +4,8 @@ import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.content.Intent
+import android.os.Build.VERSION.SDK_INT
+import android.os.Build.VERSION_CODES.O
 import android.os.Bundle
 import com.tasomaniac.devwidget.data.Widget
 import com.tasomaniac.devwidget.data.WidgetDao
@@ -29,7 +31,7 @@ class WidgetProvider : AppWidgetProvider() {
         AndroidInjection.inject(this, context)
         super.onReceive(context, intent)
 
-        if (shouldStartWidgetRefreshService.check()) {
+        if (SDK_INT >= O && shouldStartWidgetRefreshService.check()) {
             context.startForegroundService(Intent(context, WidgetRefreshService::class.java))
         }
     }

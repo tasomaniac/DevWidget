@@ -37,7 +37,7 @@ class PackageMatcherViewHolder(
     }
 
     private fun Menu.setup(packageMatcher: String) {
-        MenuInflater(textView.context).inflate(R.menu.package_matcher, this)
+        MenuInflater(textView.context).inflate(R.menu.configure_package_matcher, this)
         findItem(R.id.package_matcher_delete).setOnMenuItemClickListener {
             delete(packageMatcher)
             true

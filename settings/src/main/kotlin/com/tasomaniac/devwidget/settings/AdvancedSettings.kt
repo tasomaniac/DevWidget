@@ -54,7 +54,7 @@ class AdvancedSettings @Inject constructor(
 
     private fun toggleWidgetRefreshService() {
         val intent = Intent(activity, WidgetRefreshService::class.java)
-        if (shouldStartWidgetRefreshService.check()) {
+        if (SDK_INT >= O && shouldStartWidgetRefreshService.check()) {
             activity.startForegroundService(intent)
         } else {
             activity.stopService(intent)

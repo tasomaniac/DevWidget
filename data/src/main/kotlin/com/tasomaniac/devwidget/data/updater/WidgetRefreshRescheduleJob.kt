@@ -3,6 +3,8 @@ package com.tasomaniac.devwidget.data.updater
 import android.app.job.JobParameters
 import android.app.job.JobService
 import android.content.Intent
+import android.os.Build.VERSION.SDK_INT
+import android.os.Build.VERSION_CODES.O
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 
@@ -16,7 +18,7 @@ class WidgetRefreshRescheduleJob : JobService() {
     }
 
     override fun onStartJob(params: JobParameters?): Boolean {
-        if (shouldStartWidgetRefreshService.check()) {
+        if (SDK_INT >= O && shouldStartWidgetRefreshService.check()) {
             startForegroundService(Intent(this, WidgetRefreshService::class.java))
         }
         return false

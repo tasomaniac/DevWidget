@@ -1,20 +1,15 @@
-plugins {
-    id 'io.gitlab.arturbosch.detekt' version '1.0.0-RC11'
-    id 'org.jlleitschuh.gradle.ktlint'
-}
 apply plugin: 'com.android.application'
-apply from: configFile('android-common-config.gradle')
+apply from: propsFile('android-common-config.gradle')
 apply plugin: 'com.novoda.android-command'
 apply plugin: 'com.novoda.build-properties'
-apply plugin: 'com.novoda.static-analysis'
 if (isPlay) {
     apply plugin: 'io.fabric'
     apply plugin: 'com.github.triplet.play'
 }
 
 buildProperties {
-    signing.using(file('props/release.signing')) | file('props/debug.signing')
-    secrets.using(file('props/secrets.properties'))
+    signing.using(propsFile('release.signing')) | propsFile('debug.signing')
+    secrets.using(propsFile('secrets.properties'))
 }
 
 def secrets = buildProperties.secrets
@@ -31,10 +26,10 @@ android {
     }
 
     signingConfigs {
-        debug.storeFile file('props/debug.keystore')
+        debug.storeFile propsFile('debug.keystore')
         release {
             def signing = buildProperties.signing
-            storeFile file("props/${signing['storeFile'].string}")
+            storeFile propsFile(signing['storeFile'].string)
             storePassword signing['storePassword'].string
             keyAlias signing['keyAlias'].string
             keyPassword signing['keyPassword'].string
@@ -64,37 +59,6 @@ android {
             versionNameSuffix '-floss'
         }
         play {}
-    }
-}
-
-staticAnalysis {
-    penalty {
-        maxWarnings = 10
-        maxErrors = 0
-    }
-
-    detekt {
-        config = files('props/detekt.yml')
-    }
-
-    ktlint {
-        version '0.29.0'
-        reporters = [ReporterType.CHECKSTYLE]
-
-        includeVariants { it.name == 'flossDebug' }
-    }
-
-    lintOptions {
-        textReport true
-        textOutput 'stdout'
-
-        checkAllWarnings true
-        checkTestSources false
-        checkReleaseBuilds false
-
-        lintConfig file('props/lint.xml')
-
-        includeVariants { it.name == 'flossDebug' }
     }
 }
 

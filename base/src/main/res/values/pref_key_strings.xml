@@ -9,8 +9,8 @@
     <string name="pref_value_sorting_order_added">order_added</string>
     <string name="pref_value_sorting_alphabetically_packages">alphabetically_packages</string>
     <string name="pref_value_sorting_alphabetically_names">alphabetically_names</string>
-    <string name="pref_value_night_mode_off">off</string>
-    <string name="pref_value_night_mode_on">on</string>
+    <string name="pref_value_night_mode_off" tools:translatable="false">off</string>
+    <string name="pref_value_night_mode_on" tools:translatable="false">on</string>
     <string name="pref_value_opacity_fully_transparent">0</string>
     <string name="pref_value_opacity_10">10</string>
     <string name="pref_value_opacity_25">25</string>

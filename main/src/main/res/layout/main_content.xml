@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-    tools:context=".main.MainActivity"
+    tools:context=".MainActivity"
     tools:showIn="@layout/main_activity"
     tools:ignore="MergeRootFrame">
 

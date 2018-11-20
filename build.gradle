@@ -21,8 +21,8 @@ buildscript {
             room       : '2.1.0-alpha02',
     ]
 
-    ext.configFile = { name ->
-        rootProject.file("gradle/$name")
+    ext.propsFile = { name ->
+        rootProject.file("props/$name")
     }
     
     repositories {
@@ -42,6 +42,7 @@ buildscript {
         classpath 'com.github.triplet.gradle:play-publisher:1.2.2'
         classpath 'com.novoda:gradle-android-command-plugin:2.0.1'
         classpath 'com.novoda:gradle-build-properties-plugin:0.4.1'
+        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.0.0-RC11"
         classpath 'gradle.plugin.org.jlleitschuh.gradle:ktlint-gradle:5.1.0'
         classpath 'com.novoda:gradle-static-analysis-plugin:0.7'
         if (isPlay) {
@@ -54,10 +55,12 @@ buildscript {
 ext.ReporterType = org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 apply plugin: 'com.github.ben-manes.versions'
 
-allprojects {
+subprojects {
     repositories {
         google()
         mavenCentral()
         jcenter()
     }
+
+    apply from: propsFile('static-analysis.gradle')
 }

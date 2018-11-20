@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tasomaniac.devwidget.settings">
 
-    <application>
+    <application android:supportsRtl="true">
 
         <!--suppress AndroidDomInspection -->
         <activity

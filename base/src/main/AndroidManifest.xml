@@ -1,1 +1,6 @@
-<manifest package="com.tasomaniac.devwidget" />
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.tasomaniac.devwidget">
+
+    <application android:supportsRtl="true" />
+
+</manifest>

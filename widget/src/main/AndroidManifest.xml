@@ -1,7 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tasomaniac.devwidget.widget">
 
-    <application>
+    <application android:supportsRtl="true">
+
         <service
             android:name=".WidgetViewsService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />

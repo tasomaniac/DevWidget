@@ -41,7 +41,7 @@ class OtherSettings @Inject constructor(
 //                .append(")")
 //        }
         val preference = findPreference(R.string.pref_key_version)
-        preference.summary = "" //version
+        preference.summary = "" // version
     }
 
     private fun displayLicensesDialogFragment() {

@@ -1,0 +1,40 @@
+apply plugin: 'io.gitlab.arturbosch.detekt'
+apply plugin: 'org.jlleitschuh.gradle.ktlint'
+apply plugin: 'com.novoda.static-analysis'
+
+staticAnalysis {
+    penalty {
+        maxWarnings = 10
+        maxErrors = 0
+    }
+
+    lintOptions {
+        textReport true
+        textOutput 'stdout'
+
+        checkAllWarnings true
+        checkTestSources false
+        checkReleaseBuilds false
+        checkDependencies false
+
+        lintConfig propsFile('lint.xml')
+
+        includeVariants { it.name in ['flossDebug', 'debug'] }
+    }
+}
+
+project.afterEvaluate {
+    staticAnalysis {
+
+        detekt {
+            config = files(propsFile('/detekt.yml'))
+        }
+        
+        ktlint {
+            version '0.29.0'
+            reporters = [ReporterType.CHECKSTYLE]
+
+            includeVariants { it.name in ['flossDebug', 'debug'] }
+        }
+    }
+}
