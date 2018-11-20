@@ -14,6 +14,7 @@ import javax.inject.Inject
 class ConfigurePresenter @Inject constructor(
     viewModelProvider: ViewModelProvider,
     widgetUpdater: WidgetUpdater,
+    widgetPinner: WidgetPinner,
     configurePinning: ConfigurePinning,
     private val appWidgetId: Int,
     private val scheduling: SchedulingStrategy,
@@ -24,7 +25,7 @@ class ConfigurePresenter @Inject constructor(
     @TargetApi(O)
     private val updateWidget = Completable.fromAction {
         if (configurePinning) {
-            widgetUpdater.requestPin()
+            widgetPinner.requestPin()
         } else {
             widgetUpdater.notifyWidgetDataChanged(appWidgetId)
         }

@@ -37,7 +37,7 @@ class WidgetNameModelTest {
         val remoteViewCreatorFactory = mock<RemoveViewsCreator.Factory> {
             on { create(any(), any()) } doReturn removeViewsCreator
         }
-        val widgetUpdater = WidgetUpdater(mock(), appWidgetManager, remoteViewCreatorFactory, widgetDao)
+        val widgetUpdater = WidgetUpdater(appWidgetManager, remoteViewCreatorFactory, widgetDao)
 
         widgetNameModel = WidgetNameModel(
             widgetDao,
