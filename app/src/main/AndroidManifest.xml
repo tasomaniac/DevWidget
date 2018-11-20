@@ -16,14 +16,6 @@
         android:theme="@style/Theme.DevWidget"
         tools:ignore="GoogleAppIndexingWarning">
 
-        <activity android:name=".main.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
         <activity
             android:name=".configure.ConfigureActivity"
             android:label="@string/widget_configure"

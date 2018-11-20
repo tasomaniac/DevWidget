@@ -107,6 +107,7 @@ if (isPlay) {
 }
 
 dependencies {
+    implementation project(':main')
     implementation project(':configure')
     implementation project(':settings')
     implementation project(':data')

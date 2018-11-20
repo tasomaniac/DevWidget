@@ -1,7 +1,6 @@
 package com.tasomaniac.devwidget.main
 
 import android.content.res.Resources
-import com.tasomaniac.devwidget.R
 import com.tasomaniac.devwidget.data.Widget
 import javax.inject.Inject
 

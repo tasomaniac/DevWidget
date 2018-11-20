@@ -9,7 +9,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.recyclerview.widget.DividerItemDecoration
-import com.tasomaniac.devwidget.R
 import com.tasomaniac.devwidget.ViewModelProvider
 import com.tasomaniac.devwidget.data.Analytics
 import com.tasomaniac.devwidget.extensions.SchedulingStrategy

@@ -1,0 +1,12 @@
+apply from: configFile('android-library-config.gradle')
+
+android {
+    resourcePrefix 'main'
+}
+
+dependencies {
+    implementation project(':configure')
+    implementation project(':settings')
+    implementation project(':widget')
+    implementation project(':data')
+}

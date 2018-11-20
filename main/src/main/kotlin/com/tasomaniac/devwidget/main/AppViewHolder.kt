@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.tasomaniac.devwidget.R
 import com.tasomaniac.devwidget.extensions.inflate
 import com.tasomaniac.devwidget.widget.DisplayApplicationInfo
 import com.tasomaniac.devwidget.widget.WidgetResources
