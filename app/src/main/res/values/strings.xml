@@ -24,7 +24,6 @@
     <string name="widget_content_description_refresh">Refresh widget</string>
     <string name="widget_empty_title">Widget #%d</string>
     <string name="widget_error_activity_not_found">No Launcher Activity found!</string>
-    <string name="widget_error_activity_cannot_be_launched">Activity cannot be launched. Make sure it is exported.</string>
 
     <string name="widget_refresh_notification_title">Widget auto-update service is on</string>
     <string name="widget_refresh_notification_content">You may long click to go into Notification settings and set this notification\'s priority to “Low”</string>
