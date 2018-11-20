@@ -88,11 +88,6 @@
             android:taskAffinity=""
             android:theme="@style/Theme.DevWidget.BottomSheet" />
 
-        <activity
-            android:name=".settings.SettingsActivity"
-            android:label="@string/settings"
-            android:parentActivityName=".main.MainActivity" />
-
         <service android:name=".data.updater.WidgetRefreshService" />
         <service
             android:name=".data.updater.WidgetRefreshRescheduleJob"

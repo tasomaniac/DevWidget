@@ -3,6 +3,7 @@
 
     <application>
 
+
         <receiver android:name=".WidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />

@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.webkit.WebView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDialogFragment
-import com.tasomaniac.devwidget.R
 
 class LicensesDialogFragment : AppCompatDialogFragment() {
 

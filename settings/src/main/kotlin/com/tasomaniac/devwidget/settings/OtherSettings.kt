@@ -2,8 +2,6 @@ package com.tasomaniac.devwidget.settings
 
 import androidx.core.app.ShareCompat
 import androidx.preference.Preference
-import com.tasomaniac.devwidget.BuildConfig
-import com.tasomaniac.devwidget.R
 import com.tasomaniac.devwidget.data.Analytics
 import javax.inject.Inject
 
@@ -36,14 +34,14 @@ class OtherSettings @Inject constructor(
     }
 
     private fun setupVersionPreference() {
-        val version = StringBuilder(BuildConfig.VERSION_NAME)
-        if (BuildConfig.DEBUG) {
-            version.append(" (")
-                .append(BuildConfig.VERSION_CODE)
-                .append(")")
-        }
+//        val version = StringBuilder(BuildConfig.VERSION_NAME)
+//        if (BuildConfig.DEBUG) {
+//            version.append(" (")
+//                .append(BuildConfig.VERSION_CODE)
+//                .append(")")
+//        }
         val preference = findPreference(R.string.pref_key_version)
-        preference.summary = version
+        preference.summary = "" //version
     }
 
     private fun displayLicensesDialogFragment() {

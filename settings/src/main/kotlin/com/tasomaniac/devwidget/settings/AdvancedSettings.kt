@@ -5,7 +5,6 @@ import android.content.SharedPreferences
 import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES.O
 import androidx.preference.SwitchPreference
-import com.tasomaniac.devwidget.R
 import com.tasomaniac.devwidget.data.Analytics
 import com.tasomaniac.devwidget.data.updater.ShouldStartWidgetRefreshService
 import com.tasomaniac.devwidget.data.updater.WidgetRefreshService

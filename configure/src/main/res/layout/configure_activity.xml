@@ -18,7 +18,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:navigationContentDescription="@string/add_widget" />
+            app:navigationContentDescription="@string/configure_add_widget" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <include layout="@layout/configure_content" />

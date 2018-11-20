@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.DevWidget.BottomSheet">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowTranslucentNavigation">false</item>
+        <item name="listPreferredItemPaddingLeft">?dialogPreferredPadding</item>
+        <item name="listPreferredItemPaddingRight">?dialogPreferredPadding</item>
+        <item name="colorControlActivated">?colorControlHighlight</item>
+        <item name="android:statusBarColor">@color/transparent</item>
+    </style>
+
+</resources>

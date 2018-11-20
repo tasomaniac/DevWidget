@@ -1,5 +1,6 @@
 include ':app'
 include ':configure'
-include ':data'
+include ':settings'
 include ':base'
+include ':data'
 include ':widget'

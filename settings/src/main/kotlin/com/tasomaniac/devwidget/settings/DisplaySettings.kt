@@ -3,7 +3,6 @@ package com.tasomaniac.devwidget.settings
 import android.app.Activity
 import android.app.TaskStackBuilder
 import android.content.SharedPreferences
-import com.tasomaniac.devwidget.R
 import com.tasomaniac.devwidget.data.Analytics
 import com.tasomaniac.devwidget.extensions.SchedulingStrategy
 import com.tasomaniac.devwidget.widget.WidgetUpdater

@@ -17,7 +17,6 @@ import com.tasomaniac.devwidget.settings.SettingsActivity
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
 import com.uber.autodispose.autoDisposable
 import dagger.android.support.DaggerAppCompatActivity
-import kotlinx.android.synthetic.main.include_appbar.toolbar
 import kotlinx.android.synthetic.main.main_content.mainEmptyInfo
 import kotlinx.android.synthetic.main.main_content.mainWidgetList
 import javax.inject.Inject
@@ -35,7 +34,7 @@ class MainActivity : DaggerAppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
-        setSupportActionBar(toolbar)
+        setSupportActionBar(findViewById(R.id.toolbar))
 
         setupList()
 

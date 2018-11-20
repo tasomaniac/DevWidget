@@ -4,10 +4,8 @@ import android.app.backup.BackupManager
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.transaction
-import com.tasomaniac.devwidget.R
 import com.tasomaniac.devwidget.data.Analytics
 import dagger.android.support.DaggerAppCompatActivity
-import kotlinx.android.synthetic.main.include_appbar.toolbar
 import javax.inject.Inject
 
 class SettingsActivity : DaggerAppCompatActivity(),
@@ -19,7 +17,7 @@ class SettingsActivity : DaggerAppCompatActivity(),
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.settings_activity)
-        setSupportActionBar(toolbar)
+        setSupportActionBar(findViewById(R.id.toolbar))
 
         if (savedInstanceState == null) {
             supportFragmentManager.transaction {
