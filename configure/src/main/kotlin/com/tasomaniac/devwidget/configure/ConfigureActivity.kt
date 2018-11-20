@@ -10,7 +10,6 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.widget.ArrayAdapter
 import androidx.annotation.RequiresApi
-import com.tasomaniac.devwidget.R
 import com.tasomaniac.devwidget.data.Analytics
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.configure_activity.toolbar

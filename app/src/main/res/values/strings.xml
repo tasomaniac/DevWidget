@@ -5,11 +5,6 @@
     <string name="main_empty_info">No widget added yet!\n\nPlease go to your launcher, long click on an empty space\n\nAdd <strong>DevWidget</strong> to your homescreen.</string>
     <string name="main_empty_info_with_pinning">No widget added yet!\n\nPlease use + button below to add <strong>DevWidget</strong> to your homescreen.</string>
 
-    <string name="configure_hint_widget_name">Widget Name (Optional)</string>
-    <string name="configure_hint_package_matcher">Package Matcher</string>
-    <string name="configure_package_matchers_title">Matchers</string>
-    <string name="configure_action_add">Add</string>
-
     <string name="widget_choose_action">Choose action</string>
     <string name="widget_action_uninstall">Uninstall</string>
     <string name="widget_action_app_details">App Details</string>
@@ -26,9 +21,6 @@
     <string name="widget_error_activity_not_found">No Launcher Activity found!</string>
 
     <string name="activity_chooser_open_with">Open with…</string>
-
-    <string name="delete">Delete</string>
-    <string name="done">Done</string>
 
     <string name="settings">Settings</string>
     <string name="pref_title_general">General</string>

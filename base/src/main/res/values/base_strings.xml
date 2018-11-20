@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="delete">Delete</string>
+    <string name="done">Done</string>
     <string name="stop">Stop</string>
 
     <string name="widget_error_activity_cannot_be_launched">Activity cannot be launched. Make sure it is exported.</string>

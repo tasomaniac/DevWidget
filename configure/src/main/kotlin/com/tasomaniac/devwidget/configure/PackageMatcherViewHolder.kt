@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.tasomaniac.devwidget.R
 import com.tasomaniac.devwidget.data.AppDao
 import com.tasomaniac.devwidget.data.FilterDao
 import com.tasomaniac.devwidget.data.deleteAppsByPackageMatcher
