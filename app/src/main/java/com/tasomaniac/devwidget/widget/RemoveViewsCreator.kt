@@ -13,6 +13,7 @@ import androidx.annotation.IdRes
 import com.tasomaniac.devwidget.R
 import com.tasomaniac.devwidget.configure.ConfigureActivity
 import com.tasomaniac.devwidget.data.Widget
+import com.tasomaniac.devwidget.extensions.toPendingActivity
 import com.tasomaniac.devwidget.settings.OpacityPreferences
 import com.tasomaniac.devwidget.widget.click.ClickHandlingActivity
 import com.tasomaniac.devwidget.widget.click.HeaderOptionsActivity

@@ -81,7 +81,6 @@
     <string name="pref_entry_click_behavior_launcher">Only launcher Activities</string>
     <string name="pref_entry_click_behavior_exported">All exported Activities</string>
 
-    <string name="pref_key_auto_updater" translatable="false">pref_auto_updater</string>
     <string name="pref_title_auto_updater">Auto Updater</string>
     <string name="pref_summary_auto_updater_on">Android Oreo requires service to listen package changes. Widgets will auto-update.</string>
     <string name="pref_summary_auto_updater_off">Android Oreo requires service to listen package changes. Disabling will require to use refresh button on widgets manually.</string>

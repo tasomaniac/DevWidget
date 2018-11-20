@@ -1,4 +1,4 @@
-package com.tasomaniac.devwidget.widget
+package com.tasomaniac.devwidget.extensions
 
 import android.app.PendingIntent
 import android.content.Context

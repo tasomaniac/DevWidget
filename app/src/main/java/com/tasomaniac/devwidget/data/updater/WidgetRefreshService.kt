@@ -17,7 +17,7 @@ import android.os.Build
 import android.os.IBinder
 import androidx.core.content.getSystemService
 import com.tasomaniac.devwidget.R
-import com.tasomaniac.devwidget.widget.toPendingActivity
+import com.tasomaniac.devwidget.extensions.toPendingActivity
 import java.util.concurrent.TimeUnit
 
 @TargetApi(Build.VERSION_CODES.O)
