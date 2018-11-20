@@ -12,7 +12,7 @@ import com.tasomaniac.devwidget.data.WidgetDao
 import com.tasomaniac.devwidget.extensions.emptyDebouncer
 import com.tasomaniac.devwidget.extensions.testScheduling
 import com.tasomaniac.devwidget.widget.RemoveViewsCreator
-import com.tasomaniac.devwidget.widget.WidgetUpdater
+import com.tasomaniac.devwidget.widget.WidgetUpdaterImpl
 import io.reactivex.Completable
 import io.reactivex.Maybe
 import org.junit.Test
@@ -37,7 +37,8 @@ class WidgetNameModelTest {
         val remoteViewCreatorFactory = mock<RemoveViewsCreator.Factory> {
             on { create(any(), any()) } doReturn removeViewsCreator
         }
-        val widgetUpdater = WidgetUpdater(appWidgetManager, remoteViewCreatorFactory, widgetDao)
+        val widgetUpdater =
+            WidgetUpdaterImpl(appWidgetManager, mock(), remoteViewCreatorFactory, widgetDao)
 
         widgetNameModel = WidgetNameModel(
             widgetDao,
