@@ -30,7 +30,7 @@ androidExtensions {
 }
 
 dependencies {
-    if (project.name != 'ktx') implementation project(':ktx')
+    if (project.name != 'base') implementation project(':base')
 
     implementation 'com.google.code.findbugs:jsr305:3.0.2'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
