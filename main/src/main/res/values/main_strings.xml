@@ -1,0 +1,4 @@
+<resources>
+    <string name="main_empty_info">No widget added yet!\n\nPlease go to your launcher, long click on an empty space\n\nAdd <strong>DevWidget</strong> to your homescreen.</string>
+    <string name="main_empty_info_with_pinning">No widget added yet!\n\nPlease use + button below to add <strong>DevWidget</strong> to your homescreen.</string>
+</resources>

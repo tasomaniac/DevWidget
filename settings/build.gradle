@@ -1,0 +1,15 @@
+apply from: propsFile('android-library-config.gradle')
+apply plugin: 'com.novoda.build-properties'
+
+def gitSha = "${-> 'git rev-parse --short HEAD'.execute([], project.rootDir).text.trim()}"
+
+android {
+    defaultConfig {
+        buildConfigString 'GIT_SHA', gitSha
+    }
+}
+dependencies {
+    implementation project(':data')
+    
+    api 'androidx.preference:preference-ktx:1.0.0' // exposed via dagger
+}

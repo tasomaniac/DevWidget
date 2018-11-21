@@ -1,0 +1,59 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.tasomaniac.devwidget.widget">
+
+    <application android:supportsRtl="true">
+
+        <service
+            android:name=".WidgetViewsService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+        <activity
+            android:name=".click.ClickHandlingActivity"
+            android:documentLaunchMode="never"
+            android:excludeFromRecents="true"
+            android:finishOnCloseSystemDialogs="true"
+            android:noHistory="true"
+            android:relinquishTaskIdentity="true"
+            android:taskAffinity=""
+            android:theme="@style/Theme.DevWidget.Translucent" />
+
+        <activity
+            android:name=".click.WidgetRefreshActivity"
+            android:documentLaunchMode="never"
+            android:excludeFromRecents="true"
+            android:finishOnCloseSystemDialogs="true"
+            android:noHistory="true"
+            android:relinquishTaskIdentity="true"
+            android:taskAffinity=""
+            android:theme="@style/Theme.DevWidget.Translucent" />
+
+        <activity
+            android:name=".click.HeaderOptionsActivity"
+            android:documentLaunchMode="never"
+            android:excludeFromRecents="true"
+            android:finishOnCloseSystemDialogs="true"
+            android:noHistory="true"
+            android:relinquishTaskIdentity="true"
+            android:taskAffinity=""
+            android:theme="@style/Theme.DevWidget.Translucent" />
+
+        <activity
+            android:name=".chooser.ActivityChooserActivity"
+            android:documentLaunchMode="never"
+            android:excludeFromRecents="true"
+            android:finishOnCloseSystemDialogs="true"
+            android:relinquishTaskIdentity="true"
+            android:taskAffinity=""
+            android:theme="@style/Theme.DevWidget.BottomSheet" />
+
+        <receiver android:name=".WidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/app_widget_info" />
+        </receiver>
+    </application>
+</manifest>

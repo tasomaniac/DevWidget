@@ -1,0 +1,7 @@
+apply from: propsFile('android-library-config.gradle')
+
+dependencies {
+    api 'junit:junit:4.12'
+    api 'org.mockito:mockito-core:2.23.0'
+    api 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.0.0'
+}

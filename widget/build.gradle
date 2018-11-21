@@ -1,0 +1,8 @@
+apply from: propsFile('android-library-config.gradle')
+
+dependencies {
+    implementation project(':configure')
+    implementation project(':data')
+
+    testImplementation project(':test-support')
+}

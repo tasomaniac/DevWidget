@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="configure_add_widget">Add widget</string>
+
+    <string name="configure_hint_widget_name">Widget Name (Optional)</string>
+    <string name="configure_hint_package_matcher">Package Matcher</string>
+    <string name="configure_package_matchers_title">Matchers</string>
+    <string name="configure_action_add">Add</string>
+</resources>

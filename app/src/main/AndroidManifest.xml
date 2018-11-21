@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.tasomaniac.devwidget">
+    package="com.tasomaniac.devwidget.app">
 
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
@@ -15,114 +15,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DevWidget"
         tools:ignore="GoogleAppIndexingWarning">
-
-        <activity android:name=".main.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".configure.ConfigureActivity"
-            android:label="@string/widget_configure"
-            android:windowSoftInputMode="stateAlwaysHidden">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
-            </intent-filter>
-        </activity>
-
-        <receiver android:name=".configure.WidgetPinnedReceiver" />
-
-        <service
-            android:name=".widget.WidgetViewsService"
-            android:permission="android.permission.BIND_REMOTEVIEWS" />
-
-        <receiver android:name=".widget.WidgetProvider">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/app_widget_info" />
-        </receiver>
-
-        <activity
-            android:name=".widget.click.ClickHandlingActivity"
-            android:documentLaunchMode="never"
-            android:excludeFromRecents="true"
-            android:finishOnCloseSystemDialogs="true"
-            android:noHistory="true"
-            android:relinquishTaskIdentity="true"
-            android:taskAffinity=""
-            android:theme="@style/Theme.DevWidget.Translucent" />
-
-        <activity
-            android:name=".widget.click.WidgetRefreshActivity"
-            android:documentLaunchMode="never"
-            android:excludeFromRecents="true"
-            android:finishOnCloseSystemDialogs="true"
-            android:noHistory="true"
-            android:relinquishTaskIdentity="true"
-            android:taskAffinity=""
-            android:theme="@style/Theme.DevWidget.Translucent" />
-
-        <activity
-            android:name=".widget.click.HeaderOptionsActivity"
-            android:documentLaunchMode="never"
-            android:excludeFromRecents="true"
-            android:finishOnCloseSystemDialogs="true"
-            android:noHistory="true"
-            android:relinquishTaskIdentity="true"
-            android:taskAffinity=""
-            android:theme="@style/Theme.DevWidget.Translucent" />
-
-        <activity
-            android:name=".data.updater.StopWidgetRefreshActivity"
-            android:documentLaunchMode="never"
-            android:excludeFromRecents="true"
-            android:finishOnCloseSystemDialogs="true"
-            android:noHistory="true"
-            android:relinquishTaskIdentity="true"
-            android:taskAffinity=""
-            android:theme="@style/Theme.DevWidget.Translucent" />
-
-        <activity
-            android:name=".widget.chooser.ActivityChooserActivity"
-            android:documentLaunchMode="never"
-            android:excludeFromRecents="true"
-            android:finishOnCloseSystemDialogs="true"
-            android:relinquishTaskIdentity="true"
-            android:taskAffinity=""
-            android:theme="@style/Theme.DevWidget.BottomSheet" />
-
-        <activity
-            android:name=".settings.SettingsActivity"
-            android:label="@string/settings"
-            android:parentActivityName=".main.MainActivity" />
-
-        <service android:name=".data.updater.WidgetRefreshService" />
-        <service
-            android:name=".data.updater.WidgetRefreshRescheduleJob"
-            android:permission="android.permission.BIND_JOB_SERVICE" />
-
-        <receiver android:name=".data.updater.PackageAddedReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_ADDED" />
-
-                <data android:scheme="package" />
-            </intent-filter>
-        </receiver>
-
-        <receiver android:name=".data.updater.PackageRemovedReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_REMOVED" />
-
-                <data android:scheme="package" />
-            </intent-filter>
-        </receiver>
 
         <meta-data
             android:name="google_analytics_adid_collection_enabled"

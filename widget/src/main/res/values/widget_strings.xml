@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="widget_choose_action">Choose action</string>
+    <string name="widget_action_uninstall">Uninstall</string>
+    <string name="widget_action_app_details">App Details</string>
+    <string name="widget_action_app_settings">App Settings</string>
+    <string name="widget_action_app_notification_settings">App Notification Settings</string>
+    <string name="widget_action_play_store">Open in Play Store</string>
+    <string name="widget_content_description_configure">Configure %s</string>
+    <string name="widget_content_description_dev_options">Developer Options</string>
+    <string name="widget_content_description_uninstall_app">Uninstall %s</string>
+    <string name="widget_content_description_more_options">More options</string>
+    <string name="widget_content_description_refresh">Refresh widget</string>
+    <string name="widget_empty_title">Widget #%d</string>
+    <string name="widget_error_activity_not_found">No Launcher Activity found!</string>
+
+    <string name="activity_chooser_open_with">Open with…</string>
+</resources>

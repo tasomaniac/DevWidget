@@ -1,0 +1,12 @@
+apply from: propsFile('android-library-config.gradle')
+
+android {
+    resourcePrefix 'configure'
+}
+
+dependencies {
+    implementation project(':data')
+    implementation 'com.jakewharton.rx2:replaying-share-kotlin:2.1.0'
+
+    testImplementation project(':test-support')
+}

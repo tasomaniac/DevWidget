@@ -1,0 +1,9 @@
+apply from: propsFile('android-library-config.gradle')
+
+dependencies {
+    implementation 'androidx.preference:preference-ktx:1.0.0' // needed because of custom preference style
+    
+    api "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle"
+    api "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle"
+    api "androidx.lifecycle:lifecycle-common-java8:$versions.lifecycle"
+}

@@ -17,6 +17,7 @@ secrets.properties
 /.idea/*
 
 # IDEA/Android Studio Ignore exceptions
+!/.idea/dictionaries/
 !/.idea/fileTemplates/
 !/.idea/inspectionProfiles/
 !/.idea/runConfigurations/

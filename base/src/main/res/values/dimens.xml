@@ -1,0 +1,13 @@
+<resources>
+  <dimen name="default_gap">16dp</dimen>
+  <dimen name="half_gap">8dp</dimen>
+  <dimen name="quarter_gap">4dp</dimen>
+  <dimen name="keyline_1">16dp</dimen>
+  <dimen name="keyline_1_minus_4dp">12dp</dimen>
+  <dimen name="keyline_1_minus_8dp">8dp</dimen>
+  <dimen name="keyline_2">72dp</dimen>
+  <dimen name="keyline_2_minus_4dp">68dp</dimen>
+
+  <dimen name="appbar_height">196dp</dimen>
+
+</resources>
