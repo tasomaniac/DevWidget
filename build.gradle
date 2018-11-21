@@ -62,5 +62,7 @@ subprojects {
         jcenter()
     }
 
-    apply from: propsFile('static-analysis.gradle')
+    if (project.name != 'test-support') {
+        apply from: propsFile('static-analysis.gradle')
+    }
 }
