@@ -1,6 +1,7 @@
 package com.tasomaniac.devwidget.settings
 
 import androidx.core.app.ShareCompat
+import androidx.lifecycle.LifecycleOwner
 import androidx.preference.Preference
 import com.tasomaniac.devwidget.data.Analytics
 import javax.inject.Inject
@@ -11,7 +12,7 @@ class OtherSettings @Inject constructor(
     private val version: Version
 ) : Settings(fragment) {
 
-    override fun setup() {
+    override fun onCreate(owner: LifecycleOwner) {
         addPreferencesFromResource(R.xml.pref_others)
 
         findPreference(R.string.pref_key_open_source).onPreferenceClickListener = listener

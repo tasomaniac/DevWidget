@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES.O
+import androidx.lifecycle.LifecycleOwner
 import androidx.preference.SwitchPreference
 import com.tasomaniac.devwidget.data.Analytics
 import com.tasomaniac.devwidget.data.updater.ShouldStartWidgetRefreshService
@@ -20,7 +21,7 @@ class AdvancedSettings @Inject constructor(
 ) : Settings(fragment),
     SharedPreferences.OnSharedPreferenceChangeListener {
 
-    override fun setup() {
+    override fun onCreate(owner: LifecycleOwner) {
         addPreferencesFromResource(R.xml.pref_advanced)
 
         if (SDK_INT < O) {
@@ -31,7 +32,7 @@ class AdvancedSettings @Inject constructor(
         sharedPreferences.registerOnSharedPreferenceChangeListener(this)
     }
 
-    override fun release() {
+    override fun onDestroy(owner: LifecycleOwner) {
         sharedPreferences.unregisterOnSharedPreferenceChangeListener(this)
     }
 

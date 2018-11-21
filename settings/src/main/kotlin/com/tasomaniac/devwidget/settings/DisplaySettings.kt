@@ -3,6 +3,7 @@ package com.tasomaniac.devwidget.settings
 import android.app.Activity
 import android.app.TaskStackBuilder
 import android.content.SharedPreferences
+import androidx.lifecycle.LifecycleOwner
 import com.tasomaniac.devwidget.data.Analytics
 import com.tasomaniac.devwidget.extensions.SchedulingStrategy
 import com.tasomaniac.devwidget.widget.WidgetUpdater
@@ -18,12 +19,12 @@ class DisplaySettings @Inject constructor(
     fragment: SettingsFragment
 ) : Settings(fragment), SharedPreferences.OnSharedPreferenceChangeListener {
 
-    override fun setup() {
+    override fun onCreate(owner: LifecycleOwner) {
         addPreferencesFromResource(R.xml.pref_display)
         sharedPreferences.registerOnSharedPreferenceChangeListener(this)
     }
 
-    override fun release() {
+    override fun onDestroy(owner: LifecycleOwner) {
         sharedPreferences.unregisterOnSharedPreferenceChangeListener(this)
     }
 
