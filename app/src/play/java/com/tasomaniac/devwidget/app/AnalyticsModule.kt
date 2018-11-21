@@ -4,7 +4,6 @@ import android.app.Activity
 import android.app.Application
 import android.os.Bundle
 import com.google.firebase.analytics.FirebaseAnalytics.getInstance
-import com.tasomaniac.devwidget.BuildConfig
 import com.tasomaniac.devwidget.data.Analytics
 import dagger.Module
 import dagger.Provides
