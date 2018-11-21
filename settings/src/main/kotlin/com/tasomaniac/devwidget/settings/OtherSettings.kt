@@ -7,7 +7,8 @@ import javax.inject.Inject
 
 class OtherSettings @Inject constructor(
     fragment: SettingsFragment,
-    private val analytics: Analytics
+    private val analytics: Analytics,
+    private val version: Version
 ) : Settings(fragment) {
 
     override fun setup() {
@@ -34,14 +35,14 @@ class OtherSettings @Inject constructor(
     }
 
     private fun setupVersionPreference() {
-//        val version = StringBuilder(BuildConfig.VERSION_NAME)
-//        if (BuildConfig.DEBUG) {
-//            version.append(" (")
-//                .append(BuildConfig.VERSION_CODE)
-//                .append(")")
-//        }
+        val summary = StringBuilder(version.versionName)
+        if (BuildConfig.DEBUG) {
+            summary.append(" (")
+                .append(version.versionCode)
+                .append(")")
+        }
         val preference = findPreference(R.string.pref_key_version)
-        preference.summary = "" // version
+        preference.summary = summary
     }
 
     private fun displayLicensesDialogFragment() {

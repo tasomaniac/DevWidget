@@ -1,4 +1,4 @@
-package com.tasomaniac.devwidget;
+package com.tasomaniac.devwidget.app;
 
 import android.app.Application;
 import android.appwidget.AppWidgetManager;
@@ -13,6 +13,7 @@ import android.preference.PreferenceManager;
 import com.tasomaniac.devwidget.extensions.Debouncer;
 import com.tasomaniac.devwidget.extensions.DefaultDebouncer;
 import com.tasomaniac.devwidget.extensions.SchedulingStrategy;
+import com.tasomaniac.devwidget.settings.Version;
 
 import java.util.concurrent.TimeUnit;
 
@@ -27,6 +28,9 @@ abstract class AppModule {
 
     @Binds
     abstract Application application(DevWidgetApp devWidgetApp);
+
+    @Binds
+    abstract Version version(AppVersion version);
 
     @Provides
     static PackageManager packageManager(Application app) {

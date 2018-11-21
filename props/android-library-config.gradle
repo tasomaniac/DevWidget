@@ -1,9 +1,2 @@
 apply plugin: 'com.android.library'
 apply from: propsFile('android-common-config.gradle')
-
-android {
-    // TODO replace with https://issuetracker.google.com/issues/72050365 once released.
-    libraryVariants.all {
-        it.generateBuildConfigProvider.configure { enabled = false }
-    }
-}

@@ -1,4 +1,4 @@
-package com.tasomaniac.devwidget
+package com.tasomaniac.devwidget.app
 
 import com.tasomaniac.devwidget.data.DataModule
 import dagger.Component

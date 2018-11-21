@@ -1,4 +1,4 @@
-package com.tasomaniac.devwidget
+package com.tasomaniac.devwidget.app
 
 import android.content.Intent
 import android.os.Build.VERSION.SDK_INT

@@ -1,4 +1,4 @@
-package com.tasomaniac.devwidget
+package com.tasomaniac.devwidget.app
 
 import com.tasomaniac.devwidget.data.Analytics
 import dagger.Binds
