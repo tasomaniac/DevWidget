@@ -2,14 +2,15 @@ package com.tasomaniac.devwidget.configure
 
 import android.appwidget.AppWidgetManager
 import com.nhaarman.mockitokotlin2.any
-import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.given
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.then
 import com.tasomaniac.devwidget.data.Widget
 import com.tasomaniac.devwidget.data.WidgetDao
 import com.tasomaniac.devwidget.test.emptyDebouncer
+import com.tasomaniac.devwidget.test.given
 import com.tasomaniac.devwidget.test.testScheduling
+import com.tasomaniac.devwidget.test.willReturn
 import com.tasomaniac.devwidget.widget.WidgetUpdater
 import io.reactivex.Completable
 import io.reactivex.Maybe
@@ -18,17 +19,17 @@ import org.junit.Test
 class WidgetNameModelTest {
 
     private val widgetDao = mock<WidgetDao> {
-        on { findWidgetById(APP_WIDGET_ID) } doReturn Maybe.empty()
-        on { insertWidget(any()) } doReturn Completable.complete()
-        on { updateWidget(any()) } doReturn Completable.complete()
+        given { findWidgetById(APP_WIDGET_ID) } willReturn Maybe.empty()
+        given { insertWidget(any()) } willReturn Completable.complete()
+        given { updateWidget(any()) } willReturn Completable.complete()
     }
     private val appWidgetManager = mock<AppWidgetManager> {
-        on { getAppWidgetOptions(APP_WIDGET_ID) } doReturn mock()
+        given { getAppWidgetOptions(APP_WIDGET_ID) } willReturn mock()
     }
     private val widgetUpdater = mock<WidgetUpdater> {
-        on { appWidgetManager } doReturn appWidgetManager
-        on { update(any(), any()) } doReturn Completable.complete()
-        on { update(any(), any(), any()) } doReturn Completable.complete()
+        given { appWidgetManager } willReturn appWidgetManager
+        given { update(any(), any()) } willReturn Completable.complete()
+        given { update(any(), any(), any()) } willReturn Completable.complete()
     }
 
     private val widgetNameModel = WidgetNameModel(

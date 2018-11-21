@@ -2,7 +2,6 @@ package com.tasomaniac.devwidget.app
 
 import android.util.Log
 import com.crashlytics.android.Crashlytics
-import com.tasomaniac.devwidget.BuildConfig
 import dagger.android.AndroidInjector
 import timber.log.Timber
 

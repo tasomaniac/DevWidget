@@ -1,7 +1,5 @@
 package com.tasomaniac.devwidget.app
 
-import com.tasomaniac.devwidget.BuildConfig
-import com.tasomaniac.devwidget.DaggerAppComponent
 import dagger.android.AndroidInjector
 import timber.log.Timber
 
