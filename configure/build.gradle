@@ -7,4 +7,6 @@ android {
 dependencies {
     implementation project(':data')
     implementation 'com.jakewharton.rx2:replaying-share-kotlin:2.1.0'
+
+    testImplementation project(':test-support')
 }

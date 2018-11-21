@@ -21,7 +21,7 @@ import com.tasomaniac.devwidget.widget.click.HeaderOptionsActivity
 import com.tasomaniac.devwidget.widget.click.WidgetRefreshActivity
 import javax.inject.Inject
 
-class RemoveViewsCreator(
+class RemoteViewsCreator(
     private val app: Application,
     private val widgetResources: WidgetResources,
     private val opacityPreferences: OpacityPreferences,
@@ -142,6 +142,6 @@ class RemoveViewsCreator(
     ) {
 
         fun create(widget: Widget, minWidth: Int) =
-            RemoveViewsCreator(app, widgetResources, opacityPreferences, widget, minWidth)
+            RemoteViewsCreator(app, widgetResources, opacityPreferences, widget, minWidth)
     }
 }

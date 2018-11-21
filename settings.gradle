@@ -5,3 +5,5 @@ include ':settings'
 include ':base'
 include ':data'
 include ':widget'
+
+include ':test-support'

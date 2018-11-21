@@ -3,16 +3,14 @@ package com.tasomaniac.devwidget.configure
 import android.appwidget.AppWidgetManager
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doReturn
-import com.nhaarman.mockitokotlin2.eq
 import com.nhaarman.mockitokotlin2.given
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.then
 import com.tasomaniac.devwidget.data.Widget
 import com.tasomaniac.devwidget.data.WidgetDao
-import com.tasomaniac.devwidget.extensions.emptyDebouncer
-import com.tasomaniac.devwidget.extensions.testScheduling
-import com.tasomaniac.devwidget.widget.RemoveViewsCreator
-import com.tasomaniac.devwidget.widget.WidgetUpdaterImpl
+import com.tasomaniac.devwidget.test.emptyDebouncer
+import com.tasomaniac.devwidget.test.testScheduling
+import com.tasomaniac.devwidget.widget.WidgetUpdater
 import io.reactivex.Completable
 import io.reactivex.Maybe
 import org.junit.Test
@@ -27,27 +25,19 @@ class WidgetNameModelTest {
     private val appWidgetManager = mock<AppWidgetManager> {
         on { getAppWidgetOptions(APP_WIDGET_ID) } doReturn mock()
     }
-
-    private val widgetNameModel: WidgetNameModel
-
-    init {
-        val removeViewsCreator = mock<RemoveViewsCreator> {
-            on { create() } doReturn mock()
-        }
-        val remoteViewCreatorFactory = mock<RemoveViewsCreator.Factory> {
-            on { create(any(), any()) } doReturn removeViewsCreator
-        }
-        val widgetUpdater =
-            WidgetUpdaterImpl(appWidgetManager, mock(), remoteViewCreatorFactory, widgetDao)
-
-        widgetNameModel = WidgetNameModel(
-            widgetDao,
-            widgetUpdater,
-            APP_WIDGET_ID,
-            emptyDebouncer(),
-            testScheduling()
-        )
+    private val widgetUpdater = mock<WidgetUpdater> {
+        on { appWidgetManager } doReturn appWidgetManager
+        on { update(any(), any()) } doReturn Completable.complete()
+        on { update(any(), any(), any()) } doReturn Completable.complete()
     }
+
+    private val widgetNameModel = WidgetNameModel(
+        widgetDao,
+        widgetUpdater,
+        APP_WIDGET_ID,
+        emptyDebouncer(),
+        testScheduling()
+    )
 
     @Test
     fun `given NOT available, should insert and update widget`() {
@@ -57,7 +47,7 @@ class WidgetNameModelTest {
 
         then(widgetDao).should().insertWidget(Widget(APP_WIDGET_ID))
         then(widgetDao).should().updateWidget(Widget(APP_WIDGET_ID, ANY_WIDGET_NAME))
-        then(appWidgetManager).should().updateAppWidget(eq(APP_WIDGET_ID), any())
+        then(widgetUpdater).should().update(APP_WIDGET_ID, ANY_WIDGET_NAME)
     }
 
     @Test
@@ -67,7 +57,7 @@ class WidgetNameModelTest {
         widgetNameModel.updateWidgetName(ANY_WIDGET_NAME)
 
         then(widgetDao).should().updateWidget(Widget(APP_WIDGET_ID, ANY_WIDGET_NAME))
-        then(appWidgetManager).should().updateAppWidget(eq(APP_WIDGET_ID), any())
+        then(widgetUpdater).should().update(APP_WIDGET_ID, ANY_WIDGET_NAME)
     }
 
     @Test

@@ -10,11 +10,11 @@ interface WidgetUpdater {
     val appWidgetManager: AppWidgetManager
 
     @CheckReturnValue
-    fun update(
-        appWidgetId: Int,
-        name: String,
-        widgetOptions: Bundle = appWidgetManager.getAppWidgetOptions(appWidgetId)
-    ): Completable
+    fun update(appWidgetId: Int, name: String) =
+        update(appWidgetId, name, appWidgetManager.getAppWidgetOptions(appWidgetId))
+
+    @CheckReturnValue
+    fun update(appWidgetId: Int, name: String, widgetOptions: Bundle): Completable
 
     @CheckReturnValue
     fun updateAll(): Completable
