@@ -6,7 +6,7 @@ import androidx.preference.PreferenceFragmentCompat
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
-class SettingsFragment : PreferenceFragmentCompat() {
+internal class SettingsFragment : PreferenceFragmentCompat() {
 
     @Inject lateinit var settings: @JvmSuppressWildcards Set<Settings>
 

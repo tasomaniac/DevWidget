@@ -18,7 +18,7 @@ import dagger.android.AndroidInjection
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
-class WidgetProvider : AppWidgetProvider() {
+internal class WidgetProvider : AppWidgetProvider() {
 
     @Inject lateinit var widgetDao: WidgetDao
     @Inject lateinit var scheduling: SchedulingStrategy

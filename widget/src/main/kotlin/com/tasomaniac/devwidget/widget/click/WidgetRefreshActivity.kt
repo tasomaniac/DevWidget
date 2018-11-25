@@ -12,7 +12,7 @@ import dagger.android.support.DaggerAppCompatActivity
 import io.reactivex.Completable
 import javax.inject.Inject
 
-class WidgetRefreshActivity : DaggerAppCompatActivity() {
+internal class WidgetRefreshActivity : DaggerAppCompatActivity() {
 
     @Inject lateinit var widgetAppsDataUpdater: WidgetAppsDataUpdater
     @Inject lateinit var widgetUpdater: WidgetUpdater

@@ -4,7 +4,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import javax.inject.Inject
 
-class WidgetListAdapter @Inject constructor(
+internal class WidgetListAdapter @Inject constructor(
     private val widgetViewHolderFactory: WidgetViewHolder.Factory
 ) : RecyclerView.Adapter<WidgetViewHolder>() {
 

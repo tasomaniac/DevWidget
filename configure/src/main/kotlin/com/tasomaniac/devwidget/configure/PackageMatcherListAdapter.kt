@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import javax.inject.Inject
 import kotlin.properties.Delegates.observable
 
-class PackageMatcherListAdapter @Inject constructor(
+internal class PackageMatcherListAdapter @Inject constructor(
     private val viewHolderFactory: PackageMatcherViewHolder.Factory
 ) : RecyclerView.Adapter<PackageMatcherViewHolder>() {
 

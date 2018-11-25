@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.main_content.mainEmptyInfo
 import kotlinx.android.synthetic.main.main_content.mainWidgetList
 import javax.inject.Inject
 
-class MainActivity : DaggerAppCompatActivity() {
+internal class MainActivity : DaggerAppCompatActivity() {
 
     @Inject lateinit var viewModelProvider: ViewModelProvider
     @Inject lateinit var scopeProvider: AndroidLifecycleScopeProvider
@@ -41,7 +41,7 @@ class MainActivity : DaggerAppCompatActivity() {
             val mainAddNewWidget = findViewById<View>(R.id.mainAddNewWidget)
             mainAddNewWidget.visibility = View.VISIBLE
             mainAddNewWidget.setOnClickListener {
-                navigation.navigateForPinning(this)
+                navigation.navigateForPinning()
             }
         }
 

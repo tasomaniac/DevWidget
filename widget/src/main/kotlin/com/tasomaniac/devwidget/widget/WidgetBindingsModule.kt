@@ -6,17 +6,17 @@ import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
 @Module
-interface WidgetBindingsModule {
+abstract class WidgetBindingsModule {
 
     @Binds
-    fun widgetUpdater(widgetUpdater: WidgetUpdaterImpl): WidgetUpdater
+    internal abstract fun widgetUpdater(widgetUpdater: WidgetUpdaterImpl): WidgetUpdater
 
     @ContributesAndroidInjector
-    fun widgetProvider(): WidgetProvider
+    internal abstract fun widgetProvider(): WidgetProvider
 
     @ContributesAndroidInjector
-    fun widgetViewsService(): WidgetViewsService
+    internal abstract fun widgetViewsService(): WidgetViewsService
 
     @ContributesAndroidInjector
-    fun activityChooserActivity(): ActivityChooserActivity
+    internal abstract fun activityChooserActivity(): ActivityChooserActivity
 }

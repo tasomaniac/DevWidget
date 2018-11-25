@@ -1,6 +1,6 @@
 package com.tasomaniac.devwidget.configure
 
-interface ConfigureView {
+internal interface ConfigureView {
     fun setWidgetName(widgetName: String)
     fun setFilters(filters: List<String>)
     fun setItems(items: Collection<String>)

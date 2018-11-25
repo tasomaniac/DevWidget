@@ -4,17 +4,17 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
+import com.tasomaniac.devwidget.configure.WidgetConfigureCommand
+import com.tasomaniac.devwidget.navigation.FinishCommand
 import com.tasomaniac.devwidget.navigation.Navigator
 import com.tasomaniac.devwidget.widget.R
 import com.tasomaniac.devwidget.widget.WidgetResources
 import com.tasomaniac.devwidget.widget.click.commands.DevOptionsCommand
-import com.tasomaniac.devwidget.widget.click.commands.FinishCommand
-import com.tasomaniac.devwidget.widget.click.commands.WidgetConfigureCommand
 import com.tasomaniac.devwidget.widget.click.commands.WidgetRefreshCommand
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
-class HeaderOptionsActivity : DaggerAppCompatActivity() {
+internal class HeaderOptionsActivity : DaggerAppCompatActivity() {
 
     @Inject lateinit var widgetResources: WidgetResources
     @Inject lateinit var navigator: Navigator

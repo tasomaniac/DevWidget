@@ -12,7 +12,7 @@ import io.reactivex.annotations.CheckReturnValue
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class WidgetUpdaterImpl @Inject constructor(
+internal class WidgetUpdaterImpl @Inject constructor(
     override val appWidgetManager: AppWidgetManager,
     private val app: Application,
     private val remoteViewsCreatorFactory: RemoteViewsCreator.Factory,

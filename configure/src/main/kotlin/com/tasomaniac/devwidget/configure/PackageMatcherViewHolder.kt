@@ -19,7 +19,7 @@ import com.tasomaniac.devwidget.extensions.inflate
 import io.reactivex.disposables.Disposables
 import javax.inject.Inject
 
-class PackageMatcherViewHolder(
+internal class PackageMatcherViewHolder(
     private val textView: TextView,
     private val appDao: AppDao,
     private val filterDao: FilterDao,

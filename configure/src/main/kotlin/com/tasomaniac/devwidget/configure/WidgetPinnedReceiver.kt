@@ -12,7 +12,7 @@ import com.tasomaniac.devwidget.widget.WidgetUpdater
 import dagger.android.DaggerBroadcastReceiver
 import javax.inject.Inject
 
-class WidgetPinnedReceiver : DaggerBroadcastReceiver() {
+internal class WidgetPinnedReceiver : DaggerBroadcastReceiver() {
 
     @Inject lateinit var widgetDao: WidgetDao
     @Inject lateinit var scheduling: SchedulingStrategy

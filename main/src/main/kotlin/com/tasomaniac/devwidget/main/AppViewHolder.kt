@@ -10,7 +10,7 @@ import com.tasomaniac.devwidget.widget.DisplayApplicationInfo
 import com.tasomaniac.devwidget.widget.WidgetResources
 import javax.inject.Inject
 
-class AppViewHolder(
+internal class AppViewHolder(
     private val widgetResources: WidgetResources,
     containerView: View
 ) : RecyclerView.ViewHolder(containerView) {

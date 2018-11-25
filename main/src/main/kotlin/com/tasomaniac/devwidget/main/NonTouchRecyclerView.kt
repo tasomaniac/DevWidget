@@ -6,7 +6,7 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import androidx.recyclerview.widget.RecyclerView
 
-class NonTouchRecyclerView @JvmOverloads constructor(
+internal class NonTouchRecyclerView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0

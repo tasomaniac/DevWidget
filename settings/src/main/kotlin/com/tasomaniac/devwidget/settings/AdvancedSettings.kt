@@ -11,7 +11,7 @@ import com.tasomaniac.devwidget.data.updater.ShouldStartWidgetRefreshService
 import com.tasomaniac.devwidget.data.updater.WidgetRefreshService
 import javax.inject.Inject
 
-class AdvancedSettings @Inject constructor(
+internal class AdvancedSettings @Inject constructor(
     private val sharedPreferences: SharedPreferences,
     private val clickBehaviorPreferences: ClickBehaviorPreferences,
     private val autoUpdatePreferences: AutoUpdatePreferences,

@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.activity_chooser_list.activityChooserTitle
 import kotlinx.android.synthetic.main.activity_chooser_list.resolverDrawerLayout
 import javax.inject.Inject
 
-class ActivityChooserActivity : DaggerAppCompatActivity() {
+internal class ActivityChooserActivity : DaggerAppCompatActivity() {
 
     @Inject lateinit var adapter: ResolveListAdapter
     @Inject lateinit var launcherApps: LauncherApps

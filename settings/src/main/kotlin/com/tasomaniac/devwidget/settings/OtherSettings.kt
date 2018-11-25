@@ -6,7 +6,7 @@ import androidx.preference.Preference
 import com.tasomaniac.devwidget.data.Analytics
 import javax.inject.Inject
 
-class OtherSettings @Inject constructor(
+internal class OtherSettings @Inject constructor(
     fragment: SettingsFragment,
     private val analytics: Analytics,
     private val version: Version

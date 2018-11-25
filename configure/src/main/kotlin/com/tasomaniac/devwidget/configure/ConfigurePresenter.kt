@@ -11,7 +11,7 @@ import com.uber.autodispose.autoDisposable
 import io.reactivex.Completable
 import javax.inject.Inject
 
-class ConfigurePresenter @Inject constructor(
+internal class ConfigurePresenter @Inject constructor(
     viewModelProvider: ViewModelProvider,
     widgetUpdater: WidgetUpdater,
     widgetPinner: WidgetPinner,

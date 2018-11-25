@@ -5,7 +5,7 @@ import dagger.Provides
 import dagger.multibindings.ElementsIntoSet
 
 @Module
-class SettingsModule {
+internal class SettingsModule {
 
     @Provides
     @ElementsIntoSet

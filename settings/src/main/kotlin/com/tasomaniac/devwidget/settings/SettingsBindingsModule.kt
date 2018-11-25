@@ -4,11 +4,11 @@ import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
 @Module
-interface SettingsBindingsModule {
+abstract class SettingsBindingsModule {
 
     @ContributesAndroidInjector
-    fun settingsActivity(): SettingsActivity
+    internal abstract fun settingsActivity(): SettingsActivity
 
     @ContributesAndroidInjector(modules = [SettingsModule::class])
-    fun settingsFragment(): SettingsFragment
+    internal abstract fun settingsFragment(): SettingsFragment
 }

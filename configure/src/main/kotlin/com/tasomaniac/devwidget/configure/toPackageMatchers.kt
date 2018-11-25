@@ -1,6 +1,6 @@
 package com.tasomaniac.devwidget.configure
 
-fun List<String>.toPackageMatchers(): List<String> {
+internal fun List<String>.toPackageMatchers(): List<String> {
     return flatMap {
         var currentPackage = it
 

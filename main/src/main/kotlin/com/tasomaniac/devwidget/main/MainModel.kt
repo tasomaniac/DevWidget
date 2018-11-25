@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 private typealias MainResult = Pair<List<WidgetListData>, DiffUtil.DiffResult>
 
-class MainModel @Inject constructor(
+internal class MainModel @Inject constructor(
     private val sortingPreferences: SortingPreferences,
     applicationInfoResolver: ApplicationInfoResolver,
     widgetAppDao: WidgetAppDao

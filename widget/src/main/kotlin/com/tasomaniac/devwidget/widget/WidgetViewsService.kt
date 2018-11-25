@@ -12,7 +12,7 @@ import com.tasomaniac.devwidget.settings.SortingPreferences
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 
-class WidgetViewsService : RemoteViewsService() {
+internal class WidgetViewsService : RemoteViewsService() {
 
     @Inject lateinit var appDao: AppDao
     @Inject lateinit var applicationInfoResolver: ApplicationInfoResolver

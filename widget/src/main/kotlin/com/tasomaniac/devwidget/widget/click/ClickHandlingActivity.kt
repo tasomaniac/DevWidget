@@ -10,7 +10,7 @@ import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.parcel.Parcelize
 import javax.inject.Inject
 
-class ClickHandlingActivity : DaggerAppCompatActivity() {
+internal class ClickHandlingActivity : DaggerAppCompatActivity() {
 
     @Inject lateinit var navigation: ClickHandlingNavigation
     @Inject lateinit var input: Input
@@ -58,7 +58,7 @@ class ClickHandlingActivity : DaggerAppCompatActivity() {
 
 private const val EXTRA_INPUT = "EXTRA_INPUT"
 
-var Intent.input: ClickHandlingActivity.Input
+internal var Intent.input: ClickHandlingActivity.Input
     get() = getParcelableExtra(EXTRA_INPUT)
     set(value) {
         putExtra(EXTRA_INPUT, value)

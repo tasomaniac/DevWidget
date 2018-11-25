@@ -1,17 +1,15 @@
 package com.tasomaniac.devwidget.widget.click.commands
 
-import android.app.Activity
+import android.content.Context
 import android.os.UserHandle
-import com.tasomaniac.devwidget.navigation.Command
+import com.tasomaniac.devwidget.navigation.IntentCommand
 import com.tasomaniac.devwidget.widget.chooser.ActivityChooserActivity
 
-data class ActivityChooserCommand(
+internal data class ActivityChooserCommand(
     private val packageName: String,
     private val user: UserHandle
-) : Command {
+) : IntentCommand {
 
-    override fun action(activity: Activity) {
-        ActivityChooserActivity.createIntent(activity, packageName, user)
-            .safeStart(activity)
-    }
+    override fun createIntent(context: Context) =
+        ActivityChooserActivity.createIntent(context, packageName, user)
 }

@@ -8,7 +8,7 @@ import android.webkit.WebView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDialogFragment
 
-class LicensesDialogFragment : AppCompatDialogFragment() {
+internal class LicensesDialogFragment : AppCompatDialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         @SuppressLint("InflateParams")

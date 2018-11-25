@@ -4,14 +4,14 @@ import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
 @Module
-interface ClickBindingsModule {
+abstract class ClickBindingsModule {
 
     @ContributesAndroidInjector(modules = [ClickHandlingModule::class])
-    fun clickHandlingActivity(): ClickHandlingActivity
+    internal abstract fun clickHandlingActivity(): ClickHandlingActivity
 
     @ContributesAndroidInjector(modules = [WidgetRefreshModule::class])
-    fun widgetRefreshActivity(): WidgetRefreshActivity
+    internal abstract fun widgetRefreshActivity(): WidgetRefreshActivity
 
     @ContributesAndroidInjector(modules = [HeaderOptionsModule::class])
-    fun headerOptionsActivity(): HeaderOptionsActivity
+    internal abstract fun headerOptionsActivity(): HeaderOptionsActivity
 }

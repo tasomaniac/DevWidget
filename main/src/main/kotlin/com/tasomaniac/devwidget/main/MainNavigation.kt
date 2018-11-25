@@ -1,16 +1,15 @@
 package com.tasomaniac.devwidget.main
 
-import android.content.Context
 import android.os.Build.VERSION_CODES.O
 import androidx.annotation.RequiresApi
-import com.tasomaniac.devwidget.configure.ConfigureActivity
+import com.tasomaniac.devwidget.configure.WidgetPinRequestCommand
+import com.tasomaniac.devwidget.navigation.Navigator
 import javax.inject.Inject
 
-class MainNavigation @Inject constructor() {
+internal class MainNavigation @Inject constructor(private val navigator: Navigator) {
 
     @RequiresApi(O)
-    fun navigateForPinning(context: Context) {
-        val intent = ConfigureActivity.createIntentForPinning(context)
-        context.startActivity(intent)
+    fun navigateForPinning() {
+        navigator.navigate(WidgetPinRequestCommand)
     }
 }

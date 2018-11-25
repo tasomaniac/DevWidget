@@ -13,7 +13,7 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.processors.BehaviorProcessor
 import javax.inject.Inject
 
-class WidgetNameModel @Inject constructor(
+internal class WidgetNameModel @Inject constructor(
     private val widgetDao: WidgetDao,
     private val widgetUpdater: WidgetUpdater,
     val appWidgetId: Int,

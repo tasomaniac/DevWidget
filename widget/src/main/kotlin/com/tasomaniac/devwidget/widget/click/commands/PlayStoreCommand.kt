@@ -1,14 +1,12 @@
 package com.tasomaniac.devwidget.widget.click.commands
 
-import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import com.tasomaniac.devwidget.navigation.Command
+import com.tasomaniac.devwidget.navigation.IntentCommand
 
-data class PlayStoreCommand(private val packageName: String) : Command {
+internal data class PlayStoreCommand(private val packageName: String) : IntentCommand {
 
-    override fun action(activity: Activity) {
+    override fun createIntent(context: Context) =
         Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$packageName"))
-            .safeStart(activity)
-    }
 }

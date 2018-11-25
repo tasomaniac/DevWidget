@@ -1,12 +1,11 @@
 package com.tasomaniac.devwidget.widget.click.commands
 
-import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.provider.Settings
-import com.tasomaniac.devwidget.navigation.Command
+import com.tasomaniac.devwidget.navigation.IntentCommand
 
-object DevOptionsCommand : Command {
-    override fun action(activity: Activity) {
-        Intent(Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS).safeStart(activity)
-    }
+internal object DevOptionsCommand : IntentCommand {
+
+    override fun createIntent(context: Context) = Intent(Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS)
 }

@@ -7,7 +7,7 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.tasomaniac.devwidget.widget.R
 
-class ActionDialogAdapter(
+internal class ActionDialogAdapter(
     context: Context,
     data: List<Action>
 ) : ArrayAdapter<Action>(

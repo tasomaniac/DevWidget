@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.configure_content.configurePackageMatcherL
 import kotlinx.android.synthetic.main.configure_content.configureWidgetName
 import javax.inject.Inject
 
-class ConfigureActivity : DaggerAppCompatActivity(), ConfigureView {
+internal class ConfigureActivity : DaggerAppCompatActivity(), ConfigureView {
 
     @Inject lateinit var presenter: ConfigurePresenter
     @Inject lateinit var packageMatcherListAdapter: PackageMatcherListAdapter

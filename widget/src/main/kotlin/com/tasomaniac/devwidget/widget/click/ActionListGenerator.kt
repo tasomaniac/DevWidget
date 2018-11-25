@@ -4,16 +4,16 @@ import android.annotation.SuppressLint
 import android.app.Notification
 import android.content.Intent
 import android.content.pm.PackageManager
+import com.tasomaniac.devwidget.navigation.ComponentCommand
 import com.tasomaniac.devwidget.widget.R
 import com.tasomaniac.devwidget.widget.WidgetResources
 import com.tasomaniac.devwidget.widget.chooser.componentName
 import com.tasomaniac.devwidget.widget.click.commands.AppDetailsCommand
-import com.tasomaniac.devwidget.widget.click.commands.ComponentCommand
 import com.tasomaniac.devwidget.widget.click.commands.PlayStoreCommand
 import com.tasomaniac.devwidget.widget.click.commands.UninstallCommand
 import javax.inject.Inject
 
-class ActionListGenerator @Inject constructor(
+internal class ActionListGenerator @Inject constructor(
     private val packageManager: PackageManager,
     private val widgetResources: WidgetResources,
     private val input: ClickHandlingActivity.Input

@@ -1,15 +1,15 @@
 package com.tasomaniac.devwidget.widget.click
 
-import android.app.Activity
+import androidx.fragment.app.FragmentActivity
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
 
 @Module
-abstract class ClickHandlingModule {
+internal abstract class ClickHandlingModule {
 
     @Binds
-    abstract fun activity(activity: ClickHandlingActivity): Activity
+    abstract fun activity(activity: ClickHandlingActivity): FragmentActivity
 
     @Module
     companion object {

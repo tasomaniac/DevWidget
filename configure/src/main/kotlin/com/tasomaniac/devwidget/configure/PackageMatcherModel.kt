@@ -12,7 +12,7 @@ import io.reactivex.annotations.CheckReturnValue
 import io.reactivex.rxkotlin.combineLatest
 import javax.inject.Inject
 
-class PackageMatcherModel @Inject constructor(
+internal class PackageMatcherModel @Inject constructor(
     private val packageResolver: PackageResolver,
     private val filterDao: FilterDao,
     private val widgetAppsDataUpdater: WidgetAppsDataUpdater,

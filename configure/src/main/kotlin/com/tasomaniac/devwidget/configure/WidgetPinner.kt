@@ -9,7 +9,7 @@ import androidx.annotation.RequiresApi
 import com.tasomaniac.devwidget.extensions.toPendingBroadcast
 import javax.inject.Inject
 
-class WidgetPinner @Inject constructor(
+internal class WidgetPinner @Inject constructor(
     private val app: Application,
     private val appWidgetManager: AppWidgetManager
 ) {

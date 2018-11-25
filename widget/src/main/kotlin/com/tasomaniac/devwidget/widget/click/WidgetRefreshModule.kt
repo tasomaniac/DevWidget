@@ -6,7 +6,7 @@ import dagger.Binds
 import dagger.Module
 
 @Module(includes = [LifecycleScopeModule::class])
-interface WidgetRefreshModule {
+internal interface WidgetRefreshModule {
 
     @Binds
     fun fragmentActivity(activity: WidgetRefreshActivity): FragmentActivity

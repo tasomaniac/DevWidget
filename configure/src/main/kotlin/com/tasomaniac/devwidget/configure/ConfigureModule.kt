@@ -19,7 +19,7 @@ typealias ConfigurePinning = Boolean
         LifecycleScopeModule::class
     ]
 )
-object ConfigureModule {
+internal object ConfigureModule {
 
     @Provides
     @JvmStatic
@@ -40,14 +40,14 @@ object ConfigureModule {
 }
 
 @Module
-interface ActivityBindingModule {
+internal interface ActivityBindingModule {
 
     @Binds
     fun fragmentActivity(activity: ConfigureActivity): FragmentActivity
 }
 
 @Module
-interface ConfigureViewModelModule {
+internal interface ConfigureViewModelModule {
 
     @Binds
     @IntoMap

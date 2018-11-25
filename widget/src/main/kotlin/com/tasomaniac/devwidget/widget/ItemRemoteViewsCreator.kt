@@ -8,7 +8,7 @@ import androidx.core.graphics.drawable.toBitmap
 import com.tasomaniac.devwidget.widget.click.ClickHandlingActivity
 import javax.inject.Inject
 
-class ItemRemoteViewsCreator @Inject constructor(
+internal class ItemRemoteViewsCreator @Inject constructor(
     private val application: Application,
     private val resources: Resources,
     private val widgetResources: WidgetResources

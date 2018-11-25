@@ -9,7 +9,7 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 
 @Module(includes = [LifecycleScopeModule::class])
-interface MainModule {
+internal interface MainModule {
 
     @Binds
     fun fragmentActivity(activity: MainActivity): FragmentActivity

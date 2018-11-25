@@ -1,12 +1,12 @@
 package com.tasomaniac.devwidget.widget.click
 
-import android.app.Activity
+import androidx.fragment.app.FragmentActivity
 import dagger.Binds
 import dagger.Module
 
 @Module
-interface HeaderOptionsModule {
+internal interface HeaderOptionsModule {
 
     @Binds
-    fun activity(activity: HeaderOptionsActivity): Activity
+    fun activity(activity: HeaderOptionsActivity): FragmentActivity
 }

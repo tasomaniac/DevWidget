@@ -9,7 +9,7 @@ import com.tasomaniac.devwidget.extensions.SchedulingStrategy
 import com.tasomaniac.devwidget.widget.WidgetUpdater
 import javax.inject.Inject
 
-class DisplaySettings @Inject constructor(
+internal class DisplaySettings @Inject constructor(
     private val sharedPreferences: SharedPreferences,
     private val nightModePreferences: NightModePreferences,
     private val opacityPreferences: OpacityPreferences,

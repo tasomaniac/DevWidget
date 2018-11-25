@@ -7,7 +7,7 @@ import com.tasomaniac.devwidget.extensions.SchedulingStrategy
 import com.tasomaniac.devwidget.widget.WidgetUpdater
 import javax.inject.Inject
 
-class GeneralSettings @Inject constructor(
+internal class GeneralSettings @Inject constructor(
     private val sharedPreferences: SharedPreferences,
     private val sortingPreferences: SortingPreferences,
     private val widgetUpdater: WidgetUpdater,

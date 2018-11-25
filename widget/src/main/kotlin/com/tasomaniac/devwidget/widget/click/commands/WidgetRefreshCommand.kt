@@ -1,13 +1,10 @@
 package com.tasomaniac.devwidget.widget.click.commands
 
-import android.app.Activity
-import com.tasomaniac.devwidget.navigation.Command
+import android.content.Context
+import com.tasomaniac.devwidget.navigation.IntentCommand
 import com.tasomaniac.devwidget.widget.click.WidgetRefreshActivity
 
-data class WidgetRefreshCommand(private val appWidgetId: Int) : Command {
+internal data class WidgetRefreshCommand(private val appWidgetId: Int) : IntentCommand {
 
-    override fun action(activity: Activity) {
-        val intent = WidgetRefreshActivity.createIntent(activity, appWidgetId)
-        activity.startActivity(intent)
-    }
+    override fun createIntent(context: Context) = WidgetRefreshActivity.createIntent(context, appWidgetId)
 }

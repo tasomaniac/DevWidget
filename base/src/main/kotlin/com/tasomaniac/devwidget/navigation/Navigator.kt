@@ -1,13 +1,13 @@
 package com.tasomaniac.devwidget.navigation
 
-import android.app.Activity
+import androidx.fragment.app.FragmentActivity
 import javax.inject.Inject
 
 class Navigator @Inject constructor(
-    private val activity: Activity
+    private val activity: FragmentActivity
 ) {
 
     fun navigate(command: Command) {
-        command.action(activity)
+        command.start(activity)
     }
 }

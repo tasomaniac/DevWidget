@@ -4,11 +4,11 @@ import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
 @Module
-interface ConfigureBindingsModule {
+abstract class ConfigureBindingsModule {
 
     @ContributesAndroidInjector(modules = [ConfigureModule::class])
-    fun configureActivity(): ConfigureActivity
+    internal abstract fun configureActivity(): ConfigureActivity
 
     @ContributesAndroidInjector
-    fun widgetPinnedReceiver(): WidgetPinnedReceiver
+    internal abstract fun widgetPinnedReceiver(): WidgetPinnedReceiver
 }

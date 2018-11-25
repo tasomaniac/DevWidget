@@ -11,7 +11,7 @@ import android.view.View
 import android.widget.RemoteViews
 import androidx.annotation.ColorInt
 import androidx.annotation.IdRes
-import com.tasomaniac.devwidget.configure.ConfigureActivity
+import com.tasomaniac.devwidget.configure.WidgetConfigureCommand
 import com.tasomaniac.devwidget.data.Widget
 import com.tasomaniac.devwidget.extensions.toPendingActivity
 import com.tasomaniac.devwidget.settings.Opacity
@@ -21,7 +21,7 @@ import com.tasomaniac.devwidget.widget.click.HeaderOptionsActivity
 import com.tasomaniac.devwidget.widget.click.WidgetRefreshActivity
 import javax.inject.Inject
 
-class RemoteViewsCreator(
+internal class RemoteViewsCreator(
     private val app: Application,
     private val widgetResources: WidgetResources,
     private val opacityPreferences: OpacityPreferences,
@@ -62,7 +62,8 @@ class RemoteViewsCreator(
             buttonId,
             app.getString(R.string.widget_content_description_configure, widget.name)
         )
-        val intent = ConfigureActivity.createIntent(app, widget.appWidgetId)
+        val intent = WidgetConfigureCommand(widget.appWidgetId)
+            .createIntent(app)
             .toPendingActivity(app, widget.appWidgetId)
         setOnClickPendingIntent(buttonId, intent)
     }

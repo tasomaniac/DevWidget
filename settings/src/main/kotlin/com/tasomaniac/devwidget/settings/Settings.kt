@@ -5,7 +5,7 @@ import androidx.annotation.XmlRes
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.preference.Preference
 
-abstract class Settings(
+internal abstract class Settings(
     private val fragment: SettingsFragment
 ) : DefaultLifecycleObserver {
 
