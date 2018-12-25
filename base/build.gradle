@@ -1,4 +1,4 @@
-apply from: propsFile('android-library-config.gradle')
+apply from: configFile('android-library-config.gradle')
 
 dependencies {
     implementation 'androidx.preference:preference-ktx:1.0.0' // needed because of custom preference style

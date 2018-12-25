@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-apply from: propsFile('android-common-config.gradle')
+apply from: configFile('android-common-config.gradle')
 apply plugin: 'com.novoda.android-command'
 apply plugin: 'com.novoda.build-properties'
 if (isPlay) {
@@ -8,8 +8,8 @@ if (isPlay) {
 }
 
 buildProperties {
-    signing.using(propsFile('release.signing')) | propsFile('debug.signing')
-    secrets.using(propsFile('secrets.properties'))
+    signing.using(configFile('release.signing')) | configFile('debug.signing')
+    secrets.using(configFile('secrets.properties'))
 }
 
 def secrets = buildProperties.secrets
@@ -26,10 +26,10 @@ android {
     }
 
     signingConfigs {
-        debug.storeFile propsFile('debug.keystore')
+        debug.storeFile configFile('debug.keystore')
         release {
             def signing = buildProperties.signing
-            storeFile propsFile(signing['storeFile'].string)
+            storeFile configFile(signing['storeFile'].string)
             storePassword signing['storePassword'].string
             keyAlias signing['keyAlias'].string
             keyPassword signing['keyPassword'].string

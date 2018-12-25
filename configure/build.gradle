@@ -1,4 +1,4 @@
-apply from: propsFile('android-library-config.gradle')
+apply from: configFile('android-library-config.gradle')
 
 android {
     resourcePrefix 'configure'

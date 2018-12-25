@@ -1,6 +1,9 @@
 buildscript {
     ext.ci = 'true' == System.getenv('CI')
     ext.isPlay = project.hasProperty('play')
+    ext.configFile = { fileName ->
+        rootProject.file("gradle/$fileName")
+    }
 
     def versionMajor = 1
     def versionMinor = 4
@@ -21,10 +24,6 @@ buildscript {
             room       : '2.1.0-alpha03',
     ]
 
-    ext.propsFile = { name ->
-        rootProject.file("props/$name")
-    }
-
     repositories {
         gradlePluginPortal()
         google()
@@ -40,15 +39,15 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.4.0-alpha08'
+        classpath 'com.android.tools.build:gradle:3.4.0-alpha09'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.20.0'
         classpath 'com.github.triplet.gradle:play-publisher:1.2.2'
         classpath 'com.novoda:gradle-android-command-plugin:2.0.1'
         classpath 'com.novoda:gradle-build-properties-plugin:0.4.1'
         classpath 'io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.0.0-RC12'
-        classpath 'gradle.plugin.org.jlleitschuh.gradle:ktlint-gradle:5.1.0'
-        classpath 'com.novoda:gradle-static-analysis-plugin:0.7'
+        classpath 'org.jlleitschuh.gradle:ktlint-gradle:6.3.1'
+        classpath 'com.novoda:gradle-static-analysis-plugin:0.8'
         if (isPlay) {
             classpath 'com.google.gms:google-services:4.0.2'
             classpath 'io.fabric.tools:gradle:1.27.0'
@@ -63,15 +62,14 @@ subprojects {
     repositories {
         google()
         mavenCentral()
-        jcenter {
-            content {
-                includeGroup 'org.jetbrains.trove4j'
-                includeGroup 'com.andreapivetta.kolor'
-            }
-        }
     }
 
     if (project.name != 'test-support') {
-        apply from: propsFile('static-analysis.gradle')
+        apply from: configFile('static-analysis.gradle')
     }
 }
+
+ext.ReporterType = org.jlleitschuh.gradle.ktlint.reporter.ReporterType
+apply plugin: 'com.github.ben-manes.versions'
+apply from: configFile('configure-not-wanted-repositories.gradle')
+apply from: configFile('configure-dependency-updates.gradle')

@@ -17,7 +17,7 @@ staticAnalysis {
         checkReleaseBuilds false
         checkDependencies false
 
-        lintConfig propsFile('lint.xml')
+        lintConfig configFile('lint.xml')
 
         includeVariants { it.name in ['flossDebug', 'debug'] }
     }
@@ -27,7 +27,7 @@ project.afterEvaluate {
     staticAnalysis {
 
         detekt {
-            config = files(propsFile('/detekt.yml'))
+            config = files(configFile('/detekt.yml'))
         }
         
         ktlint {

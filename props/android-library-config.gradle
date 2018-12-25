@@ -1,2 +1,0 @@
-apply plugin: 'com.android.library'
-apply from: propsFile('android-common-config.gradle')
