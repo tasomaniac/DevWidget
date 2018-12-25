@@ -19,7 +19,7 @@
         android:textIsSelectable="false"
         tools:text="My Widget" />
 
-    <com.tasomaniac.devwidget.main.NonTouchRecyclerView
+    <com.tasomaniac.devwidget.widget.preview.NonTouchRecyclerView
         android:id="@+id/mainWidgetAppList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

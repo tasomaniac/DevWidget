@@ -1,4 +1,4 @@
-package com.tasomaniac.devwidget.main
+package com.tasomaniac.devwidget.widget.preview
 
 import android.content.res.Resources
 import com.tasomaniac.devwidget.data.Widget

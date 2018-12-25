@@ -10,6 +10,7 @@ import com.tasomaniac.devwidget.settings.Sorting.ORDER_ADDED
 import com.tasomaniac.devwidget.settings.SortingPreferences
 import com.tasomaniac.devwidget.widget.ApplicationInfoResolver
 import com.tasomaniac.devwidget.widget.DisplayApplicationInfo
+import com.tasomaniac.devwidget.widget.preview.WidgetListData
 import io.reactivex.disposables.Disposable
 import io.reactivex.processors.BehaviorProcessor
 import javax.inject.Inject

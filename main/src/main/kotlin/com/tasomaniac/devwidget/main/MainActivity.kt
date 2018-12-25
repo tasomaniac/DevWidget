@@ -50,7 +50,7 @@ internal class MainActivity : DaggerAppCompatActivity() {
             .compose(scheduling.forFlowable())
             .autoDisposable(scopeProvider)
             .subscribe { (data, diff) ->
-                updateEmptyView(data)
+                updateEmptyView(data.isEmpty())
                 widgetListAdapter.data = data
                 diff.dispatchUpdatesTo(widgetListAdapter)
             }
@@ -58,8 +58,8 @@ internal class MainActivity : DaggerAppCompatActivity() {
         if (savedInstanceState == null) analytics.sendScreenView(this, "Main")
     }
 
-    private fun updateEmptyView(data: List<WidgetListData>) {
-        if (data.isEmpty()) {
+    private fun updateEmptyView(isEmpty: Boolean) {
+        if (isEmpty) {
             mainEmptyInfo.visibility = View.VISIBLE
             mainEmptyInfo.setText(
                 if (isPinningSupported())

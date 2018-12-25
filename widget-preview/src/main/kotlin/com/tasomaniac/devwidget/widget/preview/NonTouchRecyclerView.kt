@@ -1,4 +1,4 @@
-package com.tasomaniac.devwidget.main
+package com.tasomaniac.devwidget.widget.preview
 
 import android.annotation.SuppressLint
 import android.content.Context

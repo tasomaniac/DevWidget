@@ -11,6 +11,7 @@
       <module fileurl="file://$PROJECT_DIR$/settings/settings.iml" filepath="$PROJECT_DIR$/settings/settings.iml" />
       <module fileurl="file://$PROJECT_DIR$/test-support/test-support.iml" filepath="$PROJECT_DIR$/test-support/test-support.iml" />
       <module fileurl="file://$PROJECT_DIR$/widget/widget.iml" filepath="$PROJECT_DIR$/widget/widget.iml" />
+      <module fileurl="file://$PROJECT_DIR$/widget-preview/widget-preview.iml" filepath="$PROJECT_DIR$/widget-preview/widget-preview.iml" />
     </modules>
   </component>
 </project>
