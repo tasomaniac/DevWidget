@@ -9,6 +9,7 @@ import com.tasomaniac.devwidget.ViewModelProviderModule
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
+import dagger.android.ContributesAndroidInjector
 import dagger.multibindings.IntoMap
 
 typealias ConfigurePinning = Boolean
@@ -45,6 +46,9 @@ internal interface ActivityBindingModule {
 
     @Binds
     fun fragmentActivity(activity: ConfigureActivity): FragmentActivity
+
+    @ContributesAndroidInjector
+    fun configurePreferenceFragment(): ConfigurePreferenceFragment
 }
 
 @Module

@@ -2,7 +2,7 @@
 
   <PreferenceCategory
       android:order="1"
-      android:title="@string/pref_title_general">
+      android:title="@string/general">
 
     <ListPreference
         android:key="@string/pref_key_sorting"

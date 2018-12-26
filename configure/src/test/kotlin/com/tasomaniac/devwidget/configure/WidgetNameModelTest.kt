@@ -61,15 +61,6 @@ class WidgetNameModelTest {
         then(widgetUpdater).should().update(APP_WIDGET_ID, ANY_WIDGET_NAME)
     }
 
-    @Test
-    fun `given already available, should emit current widget name`() {
-        given(widgetDao.findWidgetById(APP_WIDGET_ID)).willReturn(Maybe.just(ANY_WIDGET))
-
-        widgetNameModel.currentWidgetName()
-            .test()
-            .assertValue(ANY_WIDGET_NAME)
-    }
-
     companion object {
 
         private const val APP_WIDGET_ID = 1

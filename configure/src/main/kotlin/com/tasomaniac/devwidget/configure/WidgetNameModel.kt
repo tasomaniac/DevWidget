@@ -21,7 +21,6 @@ internal class WidgetNameModel @Inject constructor(
     scheduling: SchedulingStrategy
 ) : ViewModel() {
 
-    var newWidget = false
     private val disposable: Disposable
     private val processor = BehaviorProcessor.create<String>()
 
@@ -34,15 +33,12 @@ internal class WidgetNameModel @Inject constructor(
                     .flatMapCompletable(::updateWidget)
             )
             .compose(scheduling.forCompletable())
-            .subscribe {
-                // no-op
-            }
+            .subscribe()
     }
 
     private fun insertIfNotFound() =
         findWidget()
             .isEmpty.onlyTrue()
-            .doOnSuccess { newWidget = true }
             .flatMapCompletable {
                 widgetDao.insertWidget(Widget(appWidgetId))
             }
@@ -61,8 +57,6 @@ internal class WidgetNameModel @Inject constructor(
     fun currentWidgetName() = findWidget().map(Widget::name)
 
     private fun findWidget() = widgetDao.findWidgetById(appWidgetId)
-
-    val data get() = processor.hide()
 
     override fun onCleared() = disposable.dispose()
 }

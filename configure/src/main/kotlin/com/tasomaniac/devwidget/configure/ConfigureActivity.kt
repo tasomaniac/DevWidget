@@ -7,8 +7,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build.VERSION_CODES.O
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.widget.ArrayAdapter
 import androidx.annotation.RequiresApi
 import androidx.core.view.get
@@ -22,7 +20,6 @@ import kotlinx.android.synthetic.main.configure_activity.configureWidgetPreview
 import kotlinx.android.synthetic.main.configure_activity.toolbar
 import kotlinx.android.synthetic.main.configure_content.configureNewPackageMatcher
 import kotlinx.android.synthetic.main.configure_content.configurePackageMatcherList
-import kotlinx.android.synthetic.main.configure_content.configureWidgetName
 import javax.inject.Inject
 
 internal class ConfigureActivity : DaggerAppCompatActivity(), ConfigureView {
@@ -35,21 +32,18 @@ internal class ConfigureActivity : DaggerAppCompatActivity(), ConfigureView {
     @Inject lateinit var opacityPreferences: OpacityPreferences
 
     private lateinit var adapter: ArrayAdapter<String>
-    private lateinit var textWatcher: TextWatcher
 
     val configurePin: ConfigurePinning
         get() = intent.getBooleanExtra(EXTRA_SHOULD_PIN, false)
 
     override var onConfirmClicked: () -> Unit = {}
     override var onSettingsClicked: () -> Unit = {}
-    override var widgetNameChanged: (String) -> Unit = {}
     override var onPackageMatcherAdded: (String) -> Unit = {}
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.configure_activity)
         setupToolbar()
-        setupWidgetName()
         setupNewPackageMatcher()
         setupPackageMatcherList()
 
@@ -69,26 +63,12 @@ internal class ConfigureActivity : DaggerAppCompatActivity(), ConfigureView {
         }
     }
 
-    private fun setupWidgetName() {
-        textWatcher = object : TextWatcher {
-            override fun afterTextChanged(text: Editable) {
-                widgetNameChanged(text.toString())
-            }
-
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) =
-                Unit
-
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) = Unit
-        }
-        configureWidgetName.addTextChangedListener(textWatcher)
-    }
-
     private fun setupNewPackageMatcher() {
         adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, android.R.id.text1)
         configureNewPackageMatcher.setAdapter(adapter)
 
         val onPackageMatcherAdded: (String) -> Unit = {
-            onPackageMatcherAdded(it).also { _ ->
+            onPackageMatcherAdded(it).also {
                 configureNewPackageMatcher.text = null
             }
         }
@@ -111,10 +91,6 @@ internal class ConfigureActivity : DaggerAppCompatActivity(), ConfigureView {
         widgetViewFactory.createWith(configureWidgetPreview).bind(widgetListData)
     }
 
-    override fun setWidgetName(widgetName: String) {
-        configureWidgetName.setText(widgetName)
-    }
-
     override fun setFilters(filters: List<String>) {
         packageMatcherListAdapter.data = filters
     }
@@ -134,11 +110,6 @@ internal class ConfigureActivity : DaggerAppCompatActivity(), ConfigureView {
     override fun onStart() {
         super.onStart()
         presenter.bind(this)
-    }
-
-    override fun onDestroy() {
-        configureWidgetName.removeTextChangedListener(textWatcher)
-        super.onDestroy()
     }
 
     companion object {

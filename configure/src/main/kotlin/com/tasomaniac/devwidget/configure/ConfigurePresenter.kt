@@ -41,8 +41,6 @@ internal class ConfigurePresenter @Inject constructor(
         }
     }
 
-    private val widgetNameModel = viewModelProvider.get<WidgetNameModel>()
-
     private val packageMatcherModel = viewModelProvider.get<PackageMatcherModel>()
 
     fun bind(view: ConfigureView) {
@@ -56,13 +54,6 @@ internal class ConfigurePresenter @Inject constructor(
             .compose(scheduling.forFlowable())
             .autoDisposable(scopeProvider)
             .subscribe(view::updateWidgetPreview)
-
-        widgetNameModel.currentWidgetName()
-            .compose(scheduling.forMaybe())
-            .autoDisposable(scopeProvider)
-            .subscribe(view::setWidgetName)
-
-        view.widgetNameChanged = widgetNameModel::updateWidgetName
 
         packageMatcherModel.findPossiblePackageMatchers()
             .compose(scheduling.forFlowable())
@@ -98,9 +89,10 @@ internal class ConfigurePresenter @Inject constructor(
     }
 
     private fun trackConfirm() {
+        // TODO tracking
         analytics.sendEvent(
-            "Confirm Clicked",
-            "New Widget" to widgetNameModel.newWidget.toString()
+            "Confirm Clicked"
+//            "New Widget" to widgetNameModel.newWidget.toString()
         )
     }
 }

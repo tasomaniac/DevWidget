@@ -13,20 +13,15 @@ import com.tasomaniac.devwidget.test.willReturn
 import com.uber.autodispose.lifecycle.TestLifecycleScopeProvider
 import com.uber.autodispose.lifecycle.TestLifecycleScopeProvider.TestLifecycle.STARTED
 import io.reactivex.Flowable
-import io.reactivex.Maybe
 import org.junit.Test
 
 class ConfigurePresenterTest {
 
-    private val widgetNameModel = mock<WidgetNameModel> {
-        given { currentWidgetName() } willReturn Maybe.never()
-    }
     private val packageMatcherModel = mock<PackageMatcherModel> {
         given { findPossiblePackageMatchers() } willReturn Flowable.never()
         given { findAvailablePackageMatchers() } willReturn Flowable.never()
     }
     private val viewModelProvider = mock<ViewModelProvider> {
-        given { get(WidgetNameModel::class.java) } willReturn widgetNameModel
         given { get(PackageMatcherModel::class.java) } willReturn packageMatcherModel
     }
     private val view = mock<ConfigureView>()
