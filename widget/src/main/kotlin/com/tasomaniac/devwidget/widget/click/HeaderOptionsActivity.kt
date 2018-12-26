@@ -2,7 +2,6 @@ package com.tasomaniac.devwidget.widget.click
 
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import com.tasomaniac.devwidget.navigation.FinishCommand
@@ -39,7 +38,7 @@ internal class HeaderOptionsActivity : DaggerAppCompatActivity() {
             Action(
                 R.string.widget_configure,
                 widgetResources.settingsIcon,
-                command = UriCommand(Uri.parse("devwidget://configure/?appWidgetId=$appWidgetId"))
+                command = UriCommand("devwidget://configure/?appWidgetId=$appWidgetId")
             )
         )
 

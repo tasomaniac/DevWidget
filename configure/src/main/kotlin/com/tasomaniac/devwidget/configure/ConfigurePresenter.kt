@@ -2,15 +2,18 @@ package com.tasomaniac.devwidget.configure
 
 import android.annotation.TargetApi
 import android.os.Build.VERSION_CODES.O
-import com.tasomaniac.devwidget.ViewModelProvider
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.get
 import com.tasomaniac.devwidget.data.Analytics
 import com.tasomaniac.devwidget.data.Widget
 import com.tasomaniac.devwidget.data.WidgetAppDao
 import com.tasomaniac.devwidget.extensions.SchedulingStrategy
+import com.tasomaniac.devwidget.navigation.Navigator
+import com.tasomaniac.devwidget.navigation.settingsCommand
 import com.tasomaniac.devwidget.widget.ApplicationInfoResolver
 import com.tasomaniac.devwidget.widget.WidgetUpdater
 import com.tasomaniac.devwidget.widget.preview.WidgetListData
-import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
+import com.uber.autodispose.ScopeProvider
 import com.uber.autodispose.autoDisposable
 import io.reactivex.Completable
 import javax.inject.Inject
@@ -20,11 +23,12 @@ internal class ConfigurePresenter @Inject constructor(
     widgetUpdater: WidgetUpdater,
     widgetPinner: WidgetPinner,
     configurePinning: ConfigurePinning,
+    private val navigator: Navigator,
     private val widgetAppDao: WidgetAppDao,
     private val applicationInfoResolver: ApplicationInfoResolver,
     private val appWidgetId: Int,
     private val scheduling: SchedulingStrategy,
-    private val scopeProvider: AndroidLifecycleScopeProvider,
+    private val scopeProvider: ScopeProvider,
     private val analytics: Analytics
 ) {
 
@@ -86,6 +90,10 @@ internal class ConfigurePresenter @Inject constructor(
             packageMatcherModel.insertPackageMatcher(it)
                 .compose(scheduling.forCompletable())
                 .subscribe()
+        }
+
+        view.onSettingsClicked = {
+            navigator.navigate(settingsCommand())
         }
     }
 

@@ -62,7 +62,7 @@ internal class RemoteViewsCreator(
             buttonId,
             app.getString(R.string.widget_content_description_configure, widget.name)
         )
-        val intent = UriCommand(Uri.parse("devwidget://configure?appWidgetId=${widget.appWidgetId}"))
+        val intent = UriCommand("devwidget://configure?appWidgetId=${widget.appWidgetId}")
             .createIntent(app)
             .toPendingActivity(app, widget.appWidgetId)
         setOnClickPendingIntent(buttonId, intent)

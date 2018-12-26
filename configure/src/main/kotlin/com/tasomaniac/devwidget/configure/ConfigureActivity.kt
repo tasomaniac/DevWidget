@@ -37,21 +37,36 @@ internal class ConfigureActivity : DaggerAppCompatActivity(), ConfigureView {
     private lateinit var adapter: ArrayAdapter<String>
     private lateinit var textWatcher: TextWatcher
 
+    val configurePin: ConfigurePinning
+        get() = intent.getBooleanExtra(EXTRA_SHOULD_PIN, false)
+
     override var onConfirmClicked: () -> Unit = {}
+    override var onSettingsClicked: () -> Unit = {}
     override var widgetNameChanged: (String) -> Unit = {}
     override var onPackageMatcherAdded: (String) -> Unit = {}
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.configure_activity)
-        toolbar.setNavigationOnClickListener {
-            onConfirmClicked()
-        }
+        setupToolbar()
         setupWidgetName()
         setupNewPackageMatcher()
         setupPackageMatcherList()
 
         if (savedInstanceState == null) analytics.sendScreenView(this, "Configure")
+    }
+
+    private fun setupToolbar() {
+        toolbar.setNavigationOnClickListener {
+            onConfirmClicked()
+        }
+        toolbar.inflateMenu(R.menu.configure_menu)
+        toolbar.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
+                R.id.settings -> onSettingsClicked()
+            }
+            true
+        }
     }
 
     private fun setupWidgetName() {
@@ -125,9 +140,6 @@ internal class ConfigureActivity : DaggerAppCompatActivity(), ConfigureView {
         configureWidgetName.removeTextChangedListener(textWatcher)
         super.onDestroy()
     }
-
-    val configurePin: ConfigurePinning
-        get() = intent.getBooleanExtra(EXTRA_SHOULD_PIN, false)
 
     companion object {
 

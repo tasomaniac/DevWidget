@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import com.tasomaniac.devwidget.LifecycleScopeModule
 import com.tasomaniac.devwidget.ViewModelKey
+import com.tasomaniac.devwidget.ViewModelProviderModule
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -16,7 +17,8 @@ typealias ConfigurePinning = Boolean
     includes = [
         ActivityBindingModule::class,
         ConfigureViewModelModule::class,
-        LifecycleScopeModule::class
+        LifecycleScopeModule::class,
+        ViewModelProviderModule::class
     ]
 )
 internal object ConfigureModule {

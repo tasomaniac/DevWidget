@@ -10,6 +10,7 @@ internal interface ConfigureView {
     fun finishWith(appWidgetId: Int)
 
     var onConfirmClicked: () -> Unit
+    var onSettingsClicked: () -> Unit
     var widgetNameChanged: (widgetName: String) -> Unit
     var onPackageMatcherAdded: (packageMatcher: String) -> Unit
 }
