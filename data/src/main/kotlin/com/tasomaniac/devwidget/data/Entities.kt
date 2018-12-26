@@ -1,11 +1,13 @@
 package com.tasomaniac.devwidget.data
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import androidx.room.Relation
 import androidx.room.TypeConverter
+import kotlinx.android.parcel.Parcelize
 
 @Entity(
     primaryKeys = ["packageName", "packageMatcher", "appWidgetId"],
@@ -54,7 +56,9 @@ data class FavAction(
     @PrimaryKey val appWidgetId: Int
 )
 
-enum class Action {
+@Parcelize
+enum class Action : Parcelable {
+
     UNINSTALL, APP_DETAILS, PLAY_STORE;
 
     class Converters {

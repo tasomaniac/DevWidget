@@ -49,7 +49,7 @@ internal class ItemRemoteViewsCreator @Inject constructor(
         setImageViewResource(R.id.appWidgetFavAction, widgetResources.resolveFavIcon(favAction))
         setOnClickFillInIntent(
             R.id.appWidgetFavAction,
-            ClickHandlingActivity.createForUninstallApp(app)
+            ClickHandlingActivity.createForFavAction(app, favAction)
         )
     }
 

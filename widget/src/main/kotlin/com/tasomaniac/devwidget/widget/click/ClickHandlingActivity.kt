@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
 import android.os.UserHandle
+import com.tasomaniac.devwidget.data.Action
 import com.tasomaniac.devwidget.widget.DisplayApplicationInfo
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.parcel.Parcelize
@@ -22,8 +23,8 @@ internal class ClickHandlingActivity : DaggerAppCompatActivity() {
             LAUNCH_APP -> {
                 navigation.navigateToChooser()
             }
-            UNINSTALL_APP -> {
-                navigation.uninstall()
+            FAV_ACTION -> {
+                navigation.navigateToAction(intent.favAction!!)
             }
             ACTIONS_DIALOG -> {
                 navigation.navigateToActionsDialog()
@@ -41,11 +42,15 @@ internal class ClickHandlingActivity : DaggerAppCompatActivity() {
     companion object {
 
         private const val LAUNCH_APP = "LAUNCH_APP"
-        private const val UNINSTALL_APP = "UNINSTALL_APP"
+        private const val FAV_ACTION = "FAV_ACTION"
         private const val ACTIONS_DIALOG = "ACTIONS_DIALOG"
 
         fun createForLaunchApp(appInfo: DisplayApplicationInfo) = intentFor(LAUNCH_APP, appInfo)
-        fun createForUninstallApp(appInfo: DisplayApplicationInfo) = intentFor(UNINSTALL_APP, appInfo)
+        fun createForFavAction(appInfo: DisplayApplicationInfo, favAction: Action) =
+            intentFor(FAV_ACTION, appInfo).apply {
+                this.favAction = favAction
+            }
+
         fun createForActionsDialog(appInfo: DisplayApplicationInfo) = intentFor(ACTIONS_DIALOG, appInfo)
 
         private fun intentFor(launchWhat: String, appInfo: DisplayApplicationInfo) = Intent().apply {
@@ -57,9 +62,16 @@ internal class ClickHandlingActivity : DaggerAppCompatActivity() {
 }
 
 private const val EXTRA_INPUT = "EXTRA_INPUT"
+private const val EXTRA_ACTION = "EXTRA_ACTION"
 
 internal var Intent.input: ClickHandlingActivity.Input
     get() = getParcelableExtra(EXTRA_INPUT)
     set(value) {
         putExtra(EXTRA_INPUT, value)
+    }
+
+internal var Intent.favAction: Action?
+    get() = getParcelableExtra(EXTRA_ACTION)
+    set(value) {
+        putExtra(EXTRA_ACTION, value as Parcelable)
     }
