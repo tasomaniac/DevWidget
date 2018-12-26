@@ -33,7 +33,7 @@ internal class MainModel @Inject constructor(
                     val apps = it.packageNames
                         .flatMap(applicationInfoResolver::resolve)
                         .sort()
-                    WidgetListData(Widget(it.appWidgetId, it.name), apps)
+                    WidgetListData(Widget(it.appWidgetId, it.name), apps, it.favAction)
                 }
             }
             .scan(INITIAL_PAIR) { (data, _), newData ->

@@ -14,7 +14,7 @@ class WidgetView internal constructor(
 
     fun bind(data: WidgetListData) {
         mainWidgetTitle.text = widgetNameResolver.resolve(data.widget)
-        mainWidgetAppList.adapter = AppListAdapter(appViewHolderFactory, data.apps)
+        mainWidgetAppList.adapter = AppListAdapter(appViewHolderFactory, data.apps, data.favAction)
     }
 
     class Factory @Inject internal constructor(

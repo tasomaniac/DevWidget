@@ -13,4 +13,6 @@ abstract class Database : RoomDatabase() {
     abstract fun fullWidgetDao(): FullWidgetDao
 
     abstract fun filterDao(): FilterDao
+
+    abstract fun favActionDao(): FavActionDao
 }

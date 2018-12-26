@@ -51,7 +51,7 @@ internal class ConfigurePresenter @Inject constructor(
                 val apps = it.packageNames
                     .flatMap(applicationInfoResolver::resolve)
 //                    .sort() TODO
-                WidgetListData(Widget(it.appWidgetId, it.name), apps)
+                WidgetListData(Widget(it.appWidgetId, it.name), apps, it.favAction)
             }
             .compose(scheduling.forFlowable())
             .autoDisposable(scopeProvider)

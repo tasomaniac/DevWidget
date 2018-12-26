@@ -33,4 +33,8 @@ object DataModule {
     @Provides
     @JvmStatic
     fun filterDao(database: Database) = database.filterDao()
+
+    @Provides
+    @JvmStatic
+    fun favActionDao(database: Database) = database.favActionDao()
 }

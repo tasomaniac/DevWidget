@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.tasomaniac.devwidget.data.Action
 import com.tasomaniac.devwidget.extensions.inflate
 import com.tasomaniac.devwidget.widget.DisplayApplicationInfo
 import com.tasomaniac.devwidget.widget.WidgetResources
@@ -12,6 +13,7 @@ import javax.inject.Inject
 
 internal class AppViewHolder(
     private val widgetResources: WidgetResources,
+    private val favAction: Action,
     containerView: View
 ) : RecyclerView.ViewHolder(containerView) {
 
@@ -35,18 +37,19 @@ internal class AppViewHolder(
         appWidgetPackageName.text = app.packageName
         appWidgetPackageName.setTextColor(widgetResources.foregroundColor)
 
-        appWidgetFavAction.setImageResource(widgetResources.deleteIcon)
+        appWidgetFavAction.setImageResource(widgetResources.resolveFavIcon(favAction))
         appWidgetDetails.setImageResource(widgetResources.moreActionsIcon)
     }
 
     class Factory @Inject constructor(widgetResources: WidgetResources) {
 
-        private val creator = { view: View ->
-            AppViewHolder(widgetResources, view)
+        private val creator = { view: View, favAction: Action ->
+            AppViewHolder(widgetResources, favAction, view)
         }
 
-        fun createWith(parent: ViewGroup) = creator(
-            parent.inflate(R.layout.app_widget_list_item)
+        fun createWith(parent: ViewGroup, favAction: Action) = creator(
+            parent.inflate(R.layout.app_widget_list_item),
+            favAction
         )
     }
 }

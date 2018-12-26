@@ -42,26 +42,24 @@ data class Filter(
 )
 
 @Entity(
-    primaryKeys = ["action", "appWidgetId"],
     foreignKeys = [ForeignKey(
         entity = Widget::class,
         parentColumns = ["appWidgetId"],
         childColumns = ["appWidgetId"],
         onDelete = ForeignKey.CASCADE,
         onUpdate = ForeignKey.CASCADE
-    )],
-    indices = [Index("appWidgetId")]
+    )]
 )
-@TypeConverters(Action.Companion::class)
+@TypeConverters(Action.Converters::class)
 data class FavAction(
     val action: Action,
-    val appWidgetId: Int
+    @PrimaryKey val appWidgetId: Int
 )
 
 enum class Action {
     UNINSTALL, APP_DETAILS, PLAY_STORE;
 
-    companion object {
+    class Converters {
 
         @TypeConverter
         fun fromAction(action: Action?): String? = action?.name
@@ -81,6 +79,7 @@ class FullWidget {
     var appWidgetId: Int = 0
     lateinit var name: String
 
+    @Suppress("PropertyName")
     @field:Relation(
         entity = App::class,
         parentColumn = "appWidgetId",
@@ -90,4 +89,16 @@ class FullWidget {
     lateinit var _packageNames: List<String>
 
     val packageNames get() = _packageNames.distinct()
+
+    @field:Relation(
+        entity = FavAction::class,
+        parentColumn = "appWidgetId",
+        entityColumn = "appWidgetId",
+        projection = ["action"]
+    )
+    @TypeConverters(Action.Converters::class)
+    @Suppress("PropertyName")
+    lateinit var _favAction: List<Action>
+
+    val favAction get() = _favAction.firstOrNull() ?: Action.UNINSTALL
 }
