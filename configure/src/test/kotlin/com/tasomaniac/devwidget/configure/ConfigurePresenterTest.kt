@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.nhaarman.mockitokotlin2.argumentCaptor
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.then
-import com.tasomaniac.devwidget.data.WidgetAppDao
+import com.tasomaniac.devwidget.data.FullWidgetDao
 import com.tasomaniac.devwidget.navigation.Navigator
 import com.tasomaniac.devwidget.navigation.settingsCommand
 import com.tasomaniac.devwidget.test.given
@@ -31,8 +31,8 @@ class ConfigurePresenterTest {
     }
     private val view = mock<ConfigureView>()
     private val navigator = mock<Navigator>()
-    private val widgetAppDao = mock<WidgetAppDao> {
-        given { findWidgetWithPackagesById(100) } willReturn Flowable.never()
+    private val fullWidgetDao = mock<FullWidgetDao> {
+        given { findWidgetById(100) } willReturn Flowable.never()
     }
 
     private val presenter = ConfigurePresenter(
@@ -41,7 +41,7 @@ class ConfigurePresenterTest {
         mock(),
         false,
         navigator,
-        widgetAppDao,
+        fullWidgetDao,
         mock(),
         100,
         testScheduling(),

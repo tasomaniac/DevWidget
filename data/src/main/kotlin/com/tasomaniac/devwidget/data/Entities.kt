@@ -77,7 +77,7 @@ data class Widget(
     val name: String = ""
 )
 
-class WidgetAndPackageNames {
+class FullWidget {
     var appWidgetId: Int = 0
     lateinit var name: String
 

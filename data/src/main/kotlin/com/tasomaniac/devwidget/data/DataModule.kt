@@ -28,7 +28,7 @@ object DataModule {
 
     @Provides
     @JvmStatic
-    fun widgetAppDao(database: Database) = database.widgetAppDao()
+    fun fullWidgetDao(database: Database) = database.fullWidgetDao()
 
     @Provides
     @JvmStatic

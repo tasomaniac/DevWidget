@@ -6,13 +6,13 @@ import androidx.room.Transaction
 import io.reactivex.Flowable
 
 @Dao
-interface WidgetAppDao {
+interface FullWidgetDao {
 
     @Transaction
     @Query("SELECT * FROM widget WHERE appWidgetId != -1")
-    fun allWidgetsWithPackages(): Flowable<List<WidgetAndPackageNames>>
+    fun allWidgets(): Flowable<List<FullWidget>>
 
     @Transaction
     @Query("SELECT * FROM widget WHERE appWidgetId = :appWidgetId")
-    fun findWidgetWithPackagesById(appWidgetId: Int): Flowable<WidgetAndPackageNames>
+    fun findWidgetById(appWidgetId: Int): Flowable<FullWidget>
 }

@@ -5,8 +5,8 @@ import android.os.Build.VERSION_CODES.O
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import com.tasomaniac.devwidget.data.Analytics
+import com.tasomaniac.devwidget.data.FullWidgetDao
 import com.tasomaniac.devwidget.data.Widget
-import com.tasomaniac.devwidget.data.WidgetAppDao
 import com.tasomaniac.devwidget.extensions.SchedulingStrategy
 import com.tasomaniac.devwidget.navigation.Navigator
 import com.tasomaniac.devwidget.navigation.settingsCommand
@@ -24,7 +24,7 @@ internal class ConfigurePresenter @Inject constructor(
     widgetPinner: WidgetPinner,
     configurePinning: ConfigurePinning,
     private val navigator: Navigator,
-    private val widgetAppDao: WidgetAppDao,
+    private val fullWidgetDao: FullWidgetDao,
     private val applicationInfoResolver: ApplicationInfoResolver,
     private val appWidgetId: Int,
     private val scheduling: SchedulingStrategy,
@@ -46,7 +46,7 @@ internal class ConfigurePresenter @Inject constructor(
     private val packageMatcherModel = viewModelProvider.get<PackageMatcherModel>()
 
     fun bind(view: ConfigureView) {
-        widgetAppDao.findWidgetWithPackagesById(appWidgetId)
+        fullWidgetDao.findWidgetById(appWidgetId)
             .map {
                 val apps = it.packageNames
                     .flatMap(applicationInfoResolver::resolve)
