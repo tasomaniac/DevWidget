@@ -6,7 +6,6 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 import androidx.room.Relation
 import androidx.room.TypeConverter
-import androidx.room.TypeConverters
 
 @Entity(
     primaryKeys = ["packageName", "packageMatcher", "appWidgetId"],
@@ -50,7 +49,6 @@ data class Filter(
         onUpdate = ForeignKey.CASCADE
     )]
 )
-@TypeConverters(Action.Converters::class)
 data class FavAction(
     val action: Action,
     @PrimaryKey val appWidgetId: Int
@@ -96,7 +94,6 @@ class FullWidget {
         entityColumn = "appWidgetId",
         projection = ["action"]
     )
-    @TypeConverters(Action.Converters::class)
     @Suppress("PropertyName")
     lateinit var _favAction: List<Action>
 

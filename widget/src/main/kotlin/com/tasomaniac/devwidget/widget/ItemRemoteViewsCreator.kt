@@ -5,6 +5,7 @@ import android.content.res.Resources
 import android.view.View
 import android.widget.RemoteViews
 import androidx.core.graphics.drawable.toBitmap
+import com.tasomaniac.devwidget.data.Action
 import com.tasomaniac.devwidget.widget.click.ClickHandlingActivity
 import javax.inject.Inject
 
@@ -14,7 +15,7 @@ internal class ItemRemoteViewsCreator @Inject constructor(
     private val widgetResources: WidgetResources
 ) {
 
-    fun createViewWith(app: DisplayApplicationInfo, widgetWidth: Int) =
+    fun createViewWith(app: DisplayApplicationInfo, favAction: Action, widgetWidth: Int) =
         RemoteViews(application.packageName, R.layout.app_widget_list_item).apply {
             setImageViewBitmap(R.id.appWidgetIcon, app.icon.toBitmap())
             val iconSize = widgetResources.resolveAppIconSize(widgetWidth)
@@ -33,19 +34,19 @@ internal class ItemRemoteViewsCreator @Inject constructor(
             setupMoreActionsButton(app)
 
             if (widgetResources.shouldDisplayFavAction(widgetWidth)) {
-                setupFavActionButton(app)
+                setupFavActionButton(app, favAction)
                 setViewVisibility(R.id.appWidgetFavAction, View.VISIBLE)
             } else {
                 setViewVisibility(R.id.appWidgetFavAction, View.GONE)
             }
         }
 
-    private fun RemoteViews.setupFavActionButton(app: DisplayApplicationInfo) {
+    private fun RemoteViews.setupFavActionButton(app: DisplayApplicationInfo, favAction: Action) {
         setContentDescription(
             R.id.appWidgetFavAction,
             resources.getString(R.string.widget_content_description_uninstall_app, app.label)
         )
-        setImageViewResource(R.id.appWidgetFavAction, widgetResources.deleteIcon)
+        setImageViewResource(R.id.appWidgetFavAction, widgetResources.resolveFavIcon(favAction))
         setOnClickFillInIntent(
             R.id.appWidgetFavAction,
             ClickHandlingActivity.createForUninstallApp(app)
