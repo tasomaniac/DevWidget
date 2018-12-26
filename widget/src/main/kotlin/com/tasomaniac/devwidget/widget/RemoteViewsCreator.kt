@@ -97,7 +97,7 @@ internal class RemoteViewsCreator(
     }
 
     private fun RemoteViews.setupBackgroundShade() {
-        val shadeColor = opacityPreferences.opacity.toBackgroundColor()
+        val shadeColor = widgetResources.resolveBackgroundColor(opacityPreferences.opacity)
         setInt(R.id.shade, "setBackgroundColor", shadeColor)
         setViewVisibility(R.id.shade, if (shadeColor == 0) View.GONE else View.VISIBLE)
     }

@@ -5,6 +5,7 @@ android {
 }
 
 dependencies {
+    implementation project(':widget')
     implementation project(':widget-preview')
     implementation project(':data')
     implementation 'com.jakewharton.rx2:replaying-share-kotlin:2.1.0'

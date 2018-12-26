@@ -4,8 +4,12 @@ import android.annotation.TargetApi
 import android.os.Build.VERSION_CODES.O
 import com.tasomaniac.devwidget.ViewModelProvider
 import com.tasomaniac.devwidget.data.Analytics
+import com.tasomaniac.devwidget.data.Widget
+import com.tasomaniac.devwidget.data.WidgetAppDao
 import com.tasomaniac.devwidget.extensions.SchedulingStrategy
+import com.tasomaniac.devwidget.widget.ApplicationInfoResolver
 import com.tasomaniac.devwidget.widget.WidgetUpdater
+import com.tasomaniac.devwidget.widget.preview.WidgetListData
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
 import com.uber.autodispose.autoDisposable
 import io.reactivex.Completable
@@ -16,6 +20,8 @@ internal class ConfigurePresenter @Inject constructor(
     widgetUpdater: WidgetUpdater,
     widgetPinner: WidgetPinner,
     configurePinning: ConfigurePinning,
+    private val widgetAppDao: WidgetAppDao,
+    private val applicationInfoResolver: ApplicationInfoResolver,
     private val appWidgetId: Int,
     private val scheduling: SchedulingStrategy,
     private val scopeProvider: AndroidLifecycleScopeProvider,
@@ -36,6 +42,17 @@ internal class ConfigurePresenter @Inject constructor(
     private val packageMatcherModel = viewModelProvider.get<PackageMatcherModel>()
 
     fun bind(view: ConfigureView) {
+        widgetAppDao.findWidgetWithPackagesById(appWidgetId)
+            .map {
+                val apps = it.packageNames
+                    .flatMap(applicationInfoResolver::resolve)
+//                    .sort() TODO
+                WidgetListData(Widget(it.appWidgetId, it.name), apps)
+            }
+            .compose(scheduling.forFlowable())
+            .autoDisposable(scopeProvider)
+            .subscribe(view::updateWidgetPreview)
+
         widgetNameModel.currentWidgetName()
             .compose(scheduling.forMaybe())
             .autoDisposable(scopeProvider)

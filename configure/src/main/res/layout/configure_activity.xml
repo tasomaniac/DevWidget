@@ -21,7 +21,14 @@
             app:navigationContentDescription="@string/configure_add_widget" />
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/widget_preview_layout" />
+    <FrameLayout
+        android:id="@+id/configureWidgetPreview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="24dp">
+
+        <include layout="@layout/widget_preview_layout" />
+    </FrameLayout>
 
     <include layout="@layout/configure_content" />
 

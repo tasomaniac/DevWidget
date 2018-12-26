@@ -8,6 +8,7 @@ import androidx.core.content.res.ResourcesCompat
 import com.tasomaniac.devwidget.settings.NightMode.OFF
 import com.tasomaniac.devwidget.settings.NightMode.ON
 import com.tasomaniac.devwidget.settings.NightModePreferences
+import com.tasomaniac.devwidget.settings.Opacity
 import javax.inject.Inject
 
 class WidgetResources @Inject constructor(
@@ -65,6 +66,13 @@ class WidgetResources @Inject constructor(
             OFF -> foregroundLight
             ON -> foregroundDark
         }
+
+    @ColorInt @Suppress("MagicNumber")
+    fun resolveBackgroundColor(opacity: Opacity): Int {
+        val backgroundColor = foregroundColorInverse
+        val opacityInt = opacity.stringVale(resources).toInt()
+        return backgroundColor and 0xffffff or (opacityInt * 255 / 100 shl 24)
+    }
 
     @Dimension
     fun resolveAppIconSize(widgetWidth: Int): Int {
