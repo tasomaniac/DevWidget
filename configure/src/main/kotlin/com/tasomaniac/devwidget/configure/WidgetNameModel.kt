@@ -3,7 +3,6 @@ package com.tasomaniac.devwidget.configure
 import androidx.lifecycle.ViewModel
 import com.tasomaniac.devwidget.data.Widget
 import com.tasomaniac.devwidget.data.WidgetDao
-import com.tasomaniac.devwidget.extensions.Debouncer
 import com.tasomaniac.devwidget.extensions.SchedulingStrategy
 import com.tasomaniac.devwidget.extensions.onlyTrue
 import com.tasomaniac.devwidget.widget.WidgetUpdater
@@ -17,7 +16,6 @@ internal class WidgetNameModel @Inject constructor(
     private val widgetDao: WidgetDao,
     private val widgetUpdater: WidgetUpdater,
     val appWidgetId: Int,
-    debouncer: Debouncer<String>,
     scheduling: SchedulingStrategy
 ) : ViewModel() {
 
@@ -27,10 +25,7 @@ internal class WidgetNameModel @Inject constructor(
     init {
         disposable = insertIfNotFound()
             .andThen(
-                processor
-                    .distinctUntilChanged()
-                    .compose(debouncer)
-                    .flatMapCompletable(::updateWidget)
+                processor.flatMapCompletable(::updateWidget)
             )
             .compose(scheduling.forCompletable())
             .subscribe()
