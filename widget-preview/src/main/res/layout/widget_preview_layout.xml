@@ -5,22 +5,14 @@
     android:layout_height="@dimen/app_widget_min_height"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/mainWidgetTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingStart="@dimen/half_gap"
-        android:paddingEnd="@dimen/half_gap"
-        android:textAppearance="@style/AppWidget.Title"
-        android:textIsSelectable="false"
-        tools:text="My Widget" />
+    <include layout="@layout/widget_header" />
 
     <com.tasomaniac.devwidget.widget.preview.NonTouchRecyclerView
-        android:id="@+id/mainWidgetAppList"
+        android:id="@+id/widgetPreviewAppList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:nestedScrollingEnabled="false"
+        android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/app_widget_list_item" />
 
