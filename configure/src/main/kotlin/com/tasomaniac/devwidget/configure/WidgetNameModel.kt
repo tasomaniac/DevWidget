@@ -16,7 +16,7 @@ internal class WidgetNameModel @Inject constructor(
     private val widgetDao: WidgetDao,
     private val widgetUpdater: WidgetUpdater,
     val appWidgetId: Int,
-    scheduling: SchedulingStrategy
+    private val scheduling: SchedulingStrategy
 ) : ViewModel() {
 
     private val disposable: Disposable
@@ -42,6 +42,7 @@ internal class WidgetNameModel @Inject constructor(
         val widget = Widget(appWidgetId, widgetName)
         return widgetDao.updateWidget(widget)
             .andThen(widgetUpdater.update(appWidgetId, widgetName))
+            .compose(scheduling.forCompletable())
     }
 
     fun updateWidgetName(widgetName: String) {
