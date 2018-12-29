@@ -7,6 +7,7 @@ import android.widget.RemoteViewsService
 import com.tasomaniac.devwidget.data.Action
 import com.tasomaniac.devwidget.data.AppDao
 import com.tasomaniac.devwidget.data.FavActionDao
+import com.tasomaniac.devwidget.data.findFavActionByWidgetIdSync
 import com.tasomaniac.devwidget.settings.Sorting.ALPHABETICALLY_NAMES
 import com.tasomaniac.devwidget.settings.Sorting.ALPHABETICALLY_PACKAGES
 import com.tasomaniac.devwidget.settings.Sorting.ORDER_ADDED

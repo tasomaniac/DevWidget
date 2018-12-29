@@ -10,6 +10,7 @@ import androidx.preference.PreferenceFragmentCompat
 import com.tasomaniac.devwidget.data.Action
 import com.tasomaniac.devwidget.data.FavAction
 import com.tasomaniac.devwidget.data.FavActionDao
+import com.tasomaniac.devwidget.data.findFavActionByWidgetId
 import com.tasomaniac.devwidget.extensions.SchedulingStrategy
 import com.uber.autodispose.ScopeProvider
 import com.uber.autodispose.autoDisposable
@@ -35,7 +36,11 @@ class ConfigurePreferenceFragment : PreferenceFragmentCompat(), WidgetNameView {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.configure_preferences)
+        setupFavAction()
+        setupWidgetName()
+    }
 
+    private fun setupFavAction() {
         val favAction = findPreference("pref_key_fav_action") as ListPreference
         favAction.setOnPreferenceChangeListener { _, newValue ->
             favActionDao.insertFavAction(FavAction(Action.valueOf(newValue.toString()), appWidgetId))
@@ -45,6 +50,15 @@ class ConfigurePreferenceFragment : PreferenceFragmentCompat(), WidgetNameView {
             true
         }
 
+        favActionDao.findFavActionByWidgetId(appWidgetId)
+            .compose(scheduling.forSingle())
+            .autoDisposable(scopeProvider)
+            .subscribe { action ->
+                favAction.value = action.name
+            }
+    }
+
+    private fun setupWidgetName() {
         val widgetName = findPreference("pref_key_widget_name") as EditTextPreference
         widgetName.setOnPreferenceChangeListener { _, newValue ->
             widgetNameModel.updateWidgetName(newValue.toString())
