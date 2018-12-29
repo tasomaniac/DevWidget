@@ -9,7 +9,7 @@
     tools:context=".ConfigureActivity">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/half_gap"
         android:layout_marginStart="@dimen/keyline_1_minus_4dp"
@@ -39,7 +39,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/configurePackageMatcherList"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/half_gap"
         android:orientation="vertical"
