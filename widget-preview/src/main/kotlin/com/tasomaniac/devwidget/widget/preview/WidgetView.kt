@@ -20,6 +20,7 @@ class WidgetView private constructor(
 
     fun bind(data: WidgetListData) {
         widgetTitle.text = data.widget.name
+        widgetTitle.setTextColor(widgetResources.foregroundColor)
         widgetDevOptions.setImageResource(widgetResources.devOptionsIcon)
         widgetConfigure.setImageResource(widgetResources.settingsIcon)
         widgetPreviewAppList.adapter = AppListAdapter(appViewHolderFactory, data.apps, data.favAction)
