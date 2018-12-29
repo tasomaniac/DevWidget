@@ -9,12 +9,8 @@ import android.os.Build.VERSION_CODES.O
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import androidx.annotation.RequiresApi
-import androidx.core.view.get
 import com.tasomaniac.devwidget.data.Analytics
-import com.tasomaniac.devwidget.settings.OpacityPreferences
-import com.tasomaniac.devwidget.widget.WidgetResources
 import com.tasomaniac.devwidget.widget.preview.WidgetListData
-import com.tasomaniac.devwidget.widget.preview.WidgetView
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.configure_activity.configureWidgetPreview
 import kotlinx.android.synthetic.main.configure_activity.toolbar
@@ -25,11 +21,9 @@ import javax.inject.Inject
 internal class ConfigureActivity : DaggerAppCompatActivity(), ConfigureView {
 
     @Inject lateinit var presenter: ConfigurePresenter
+    @Inject lateinit var widgetPreview: WidgetPreview
     @Inject lateinit var packageMatcherListAdapter: PackageMatcherListAdapter
     @Inject lateinit var analytics: Analytics
-    @Inject lateinit var widgetViewFactory: WidgetView.Factory
-    @Inject lateinit var widgetResources: WidgetResources
-    @Inject lateinit var opacityPreferences: OpacityPreferences
 
     private lateinit var adapter: ArrayAdapter<String>
 
@@ -86,9 +80,7 @@ internal class ConfigureActivity : DaggerAppCompatActivity(), ConfigureView {
     }
 
     override fun updateWidgetPreview(widgetListData: WidgetListData) {
-        val shadeColor = widgetResources.resolveBackgroundColor(opacityPreferences.opacity)
-        configureWidgetPreview[0].setBackgroundColor(shadeColor)
-        widgetViewFactory.createWith(configureWidgetPreview).bind(widgetListData)
+        widgetPreview.updateWidgetPreview(configureWidgetPreview, widgetListData)
     }
 
     override fun setFilters(filters: List<String>) {
