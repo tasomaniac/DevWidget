@@ -2,10 +2,10 @@
 
     <PreferenceCategory android:title="@string/general">
         <ListPreference
-            android:key="pref_key_fav_action"
             android:defaultValue="UNINSTALL"
             android:entries="@array/configure_fav_action_entries"
             android:entryValues="@array/configure_fav_action_values"
+            android:key="pref_key_fav_action"
             android:persistent="false"
             android:summary="%s"
             android:title="@string/configure_fav_action_title" />
@@ -16,4 +16,6 @@
             android:summary="%s"
             android:title="@string/configure_hint_widget_name" />
     </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/configure_package_matchers_header" />
 </PreferenceScreen>

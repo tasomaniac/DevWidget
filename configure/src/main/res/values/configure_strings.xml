@@ -3,7 +3,8 @@
     <string name="configure_add_widget">Add widget</string>
 
     <string name="configure_hint_widget_name">Widget Name (Optional)</string>
-    <string name="configure_hint_package_matcher">Package Matcher</string>
+    <string name="configure_hint_package_matcher">Search for applicationId</string>
+    <string name="configure_package_matchers_header">Add new matchers</string>
     <string name="configure_package_matchers_title">Matchers</string>
     <string name="configure_action_add">Add</string>
 
