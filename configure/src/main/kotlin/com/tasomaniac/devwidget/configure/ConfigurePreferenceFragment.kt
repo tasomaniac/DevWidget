@@ -49,7 +49,7 @@ class ConfigurePreferenceFragment : PreferenceFragmentCompat(), WidgetNameView {
                 .compose(scheduling.forCompletable())
                 .autoDisposable(scopeProvider)
                 .subscribe {
-                    widgetUpdater.updateAll()
+                    widgetUpdater.notifyWidgetDataChanged(appWidgetId)
                 }
             true
         }
