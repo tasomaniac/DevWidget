@@ -12,6 +12,7 @@ import com.tasomaniac.devwidget.data.FavAction
 import com.tasomaniac.devwidget.data.FavActionDao
 import com.tasomaniac.devwidget.data.findFavActionByWidgetId
 import com.tasomaniac.devwidget.extensions.SchedulingStrategy
+import com.tasomaniac.devwidget.widget.WidgetUpdater
 import com.uber.autodispose.ScopeProvider
 import com.uber.autodispose.autoDisposable
 import dagger.android.support.AndroidSupportInjection
@@ -24,6 +25,7 @@ class ConfigurePreferenceFragment : PreferenceFragmentCompat(), WidgetNameView {
     @Inject lateinit var scheduling: SchedulingStrategy
     @Inject lateinit var scopeProvider: ScopeProvider
     @Inject lateinit var viewModelProvider: ViewModelProvider
+    @Inject lateinit var widgetUpdater: WidgetUpdater
 
     private val widgetNameModel get() = viewModelProvider.get<WidgetNameModel>()
 
@@ -46,7 +48,9 @@ class ConfigurePreferenceFragment : PreferenceFragmentCompat(), WidgetNameView {
             favActionDao.insertFavAction(FavAction(Action.valueOf(newValue.toString()), appWidgetId))
                 .compose(scheduling.forCompletable())
                 .autoDisposable(scopeProvider)
-                .subscribe()
+                .subscribe {
+                    widgetUpdater.updateAll()
+                }
             true
         }
 
