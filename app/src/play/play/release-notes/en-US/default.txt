@@ -1,3 +1,10 @@
+v1.5
+
+New Configure screen!
+
+- When adding/editing your widget, now you will see a preview.
+- Also, new favorite action. Now, the action on each app can be configured. Was "Uninstall" by default.
+
 v1.4
 
 Android Oreo+ support.
