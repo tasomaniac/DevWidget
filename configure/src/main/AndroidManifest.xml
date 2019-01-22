@@ -6,7 +6,7 @@
             android:name=".ConfigureActivity"
             android:label="@string/widget_configure"
             android:theme="@style/Theme.DevWidget.Configure"
-            android:windowSoftInputMode="stateAlwaysHidden">
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
