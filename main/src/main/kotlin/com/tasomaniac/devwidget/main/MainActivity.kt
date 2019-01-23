@@ -8,12 +8,13 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.get
 import androidx.recyclerview.widget.DividerItemDecoration
-import com.tasomaniac.devwidget.ViewModelProvider
 import com.tasomaniac.devwidget.data.Analytics
 import com.tasomaniac.devwidget.extensions.SchedulingStrategy
 import com.tasomaniac.devwidget.settings.SettingsActivity
-import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
+import com.uber.autodispose.ScopeProvider
 import com.uber.autodispose.autoDisposable
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.main_content.mainEmptyInfo
@@ -23,7 +24,7 @@ import javax.inject.Inject
 internal class MainActivity : DaggerAppCompatActivity() {
 
     @Inject lateinit var viewModelProvider: ViewModelProvider
-    @Inject lateinit var scopeProvider: AndroidLifecycleScopeProvider
+    @Inject lateinit var scopeProvider: ScopeProvider
     @Inject lateinit var navigation: MainNavigation
     @Inject lateinit var widgetListAdapter: WidgetListAdapter
     @Inject lateinit var appWidgetManager: AppWidgetManager
@@ -50,7 +51,7 @@ internal class MainActivity : DaggerAppCompatActivity() {
             .compose(scheduling.forFlowable())
             .autoDisposable(scopeProvider)
             .subscribe { (data, diff) ->
-                updateEmptyView(data)
+                updateEmptyView(data.isEmpty())
                 widgetListAdapter.data = data
                 diff.dispatchUpdatesTo(widgetListAdapter)
             }
@@ -58,8 +59,8 @@ internal class MainActivity : DaggerAppCompatActivity() {
         if (savedInstanceState == null) analytics.sendScreenView(this, "Main")
     }
 
-    private fun updateEmptyView(data: List<WidgetListData>) {
-        if (data.isEmpty()) {
+    private fun updateEmptyView(isEmpty: Boolean) {
+        if (isEmpty) {
             mainEmptyInfo.visibility = View.VISIBLE
             mainEmptyInfo.setText(
                 if (isPinningSupported())

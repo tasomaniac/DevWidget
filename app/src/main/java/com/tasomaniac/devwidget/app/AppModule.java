@@ -10,12 +10,8 @@ import android.content.res.Resources;
 import android.os.UserManager;
 import android.preference.PreferenceManager;
 
-import com.tasomaniac.devwidget.extensions.Debouncer;
-import com.tasomaniac.devwidget.extensions.DefaultDebouncer;
 import com.tasomaniac.devwidget.extensions.SchedulingStrategy;
 import com.tasomaniac.devwidget.settings.Version;
-
-import java.util.concurrent.TimeUnit;
 
 import dagger.Binds;
 import dagger.Module;
@@ -68,10 +64,5 @@ abstract class AppModule {
                 Schedulers.io(),
                 AndroidSchedulers.mainThread()
         );
-    }
-
-    @Provides
-    static Debouncer<String> stringDebouncer() {
-        return new DefaultDebouncer<>(1, TimeUnit.SECONDS);
     }
 }

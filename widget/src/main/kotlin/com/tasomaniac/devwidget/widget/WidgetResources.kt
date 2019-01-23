@@ -5,9 +5,14 @@ import androidx.annotation.ColorInt
 import androidx.annotation.Dimension
 import androidx.annotation.DrawableRes
 import androidx.core.content.res.ResourcesCompat
+import com.tasomaniac.devwidget.data.Action
+import com.tasomaniac.devwidget.data.Action.APP_DETAILS
+import com.tasomaniac.devwidget.data.Action.PLAY_STORE
+import com.tasomaniac.devwidget.data.Action.UNINSTALL
 import com.tasomaniac.devwidget.settings.NightMode.OFF
 import com.tasomaniac.devwidget.settings.NightMode.ON
 import com.tasomaniac.devwidget.settings.NightModePreferences
+import com.tasomaniac.devwidget.settings.Opacity
 import javax.inject.Inject
 
 class WidgetResources @Inject constructor(
@@ -66,6 +71,13 @@ class WidgetResources @Inject constructor(
             ON -> foregroundDark
         }
 
+    @ColorInt @Suppress("MagicNumber")
+    fun resolveBackgroundColor(opacity: Opacity): Int {
+        val backgroundColor = foregroundColorInverse
+        val opacityInt = opacity.stringVale(resources).toInt()
+        return backgroundColor and 0xffffff or (opacityInt * 255 / 100 shl 24)
+    }
+
     @Dimension
     fun resolveAppIconSize(widgetWidth: Int): Int {
         return when {
@@ -73,6 +85,12 @@ class WidgetResources @Inject constructor(
             widgetWidth < FAV_ACTION_LIMIT -> resources.getDimensionPixelSize(R.dimen.app_widget_icon_size_small)
             else -> resources.getDimensionPixelSize(R.dimen.app_widget_icon_size)
         }
+    }
+
+    fun resolveFavIcon(favAction: Action) = when (favAction) {
+        UNINSTALL -> deleteIcon
+        APP_DETAILS -> settingsIcon
+        PLAY_STORE -> playStoreIcon
     }
 
     fun shouldDisplayFavAction(widgetWidth: Int): Boolean {

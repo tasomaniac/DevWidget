@@ -8,6 +8,10 @@ android {
     defaultConfig {
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdk
+
+        kotlinOptions {
+            jvmTarget = JavaVersion.VERSION_1_8
+        }
     }
 
     compileOptions {

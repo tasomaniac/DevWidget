@@ -2,11 +2,18 @@ package com.tasomaniac.devwidget.configure
 
 import android.annotation.TargetApi
 import android.os.Build.VERSION_CODES.O
-import com.tasomaniac.devwidget.ViewModelProvider
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.get
 import com.tasomaniac.devwidget.data.Analytics
+import com.tasomaniac.devwidget.data.FullWidgetDao
+import com.tasomaniac.devwidget.data.Widget
 import com.tasomaniac.devwidget.extensions.SchedulingStrategy
+import com.tasomaniac.devwidget.navigation.Navigator
+import com.tasomaniac.devwidget.navigation.settingsCommand
+import com.tasomaniac.devwidget.widget.ApplicationInfoResolver
 import com.tasomaniac.devwidget.widget.WidgetUpdater
-import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
+import com.tasomaniac.devwidget.widget.preview.WidgetListData
+import com.uber.autodispose.ScopeProvider
 import com.uber.autodispose.autoDisposable
 import io.reactivex.Completable
 import javax.inject.Inject
@@ -16,9 +23,12 @@ internal class ConfigurePresenter @Inject constructor(
     widgetUpdater: WidgetUpdater,
     widgetPinner: WidgetPinner,
     configurePinning: ConfigurePinning,
+    private val navigator: Navigator,
+    private val fullWidgetDao: FullWidgetDao,
+    private val applicationInfoResolver: ApplicationInfoResolver,
     private val appWidgetId: Int,
     private val scheduling: SchedulingStrategy,
-    private val scopeProvider: AndroidLifecycleScopeProvider,
+    private val scopeProvider: ScopeProvider,
     private val analytics: Analytics
 ) {
 
@@ -31,17 +41,19 @@ internal class ConfigurePresenter @Inject constructor(
         }
     }
 
-    private val widgetNameModel = viewModelProvider.get<WidgetNameModel>()
-
     private val packageMatcherModel = viewModelProvider.get<PackageMatcherModel>()
 
     fun bind(view: ConfigureView) {
-        widgetNameModel.currentWidgetName()
-            .compose(scheduling.forMaybe())
+        fullWidgetDao.findWidgetById(appWidgetId)
+            .map {
+                val apps = it.packageNames
+                    .flatMap(applicationInfoResolver::resolve)
+//                    .sort() TODO
+                WidgetListData(Widget(it.appWidgetId, it.name), apps, it.favAction)
+            }
+            .compose(scheduling.forFlowable())
             .autoDisposable(scopeProvider)
-            .subscribe(view::setWidgetName)
-
-        view.widgetNameChanged = widgetNameModel::updateWidgetName
+            .subscribe(view::updateWidgetPreview)
 
         packageMatcherModel.findPossiblePackageMatchers()
             .compose(scheduling.forFlowable())
@@ -70,12 +82,17 @@ internal class ConfigurePresenter @Inject constructor(
                 .compose(scheduling.forCompletable())
                 .subscribe()
         }
+
+        view.onSettingsClicked = {
+            navigator.navigate(settingsCommand())
+        }
     }
 
     private fun trackConfirm() {
+        // TODO tracking
         analytics.sendEvent(
-            "Confirm Clicked",
-            "New Widget" to widgetNameModel.newWidget.toString()
+            "Confirm Clicked"
+//            "New Widget" to widgetNameModel.newWidget.toString()
         )
     }
 }

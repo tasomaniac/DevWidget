@@ -1,7 +1,0 @@
-v1.4
-
-Android Oreo+ support.
-
-Persistent notification has to be added to be able to keep the widget up-to-date.
-I don't think this will consume much battery but it is shown like that since it is a background service.
-Any feedback is welcome!

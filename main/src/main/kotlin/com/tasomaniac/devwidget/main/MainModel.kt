@@ -2,14 +2,15 @@ package com.tasomaniac.devwidget.main
 
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.DiffUtil
+import com.tasomaniac.devwidget.data.FullWidgetDao
 import com.tasomaniac.devwidget.data.Widget
-import com.tasomaniac.devwidget.data.WidgetAppDao
 import com.tasomaniac.devwidget.settings.Sorting.ALPHABETICALLY_NAMES
 import com.tasomaniac.devwidget.settings.Sorting.ALPHABETICALLY_PACKAGES
 import com.tasomaniac.devwidget.settings.Sorting.ORDER_ADDED
 import com.tasomaniac.devwidget.settings.SortingPreferences
 import com.tasomaniac.devwidget.widget.ApplicationInfoResolver
 import com.tasomaniac.devwidget.widget.DisplayApplicationInfo
+import com.tasomaniac.devwidget.widget.preview.WidgetListData
 import io.reactivex.disposables.Disposable
 import io.reactivex.processors.BehaviorProcessor
 import javax.inject.Inject
@@ -19,20 +20,20 @@ private typealias MainResult = Pair<List<WidgetListData>, DiffUtil.DiffResult>
 internal class MainModel @Inject constructor(
     private val sortingPreferences: SortingPreferences,
     applicationInfoResolver: ApplicationInfoResolver,
-    widgetAppDao: WidgetAppDao
+    fullWidgetDao: FullWidgetDao
 ) : ViewModel() {
 
     private val processor = BehaviorProcessor.create<MainResult>()
     private val disposable: Disposable
 
     init {
-        disposable = widgetAppDao.allWidgetsWithPackages()
+        disposable = fullWidgetDao.allWidgets()
             .map { widgets ->
                 widgets.map {
                     val apps = it.packageNames
                         .flatMap(applicationInfoResolver::resolve)
                         .sort()
-                    WidgetListData(Widget(it.appWidgetId, it.name), apps)
+                    WidgetListData(Widget(it.appWidgetId, it.name), apps, it.favAction)
                 }
             }
             .scan(INITIAL_PAIR) { (data, _), newData ->

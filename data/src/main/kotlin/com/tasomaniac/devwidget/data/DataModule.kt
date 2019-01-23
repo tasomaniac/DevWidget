@@ -2,6 +2,7 @@ package com.tasomaniac.devwidget.data
 
 import android.app.Application
 import androidx.room.Room
+import com.tasomaniac.devwidget.data.migration.Migration1to2
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -13,7 +14,9 @@ object DataModule {
     @Provides
     @JvmStatic
     fun room(app: Application): Database =
-        Room.databaseBuilder(app, Database::class.java, "devwidget").build()
+        Room.databaseBuilder(app, Database::class.java, "devwidget")
+            .addMigrations(Migration1to2)
+            .build()
 
     @Provides
     @JvmStatic
@@ -25,9 +28,13 @@ object DataModule {
 
     @Provides
     @JvmStatic
-    fun widgetAppDao(database: Database) = database.widgetAppDao()
+    fun fullWidgetDao(database: Database) = database.fullWidgetDao()
 
     @Provides
     @JvmStatic
     fun filterDao(database: Database) = database.filterDao()
+
+    @Provides
+    @JvmStatic
+    fun favActionDao(database: Database) = database.favActionDao()
 }

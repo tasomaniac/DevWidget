@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:foreground="?selectableItemBackground"
+    android:paddingEnd="@dimen/keyline_1_minus_8dp"
+    android:paddingStart="@dimen/keyline_1_minus_8dp"
+    android:paddingTop="@dimen/half_gap">
+
+    <include layout="@layout/widget_preview_layout" />
+
+</FrameLayout>

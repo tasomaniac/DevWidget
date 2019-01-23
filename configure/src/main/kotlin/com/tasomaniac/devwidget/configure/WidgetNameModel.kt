@@ -3,7 +3,6 @@ package com.tasomaniac.devwidget.configure
 import androidx.lifecycle.ViewModel
 import com.tasomaniac.devwidget.data.Widget
 import com.tasomaniac.devwidget.data.WidgetDao
-import com.tasomaniac.devwidget.extensions.Debouncer
 import com.tasomaniac.devwidget.extensions.SchedulingStrategy
 import com.tasomaniac.devwidget.extensions.onlyTrue
 import com.tasomaniac.devwidget.widget.WidgetUpdater
@@ -17,32 +16,24 @@ internal class WidgetNameModel @Inject constructor(
     private val widgetDao: WidgetDao,
     private val widgetUpdater: WidgetUpdater,
     val appWidgetId: Int,
-    debouncer: Debouncer<String>,
-    scheduling: SchedulingStrategy
+    private val scheduling: SchedulingStrategy
 ) : ViewModel() {
 
-    var newWidget = false
     private val disposable: Disposable
     private val processor = BehaviorProcessor.create<String>()
 
     init {
         disposable = insertIfNotFound()
             .andThen(
-                processor
-                    .distinctUntilChanged()
-                    .compose(debouncer)
-                    .flatMapCompletable(::updateWidget)
+                processor.flatMapCompletable(::updateWidget)
             )
             .compose(scheduling.forCompletable())
-            .subscribe {
-                // no-op
-            }
+            .subscribe()
     }
 
     private fun insertIfNotFound() =
         findWidget()
             .isEmpty.onlyTrue()
-            .doOnSuccess { newWidget = true }
             .flatMapCompletable {
                 widgetDao.insertWidget(Widget(appWidgetId))
             }
@@ -51,6 +42,7 @@ internal class WidgetNameModel @Inject constructor(
         val widget = Widget(appWidgetId, widgetName)
         return widgetDao.updateWidget(widget)
             .andThen(widgetUpdater.update(appWidgetId, widgetName))
+            .compose(scheduling.forCompletable())
     }
 
     fun updateWidgetName(widgetName: String) {
@@ -61,8 +53,6 @@ internal class WidgetNameModel @Inject constructor(
     fun currentWidgetName() = findWidget().map(Widget::name)
 
     private fun findWidget() = widgetDao.findWidgetById(appWidgetId)
-
-    val data get() = processor.hide()
 
     override fun onCleared() = disposable.dispose()
 }

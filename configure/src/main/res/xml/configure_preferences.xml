@@ -1,0 +1,21 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="@string/general">
+
+        <EditTextPreference
+            android:key="pref_key_widget_name"
+            android:persistent="false"
+            android:title="@string/configure_title_widget_name"
+            android:dialogTitle="@string/configure_hint_widget_name" />
+
+        <ListPreference
+            android:entries="@array/configure_fav_action_entries"
+            android:entryValues="@array/configure_fav_action_values"
+            android:key="pref_key_fav_action"
+            android:persistent="false"
+            android:summary="%s"
+            android:title="@string/configure_fav_action_title" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/configure_package_matchers_header" />
+</PreferenceScreen>

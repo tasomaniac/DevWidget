@@ -16,53 +16,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/widgetHeader"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingStart="@dimen/half_gap"
-            tools:ignore="RtlSymmetry">
-
-            <TextView
-                android:id="@+id/widgetTitle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textAppearance="@style/AppWidget.Title"
-                tools:text="Widget #5" />
-
-            <ImageButton
-                android:id="@+id/widgetRefresh"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="?android:selectableItemBackgroundBorderless"
-                android:contentDescription="@string/widget_content_description_refresh"
-                android:padding="@dimen/half_gap"
-                android:visibility="gone"
-                tools:visibility="visible"
-                tools:src="@drawable/ic_refresh" />
-
-            <ImageButton
-                android:id="@+id/widgetDevOptions"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="?android:selectableItemBackgroundBorderless"
-                android:contentDescription="@string/widget_content_description_dev_options"
-                android:padding="@dimen/half_gap"
-                tools:src="@drawable/ic_dev_options" />
-
-            <ImageButton
-                android:id="@+id/widgetConfigure"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="?android:selectableItemBackgroundBorderless"
-                android:contentDescription="@null"
-                android:padding="@dimen/half_gap"
-                tools:src="@drawable/ic_settings" />
-
-        </LinearLayout>
+        <include layout="@layout/widget_header" />
 
         <FrameLayout
             android:layout_width="match_parent"

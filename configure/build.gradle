@@ -5,7 +5,10 @@ android {
 }
 
 dependencies {
+    implementation project(':widget')
+    implementation project(':widget-preview')
     implementation project(':data')
+    implementation 'androidx.preference:preference-ktx:1.0.0'
     implementation 'com.jakewharton.rx2:replaying-share-kotlin:2.1.0'
 
     testImplementation project(':test-support')

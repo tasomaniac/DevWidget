@@ -6,7 +6,7 @@ import android.os.Bundle
 import com.tasomaniac.devwidget.data.updater.WidgetAppsDataUpdater
 import com.tasomaniac.devwidget.extensions.SchedulingStrategy
 import com.tasomaniac.devwidget.widget.WidgetUpdater
-import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
+import com.uber.autodispose.ScopeProvider
 import com.uber.autodispose.autoDisposable
 import dagger.android.support.DaggerAppCompatActivity
 import io.reactivex.Completable
@@ -17,7 +17,7 @@ internal class WidgetRefreshActivity : DaggerAppCompatActivity() {
     @Inject lateinit var widgetAppsDataUpdater: WidgetAppsDataUpdater
     @Inject lateinit var widgetUpdater: WidgetUpdater
     @Inject lateinit var scheduling: SchedulingStrategy
-    @Inject lateinit var scopeProvider: AndroidLifecycleScopeProvider
+    @Inject lateinit var scopeProvider: ScopeProvider
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -4,9 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
-import com.tasomaniac.devwidget.configure.WidgetConfigureCommand
 import com.tasomaniac.devwidget.navigation.FinishCommand
 import com.tasomaniac.devwidget.navigation.Navigator
+import com.tasomaniac.devwidget.navigation.UriCommand
 import com.tasomaniac.devwidget.widget.R
 import com.tasomaniac.devwidget.widget.WidgetResources
 import com.tasomaniac.devwidget.widget.click.commands.DevOptionsCommand
@@ -38,7 +38,7 @@ internal class HeaderOptionsActivity : DaggerAppCompatActivity() {
             Action(
                 R.string.widget_configure,
                 widgetResources.settingsIcon,
-                command = WidgetConfigureCommand(appWidgetId)
+                command = UriCommand("devwidget://configure/?appWidgetId=$appWidgetId")
             )
         )
 

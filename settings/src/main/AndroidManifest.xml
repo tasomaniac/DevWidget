@@ -7,7 +7,19 @@
         <activity
             android:name=".SettingsActivity"
             android:label="@string/settings"
-            android:parentActivityName="com.tasomaniac.devwidget.main.MainActivity" />
+            android:parentActivityName="com.tasomaniac.devwidget.main.MainActivity">
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="settings"
+                    android:scheme="devwidget" />
+            </intent-filter>
+        </activity>
 
     </application>
 </manifest>

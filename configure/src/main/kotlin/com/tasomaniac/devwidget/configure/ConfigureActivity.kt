@@ -4,58 +4,57 @@ import android.app.Activity
 import android.appwidget.AppWidgetManager
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Build.VERSION_CODES.O
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.widget.ArrayAdapter
 import androidx.annotation.RequiresApi
 import com.tasomaniac.devwidget.data.Analytics
+import com.tasomaniac.devwidget.widget.preview.WidgetListData
 import dagger.android.support.DaggerAppCompatActivity
+import kotlinx.android.synthetic.main.configure_activity.configureWidgetPreview
 import kotlinx.android.synthetic.main.configure_activity.toolbar
 import kotlinx.android.synthetic.main.configure_content.configureNewPackageMatcher
 import kotlinx.android.synthetic.main.configure_content.configurePackageMatcherList
-import kotlinx.android.synthetic.main.configure_content.configureWidgetName
 import javax.inject.Inject
 
 internal class ConfigureActivity : DaggerAppCompatActivity(), ConfigureView {
 
     @Inject lateinit var presenter: ConfigurePresenter
+    @Inject lateinit var widgetPreview: WidgetPreview
     @Inject lateinit var packageMatcherListAdapter: PackageMatcherListAdapter
     @Inject lateinit var analytics: Analytics
 
     private lateinit var adapter: ArrayAdapter<String>
-    private lateinit var textWatcher: TextWatcher
+
+    val configurePin: ConfigurePinning
+        get() = intent.getBooleanExtra(EXTRA_SHOULD_PIN, false)
 
     override var onConfirmClicked: () -> Unit = {}
-    override var widgetNameChanged: (String) -> Unit = {}
+    override var onSettingsClicked: () -> Unit = {}
     override var onPackageMatcherAdded: (String) -> Unit = {}
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.configure_activity)
-        toolbar.setNavigationOnClickListener {
-            onConfirmClicked()
-        }
-        setupWidgetName()
+        setupToolbar()
         setupNewPackageMatcher()
         setupPackageMatcherList()
 
         if (savedInstanceState == null) analytics.sendScreenView(this, "Configure")
     }
 
-    private fun setupWidgetName() {
-        textWatcher = object : TextWatcher {
-            override fun afterTextChanged(text: Editable) {
-                widgetNameChanged(text.toString())
-            }
-
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) =
-                Unit
-
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) = Unit
+    private fun setupToolbar() {
+        toolbar.setNavigationOnClickListener {
+            onConfirmClicked()
         }
-        configureWidgetName.addTextChangedListener(textWatcher)
+        toolbar.inflateMenu(R.menu.configure_menu)
+        toolbar.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
+                R.id.settings -> onSettingsClicked()
+            }
+            true
+        }
     }
 
     private fun setupNewPackageMatcher() {
@@ -63,7 +62,7 @@ internal class ConfigureActivity : DaggerAppCompatActivity(), ConfigureView {
         configureNewPackageMatcher.setAdapter(adapter)
 
         val onPackageMatcherAdded: (String) -> Unit = {
-            onPackageMatcherAdded(it).also { _ ->
+            onPackageMatcherAdded(it).also {
                 configureNewPackageMatcher.text = null
             }
         }
@@ -80,8 +79,8 @@ internal class ConfigureActivity : DaggerAppCompatActivity(), ConfigureView {
         configurePackageMatcherList.adapter = packageMatcherListAdapter
     }
 
-    override fun setWidgetName(widgetName: String) {
-        configureWidgetName.setText(widgetName)
+    override fun updateWidgetPreview(widgetListData: WidgetListData) {
+        widgetPreview.updateWidgetPreview(configureWidgetPreview, widgetListData)
     }
 
     override fun setFilters(filters: List<String>) {
@@ -105,27 +104,14 @@ internal class ConfigureActivity : DaggerAppCompatActivity(), ConfigureView {
         presenter.bind(this)
     }
 
-    override fun onDestroy() {
-        configureWidgetName.removeTextChangedListener(textWatcher)
-        super.onDestroy()
-    }
-
-    val configurePin: ConfigurePinning
-        get() = intent.getBooleanExtra(EXTRA_SHOULD_PIN, false)
-
     companion object {
 
         private const val EXTRA_SHOULD_PIN = "EXTRA_SHOULD_PIN"
 
-        fun createIntent(context: Context, appWidgetId: Int): Intent {
-            return Intent(context, ConfigureActivity::class.java)
-                .putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
-        }
-
         @RequiresApi(O)
         fun createIntentForPinning(context: Context): Intent {
             return Intent(context, ConfigureActivity::class.java)
-                .putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, -1)
+                .setData(Uri.parse("devwidget://configure?appWidgetId=-1"))
                 .putExtra(EXTRA_SHOULD_PIN, true)
         }
     }

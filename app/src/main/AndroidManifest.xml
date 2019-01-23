@@ -4,6 +4,7 @@
     package="com.tasomaniac.devwidget.app">
 
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission-sdk-23 android:name="android.permission.REQUEST_DELETE_PACKAGES" />
 
     <application
         android:name=".DevWidgetApp"

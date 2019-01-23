@@ -1,77 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:showIn="@layout/configure_activity"
-    tools:context=".configure.ConfigureActivity">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".ConfigureActivity"
+    tools:showIn="@layout/configure_activity">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/privateConfigureWidgetNameTextInput"
-        android:layout_width="0dp"
+    <AutoCompleteTextView
+        android:id="@+id/configureNewPackageMatcher"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/default_gap"
-        android:layout_marginStart="@dimen/keyline_1_minus_4dp"
         android:layout_marginEnd="@dimen/keyline_1_minus_4dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/configureWidgetName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textAutoCorrect"
-            android:hint="@string/configure_hint_widget_name" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/privateConfigurePackageNameNameTextInput"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/half_gap"
         android:layout_marginStart="@dimen/keyline_1_minus_4dp"
-        android:layout_marginEnd="@dimen/keyline_1_minus_4dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/privateConfigureWidgetNameTextInput">
-
-        <AutoCompleteTextView
-            android:id="@+id/configureNewPackageMatcher"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/half_gap"
-            android:inputType="textUri"
-            android:hint="@string/configure_hint_package_matcher"
-            android:imeOptions="actionDone"
-            android:imeActionLabel="@string/configure_action_add" />
-    </com.google.android.material.textfield.TextInputLayout>
+        android:hint="@string/configure_hint_package_matcher"
+        android:imeActionLabel="@string/configure_action_add"
+        android:imeOptions="actionDone"
+        android:inputType="textUri" />
 
     <TextView
         android:id="@+id/privateConfigureListHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/keyline_1"
         android:layout_marginEnd="@dimen/keyline_1"
+        android:layout_marginStart="@dimen/keyline_1"
         android:layout_marginTop="@dimen/default_gap"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/privateConfigurePackageNameNameTextInput"
+        android:text="@string/configure_package_matchers_title"
         android:textAppearance="@android:style/TextAppearance.Material.Body2"
-        android:textColor="?colorAccent"
-        android:text="@string/configure_package_matchers_title" />
+        android:textColor="?colorAccent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/configurePackageMatcherList"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/half_gap"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/privateConfigureListHeader"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

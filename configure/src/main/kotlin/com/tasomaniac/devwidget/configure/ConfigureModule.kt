@@ -5,9 +5,11 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import com.tasomaniac.devwidget.LifecycleScopeModule
 import com.tasomaniac.devwidget.ViewModelKey
+import com.tasomaniac.devwidget.ViewModelProviderModule
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
+import dagger.android.ContributesAndroidInjector
 import dagger.multibindings.IntoMap
 
 typealias ConfigurePinning = Boolean
@@ -16,7 +18,8 @@ typealias ConfigurePinning = Boolean
     includes = [
         ActivityBindingModule::class,
         ConfigureViewModelModule::class,
-        LifecycleScopeModule::class
+        LifecycleScopeModule::class,
+        ViewModelProviderModule::class
     ]
 )
 internal object ConfigureModule {
@@ -24,14 +27,13 @@ internal object ConfigureModule {
     @Provides
     @JvmStatic
     fun appWidgetId(activity: ConfigureActivity): Int {
-        val appWidgetId = activity.intent.getIntExtra(
-            AppWidgetManager.EXTRA_APPWIDGET_ID,
-            AppWidgetManager.INVALID_APPWIDGET_ID
-        )
-        if (appWidgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
-            throw IllegalArgumentException("AppWidgetManager.EXTRA_APPWIDGET_ID is required.")
+        return try {
+            activity.intent.data!!.getQueryParameter(AppWidgetManager.EXTRA_APPWIDGET_ID)!!.toInt()
+        } catch (ignored: Exception) {
+            throw IllegalArgumentException(
+                "AppWidgetManager.EXTRA_APPWIDGET_ID is required as query parameter. Received: ${activity.intent.data}"
+            )
         }
-        return appWidgetId
     }
 
     @Provides
@@ -44,6 +46,9 @@ internal interface ActivityBindingModule {
 
     @Binds
     fun fragmentActivity(activity: ConfigureActivity): FragmentActivity
+
+    @ContributesAndroidInjector
+    fun configurePreferenceFragment(): ConfigurePreferenceFragment
 }
 
 @Module

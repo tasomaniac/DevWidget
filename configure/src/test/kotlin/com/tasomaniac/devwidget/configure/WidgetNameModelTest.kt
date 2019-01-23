@@ -7,7 +7,6 @@ import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.then
 import com.tasomaniac.devwidget.data.Widget
 import com.tasomaniac.devwidget.data.WidgetDao
-import com.tasomaniac.devwidget.test.emptyDebouncer
 import com.tasomaniac.devwidget.test.given
 import com.tasomaniac.devwidget.test.testScheduling
 import com.tasomaniac.devwidget.test.willReturn
@@ -36,7 +35,6 @@ class WidgetNameModelTest {
         widgetDao,
         widgetUpdater,
         APP_WIDGET_ID,
-        emptyDebouncer(),
         testScheduling()
     )
 
@@ -59,15 +57,6 @@ class WidgetNameModelTest {
 
         then(widgetDao).should().updateWidget(Widget(APP_WIDGET_ID, ANY_WIDGET_NAME))
         then(widgetUpdater).should().update(APP_WIDGET_ID, ANY_WIDGET_NAME)
-    }
-
-    @Test
-    fun `given already available, should emit current widget name`() {
-        given(widgetDao.findWidgetById(APP_WIDGET_ID)).willReturn(Maybe.just(ANY_WIDGET))
-
-        widgetNameModel.currentWidgetName()
-            .test()
-            .assertValue(ANY_WIDGET_NAME)
     }
 
     companion object {

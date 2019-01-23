@@ -1,10 +1,13 @@
 package com.tasomaniac.devwidget.data
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import androidx.room.Relation
+import androidx.room.TypeConverter
+import kotlinx.android.parcel.Parcelize
 
 @Entity(
     primaryKeys = ["packageName", "packageMatcher", "appWidgetId"],
@@ -39,16 +42,46 @@ data class Filter(
     val appWidgetId: Int
 )
 
+@Entity(
+    foreignKeys = [ForeignKey(
+        entity = Widget::class,
+        parentColumns = ["appWidgetId"],
+        childColumns = ["appWidgetId"],
+        onDelete = ForeignKey.CASCADE,
+        onUpdate = ForeignKey.CASCADE
+    )]
+)
+data class FavAction(
+    val action: Action,
+    @PrimaryKey val appWidgetId: Int
+)
+
+@Parcelize
+enum class Action : Parcelable {
+
+    UNINSTALL, APP_DETAILS, PLAY_STORE;
+
+    class Converters {
+
+        @TypeConverter
+        fun fromAction(action: Action?): String? = action?.name
+
+        @TypeConverter
+        fun fromName(name: String?): Action? = if (name == null) null else Action.valueOf(name)
+    }
+}
+
 @Entity
 data class Widget(
     @PrimaryKey val appWidgetId: Int,
     val name: String = ""
 )
 
-class WidgetAndPackageNames {
+class FullWidget {
     var appWidgetId: Int = 0
     lateinit var name: String
 
+    @Suppress("PropertyName")
     @field:Relation(
         entity = App::class,
         parentColumn = "appWidgetId",
@@ -58,4 +91,15 @@ class WidgetAndPackageNames {
     lateinit var _packageNames: List<String>
 
     val packageNames get() = _packageNames.distinct()
+
+    @field:Relation(
+        entity = FavAction::class,
+        parentColumn = "appWidgetId",
+        entityColumn = "appWidgetId",
+        projection = ["action"]
+    )
+    @Suppress("PropertyName")
+    lateinit var _favAction: List<Action>
+
+    val favAction get() = _favAction.firstOrNull() ?: Action.UNINSTALL
 }

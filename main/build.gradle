@@ -8,5 +8,6 @@ dependencies {
     implementation project(':configure')
     implementation project(':settings')
     implementation project(':widget')
+    api project(':widget-preview') // api because generated Gradle code uses them in app
     implementation project(':data')
 }
