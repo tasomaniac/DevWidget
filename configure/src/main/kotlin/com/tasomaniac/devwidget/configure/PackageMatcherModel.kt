@@ -8,6 +8,7 @@ import com.tasomaniac.devwidget.data.updater.WidgetAppsDataUpdater
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.annotations.CheckReturnValue
+import io.reactivex.rxkotlin.combineLatest
 import javax.inject.Inject
 
 internal class PackageMatcherModel @Inject constructor(
