@@ -1,7 +1,6 @@
 package com.tasomaniac.devwidget.configure
 
 import androidx.lifecycle.ViewModel
-import com.jakewharton.rx.ReplayingShare
 import com.tasomaniac.devwidget.data.Filter
 import com.tasomaniac.devwidget.data.FilterDao
 import com.tasomaniac.devwidget.data.updater.PackageResolver
@@ -9,7 +8,6 @@ import com.tasomaniac.devwidget.data.updater.WidgetAppsDataUpdater
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.annotations.CheckReturnValue
-import io.reactivex.rxkotlin.combineLatest
 import javax.inject.Inject
 
 internal class PackageMatcherModel @Inject constructor(
@@ -38,5 +36,5 @@ internal class PackageMatcherModel @Inject constructor(
 
     @CheckReturnValue
     fun findAvailablePackageMatchers(): Flowable<List<String>> =
-        filterDao.findFiltersByWidgetId(appWidgetId).compose(ReplayingShare.instance())
+        filterDao.findFiltersByWidgetId(appWidgetId)
 }
