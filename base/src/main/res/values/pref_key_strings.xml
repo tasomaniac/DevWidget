@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:translatable="false">
-    <string name="pref_key_auto_updater">pref_auto_updater</string>
-    <string name="pref_key_click_behavior">pref_click_behavior</string>
-    <string name="pref_key_sorting">pref_sorting</string>
-    <string name="pref_key_night_mode">pref_night_mode</string>
-    <string name="pref_key_opacity">pref_opacity</string>
+<resources translatable="false">
+    <string name="pref_key_auto_updater" translatable="false">pref_auto_updater</string>
+    <string name="pref_key_click_behavior" translatable="false">pref_click_behavior</string>
+    <string name="pref_key_sorting" translatable="false">pref_sorting</string>
+    <string name="pref_key_night_mode" translatable="false">pref_night_mode</string>
+    <string name="pref_key_opacity" translatable="false">pref_opacity</string>
 
-    <string name="pref_value_sorting_order_added">order_added</string>
-    <string name="pref_value_sorting_alphabetically_packages">alphabetically_packages</string>
-    <string name="pref_value_sorting_alphabetically_names">alphabetically_names</string>
-    <string name="pref_value_night_mode_off" tools:translatable="false">off</string>
-    <string name="pref_value_night_mode_on" tools:translatable="false">on</string>
-    <string name="pref_value_opacity_fully_transparent">0</string>
-    <string name="pref_value_opacity_10">10</string>
-    <string name="pref_value_opacity_25">25</string>
-    <string name="pref_value_opacity_50">50</string>
-    <string name="pref_value_opacity_75">75</string>
-    <string name="pref_value_opacity_fully_opaque">100</string>
-    <string name="pref_value_click_behavior_launcher">launcher</string>
-    <string name="pref_value_click_behavior_exported">exported</string>
+    <string name="pref_value_sorting_order_added" translatable="false">order_added</string>
+    <string name="pref_value_sorting_alphabetically_packages" translatable="false">alphabetically_packages</string>
+    <string name="pref_value_sorting_alphabetically_names" translatable="false">alphabetically_names</string>
+    <string name="pref_value_night_mode_off" translatable="false">off</string>
+    <string name="pref_value_night_mode_on" translatable="false">on</string>
+    <string name="pref_value_opacity_fully_transparent" translatable="false">0</string>
+    <string name="pref_value_opacity_10" translatable="false">10</string>
+    <string name="pref_value_opacity_25" translatable="false">25</string>
+    <string name="pref_value_opacity_50" translatable="false">50</string>
+    <string name="pref_value_opacity_75" translatable="false">75</string>
+    <string name="pref_value_opacity_fully_opaque" translatable="false">100</string>
+    <string name="pref_value_click_behavior_launcher" translatable="false">launcher</string>
+    <string name="pref_value_click_behavior_exported" translatable="false">exported</string>
 </resources>

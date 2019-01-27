@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <string name="configure_add_widget">Add widget</string>
 
     <string name="configure_title_widget_name">Widget Name</string>
@@ -10,12 +10,12 @@
     <string name="configure_action_add">Add</string>
 
     <string name="configure_fav_action_title">Fav Action</string>
-    <string-array name="configure_fav_action_entries" tools:translatable="false">
+    <string-array name="configure_fav_action_entries" translatable="false">
         <item>@string/widget_action_uninstall</item>
         <item>@string/widget_action_app_details</item>
         <item>@string/widget_action_play_store</item>
     </string-array>
-    <string-array name="configure_fav_action_values">
+    <string-array name="configure_fav_action_values" translatable="false">
         <item>UNINSTALL</item>
         <item>APP_DETAILS</item>
         <item>PLAY_STORE</item>
