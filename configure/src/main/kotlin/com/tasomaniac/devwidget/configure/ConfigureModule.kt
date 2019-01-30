@@ -27,13 +27,7 @@ internal object ConfigureModule {
     @Provides
     @JvmStatic
     fun appWidgetId(activity: ConfigureActivity): Int {
-        return try {
-            activity.intent.data!!.getQueryParameter(AppWidgetManager.EXTRA_APPWIDGET_ID)!!.toInt()
-        } catch (ignored: Exception) {
-            throw IllegalArgumentException(
-                "AppWidgetManager.EXTRA_APPWIDGET_ID is required as query parameter. Received: ${activity.intent.data}"
-            )
-        }
+        return activity.intent.data?.getQueryParameter(AppWidgetManager.EXTRA_APPWIDGET_ID)?.toInt() ?: -1
     }
 
     @Provides

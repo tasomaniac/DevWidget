@@ -4,7 +4,6 @@ import android.app.Activity
 import android.appwidget.AppWidgetManager
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Build.VERSION_CODES.O
 import android.os.Bundle
 import android.widget.ArrayAdapter
@@ -109,10 +108,8 @@ internal class ConfigureActivity : DaggerAppCompatActivity(), ConfigureView {
         private const val EXTRA_SHOULD_PIN = "EXTRA_SHOULD_PIN"
 
         @RequiresApi(O)
-        fun createIntentForPinning(context: Context): Intent {
-            return Intent(context, ConfigureActivity::class.java)
-                .setData(Uri.parse("devwidget://configure?appWidgetId=-1"))
+        fun createIntentForPinning(context: Context) =
+            Intent(context, ConfigureActivity::class.java)
                 .putExtra(EXTRA_SHOULD_PIN, true)
-        }
     }
 }
