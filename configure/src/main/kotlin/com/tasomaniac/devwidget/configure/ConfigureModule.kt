@@ -27,7 +27,8 @@ internal object ConfigureModule {
     @Provides
     @JvmStatic
     fun appWidgetId(activity: ConfigureActivity): Int {
-        return activity.intent.data?.getQueryParameter(AppWidgetManager.EXTRA_APPWIDGET_ID)?.toInt() ?: -1
+        return activity.intent.data?.getQueryParameter(AppWidgetManager.EXTRA_APPWIDGET_ID)?.toInt()
+            ?: activity.intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, -1)
     }
 
     @Provides

@@ -65,7 +65,7 @@ class ConfigurePreferenceFragment : PreferenceFragmentCompat(), WidgetNameView {
     private fun setupWidgetName() {
         val widgetName = findPreference("pref_key_widget_name") as EditTextPreference
         widgetName.setOnPreferenceChangeListener { _, newValue ->
-            widgetNameModel.updateWidgetName(newValue.toString())
+            updateWidgetName(newValue.toString())
             widgetName.summary = newValue.toString()
             true
         }
@@ -77,5 +77,12 @@ class ConfigurePreferenceFragment : PreferenceFragmentCompat(), WidgetNameView {
                 widgetName.summary = it
                 widgetName.text = it
             }
+    }
+
+    private fun updateWidgetName(newValue: String) {
+        widgetNameModel.updateWidgetName(newValue)
+            .compose(scheduling.forCompletable())
+            .autoDisposable(scopeProvider)
+            .subscribe()
     }
 }
