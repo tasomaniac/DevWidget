@@ -67,7 +67,7 @@ dependencies {
     implementation project(':data')
     implementation project(':widget')
 
-    playImplementation 'com.google.firebase:firebase-core:16.0.7'
+    playImplementation 'com.google.firebase:firebase-core:16.0.8'
 
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
