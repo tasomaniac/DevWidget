@@ -9,7 +9,6 @@ import android.os.Build.VERSION_CODES.O
 import android.os.Bundle
 import com.tasomaniac.devwidget.data.Widget
 import com.tasomaniac.devwidget.data.WidgetDao
-import com.tasomaniac.devwidget.data.deleteWidgets
 import com.tasomaniac.devwidget.data.updater.ShouldStartWidgetRefreshService
 import com.tasomaniac.devwidget.data.updater.WidgetRefreshService
 import com.tasomaniac.devwidget.extensions.SchedulingStrategy

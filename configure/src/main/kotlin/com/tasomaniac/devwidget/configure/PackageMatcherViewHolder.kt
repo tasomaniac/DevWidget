@@ -12,8 +12,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.tasomaniac.devwidget.data.AppDao
 import com.tasomaniac.devwidget.data.FilterDao
-import com.tasomaniac.devwidget.data.deleteAppsByPackageMatcher
-import com.tasomaniac.devwidget.data.deletePackageMatcher
 import com.tasomaniac.devwidget.extensions.SchedulingStrategy
 import com.tasomaniac.devwidget.extensions.inflate
 import io.reactivex.disposables.Disposables

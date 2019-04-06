@@ -41,7 +41,7 @@ class ApplicationInfoResolver @Inject constructor(
             try {
                 packageManager.getApplicationInfo(packageName, 0).toDisplayApplicationInfo()
             } catch (e: PackageManager.NameNotFoundException) {
-                appDao.deleteAppSync(packageName)
+                appDao.deleteApp(packageName).subscribe()
                 null
             }
         } else {

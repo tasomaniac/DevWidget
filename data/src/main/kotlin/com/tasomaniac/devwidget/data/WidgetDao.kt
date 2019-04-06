@@ -30,8 +30,8 @@ interface WidgetDao {
     fun updateWidget(widget: Widget): Completable
 
     @Query("UPDATE widget SET appWidgetId = :appWidgetId WHERE appWidgetId = -1")
-    fun updateTempWidgetIdSync(appWidgetId: Int)
+    fun updateTempWidgetId(appWidgetId: Int): Completable
 
     @Delete
-    fun deleteWidgetsSync(widgets: List<Widget>)
+    fun deleteWidgets(widgets: List<Widget>): Completable
 }

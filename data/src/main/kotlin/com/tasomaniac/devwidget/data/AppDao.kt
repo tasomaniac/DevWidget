@@ -19,8 +19,8 @@ interface AppDao {
     fun insertApps(app: List<App>): Completable
 
     @Query("DELETE FROM app WHERE packageName = :packageName")
-    fun deleteAppSync(packageName: String)
+    fun deleteApp(packageName: String): Completable
 
     @Query("DELETE FROM app WHERE packageMatcher = :packageMatcher")
-    fun deleteAppsByPackageMatcherSync(packageMatcher: String)
+    fun deleteAppsByPackageMatcher(packageMatcher: String): Completable
 }
