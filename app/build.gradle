@@ -14,7 +14,7 @@ android {
         versionCode versions.versionCode
         versionName versions.versionName
 
-        resConfigs 'en', 'tr'
+        resConfigs 'en', 'de', 'tr'
 
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }

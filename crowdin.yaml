@@ -7,4 +7,5 @@ files:
     ignore: ['**/pref_key_strings.xml']
     languages_mapping:
       android_code:
+        de: de
         tr: tr
