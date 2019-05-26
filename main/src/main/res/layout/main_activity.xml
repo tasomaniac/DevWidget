@@ -16,6 +16,7 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/keyline_1"
         android:src="@drawable/main_ic_add"
+        android:contentDescription="@string/configure_action_add"
         android:visibility="gone" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
