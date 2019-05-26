@@ -14,5 +14,5 @@ class DevWidgetApp : BaseDevWidgetApp() {
     }
 
     override fun applicationInjector(): AndroidInjector<DevWidgetApp> =
-        DaggerAppComponent.builder().create(this)
+        DaggerAppComponent.factory().create(this)
 }

@@ -18,7 +18,7 @@ class DevWidgetApp : BaseDevWidgetApp() {
     }
 
     override fun applicationInjector(): AndroidInjector<DevWidgetApp> =
-        DaggerAppComponent.builder().create(this)
+        DaggerAppComponent.factory().create(this)
 
     private class CrashReportingTree : Timber.Tree() {
         override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
