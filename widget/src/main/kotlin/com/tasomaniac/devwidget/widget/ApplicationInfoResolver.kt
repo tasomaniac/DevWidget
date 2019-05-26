@@ -6,14 +6,12 @@ import android.content.pm.LauncherApps
 import android.content.pm.PackageManager
 import android.os.UserHandle
 import android.os.UserManager
-import com.tasomaniac.devwidget.data.AppDao
 import javax.inject.Inject
 
 class ApplicationInfoResolver @Inject constructor(
     private val packageManager: PackageManager,
     private val userManager: UserManager,
-    private val launcherApps: LauncherApps,
-    private val appDao: AppDao
+    private val launcherApps: LauncherApps
 ) {
 
     private val mainUser = userManager.userProfiles[0]
@@ -33,20 +31,14 @@ class ApplicationInfoResolver @Inject constructor(
             ?: resolveNoLauncherAppForMainUser(user, packageName)
     }
 
-    private fun resolveNoLauncherAppForMainUser(
-        user: UserHandle,
-        packageName: String
-    ): DisplayApplicationInfo? {
-        return if (user == mainUser) {
+    private fun resolveNoLauncherAppForMainUser(user: UserHandle, packageName: String): DisplayApplicationInfo? {
+        if (user == mainUser) {
             try {
-                packageManager.getApplicationInfo(packageName, 0).toDisplayApplicationInfo()
-            } catch (e: PackageManager.NameNotFoundException) {
-                appDao.deleteApp(packageName).subscribe()
-                null
+                return packageManager.getApplicationInfo(packageName, 0).toDisplayApplicationInfo()
+            } catch (ignored: PackageManager.NameNotFoundException) {
             }
-        } else {
-            null
         }
+        return null
     }
 
     private fun LauncherActivityInfo.toDisplayApplicationInfo() =

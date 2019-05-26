@@ -2,11 +2,13 @@ package com.tasomaniac.devwidget.data.updater
 
 import io.reactivex.functions.Predicate
 
-fun matchPackage(packageMatcher: String) = Predicate<String> {
+fun matchPackage(packageMatcher: String) = object : Predicate<String> {
+    private val starFilter = packageMatcher.endsWith(".*")
+    private val packageMatcherWithoutStar = packageMatcher.removeSuffix(".*")
 
-    if (packageMatcher.endsWith(".*")) {
-        it.startsWith(packageMatcher.removeSuffix(".*"), ignoreCase = true)
+    override fun test(value: String) = if (starFilter) {
+        value.startsWith(packageMatcherWithoutStar, ignoreCase = true)
     } else {
-        it.equals(packageMatcher, ignoreCase = true)
+        value.equals(packageMatcher, ignoreCase = true)
     }
 }

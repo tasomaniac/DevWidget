@@ -89,10 +89,6 @@ internal class ConfigurePresenter @Inject constructor(
     }
 
     private fun trackConfirm() {
-        // TODO tracking
-        analytics.sendEvent(
-            "Confirm Clicked"
-//            "New Widget" to widgetNameModel.newWidget.toString()
-        )
+        analytics.sendEvent("Confirm Clicked")
     }
 }

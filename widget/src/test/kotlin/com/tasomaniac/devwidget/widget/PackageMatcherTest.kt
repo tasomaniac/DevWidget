@@ -46,6 +46,11 @@ class PackageMatcherTest(
                 listOf("com.tasomaniac.devwidget", "com.tasomaniac.openwith")
             ),
             arrayOf(
+                listOf("com.tasomaniac"),
+                "com.tasomaniac.*",
+                listOf("com.tasomaniac")
+            ),
+            arrayOf(
                 emptyList<Any>(),
                 "com.*",
                 listOf("somePackage")

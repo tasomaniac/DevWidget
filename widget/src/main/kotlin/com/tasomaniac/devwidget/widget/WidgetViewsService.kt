@@ -33,7 +33,7 @@ internal class WidgetViewsService : RemoteViewsService() {
     inner class WidgetViewsFactory(
         private val appWidgetId: Int,
         private val widgetWidth: Int
-    ) : RemoteViewsService.RemoteViewsFactory {
+    ) : RemoteViewsFactory {
 
         private var apps: List<DisplayApplicationInfo> = emptyList()
         private var favAction: Action = Action.UNINSTALL
