@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <string-array name="pref_night_mode_entries" translatable="false" tools:ignore="InconsistentArrays">
+        <item>@string/pref_entry_night_mode_off</item>
+        <item>@string/pref_entry_night_mode_on</item>
+        <item>@string/pref_entry_night_mode_battery</item>
+        <item>@string/pref_entry_night_mode_system</item>
+    </string-array>
+
+    <string-array name="pref_night_mode_values" translatable="false" tools:ignore="InconsistentArrays">
+        <item>@string/pref_value_night_mode_off</item>
+        <item>@string/pref_value_night_mode_on</item>
+        <item>@string/pref_value_night_mode_battery</item>
+        <item>@string/pref_value_night_mode_system</item>
+    </string-array>
+
+    <string name="pref_value_night_mode_default" translatable="false">@string/pref_value_night_mode_system</string>
+
+</resources>

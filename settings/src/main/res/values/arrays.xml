@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
   <string-array name="pref_sorting_entries" translatable="false">
     <item>@string/pref_entry_sorting_order_added</item>
@@ -13,18 +13,16 @@
     <item>@string/pref_value_sorting_alphabetically_names</item>
   </string-array>
 
-  <string-array name="pref_night_mode_entries" translatable="false">
+    <string-array name="pref_night_mode_entries" translatable="false" tools:ignore="InconsistentArrays">
     <item>@string/pref_entry_night_mode_off</item>
     <item>@string/pref_entry_night_mode_on</item>
     <item>@string/pref_entry_night_mode_battery</item>
-    <item>@string/pref_entry_night_mode_system</item>
   </string-array>
 
-  <string-array name="pref_night_mode_values" translatable="false">
+    <string-array name="pref_night_mode_values" translatable="false" tools:ignore="InconsistentArrays">
     <item>@string/pref_value_night_mode_off</item>
     <item>@string/pref_value_night_mode_on</item>
     <item>@string/pref_value_night_mode_battery</item>
-    <item>@string/pref_value_night_mode_system</item>
   </string-array>
 
   <string-array name="pref_background_opacity_display_names">

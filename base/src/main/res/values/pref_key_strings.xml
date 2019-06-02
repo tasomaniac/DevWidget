@@ -9,6 +9,7 @@
     <string name="pref_value_sorting_order_added" translatable="false">order_added</string>
     <string name="pref_value_sorting_alphabetically_packages" translatable="false">alphabetically_packages</string>
     <string name="pref_value_sorting_alphabetically_names" translatable="false">alphabetically_names</string>
+    <string name="pref_value_night_mode_default" translatable="false">@string/pref_value_night_mode_off</string>
     <string name="pref_value_night_mode_off" translatable="false">off</string>
     <string name="pref_value_night_mode_on" translatable="false">on</string>
     <string name="pref_value_night_mode_battery" translatable="false">battery</string>

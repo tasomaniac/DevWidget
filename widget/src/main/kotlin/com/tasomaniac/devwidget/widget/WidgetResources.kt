@@ -1,6 +1,7 @@
 package com.tasomaniac.devwidget.widget
 
-import android.content.res.Configuration
+import android.content.res.Configuration.UI_MODE_NIGHT_MASK
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.content.res.Resources
 import androidx.annotation.ColorInt
 import androidx.annotation.Dimension
@@ -10,10 +11,16 @@ import com.tasomaniac.devwidget.data.Action
 import com.tasomaniac.devwidget.data.Action.APP_DETAILS
 import com.tasomaniac.devwidget.data.Action.PLAY_STORE
 import com.tasomaniac.devwidget.data.Action.UNINSTALL
+import com.tasomaniac.devwidget.settings.NightMode.OFF
+import com.tasomaniac.devwidget.settings.NightMode.ON
+import com.tasomaniac.devwidget.settings.NightModePreferences
 import com.tasomaniac.devwidget.settings.Opacity
 import javax.inject.Inject
 
-class WidgetResources @Inject constructor(private val resources: Resources) {
+class WidgetResources @Inject constructor(
+    private val nightModePreferences: NightModePreferences,
+    private val resources: Resources
+) {
 
     @get:DrawableRes
     val deleteIcon
@@ -49,7 +56,11 @@ class WidgetResources @Inject constructor(private val resources: Resources) {
         @ColorInt get() = if (isNightModeOn) foregroundDark else foregroundLight
 
     private val isNightModeOn
-        get() = (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
+        get() = when (nightModePreferences.mode) {
+            ON -> true
+            OFF -> false
+            else -> (resources.configuration.uiMode and UI_MODE_NIGHT_MASK) == UI_MODE_NIGHT_YES
+        }
 
     @ColorInt @Suppress("MagicNumber")
     fun resolveBackgroundColor(opacity: Opacity): Int {
