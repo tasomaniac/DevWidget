@@ -9,7 +9,7 @@ import dagger.android.ContributesAndroidInjector
 abstract class WidgetBindingsModule {
 
     @Binds
-    internal abstract fun widgetUpdater(widgetUpdater: WidgetUpdaterImpl): WidgetUpdater
+    abstract fun widgetUpdater(widgetUpdater: WidgetUpdaterImpl): WidgetUpdater
 
     @ContributesAndroidInjector
     internal abstract fun widgetProvider(): WidgetProvider

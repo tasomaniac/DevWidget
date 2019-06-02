@@ -21,7 +21,7 @@ import com.tasomaniac.devwidget.widget.click.HeaderOptionsActivity
 import com.tasomaniac.devwidget.widget.click.WidgetRefreshActivity
 import javax.inject.Inject
 
-internal class RemoteViewsCreator(
+class RemoteViewsCreator internal constructor(
     private val app: Application,
     private val widgetResources: WidgetResources,
     private val opacityPreferences: OpacityPreferences,
@@ -136,7 +136,7 @@ internal class RemoteViewsCreator(
         return backgroundColor and 0xffffff or (opacity * 255 / 100 shl 24)
     }
 
-    class Factory @Inject constructor(
+    class Factory @Inject internal constructor(
         private val app: Application,
         private val widgetResources: WidgetResources,
         private val opacityPreferences: OpacityPreferences

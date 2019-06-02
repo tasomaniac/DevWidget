@@ -14,7 +14,6 @@ import android.preference.PreferenceManager;
 import com.tasomaniac.devwidget.extensions.SchedulingStrategy;
 import com.tasomaniac.devwidget.settings.Version;
 
-import androidx.core.content.ContextCompat;
 import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
@@ -37,7 +36,7 @@ abstract class AppModule {
 
     @Provides
     static PowerManager powerManager(Application app) {
-        return ContextCompat.getSystemService(app, PowerManager.class);
+        return (PowerManager) app.getSystemService(Context.POWER_SERVICE);
     }
 
     @Provides
