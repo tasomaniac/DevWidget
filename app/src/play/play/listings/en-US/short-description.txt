@@ -1,1 +1,1 @@
-Tools to manage the Android Apps you develop
+Tools to manage your Android Apps. Perfect for developers, QA and testers📱

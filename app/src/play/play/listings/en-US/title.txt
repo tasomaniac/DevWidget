@@ -1,1 +1,1 @@
-DevWidget - Tools to ease your Android development
+DevWidget - Developer, QA, Tester tool
