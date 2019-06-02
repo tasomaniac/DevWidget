@@ -13,6 +13,9 @@ interface DataUpdaterBindingModule {
     fun packageRemovedReceiver(): PackageRemovedReceiver
 
     @ContributesAndroidInjector
+    fun powerSaveChangedReceiver(): PowerSaveChangedReceiver
+
+    @ContributesAndroidInjector
     fun stopWidgetRefreshActivity(): StopWidgetRefreshActivity
 
     @ContributesAndroidInjector

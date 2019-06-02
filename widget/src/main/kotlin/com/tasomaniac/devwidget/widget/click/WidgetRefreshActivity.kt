@@ -25,7 +25,9 @@ internal class WidgetRefreshActivity : DaggerAppCompatActivity() {
         val appWidgetId = intent.getIntExtra(EXTRA_APP_WIDGET_ID, -1)
         widgetAppsDataUpdater
             .findAndInsertMatchingApps(appWidgetId)
-            .andThen(Completable.fromAction { widgetUpdater.notifyWidgetDataChanged(appWidgetId) })
+            .andThen(Completable.fromAction {
+                widgetUpdater.notifyWidgetDataChanged(appWidgetId)
+            })
             .compose(scheduling.forCompletable())
             .autoDisposable(scopeProvider)
             .subscribe {

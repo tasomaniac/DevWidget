@@ -15,6 +15,7 @@ import android.content.IntentFilter
 import android.graphics.drawable.Icon
 import android.os.Build
 import android.os.IBinder
+import android.os.PowerManager.ACTION_POWER_SAVE_MODE_CHANGED
 import androidx.core.content.getSystemService
 import com.tasomaniac.devwidget.data.R
 import com.tasomaniac.devwidget.extensions.toPendingActivity
@@ -27,6 +28,7 @@ class WidgetRefreshService : Service() {
 
     private val packageAddedReceiver = PackageAddedReceiver()
     private val packageRemovedReceiver = PackageRemovedReceiver()
+    private val powerSaveChangedReceiver = PowerSaveChangedReceiver()
     private val notificationManager by lazy { getSystemService<NotificationManager>()!! }
 
     override fun onCreate() {
@@ -44,12 +46,15 @@ class WidgetRefreshService : Service() {
             addDataScheme("package")
         }
         registerReceiver(packageRemovedReceiver, packageRemovedFilter)
+
+        registerReceiver(powerSaveChangedReceiver, IntentFilter(ACTION_POWER_SAVE_MODE_CHANGED))
     }
 
     override fun onDestroy() {
         super.onDestroy()
         unregisterReceiver(packageAddedReceiver)
         unregisterReceiver(packageRemovedReceiver)
+        unregisterReceiver(powerSaveChangedReceiver)
     }
 
     private fun setupNotificationChannel() {
