@@ -1,5 +1,6 @@
 package com.tasomaniac.devwidget.widget
 
+import android.content.res.Configuration
 import android.content.res.Resources
 import androidx.annotation.ColorInt
 import androidx.annotation.Dimension
@@ -9,67 +10,46 @@ import com.tasomaniac.devwidget.data.Action
 import com.tasomaniac.devwidget.data.Action.APP_DETAILS
 import com.tasomaniac.devwidget.data.Action.PLAY_STORE
 import com.tasomaniac.devwidget.data.Action.UNINSTALL
-import com.tasomaniac.devwidget.settings.NightMode.OFF
-import com.tasomaniac.devwidget.settings.NightMode.ON
-import com.tasomaniac.devwidget.settings.NightModePreferences
 import com.tasomaniac.devwidget.settings.Opacity
 import javax.inject.Inject
 
-class WidgetResources @Inject constructor(
-    private val nightModePreferences: NightModePreferences,
-    private val resources: Resources
-) {
+class WidgetResources @Inject constructor(private val resources: Resources) {
 
+    @get:DrawableRes
     val deleteIcon
-        @DrawableRes get() = when (nightModePreferences.mode) {
-            OFF -> R.drawable.ic_delete
-            ON -> R.drawable.ic_delete_light
-        }
+        get() = if (isNightModeOn) R.drawable.ic_delete_light else R.drawable.ic_delete
 
+    @get:DrawableRes
     val settingsIcon
-        @DrawableRes get() = when (nightModePreferences.mode) {
-            OFF -> R.drawable.ic_settings
-            ON -> R.drawable.ic_settings_light
-        }
+        get() = if (isNightModeOn) R.drawable.ic_settings_light else R.drawable.ic_settings
 
+    @get:DrawableRes
     val moreActionsIcon
-        @DrawableRes get() = when (nightModePreferences.mode) {
-            OFF -> R.drawable.ic_more_actions
-            ON -> R.drawable.ic_more_actions_light
-        }
+        get() = if (isNightModeOn) R.drawable.ic_more_actions_light else R.drawable.ic_more_actions
 
+    @get:DrawableRes
     val playStoreIcon
-        @DrawableRes get() = when (nightModePreferences.mode) {
-            OFF -> R.drawable.ic_play_store
-            ON -> R.drawable.ic_play_store_light
-        }
+        get() = if (isNightModeOn) R.drawable.ic_play_store_light else R.drawable.ic_play_store
 
+    @get:DrawableRes
     val devOptionsIcon
-        @DrawableRes get() = when (nightModePreferences.mode) {
-            OFF -> R.drawable.ic_dev_options
-            ON -> R.drawable.ic_dev_options_light
-        }
+        get() = if (isNightModeOn) R.drawable.ic_dev_options_light else R.drawable.ic_dev_options
 
+    @get:DrawableRes
     val refreshIcon
-        @DrawableRes get() = when (nightModePreferences.mode) {
-            OFF -> R.drawable.ic_refresh
-            ON -> R.drawable.ic_refresh_light
-        }
+        get() = if (isNightModeOn) R.drawable.ic_refresh_light else R.drawable.ic_refresh
 
     private val foregroundDark = ResourcesCompat.getColor(resources, R.color.foregroundDark, null)
     private val foregroundLight = ResourcesCompat.getColor(resources, R.color.foregroundLight, null)
 
     val foregroundColor
-        @ColorInt get() = when (nightModePreferences.mode) {
-            OFF -> foregroundDark
-            ON -> foregroundLight
-        }
+        @ColorInt get() = if (isNightModeOn) foregroundLight else foregroundDark
 
     val foregroundColorInverse
-        @ColorInt get() = when (nightModePreferences.mode) {
-            OFF -> foregroundLight
-            ON -> foregroundDark
-        }
+        @ColorInt get() = if (isNightModeOn) foregroundDark else foregroundLight
+
+    private val isNightModeOn
+        get() = (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
 
     @ColorInt @Suppress("MagicNumber")
     fun resolveBackgroundColor(opacity: Opacity): Int {

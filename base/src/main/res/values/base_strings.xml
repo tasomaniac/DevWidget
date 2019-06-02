@@ -15,6 +15,8 @@
     <string name="pref_entry_sorting_alphabetically_names">Names alphabetically</string>
     <string name="pref_entry_night_mode_off">Off</string>
     <string name="pref_entry_night_mode_on">On</string>
+    <string name="pref_entry_night_mode_battery">Set by Battery Saver</string>
+    <string name="pref_entry_night_mode_system">Use system default</string>
     <string name="pref_entry_opacity_fully_transparent">Fully transparent</string>
     <string name="pref_entry_opacity_10">10% visible</string>
     <string name="pref_entry_opacity_25">25% visible</string>
