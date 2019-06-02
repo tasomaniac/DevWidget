@@ -1,6 +1,10 @@
 Translations wanted!!! Follow the link to help translating DevWidget:
 https://crowdin.com/project/devwidget
 
+v1.7
+
+- Integrate new Night Mode APIs
+
 v1.6
 
 - Fixes related to work profile
