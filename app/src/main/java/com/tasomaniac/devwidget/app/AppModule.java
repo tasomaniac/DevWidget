@@ -7,12 +7,14 @@ import android.content.SharedPreferences;
 import android.content.pm.LauncherApps;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.os.PowerManager;
 import android.os.UserManager;
 import android.preference.PreferenceManager;
 
 import com.tasomaniac.devwidget.extensions.SchedulingStrategy;
 import com.tasomaniac.devwidget.settings.Version;
 
+import androidx.core.content.ContextCompat;
 import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
@@ -31,6 +33,11 @@ abstract class AppModule {
     @Provides
     static PackageManager packageManager(Application app) {
         return app.getPackageManager();
+    }
+
+    @Provides
+    static PowerManager powerManager(Application app) {
+        return ContextCompat.getSystemService(app, PowerManager.class);
     }
 
     @Provides
