@@ -12,6 +12,8 @@
     <string name="pref_entry_sorting_alphabetically_names">İsimler alfabetik olarak</string>
     <string name="pref_entry_night_mode_off">Kapalı</string>
     <string name="pref_entry_night_mode_on">Açık</string>
+    <string name="pref_entry_night_mode_battery">Pil koruyucu ayarlar</string>
+    <string name="pref_entry_night_mode_system">Varsayılanı kullan</string>
     <string name="pref_entry_opacity_fully_transparent">Tam saydam</string>
     <string name="pref_entry_opacity_10">10%% görünür</string>
     <string name="pref_entry_opacity_25">25%% görünür</string>

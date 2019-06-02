@@ -12,6 +12,8 @@
     <string name="pref_entry_sorting_alphabetically_names">Namen alphabetisch</string>
     <string name="pref_entry_night_mode_off">Aus</string>
     <string name="pref_entry_night_mode_on">An</string>
+    <string name="pref_entry_night_mode_battery">Von Akku-Saver</string>
+    <string name="pref_entry_night_mode_system">Systemstandard verwenden</string>
     <string name="pref_entry_opacity_fully_transparent">Völlig transparent</string>
     <string name="pref_entry_opacity_10">10% sichtbar</string>
     <string name="pref_entry_opacity_25">25% sichtbar</string>
